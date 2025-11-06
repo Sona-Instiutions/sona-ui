@@ -12,7 +12,7 @@ import {
   FOOTER_QUICK_LINKS,
   FOOTER_SOCIAL_LINKS,
   FOOTER_TAGLINE,
-} from "@/constants/footer.constants";
+} from "@/constants/navigation.constants";
 
 function FooterBrand() {
   return (

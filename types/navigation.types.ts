@@ -14,3 +14,9 @@ export interface ISocialLink {
   href: string;
   iconName: IconName;
 }
+
+export interface IFooterContactInfo {
+  address: string;
+  phone: string;
+  email: string;
+}

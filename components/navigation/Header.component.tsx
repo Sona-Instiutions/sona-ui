@@ -17,12 +17,18 @@ import {
 } from "@/components/ui/NavigationMenu.component";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/Sheet.component";
 
-import { ABOUT_NAV, HIGHLIGHT_NAV, PARTNER_LINKS, PRIMARY_NAV, SOCIAL_LINKS } from "./header.constants";
+import {
+  HEADER_ABOUT_NAV,
+  HEADER_HIGHLIGHT_NAV,
+  HEADER_PARTNER_LINKS,
+  HEADER_PRIMARY_NAV,
+  HEADER_SOCIAL_LINKS,
+} from "@/constants/navigation.constants";
 
 function HeaderBrand() {
   return (
     <Link href='/' className='flex items-center gap-3 mr-20' aria-label='SCALE home'>
-      <span className='flex h-16 w-16 items-center justify-center rounded-md bg-gradient-to-br from-yellow-300 to-amber-400 shadow-lg'>
+      <span className='flex h-16 w-16 items-center justify-center rounded-md bg-linear-to-br from-yellow-300 to-amber-400 shadow-lg'>
         <span className='text-center text-xl font-bold text-blue-900'>S</span>
       </span>
     </Link>
@@ -35,7 +41,7 @@ function Header() {
       <div className='hidden border-b border-blue-700/50 bg-[#2143b5] text-[11px] font-semibold uppercase tracking-wide text-blue-100 sm:block'>
         <div className='mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2'>
           <nav className='flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-blue-50/90'>
-            {PARTNER_LINKS.map((link) => (
+            {HEADER_PARTNER_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
@@ -53,7 +59,7 @@ function Header() {
               <span className='font-semibold hidden sm:inline'>+91 427 230 1234</span>
             </a>
             <div className='flex items-center gap-3 text-white/80'>
-              {SOCIAL_LINKS.map((link) => (
+              {HEADER_SOCIAL_LINKS.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
@@ -93,13 +99,13 @@ function Header() {
                 </Link>
                 <div className='flex flex-col gap-2'>
                   <span className='text-xs font-semibold uppercase text-blue-200'>About Us</span>
-                  {ABOUT_NAV.map((item) => (
+                  {HEADER_ABOUT_NAV.map((item) => (
                     <Link key={item.label} href={item.href} className='text-sm text-white/90'>
                       {item.label}
                     </Link>
                   ))}
                 </div>
-                {PRIMARY_NAV.filter((item) => item.label !== "Home").map((item) => (
+                {HEADER_PRIMARY_NAV.filter((item) => item.label !== "Home").map((item) => (
                   <Link key={item.label} href={item.href} className='text-sm text-white/90'>
                     {item.label}
                   </Link>
@@ -107,7 +113,7 @@ function Header() {
               </nav>
               <div className='flex flex-col gap-3 border-t border-blue-300/40 pt-4'>
                 <span className='text-xs font-semibold uppercase text-amber-200'>Quick Links</span>
-                {HIGHLIGHT_NAV.map((item) => (
+                {HEADER_HIGHLIGHT_NAV.map((item) => (
                   <Link key={item.label} href={item.href} className='text-sm font-medium text-amber-100'>
                     {item.label}
                   </Link>
@@ -117,7 +123,7 @@ function Header() {
                     <Icon name='phone' className='size-4' /> +91 427 230 1234
                   </a>
                   <div className='flex items-center gap-3 text-white/80'>
-                    {SOCIAL_LINKS.map((link) => (
+                    {HEADER_SOCIAL_LINKS.map((link) => (
                       <Link
                         key={link.label}
                         href={link.href}
@@ -149,7 +155,7 @@ function Header() {
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className='w-[420px]'>
                     <ul className='grid gap-2 p-4'>
-                      {ABOUT_NAV.map((item) => (
+                      {HEADER_ABOUT_NAV.map((item) => (
                         <li key={item.label}>
                           <Link href={item.href} className='block rounded-md p-2 text-sm transition hover:bg-blue-50'>
                             <span className='font-semibold text-blue-900'>{item.label}</span>
@@ -160,7 +166,7 @@ function Header() {
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-                {PRIMARY_NAV.filter((item) => item.label !== "Home").map((item) => (
+                {HEADER_PRIMARY_NAV.filter((item) => item.label !== "Home").map((item) => (
                   <NavigationMenuItem key={item.label}>
                     <NavigationMenuLink asChild>
                       <Link href={item.href} className='text-sm font-medium text-white transition hover:text-white/80'>
@@ -174,12 +180,12 @@ function Header() {
               <NavigationMenuViewport />
             </NavigationMenu>
             <div className='hidden items-center gap-3 text-sm font-semibold lg:flex lg:ml-4'>
-              {HIGHLIGHT_NAV.map((item, index) => (
+              {HEADER_HIGHLIGHT_NAV.map((item, index) => (
                 <React.Fragment key={item.label}>
                   <Link href={item.href} className='text-amber-300 transition hover:text-amber-200'>
                     {item.label}
                   </Link>
-                  {index < HIGHLIGHT_NAV.length - 1 ? <span className='text-white/50'>|</span> : null}
+                  {index < HEADER_HIGHLIGHT_NAV.length - 1 ? <span className='text-white/50'>|</span> : null}
                 </React.Fragment>
               ))}
             </div>
