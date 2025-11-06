@@ -22,13 +22,13 @@
 - **Decision:** Expose Strapi integrations through typed modules under `services/`. Each module exports server-safe helpers (for server components/actions) and client-safe TanStack Query hooks without splitting into server/client subfolders.
 - **Consequences:** Simplifies dependency management, centralizes error handling, and keeps presentation components lightweight while avoiding duplicated directory structures.
 
-### ADR 003 — Tailwind CSS v4 + shadcn/ui
+### ADR 003 — Tailwind CSS v4 + shadcn/ui + Mobile-First Composition
 
 - **Date:** 2025-11-05
 - **Status:** Accepted
 - **Context:** We want a composable design system that supports utility-first styling with accessible component primitives.
-- **Decision:** Use Tailwind CSS v4 for styling and shadcn/ui (Radix-based) for component primitives. Store shared UI under `components/ui` and wrappers under `components/common`.
-- **Consequences:** Ensures consistent styling tokens, accessible defaults, and adherence to our design system guidance.
+- **Decision:** Use Tailwind CSS v4 for styling and shadcn/ui (Radix-based) for component primitives, composing every view with a mobile-first approach. Store shared UI under `components/ui` and wrappers under `components/common`. All shared or reusable component files must follow the `ComponentName.component.tsx` naming convention without exception.
+- **Consequences:** Ensures consistent styling tokens, accessible defaults, adherence to our design system guidance, and guarantees that responsive behavior is designed from the smallest breakpoint upward.
 
 ### ADR 004 — Axios + TanStack Query For Client Data Fetching
 
@@ -45,6 +45,22 @@
 - **Context:** Strapi content types and shared utilities require consistent typing across server and client boundaries.
 - **Decision:** Author canonical TypeScript types under `types/` (or `app/(types)/` if colocated). File names must follow `<name>.types.ts`. Within these files, prefix enums with `E`, interfaces with `I`, and type aliases with `T`; keep interfaces and type aliases scoped to their distinct purposes (interfaces for structural contracts, type aliases for unions/utility compositions). Use code generation where possible (e.g., Strapi OpenAPI/GraphQL schemas) and re-export domain-specific types from feature modules.
 - **Consequences:** Guarantees type safety across services/hooks, enforces consistent naming, reduces duplication, and clarifies where contributors should define or update shared interfaces.
+
+### ADR 006 — Enforce Linting Discipline & Strict Type Safety
+
+- **Date:** 2025-11-06
+- **Status:** Accepted
+- **Context:** Inconsistent linting and ad-hoc TypeScript overrides allow unsafe code paths and regressions to land unnoticed.
+- **Decision:** Run `npm run lint` after every unit of work prior to review or merge, and forbid disabling TypeScript via `// @ts-nocheck`, `// @ts-ignore`, or similar directives except in vetted, documented edge cases approved through an ADR.
+- **Consequences:** Keeps the codebase type-safe, prevents style regressions, and surfaces violations during development instead of production.
+
+### ADR 007 — Migrate From lucide-react Brand Icons To Phosphor Icons
+
+- **Date:** 2025-11-06
+- **Status:** Accepted
+- **Context:** lucide-react has deprecated all brand icons (Facebook, Instagram, LinkedIn, YouTube) and plans to remove them in v1.0. The project requires a sustainable solution for rendering brand social media icons.
+- **Decision:** Use Phosphor icons (`phosphor-react`) for all brand icons, migrating from lucide-react brand components. All icon imports must follow the naming convention: **icon name with `Icon` suffix** (e.g., `facebookIcon`, `instagramIcon`, `linkedinIcon`, `youtubeIcon`, `menuIcon`). This distinction ensures clarity when differentiating between Phosphor icon names and their usage within the `Icon.component.tsx` abstraction layer.
+- **Consequences:** Eliminates deprecation warnings, ensures long-term compatibility, provides access to a broader set of icon weights and styles via Phosphor's flexible API, and establishes a clear naming convention that scales as new icons are added.
 
 ---
 
@@ -132,7 +148,7 @@
   - Type definitions: `<feature>.types.ts` inside `types/` or colocated with the feature.
   - Service modules: `services/<domain>.service.ts` encapsulating Strapi access and TanStack Query exports.
   - Hooks: `<feature>.hook.ts` for UI-specific hooks that compose services.
-  - Components: `<Feature>.tsx` for primary exports; subcomponents go under folders with `index.tsx` when more than one file is needed.
+  - Components: `ComponentName.component.tsx` for every exported component; subcomponents still live under folders with `index.tsx` when more than one file is needed.
   - Constants: `<feature>.constants.ts` colocated with usage or under `constants/`.
   - Utilities: `<feature>.utils.ts` colocated with usage or under `utils/`.
 - **Symbols**
