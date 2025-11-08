@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getInstitutionBySlug } from "@/services/server/institution.server";
 import { IApiError } from "@/types/institution.types";
+import { InstitutionBanner } from "@/components/common/InstitutionBanner.component";
 
 interface InstitutionPageParams {
   slug: string;
@@ -78,13 +79,12 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
     <div className='min-h-screen bg-background'>
       {/* Main content area */}
       <main className='flex-1'>
-        {/* Hero section with institution name */}
-        <section className='w-full bg-linear-to-r from-primary to-primary/80 py-12 px-4 md:py-16 md:px-8'>
-          <div className='max-w-4xl mx-auto'>
-            <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4'>{institution.name}</h1>
-            <p className='text-lg text-white/90'>Welcome to {institution.name}&apos;s SONA profile</p>
-          </div>
-        </section>
+        {/* Banner section with background image and text overlay */}
+        <InstitutionBanner
+          image={institution.bannerImage}
+          title={institution.bannerTitle}
+          subtitle={institution.bannerSubtitle}
+        />
 
         {/* Institution details section */}
         <section className='w-full py-12 px-4 md:py-16 md:px-8'>

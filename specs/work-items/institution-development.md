@@ -1,79 +1,65 @@
-# Work Item: Institution Detail Page Development
+# Work Item: Institution Detail & Banner Development
 
-**ID:** WI-001-UI-INSTITUTIONS  
-**Title:** Create Dynamic Institution Detail Pages (`/institutions/[slug]`)  
-**Priority:** High  
-**Status:** In Progress  
-**Milestone:** Phase 1 Foundation  
-**Owner:** Frontend Team  
+**IDs:**
+
+- WI-001-UI-INSTITUTIONS — Create Dynamic Institution Detail Pages (`/institutions/[slug]`) _(Status: In Progress)_
+- WI-002-UI-INSTITUTION-BANNER — Create Institution Banner Component and API Integration _(Status: Completed)_  
+  **Priority:** High  
+  **Milestone:** Phase 1 Foundation  
+  **Owner:** Frontend Team
 
 ---
 
 ## Overview
 
-Build the foundational dynamic institution detail page with server-side rendering, slug-based routing, and SEO optimization. This page will fetch institution data from Strapi and display it to visitors.
+Develop the end-to-end institution detail experience, including server-side rendering, typed service layers, and the reusable hero banner module. The page consumes Strapi-powered data, renders metadata for SEO, and showcases the banner system with responsive design and accessibility baked in.
 
 ---
 
 ## Requirements
 
-### Functional Requirements
+### Institution Detail Page
 
-1. **Dynamic Routing**
-   - Route: `/institutions/[slug]` accepting any institution slug
-   - Navigate visitors to institution pages via dynamic URL
+#### Functional Requirements
 
-2. **Data Fetching**
-   - Fetch institution by slug from Strapi backend
-   - Support both server-side rendering (SSR) for initial load
-   - Handle client-side refetching via TanStack Query hook
+- Route `/institutions/[slug]` accepts any institution slug and navigates visitors to the appropriate page.
+- Fetch institution data by slug from the Strapi backend with server-side rendering for the initial load.
+- Support client-side refetching via the TanStack Query hook.
+- Display a 404 page when an institution is not found.
+- Handle API failures with user-friendly messaging and error logging.
+- Generate dynamic metadata: page title `{Institution Name} | SONA`, meta description, canonical URL, and Open Graph tags.
+- Render institution name and metadata prominently, with room for future sections (courses, placements, etc.).
 
-3. **Error Handling**
-   - Display 404 page when institution not found
-   - Gracefully handle API failures with user-friendly message
-   - Log errors for debugging and monitoring
+#### Non-Functional Requirements
 
-4. **SEO & Metadata**
-   - Generate dynamic page title: `{Institution Name} | SONA`
-   - Generate dynamic meta description from institution data
-   - Include canonical URL for each page
-   - Proper Open Graph tags for social sharing
+- **Performance:** TTFB < 1s, FCP < 1.5s, responsive on mobile/tablet/desktop.
+- **Accessibility:** Semantic structure (`<header>`, `<main>`, `<footer>`), proper heading hierarchy, keyboard navigation, and screen reader support.
+- **Code Quality:** 100% TypeScript coverage, architecture decision adherence, ESLint clean, robust typed error handling.
+- **Developer Experience:** Clear service abstractions, reusable hooks/utilities, comprehensive JSDoc, and documented patterns.
 
-5. **Page Content**
-   - Display institution name prominently
-   - Show relevant institution metadata
-   - Future support for related sections (courses, placements, etc.)
+### Banner Module
 
-### Non-Functional Requirements
+#### Functional Requirements
 
-1. **Performance**
-   - Time to First Byte (TTFB) < 1s
-   - First Contentful Paint (FCP) < 1.5s
-   - Responsive on mobile, tablet, and desktop
+- Display the banner image as a full-width responsive background with a dark overlay for contrast.
+- Present the banner title prominently and render the optional subtitle gracefully.
+- Fetch banner image, title, and subtitle from Strapi, constructing absolute media URLs.
+- Provide proper alt text from Strapi metadata and semantic HTML structure.
 
-2. **Accessibility**
-   - Semantic HTML structure (`<header>`, `<main>`, `<footer>`)
-   - Proper heading hierarchy (h1, h2, etc.)
-   - Keyboard navigation support
-   - Screen reader friendly
+#### Non-Functional Requirements
 
-3. **Code Quality**
-   - 100% TypeScript type coverage
-   - Follow architecture decisions from blueprints
-   - ESLint passes without warnings
-   - Proper error handling with typed responses
-
-4. **Developer Experience**
-   - Clear service layer abstraction
-   - Reusable hooks and utilities
-   - Comprehensive JSDoc comments
-   - Well-documented code patterns
+- **Performance:** Background image loading must not block page render, leverage optimization/caching, and avoid layout shift.
+- **Accessibility:** Maintain sufficient text contrast, follow heading hierarchy, include alt text, and ensure semantic markup.
+- **Code Quality:** TypeScript-safe props and responses, JSDoc coverage, Tailwind mobile-first approach per ADR 003, and extensible component design.
+- **Developer Experience:** Reusable banner component API, type-safe media handling, and readiness for future enhancements.
 
 ---
 
 ## Technical Specifications
 
-### File Structure
+### Institution Detail Page
+
+#### File Structure
 
 ```
 /sona-ui/
@@ -93,17 +79,43 @@ Build the foundational dynamic institution detail page with server-side renderin
 └── .env.example (updated)
 ```
 
-### File Locations
+#### File Locations
 
-- **Type Definitions:** `types/institution.types.ts`
-- **Server Service Layer:** `services/server/institution.server.ts`
-- **Client Service Layer:** `services/client/institution.client.ts`
-- **Page Component:** `app/institutions/[slug]/page.tsx`
-- **Environment Variables:** `.env.local`
+- `types/institution.types.ts`
+- `services/server/institution.server.ts`
+- `services/client/institution.client.ts`
+- `app/institutions/[slug]/page.tsx`
+- `.env.local`
+
+### Banner Module
+
+#### Backend Changes
+
+- `sona-be` Strapi schema adds `bannerImage` (required media), `bannerTitle` (string, required, 255 char max), and `bannerSubtitle` (optional text, 500 char max).
+- API queries populate `bannerImage` via `&populate=bannerImage`, ensuring full media payload availability.
+
+#### Frontend Changes
+
+- **Type Definitions:** `IStrapiMedia` models Strapi media objects; `IInstitution` includes banner fields.
+- **Banner Component:** `components/common/InstitutionBanner.component.tsx` accepts `{ image, title, subtitle }`, renders hero section with overlay, constructs absolute image URLs, and uses Tailwind for responsive typography.
+- **Page Integration:** `app/institutions/[slug]/page.tsx` imports the banner component, passes fetched data, and removes legacy hero implementations.
+- **Server Service:** `services/server/institution.server.ts` includes banner population, validates presence, and raises explicit errors when missing.
+
+#### Component Usage
+
+```typescript
+<InstitutionBanner
+  image={institution.bannerImage}
+  title={institution.bannerTitle}
+  subtitle={institution.bannerSubtitle}
+/>
+```
 
 ---
 
 ## Implementation Steps
+
+### Institution Detail Page
 
 1. [ ] Create types in `types/institution.types.ts`
 2. [ ] Create axios config in `lib/axios.config.ts`
@@ -115,63 +127,107 @@ Build the foundational dynamic institution detail page with server-side renderin
 8. [ ] Test server-side rendering with various slugs
 9. [ ] Test error handling (404, network failures)
 10. [ ] Verify responsive design on mobile/tablet/desktop
-11. [ ] Run `npm run lint` and fix any errors
-12. [ ] Get peer review and approval
+11. [ ] Run `npm run lint` and remediate issues
+12. [ ] Secure peer review and approval
+
+### Banner Module
+
+1. [x] Enhance Strapi institution schema with banner fields.
+2. [x] Update institution service to populate and validate banner data.
+3. [x] Extend shared types with banner-specific fields.
+4. [x] Implement `InstitutionBanner.component.tsx` with responsive design and accessibility.
+5. [x] Integrate banner into the institution page and remove legacy hero.
+6. [x] Verify responsive layout, contrast, and error handling for missing data.
 
 ---
 
 ## Definition of Done
 
-- [ ] Page renders successfully at `/institutions/[slug]`
-- [ ] Institution data fetched from Strapi by slug
-- [ ] Server-side rendering works (no client hydration lag)
-- [ ] Dynamic metadata generated correctly
-- [ ] 404 page shown when institution not found
-- [ ] Mobile-first responsive layout verified
-- [ ] All TypeScript types properly defined
-- [ ] Service layers have JSDoc comments
-- [ ] No ESLint errors or warnings
-- [ ] Code follows all architecture decisions (ADRs)
-- [ ] TanStack Query hook available for client-side usage via `services/client`
-- [ ] Error responses normalized to standard format
-- [ ] Peer review approved
+### Institution Detail Page
+
+- [ ] Page renders successfully at `/institutions/[slug]`.
+- [ ] Institution data fetched from Strapi by slug.
+- [ ] Server-side rendering works without hydration lag.
+- [ ] Dynamic metadata generated correctly.
+- [ ] 404 page shown when institution not found.
+- [ ] Mobile-first responsive layout verified.
+- [ ] TypeScript types complete and accurate.
+- [ ] Service layers include JSDoc coverage.
+- [ ] ESLint passes with no warnings.
+- [ ] Code adheres to all relevant ADRs.
+- [ ] TanStack Query hook available via `services/client`.
+- [ ] Error responses normalized to standard format.
+- [ ] Peer review approved.
+
+### Banner Module (Completed)
+
+- [x] Banner image renders with overlay and responsive typography.
+- [x] Title and optional subtitle display correctly.
+- [x] Missing subtitle handled gracefully.
+- [x] Missing banner image surfaces clear error messaging.
+- [x] Component props and media handling fully typed.
+- [x] Accessibility (contrast, alt text, semantics) validated.
+
+---
+
+## Testing Checklist
+
+### Institution Detail Page
+
+- Validate SSR and client refetch across sample slugs (`happy path`, `404`, network failure).
+- Confirm metadata output via `generateMetadata` and inspect rendered head tags.
+- Exercise responsive layout across 320px, 640px, 1024px breakpoints.
+- Ensure error boundaries render fallback messaging gracefully.
+
+### Banner Module
+
+- Banner image displays correctly on page load with dark overlay.
+- Title and subtitle render with appropriate spacing and typography.
+- Responsive layout verified on mobile, tablet, and desktop.
+- Missing subtitle does not break layout or spacing.
+- Missing banner image raises actionable error messaging.
+- Absolute image URL construction validated for various Strapi deployments.
 
 ---
 
 ## Architecture Alignment
 
-- **ADR 001:** Server-first component for SSR, client components only if interactivity needed
-- **ADR 002:** Service layer with typed modules (server helpers + client hooks)
-- **ADR 003:** Tailwind CSS v4 with mobile-first composition
-- **ADR 004:** Axios + TanStack Query for data fetching
-- **ADR 005:** Shared types in `types/institution.types.ts` with naming conventions
-- **ADR 006:** ESLint passes without errors
+- ADR 001: Server-first rendering with server components for data fetching.
+- ADR 002: Typed service layer modules for Strapi access.
+- ADR 003: Tailwind CSS v4 with mobile-first responsive composition.
+- ADR 004: Axios + TanStack Query for data fetching patterns.
+- ADR 005: Shared types (`IStrapiMedia`, `IInstitution`) with JSDoc coverage.
+- ADR 006: ESLint compliance with zero warnings.
+- ADR 008: JSDoc documentation on components and service functions.
 
 ---
 
 ## Dependencies
 
-- Strapi backend running with institution content type
-- Backend work item completed: `sona-be/specs/work-items/institution-development.md`
-- Environment variables configured in `.env.local`
+- Strapi backend with enhanced institution schema and banner fields.
+- Backend work item `sona-be/specs/work-items/institution-development.md`.
+- Environment variables configured in `.env.local`.
+- Next.js 16 with React 19 server components, Tailwind CSS v4, TypeScript, TanStack Query.
 
 ---
 
 ## Related Documents
 
-- **Architecture Decisions (UI):** `specs/blueprints/architecture-decisions.md`
-- **Product Requirements:** `specs/blueprints/prd.md`
-- **Backend Work Item:** `sona-be/specs/work-items/institution-development.md`
-- **Backend Architecture:** `sona-be/specs/blueprints/architecture-decisions.md`
+- `specs/blueprints/architecture-decisions.md` (UI)
+- `specs/blueprints/prd.md`
+- `sona-be/specs/work-items/institution-development.md`
+- `sona-be/specs/work-items/institution-banner-development.md`
+- `sona-be/specs/work-items/institution-banner-api-development.md`
+- `sona-be/specs/blueprints/institution-api-reference.md`
 
 ---
 
 ## Notes
 
-- **Mobile-First Design:** All components must follow a mobile-first design approach per ADR 003. Design and develop for mobile devices first, then progressively enhance for tablets and desktop. Use Tailwind CSS breakpoints (`sm`, `md`, `lg`, `xl`) to ensure responsive behavior across all screen sizes.
-- Use `params.slug` from Next.js page component to access the URL slug
-- Implement error boundary for graceful error display
-- Consider caching strategy (ISR, revalidateTag) for performance
-- Test with slugs containing special characters (though UID should handle this)
-- Document any custom styling approaches for future contributors
-
+- Maintain mobile-first design, progressively enhancing for larger breakpoints.
+- Use `params.slug` in the Next.js page component to resolve the institution slug.
+- Implement error boundaries for graceful fallback rendering.
+- Evaluate caching (ISR, `revalidateTag`) for performance improvements.
+- Test with slugs containing special characters (UID should sanitize but verify).
+- Document custom styling or media handling decisions for future contributors.
+- Future banner enhancements could include animations, additional variants, or image optimization strategies.
