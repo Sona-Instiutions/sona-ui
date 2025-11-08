@@ -62,6 +62,14 @@
 - **Decision:** Use Phosphor icons (`phosphor-react`) for all brand icons, migrating from lucide-react brand components. All icon imports must follow the naming convention: **icon name with `Icon` suffix** (e.g., `facebookIcon`, `instagramIcon`, `linkedinIcon`, `youtubeIcon`, `menuIcon`). This distinction ensures clarity when differentiating between Phosphor icon names and their usage within the `Icon.component.tsx` abstraction layer.
 - **Consequences:** Eliminates deprecation warnings, ensures long-term compatibility, provides access to a broader set of icon weights and styles via Phosphor's flexible API, and establishes a clear naming convention that scales as new icons are added.
 
+### ADR 008 — JSDoc Documentation Standards
+
+- **Date:** 2025-11-08
+- **Status:** Accepted
+- **Context:** Consistent and concise documentation improves code readability and maintainability across the team.
+- **Decision:** Every function, method, and exported entity must have JSDoc comments. JSDoc descriptions must not exceed 2 lines; use `@param`, `@returns`, and `@throws` tags for detailed specifications. Use `@example` tags for complex functions.
+- **Consequences:** Ensures predictable documentation, reduces cognitive load when reading code, and enables IDE intellisense support.
+
 ---
 
 ## Next.js Architecture Blueprint
@@ -151,6 +159,12 @@
   - Components: `ComponentName.component.tsx` for every exported component; subcomponents still live under folders with `index.tsx` when more than one file is needed.
   - Constants: `<feature>.constants.ts` colocated with usage or under `constants/`.
   - Utilities: `<feature>.utils.ts` colocated with usage or under `utils/`.
+
+### File Size Constraints
+
+- **Components & Pages:** Maximum 220 lines (200 + 10% buffer). Split logic into hooks or utilities if approaching limit.
+- **Services & Utilities:** Maximum 550 lines (500 + 10% buffer). Break into separate modules when exceeding threshold.
+- **Rationale:** Keeps files focused and testable; improves readability and maintenance; encourages separation of concerns.
 - **Symbols**
   - Enums use `E<Entity>` (e.g., `EUserRole`).
   - Interfaces use `IEntity` for structural contracts.
