@@ -1,47 +1,59 @@
-/**
- * Axios Configuration
- *
- * Centralized Axios instance with base URL configuration, interceptors, and error handling.
- * Supports both server-side and client-side usage.
- *
- * Per ADR 004: Axios is standardized for HTTP requests across server and client boundaries.
- */
+import axios, { type AxiosInstance, type AxiosError, type AxiosResponse } from "axios";
+import { IApiError } from "@/types/institution.types";
+import {
+  STRAPI_CLIENT_TOKEN,
+  STRAPI_CLIENT_URL,
+  STRAPI_SERVER_TOKEN,
+  STRAPI_SERVER_URL,
+} from "@/constants/app.constants";
 
-import axios, { type AxiosInstance, type AxiosError, type AxiosResponse } from 'axios';
-import { IApiError } from '@/types/institution.types';
-
-/** Get Strapi base URL from environment (server or client context) */
 const getBaseURL = (): string => {
   // Server-side context (Node.js environment)
-  if (typeof window === 'undefined') {
-    const serverUrl = process.env.STRAPI_API_URL;
-    if (!serverUrl) {
-      throw new Error('STRAPI_API_URL environment variable is not set');
-    }
-    return serverUrl;
+  if (typeof window === "undefined") {
+    return STRAPI_SERVER_URL || "";
   }
 
-  // Client-side context (browser)
-  const clientUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
-  if (!clientUrl) {
-    throw new Error('NEXT_PUBLIC_STRAPI_API_URL environment variable is not set');
+  return STRAPI_CLIENT_URL || "";
+};
+
+const getStrapiToken = (): string => {
+  if (typeof window === "undefined") {
+    return STRAPI_SERVER_TOKEN || "";
   }
-  return clientUrl;
+
+  return STRAPI_CLIENT_TOKEN || "";
+};
+
+const extractMessage = (data: unknown): string | undefined => {
+  if (typeof data === "object" && data !== null && "message" in data) {
+    const { message } = data as { message?: unknown };
+
+    if (typeof message === "string") {
+      return message;
+    }
+  }
+
+  return undefined;
+};
+
+const extractDetails = (data: unknown): Record<string, unknown> | undefined => {
+  if (typeof data === "object" && data !== null && !Array.isArray(data)) {
+    return data as Record<string, unknown>;
+  }
+
+  return undefined;
 };
 
 /** Normalize API errors to standard IApiError format */
 const normalizeError = (error: AxiosError | Error | unknown): IApiError => {
   if (axios.isAxiosError(error)) {
     const status = error.response?.status || 500;
-    const message =
-      (error.response?.data as Record<string, unknown>)?.message ||
-      error.message ||
-      'An error occurred while fetching data';
+    const message = extractMessage(error.response?.data) || error.message || "An error occurred while fetching data";
 
     return {
       status,
       message,
-      details: (error.response?.data as Record<string, unknown>) || undefined,
+      details: extractDetails(error.response?.data),
     };
   }
 
@@ -54,7 +66,7 @@ const normalizeError = (error: AxiosError | Error | unknown): IApiError => {
 
   return {
     status: 500,
-    message: 'An unknown error occurred',
+    message: "An unknown error occurred",
   };
 };
 
@@ -64,8 +76,23 @@ const createAxiosInstance = (): AxiosInstance => {
     baseURL: getBaseURL(),
     timeout: 10000,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
+  });
+
+  /** Request interceptor attaches Strapi token when available */
+  instance.interceptors.request.use((config) => {
+    const token = getStrapiToken();
+
+    if (token) {
+      config.headers = config.headers ?? {};
+
+      if (!("Authorization" in config.headers)) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+
+    return config;
   });
 
   /** Response interceptor normalizes errors to standard format */
@@ -84,4 +111,3 @@ const createAxiosInstance = (): AxiosInstance => {
 export const axiosInstance = createAxiosInstance();
 
 export default axiosInstance;
-

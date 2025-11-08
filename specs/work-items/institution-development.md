@@ -82,7 +82,10 @@ Build the foundational dynamic institution detail page with server-side renderin
 │       └── [slug]/
 │           └── page.tsx
 ├── services/
-│   └── institution.service.ts
+│   ├── server/
+│   │   └── institution.server.ts
+│   └── client/
+│       └── institution.client.ts
 ├── types/
 │   └── institution.types.ts
 ├── lib/
@@ -93,7 +96,8 @@ Build the foundational dynamic institution detail page with server-side renderin
 ### File Locations
 
 - **Type Definitions:** `types/institution.types.ts`
-- **Service Layer:** `services/institution.service.ts`
+- **Server Service Layer:** `services/server/institution.server.ts`
+- **Client Service Layer:** `services/client/institution.client.ts`
 - **Page Component:** `app/institutions/[slug]/page.tsx`
 - **Environment Variables:** `.env.local`
 
@@ -103,15 +107,16 @@ Build the foundational dynamic institution detail page with server-side renderin
 
 1. [ ] Create types in `types/institution.types.ts`
 2. [ ] Create axios config in `lib/axios.config.ts`
-3. [ ] Create service layer in `services/institution.service.ts`
-4. [ ] Update `.env.example` with Strapi URLs
-5. [ ] Create page component at `app/institutions/[slug]/page.tsx`
-6. [ ] Implement `generateMetadata` for SEO
-7. [ ] Test server-side rendering with various slugs
-8. [ ] Test error handling (404, network failures)
-9. [ ] Verify responsive design on mobile/tablet/desktop
-10. [ ] Run `npm run lint` and fix any errors
-11. [ ] Get peer review and approval
+3. [ ] Create server service layer in `services/server/institution.server.ts`
+4. [ ] Create client service layer in `services/client/institution.client.ts`
+5. [ ] Update `.env.example` with Strapi URLs
+6. [ ] Create page component at `app/institutions/[slug]/page.tsx`
+7. [ ] Implement `generateMetadata` for SEO
+8. [ ] Test server-side rendering with various slugs
+9. [ ] Test error handling (404, network failures)
+10. [ ] Verify responsive design on mobile/tablet/desktop
+11. [ ] Run `npm run lint` and fix any errors
+12. [ ] Get peer review and approval
 
 ---
 
@@ -124,10 +129,10 @@ Build the foundational dynamic institution detail page with server-side renderin
 - [ ] 404 page shown when institution not found
 - [ ] Mobile-first responsive layout verified
 - [ ] All TypeScript types properly defined
-- [ ] Service layer has JSDoc comments
+- [ ] Service layers have JSDoc comments
 - [ ] No ESLint errors or warnings
 - [ ] Code follows all architecture decisions (ADRs)
-- [ ] TanStack Query hook available for client-side usage
+- [ ] TanStack Query hook available for client-side usage via `services/client`
 - [ ] Error responses normalized to standard format
 - [ ] Peer review approved
 
