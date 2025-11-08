@@ -217,9 +217,7 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
         {/* Left Column - Text Content */}
         <div className='flex flex-col justify-center space-y-8 lg:w-1/2'>
           {hasText(about?.title) && (
-            <h2 className='text-3xl font-bold text-slate-900 sm:text-4xl md:text-5xl leading-tight'>
-              {about?.title}
-            </h2>
+            <h2 className='text-3xl font-bold text-slate-900 sm:text-4xl md:text-5xl leading-tight'>{about?.title}</h2>
           )}
 
           {hasText(about?.description) && (
