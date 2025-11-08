@@ -1,11 +1,6 @@
 import { axiosInstance } from "@/lib/axios.config";
-import {
-  IInstitution,
-  IInstitutionResponse,
-  IApiError,
-  INormalizedInstitution,
-  IStrapiMedia,
-} from "@/types/institution.types";
+import { IInstitution, IInstitutionResponse, IApiError, INormalizedInstitution } from "@/types/institution.types";
+import type { IStrapiMedia } from "@/types/common.types";
 
 const isStrapiMedia = (value: unknown): value is IStrapiMedia => {
   if (!value || typeof value !== "object") {
@@ -23,21 +18,21 @@ const isStrapiMedia = (value: unknown): value is IStrapiMedia => {
   );
 };
 
-const normalizeBannerImage = (bannerImage: unknown): IStrapiMedia | null => {
-  if (!bannerImage) {
+const normalizeStrapiMedia = (media: unknown): IStrapiMedia | null => {
+  if (!media) {
     return null;
   }
 
-  if (isStrapiMedia(bannerImage)) {
-    return bannerImage;
+  if (isStrapiMedia(media)) {
+    return media;
   }
 
-  if (typeof bannerImage !== "object") {
+  if (typeof media !== "object") {
     return null;
   }
 
-  const imageRecord = bannerImage as Record<string, unknown>;
-  const data = imageRecord.data as Record<string, unknown> | undefined;
+  const mediaRecord = media as Record<string, unknown>;
+  const data = mediaRecord.data as Record<string, unknown> | undefined;
   const attributes = (data?.attributes as Record<string, unknown> | undefined) ?? data;
 
   if (!attributes) {
@@ -114,7 +109,8 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
       ...institution,
       bannerTitle: institution.bannerTitle ?? institution.name,
       bannerSubtitle: institution.bannerSubtitle ?? null,
-      bannerImage: normalizeBannerImage(institution.bannerImage),
+      bannerImage: normalizeStrapiMedia(institution.bannerImage),
+      aboutInstitute: null,
     };
 
     return normalizedInstitution;

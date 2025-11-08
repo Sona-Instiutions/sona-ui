@@ -1,5 +1,5 @@
 import { STRAPI_SERVER_URL } from "@/constants/app.constants";
-import { IStrapiMedia } from "@/types/institution.types";
+import type { IStrapiMedia } from "@/types/common.types";
 
 interface InstitutionBannerProps {
   /** Banner image object from Strapi media (may be null if not configured) */

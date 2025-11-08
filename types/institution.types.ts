@@ -1,41 +1,45 @@
-/**
- * Institution Types
- *
- * Type definitions for institution content type fetched from Strapi.
- * Follows ADR 005 naming conventions: interfaces with I prefix, type aliases with T prefix.
- */
+import type { IStrapiMedia } from "@/types/common.types";
 
-/** Strapi media object structure from file uploads */
-export interface IStrapiMedia {
+/** About section entity associated with an institution */
+export interface IAboutInstitute {
   /** Unique numeric identifier */
   id: number;
 
-  /** File name with extension */
-  name: string;
+  /** Optional headline for the about section */
+  title?: string | null;
 
-  /** Alternative text for accessibility */
-  alternativeText?: string;
+  /** Markdown-enabled description content */
+  description?: string | null;
 
-  /** Image caption */
-  caption?: string;
+  /** Markdown-enabled bullet list content */
+  bullets?: string | null;
 
-  /** File width in pixels (for images) */
-  width?: number;
+  /** Associated hero image */
+  image?: IStrapiMedia | null;
 
-  /** File height in pixels (for images) */
-  height?: number;
+  /** Optional badge label (e.g., Job Placement Rate) */
+  badgeText?: string | null;
 
-  /** MIME type of the file */
-  mime: string;
+  /** Optional badge value (e.g., 98%) */
+  badgeValue?: string | null;
 
-  /** File size in bytes */
-  size: number;
+  /** Optional badge color keyword */
+  badgeColor?: string | null;
 
-  /** URL path to the file on Strapi server */
-  url: string;
+  /** Related institution reference */
+  institution?: number | IInstitution | null;
 
-  /** Full URL to the file including base URL */
-  formats?: Record<string, unknown>;
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** API response envelope for about-institute queries */
+export interface IAboutInstituteResponse {
+  data: IAboutInstitute[];
+  meta: Record<string, unknown>;
 }
 
 /** Institution entity from backend matching Strapi response structure */
@@ -58,6 +62,9 @@ export interface IInstitution {
   /** Raw banner subtitle for hero section (may be null when not set) */
   bannerSubtitle?: string | null;
 
+  /** Optional related about-institute entity when populated */
+  aboutInstitute?: IAboutInstitute | null;
+
   /** ISO 8601 timestamp of creation */
   createdAt: string;
 
@@ -75,6 +82,9 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
 
   /** Banner subtitle normalized to string or null */
   bannerSubtitle: string | null;
+
+  /** About section normalized to entity or null */
+  aboutInstitute: IAboutInstitute | null;
 }
 
 /** Type alias for institution slug with validation */
