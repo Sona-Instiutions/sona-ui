@@ -19,8 +19,8 @@
 - **Date:** 2025-11-05
 - **Status:** Accepted
 - **Context:** Direct data fetching inside pages makes testing and reuse difficult. We require a consolidated location for Strapi integrations.
-- **Decision:** Expose Strapi integrations through typed modules under `services/server/` (server helpers) and `services/client/` (client hooks). Server modules own the canonical data contracts; client modules wrap them in TanStack Query-friendly APIs.
-- **Consequences:** Simplifies dependency management, centralizes error handling, keeps presentation components lightweight, and clarifies environment-specific responsibilities without leaking secrets to the browser.
+- **Decision:** Expose Strapi integrations through typed modules under `services/`. Each module exports server-safe helpers (for server components/actions) and client-safe TanStack Query hooks without splitting into server/client subfolders.
+- **Consequences:** Simplifies dependency management, centralizes error handling, and keeps presentation components lightweight while avoiding duplicated directory structures.
 
 ### ADR 003 — Tailwind CSS v4 + shadcn/ui + Mobile-First Composition
 
@@ -89,7 +89,7 @@
 
 - **Framework:** Next.js 16 (App Router) with React 19 features such as streaming SSR, server actions, and concurrent rendering.
 - **Rendering Defaults:** Prefer server components for data-heavy or read-mostly experiences to minimize client bundles. Use client components when the UI requires browser APIs, interactive event handlers, or mutable state.
-- **Data Access:** Strapi is the authoritative backend. Call its REST endpoints through typed modules under `services/server/` (server helpers) and `services/client/` (client hooks built on those helpers). Avoid fetching directly from pages or presentation components.
+- **Data Access:** Strapi is the authoritative backend. Call its REST endpoints through typed modules under `services/` that expose server-safe helpers and client-safe TanStack Query hooks. Avoid fetching directly from pages or presentation components.
 - **API Surface:** The Next.js app does not expose custom API routes; all domain data comes from Strapi.
 - **Runtime Targets:** Local development runs on `pnpm dev` (port 3050). Production assumes deployment to a Node-compatible host (Vercel or equivalent) with CDN or edge caching available.
 - **Environment Management:** `.env.local` powers development. Secrets never enter version control—use managed secret stores per environment.
@@ -110,8 +110,8 @@
 ### Data & State Management
 
 - **Fetching Strategy**
-  - Use the built-in `fetch` inside server components or server actions for first render, targeting Strapi endpoints or server service helpers. Opt into caching via `{ cache: 'force-cache' }`, ISR via `revalidate`, or tag-based revalidation with `revalidateTag`.
-  - Expose client-safe wrappers in `services/client/` when hydration, optimistic updates, or browser APIs are required. Client wrappers should call server helpers or shared HTTP utilities, never store server-only secrets.
+  - Use the built-in `fetch` inside server components or server actions for first render, targeting Strapi endpoints. Opt into caching via `{ cache: 'force-cache' }`, ISR via `revalidate`, or tag-based revalidation with `revalidateTag`.
+  - Expose client-safe wrappers in `services/client/` when hydration, optimistic updates, or browser APIs are required.
 - **Axios Configuration**
   - Standardize on Axios for HTTP modules shared between server and client boundaries. Configure base URL, interceptors, and error normalization in a single helper to enforce consistency.
 - **TanStack Query Guidelines**
@@ -141,8 +141,8 @@
 ### Services & API Interaction
 
 - **Strapi Service Modules**
-  - Place Strapi integrations in `services/server/<domain>.server.ts` with clear names and ≥2 lines of JSDoc describing collections/endpoints and assumptions.
-  - Export client-safe TanStack Query hooks from `services/client/<domain>.client.ts`, delegating to the server helpers for canonical data access.
+  - Place Strapi integrations in `services/<domain>.service.ts` with clear names and ≥2 lines of JSDoc describing collections/endpoints and assumptions.
+  - Export server-safe helpers (for server components/actions) alongside client-safe TanStack Query exports without duplicating directories.
   - Centralize Axios configuration (base URL, interceptors, error normalization) in a shared helper imported by these service modules.
 - **Error Handling**
   - Normalize failures into `{ message, status, details? }` envelopes. Localize user-facing copy via constants or i18n utilities.
@@ -154,7 +154,7 @@
 
 - **Files & Directories**
   - Type definitions: `<feature>.types.ts` inside `types/` or colocated with the feature.
-  - Service modules: `services/server/<domain>.server.ts` for server helpers and `services/client/<domain>.client.ts` for client hooks.
+  - Service modules: `services/<domain>.service.ts` encapsulating Strapi access and TanStack Query exports.
   - Hooks: `<feature>.hook.ts` for UI-specific hooks that compose services.
   - Components: `ComponentName.component.tsx` for every exported component; subcomponents still live under folders with `index.tsx` when more than one file is needed.
   - Constants: `<feature>.constants.ts` colocated with usage or under `constants/`.

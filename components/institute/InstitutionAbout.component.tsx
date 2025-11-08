@@ -212,11 +212,14 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
   const hasBadge = hasText(about?.badgeText) || hasText(about?.badgeValue);
 
   return (
-    <section className='w-full bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12'>
-      <div className='mx-auto flex w-full max-w-6xl flex-col gap-10 lg:flex-row lg:items-stretch'>
-        <div className='flex flex-1 flex-col justify-center space-y-6'>
+    <section className='w-full bg-white px-4 py-12 sm:px-6 sm:py-20 md:px-8 lg:px-12'>
+      <div className='mx-auto flex w-full max-w-7xl flex-col gap-12 lg:gap-16 lg:flex-row lg:items-center'>
+        {/* Left Column - Text Content */}
+        <div className='flex flex-col justify-center space-y-8 lg:w-1/2'>
           {hasText(about?.title) && (
-            <h2 className='text-2xl font-semibold text-slate-900 sm:text-3xl md:text-4xl'>{about?.title}</h2>
+            <h2 className='text-3xl font-bold text-slate-900 sm:text-4xl md:text-5xl leading-tight'>
+              {about?.title}
+            </h2>
           )}
 
           {hasText(about?.description) && (
@@ -237,15 +240,16 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
           )}
         </div>
 
+        {/* Right Column - Image with Badge */}
         {(imageUrl || hasBadge) && (
-          <div className='relative flex w-full flex-col items-center justify-center lg:w-[38%]'>
-            <div className='relative h-64 w-full overflow-hidden rounded-3xl bg-slate-100 shadow-lg shadow-black/10 sm:h-80 md:h-96'>
+          <div className='relative flex w-full flex-col items-center justify-center lg:w-1/2'>
+            <div className='relative w-full overflow-hidden rounded-3xl bg-slate-100 shadow-lg shadow-black/10 aspect-video'>
               {imageUrl ? (
                 <Image
                   src={imageUrl}
                   alt={imageAlt}
                   fill
-                  sizes='(min-width: 1024px) 38vw, 100vw'
+                  sizes='(min-width: 1024px) 50vw, 100vw'
                   className='object-cover'
                   priority={false}
                   unoptimized
@@ -258,7 +262,7 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
             </div>
 
             {hasBadge && (
-              <div className='absolute -bottom-6 right-6 sm:-bottom-8 sm:right-8'>
+              <div className='absolute -bottom-8 right-8 lg:-bottom-10 lg:right-10'>
                 <AboutBadge value={about?.badgeValue} text={about?.badgeText} color={about?.badgeColor} />
               </div>
             )}

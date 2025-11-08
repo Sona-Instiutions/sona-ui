@@ -36,21 +36,12 @@ export function AboutBadge({ value, text, color }: AboutBadgeProps) {
 
   return (
     <div
-      className={`flex min-w-[120px] flex-col items-center rounded-2xl px-5 py-4 shadow-lg shadow-black/10 ${badgeClass}`}
+      className={`flex min-w-[140px] flex-col items-center justify-center rounded-3xl px-6 py-5 shadow-lg shadow-black/20 ${badgeClass}`}
       aria-label={text ?? value ?? "Institution highlight"}
     >
-      {value && (
-        <span className="text-2xl font-semibold leading-none sm:text-3xl">
-          {value}
-        </span>
-      )}
+      {value && <span className='text-3xl font-bold leading-none sm:text-4xl'>{value}</span>}
 
-      {text && (
-        <span className="mt-1 text-center text-sm font-medium leading-snug sm:text-base">
-          {text}
-        </span>
-      )}
+      {text && <span className='mt-2 text-center text-sm font-semibold leading-tight sm:text-base'>{text}</span>}
     </div>
   );
 }
-

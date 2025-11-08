@@ -19,4 +19,3 @@ export function AppProviders({ children }: AppProvidersProps) {
 }
 
 export default AppProviders;
-
