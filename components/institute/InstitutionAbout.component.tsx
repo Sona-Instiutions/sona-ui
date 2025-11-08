@@ -5,12 +5,10 @@ import { Children, cloneElement, isValidElement, type ReactNode, type ComponentT
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { CheckCircle, Lightning, RocketLaunch, Star, UsersThree, Flask, type IconProps } from "phosphor-react";
-
-import { STRAPI_CLIENT_URL } from "@/constants/app.constants";
 import type { IAboutInstitute } from "@/types/institution.types";
-import type { IStrapiMedia } from "@/types/common.types";
 import { AboutBadge } from "@/components/institute/AboutBadge.component";
 import { useAboutInstitute } from "@/services/client/institution.client";
+import { buildMediaUrl, hasText } from "@/utils/common.utils";
 
 interface InstitutionAboutProps {
   /** Institution identifier used to fetch about-institute content */
@@ -35,30 +33,6 @@ const BULLET_ICON_MAP: Record<string, IconComponent> = {
 
 const FALLBACK_BULLET_ICON = CheckCircle;
 
-const normalizeBaseUrl = (rawUrl: string | undefined): string => {
-  const fallback = "http://localhost:1337";
-  if (!rawUrl || rawUrl.length === 0) {
-    return fallback;
-  }
-
-  return rawUrl.replace(/\/api\/?$/, "").replace(/\/$/, "") || fallback;
-};
-
-const buildMediaUrl = (media: IStrapiMedia | null | undefined): string | null => {
-  if (!media?.url) {
-    return null;
-  }
-
-  if (media.url.startsWith("http")) {
-    return media.url;
-  }
-
-  const baseUrl = normalizeBaseUrl(STRAPI_CLIENT_URL);
-  return `${baseUrl}${media.url}`;
-};
-
-const hasText = (value?: string | null): boolean => Boolean(value && value.trim().length > 0);
-
 const markdownComponents: Components = {
   p: ({ children }) => <p className='text-base leading-relaxed text-slate-600 sm:text-lg'>{children}</p>,
   strong: ({ children }) => <strong className='font-semibold text-slate-900'>{children}</strong>,
@@ -70,24 +44,46 @@ const markdownComponents: Components = {
   ),
 };
 
+const ICON_TOKEN_PATTERNS = [
+  /^\s*\[([a-zA-Z0-9_-]+)\]\s*(.*)$/,
+  /^\s*::([a-zA-Z0-9_-]+)::\s*(.*)$/,
+  /^\s*\{icon:\s*([a-zA-Z0-9_-]+)\}\s*(.*)$/,
+] as const;
+
+const extractIconToken = (
+  text: string
+): {
+  iconName?: string;
+  remaining: string;
+} => {
+  for (const pattern of ICON_TOKEN_PATTERNS) {
+    const match = text.match(pattern);
+
+    if (match) {
+      const [, iconName, remaining = ""] = match;
+      return { iconName, remaining: remaining.trimStart() };
+    }
+  }
+
+  return { remaining: text };
+};
+
 const stripIconToken = (nodeChildren: ReactNode[]): { iconName?: string; content: ReactNode[] } => {
   if (nodeChildren.length === 0) {
     return { content: nodeChildren };
   }
 
   const firstChild = nodeChildren[0];
-  const iconRegex = /^\s*\[([a-zA-Z0-9_-]+)\]\s*(.*)$/;
 
   if (typeof firstChild === "string") {
-    const match = firstChild.match(iconRegex);
+    const { iconName, remaining } = extractIconToken(firstChild);
 
-    if (!match) {
+    if (!iconName) {
       return { content: nodeChildren };
     }
 
-    const [, iconName, remaining] = match;
     const updatedChildren = [...nodeChildren];
-    updatedChildren[0] = remaining.trimStart();
+    updatedChildren[0] = remaining;
 
     return { iconName, content: updatedChildren };
   }
@@ -102,15 +98,14 @@ const stripIconToken = (nodeChildren: ReactNode[]): { iconName?: string; content
     const firstGrandChild = grandchildren[0];
 
     if (typeof firstGrandChild === "string") {
-      const match = firstGrandChild.match(iconRegex);
+      const { iconName, remaining } = extractIconToken(firstGrandChild);
 
-      if (!match) {
+      if (!iconName) {
         return { content: nodeChildren };
       }
 
-      const [, iconName, remaining] = match;
       const updatedGrandChildren = [...grandchildren];
-      updatedGrandChildren[0] = remaining.trimStart();
+      updatedGrandChildren[0] = remaining;
 
       const updatedFirstChild = cloneElement(firstChild, {}, updatedGrandChildren);
       const updatedChildren = [...nodeChildren];
@@ -212,12 +207,14 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
   const hasBadge = hasText(about?.badgeText) || hasText(about?.badgeValue);
 
   return (
-    <section className='w-full bg-white px-4 py-12 sm:px-6 sm:py-20 md:px-8 lg:px-12'>
-      <div className='mx-auto flex w-full max-w-7xl flex-col gap-12 lg:gap-16 lg:flex-row lg:items-center'>
-        {/* Left Column - Text Content */}
-        <div className='flex flex-col justify-center space-y-8 lg:w-1/2'>
+    <section className='w-full bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12'>
+      <div className='mx-auto flex w-full max-w-6xl flex-col gap-10 lg:flex-row lg:items-stretch'>
+        <div className='flex flex-1 flex-col justify-center space-y-6'>
           {hasText(about?.title) && (
-            <h2 className='text-3xl font-bold text-slate-900 sm:text-4xl md:text-5xl leading-tight'>{about?.title}</h2>
+            <div className='flex flex-col items-center gap-3'>
+              <span className='inline-block h-1.5 w-32 rounded-full bg-linear-to-r from-transparent via-blue-800 to-transparent shadow-sm' />
+              <h2 className='text-center text-2xl font-semibold sm:text-3xl md:text-4xl'>{about?.title}</h2>
+            </div>
           )}
 
           {hasText(about?.description) && (
@@ -260,7 +257,7 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
             </div>
 
             {hasBadge && (
-              <div className='absolute -bottom-8 right-8 lg:-bottom-10 lg:right-10'>
+              <div className='absolute -bottom-10 right-[-20px] lg:right-[-40px] lg:bottom-15'>
                 <AboutBadge value={about?.badgeValue} text={about?.badgeText} color={about?.badgeColor} />
               </div>
             )}
