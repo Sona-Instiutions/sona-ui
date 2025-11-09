@@ -1,5 +1,13 @@
 import { axiosInstance } from "@/lib/axios.config";
-import { IInstitution, IInstitutionResponse, IApiError, INormalizedInstitution } from "@/types/institution.types";
+import { buildProgramSectionsQuery, normalizeProgramRecord } from "@/utils/institution.utils";
+import {
+  IInstitution,
+  IInstitutionResponse,
+  IApiError,
+  INormalizedInstitution,
+  IProgramsResponse,
+  INormalizedProgram,
+} from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
 const isStrapiMedia = (value: unknown): value is IStrapiMedia => {
@@ -111,11 +119,41 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
       bannerSubtitle: institution.bannerSubtitle ?? null,
       bannerImage: normalizeStrapiMedia(institution.bannerImage),
       aboutInstitute: null,
+      program: null,
     };
 
     return normalizedInstitution;
   } catch (error) {
     // Re-throw normalized errors from axios config
+    throw error;
+  }
+}
+
+/**
+ * Fetch program associated with an institution (server-only).
+ */
+export async function getProgramByInstitution(institutionId: number): Promise<INormalizedProgram | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    throw {
+      status: 400,
+      message: "Invalid institution id provided",
+      details: { institutionId },
+    } as IApiError;
+  }
+
+  try {
+    const response = await axiosInstance.get<IProgramsResponse>(
+      `/api/programs?${buildProgramSectionsQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalizedProgram = normalizeProgramRecord(response.data.data[0]);
+
+    return normalizedProgram ?? null;
+  } catch (error) {
     throw error;
   }
 }

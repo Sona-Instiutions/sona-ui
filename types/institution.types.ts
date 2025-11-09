@@ -65,6 +65,9 @@ export interface IInstitution {
   /** Optional related about-institute entity when populated */
   aboutInstitute?: IAboutInstitute | null;
 
+  /** Optional related program when populated */
+  program?: IProgram | null;
+
   /** ISO 8601 timestamp of creation */
   createdAt: string;
 
@@ -85,6 +88,69 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
 
   /** About section normalized to entity or null */
   aboutInstitute: IAboutInstitute | null;
+
+  /** Related program normalized or null */
+  program?: INormalizedProgram | null;
+}
+
+/** Program entity describing the overall offering for an institution */
+export interface IProgram {
+  /** Unique program identifier */
+  id: number;
+
+  /** Program title displayed above the sections */
+  title: string;
+
+  /** Markdown-enabled program description */
+  description?: string | null;
+
+  /** Associated program sections when populated */
+  sections?: IProgramSection[] | null;
+
+  /** Related institution reference when populated */
+  institution?: number | IInstitution | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Individual program section describing a specific offering */
+export interface IProgramSection {
+  /** Unique section identifier */
+  id: number;
+
+  /** Section title (e.g., Software Development) */
+  title: string;
+
+  /** Optional phosphor icon token */
+  icon?: string | null;
+
+  /** Markdown-enabled section description */
+  description?: string | null;
+
+  /** Optional CTA label for learn more link */
+  learnMoreText?: string | null;
+
+  /** Optional CTA URL for additional details */
+  learnMoreUrl?: string | null;
+
+  /** Flag indicating external link behavior */
+  learnMoreIsExternal?: boolean | null;
+
+  /** Ordering index to control display priority */
+  order?: number | null;
+
+  /** Related institution reference */
+  program?: number | IProgram | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
 }
 
 /** Type alias for institution slug with validation */
@@ -107,6 +173,48 @@ export interface IInstitutionsResponse {
       total: number;
     };
   };
+}
+
+/** API response for program queries */
+export interface IProgramsResponse {
+  data: IProgram[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}
+
+/** Normalized program section entity with defaulted optional fields */
+export interface INormalizedProgramSection
+  extends Omit<IProgramSection, "description" | "learnMoreText" | "learnMoreUrl" | "learnMoreIsExternal" | "order" | "program"> {
+  /** Markdown description normalized to string or null */
+  description: string | null;
+
+  /** CTA label guaranteed to be string or null */
+  learnMoreText: string | null;
+
+  /** CTA URL guaranteed to be string or null */
+  learnMoreUrl: string | null;
+
+  /** External flag normalized to boolean */
+  learnMoreIsExternal: boolean;
+
+  /** Order normalized to number or null */
+  order: number | null;
+}
+
+/** Normalized program entity with related sections */
+export interface INormalizedProgram
+  extends Omit<IProgram, "description" | "sections" | "institution"> {
+  /** Program description normalized to string or null */
+  description: string | null;
+
+  /** Related sections normalized to array */
+  sections: INormalizedProgramSection[];
 }
 
 /** Standard API error response for consistent error handling */

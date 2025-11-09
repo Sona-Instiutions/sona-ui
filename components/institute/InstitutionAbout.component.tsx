@@ -1,37 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { Children, cloneElement, isValidElement, type ReactNode, type ComponentType } from "react";
+import { Children, cloneElement, isValidElement, type ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { CheckCircle, Lightning, RocketLaunch, Star, UsersThree, Flask, type IconProps } from "phosphor-react";
 import type { IAboutInstitute } from "@/types/institution.types";
 import { AboutBadge } from "@/components/institute/AboutBadge.component";
 import { useAboutInstitute } from "@/services/client/institution.client";
 import { buildMediaUrl, hasText } from "@/utils/common.utils";
+import { SectionHeader } from "@/components/common/SectionHeader.component";
+import { IconBadge } from "@/components/common/IconBadge.component";
 
 interface InstitutionAboutProps {
   /** Institution identifier used to fetch about-institute content */
   institutionId?: number | null;
 }
-
-type IconComponent = ComponentType<IconProps>;
-
-const BULLET_ICON_MAP: Record<string, IconComponent> = {
-  check: CheckCircle,
-  checkcircle: CheckCircle,
-  checkmark: CheckCircle,
-  star: Star,
-  lightning: Lightning,
-  rocket: RocketLaunch,
-  rocketlaunch: RocketLaunch,
-  flask: Flask,
-  lab: Flask,
-  users: UsersThree,
-  usersthree: UsersThree,
-};
-
-const FALLBACK_BULLET_ICON = CheckCircle;
 
 const markdownComponents: Components = {
   p: ({ children }) => <p className='text-base leading-relaxed text-slate-600 sm:text-lg'>{children}</p>,
@@ -123,14 +106,10 @@ const listComponents: Partial<Components> = {
   li: ({ children }) => {
     const childArray = Children.toArray(children ?? []);
     const { iconName, content } = stripIconToken(childArray);
-    const iconKey = iconName?.toLowerCase() ?? "";
-    const IconComponent = BULLET_ICON_MAP[iconKey] ?? FALLBACK_BULLET_ICON;
 
     return (
       <li className='flex items-start gap-3'>
-        <span className='mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sky-600'>
-          <IconComponent size={20} weight='fill' />
-        </span>
+        <IconBadge iconName={iconName} size='md' variant='primary' className='mt-1 shrink-0' />
         <div className='space-y-1 text-base text-slate-600 sm:text-lg'>{content}</div>
       </li>
     );
@@ -211,10 +190,7 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
       <div className='mx-auto flex w-full max-w-6xl flex-col gap-10 lg:flex-row lg:items-stretch'>
         <div className='flex flex-1 flex-col justify-center space-y-6'>
           {hasText(about?.title) && (
-            <div className='flex flex-col items-center gap-3'>
-              <span className='inline-block h-1.5 w-32 rounded-full bg-linear-to-r from-transparent via-blue-800 to-transparent shadow-sm' />
-              <h2 className='text-center text-2xl font-semibold sm:text-3xl md:text-4xl'>{about?.title}</h2>
-            </div>
+            <SectionHeader title={about?.title ?? ""} />
           )}
 
           {hasText(about?.description) && (

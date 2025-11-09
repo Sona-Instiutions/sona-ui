@@ -1,0 +1,115 @@
+import { createElement, type ComponentType } from "react";
+import { cn } from "@/lib/utils";
+import {
+  CheckCircle,
+  Flask,
+  Lightning,
+  RocketLaunch,
+  Star,
+  UsersThree,
+  type IconProps,
+  type IconWeight,
+} from "phosphor-react";
+
+type IconComponent = ComponentType<IconProps>;
+
+type IconBadgeVariant = "primary" | "secondary" | "neutral";
+type IconBadgeSize = "sm" | "md" | "lg";
+
+const ICON_COMPONENT_MAP: Record<string, IconComponent> = {
+  check: CheckCircle,
+  checkcircle: CheckCircle,
+  checkmark: CheckCircle,
+  star: Star,
+  lightning: Lightning,
+  rocket: RocketLaunch,
+  rocketlaunch: RocketLaunch,
+  flask: Flask,
+  lab: Flask,
+  users: UsersThree,
+  usersthree: UsersThree,
+};
+
+const FALLBACK_ICON = CheckCircle;
+
+const VARIANT_CLASS_MAP: Record<IconBadgeVariant, string> = {
+  primary: "bg-sky-100 text-sky-600",
+  secondary: "bg-slate-900 text-white",
+  neutral: "bg-slate-200 text-slate-700",
+};
+
+const SIZE_CLASS_MAP: Record<IconBadgeSize, string> = {
+  sm: "h-8 w-8",
+  md: "h-9 w-9",
+  lg: "h-12 w-12",
+};
+
+const ICON_SIZE_MAP: Record<IconBadgeSize, number> = {
+  sm: 18,
+  md: 20,
+  lg: 28,
+};
+
+export interface IconBadgeProps {
+  /** Icon name token mapped to Phosphor icons (e.g., "check", "star") */
+  iconName?: string | null;
+  /** Visual style variant */
+  variant?: IconBadgeVariant;
+  /** Badge size preset */
+  size?: IconBadgeSize;
+  /** Icon weight passed to Phosphor icon */
+  weight?: IconWeight;
+  /** Optional aria label for accessibility (otherwise treated as decorative) */
+  ariaLabel?: string;
+  /** Additional wrapper classes */
+  className?: string;
+  /** Additional classes for the icon element */
+  iconClassName?: string;
+}
+
+const getIconComponent = (iconName?: string | null): IconComponent => {
+  if (!iconName) {
+    return FALLBACK_ICON;
+  }
+
+  const normalized = iconName.toLowerCase().replace(/\s+/g, "");
+  return ICON_COMPONENT_MAP[normalized] ?? FALLBACK_ICON;
+};
+
+/**
+ * Circular icon badge used across institution sections for consistent visual cues.
+ */
+export function IconBadge({
+  iconName,
+  variant = "primary",
+  size = "md",
+  weight = "fill",
+  ariaLabel,
+  className,
+  iconClassName,
+}: IconBadgeProps) {
+  const IconComponent = getIconComponent(iconName);
+  const iconSize = ICON_SIZE_MAP[size];
+  const iconElement = createElement(IconComponent, {
+    size: iconSize,
+    weight,
+    className: cn("shrink-0", iconClassName),
+  });
+
+  return (
+    <span
+      className={cn(
+        "flex items-center justify-center rounded-full",
+        VARIANT_CLASS_MAP[variant],
+        SIZE_CLASS_MAP[size],
+        className
+      )}
+      role={ariaLabel ? "img" : undefined}
+      aria-label={ariaLabel}
+      aria-hidden={ariaLabel ? undefined : true}
+    >
+      {iconElement}
+    </span>
+  );
+}
+

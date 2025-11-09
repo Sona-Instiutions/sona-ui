@@ -8,7 +8,14 @@
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
 import axiosInstance from "@/lib/axios.config";
-import type { IAboutInstitute, IAboutInstituteResponse, IApiError } from "@/types/institution.types";
+import { buildProgramSectionsQuery, normalizeProgramRecord } from "@/utils/institution.utils";
+import type {
+  IAboutInstitute,
+  IAboutInstituteResponse,
+  IApiError,
+  INormalizedProgram,
+  IProgramsResponse,
+} from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
 const normalizeStrapiMedia = (media: unknown): IStrapiMedia | null => {
@@ -117,3 +124,31 @@ export const useAboutInstitute = ({ institutionId }: UseAboutInstituteOptions) =
     staleTime: 5 * 60 * 1000,
   });
 };
+
+const fetchProgramByInstitution = async (institutionId: number): Promise<INormalizedProgram | null> => {
+  const response = await axiosInstance.get<IProgramsResponse>(`/api/programs?${buildProgramSectionsQuery(institutionId)}`);
+
+  if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+    return null;
+  }
+
+  return normalizeProgramRecord(response.data.data[0]);
+};
+
+interface UseProgramsOptions {
+  institutionId?: number | null;
+}
+
+export const useProgramByInstitution = ({ institutionId }: UseProgramsOptions) => {
+  const enabled = typeof institutionId === "number" && institutionId > 0;
+
+  return useQuery<INormalizedProgram | null, IApiError>({
+    queryKey: ["institutions", institutionId ?? "unknown", "program"],
+    queryFn: () => fetchProgramByInstitution(institutionId as number),
+    enabled,
+    placeholderData: keepPreviousData,
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+export { fetchProgramByInstitution };
