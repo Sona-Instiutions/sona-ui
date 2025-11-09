@@ -8,11 +8,12 @@
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
 import axiosInstance from "@/lib/axios.config";
-import { buildProgramSectionsQuery, normalizeProgramRecord } from "@/utils/institution.utils";
+import { buildProgramSectionsQuery, normalizeIconBadge, normalizeProgramRecord } from "@/utils/institution.utils";
 import type {
   IAboutInstitute,
   IAboutInstituteResponse,
   IApiError,
+  IBulletItem,
   INormalizedProgram,
   IProgramsResponse,
 } from "@/types/institution.types";
@@ -79,6 +80,35 @@ const normalizeStrapiMedia = (media: unknown): IStrapiMedia | null => {
   };
 };
 
+const mapBulletItems = (bullets: unknown): IBulletItem[] | null => {
+  if (!Array.isArray(bullets)) {
+    return null;
+  }
+
+  return bullets
+    .map((item) => {
+      if (!item || typeof item !== "object") {
+        return null;
+      }
+
+      const record = item as Record<string, unknown>;
+      const id = typeof record.id === "number" ? (record.id as number) : undefined;
+      const text = typeof record.text === "string" ? (record.text as string) : "";
+      const icon = normalizeIconBadge(record.icon);
+
+      if (!id) {
+        return null;
+      }
+
+      return {
+        id,
+        text,
+        icon: icon ?? null,
+      } as IBulletItem;
+    })
+    .filter((item): item is IBulletItem => Boolean(item));
+};
+
 const mapAboutInstitute = (payload: IAboutInstitute | null | undefined): IAboutInstitute | null => {
   if (!payload) {
     return null;
@@ -89,7 +119,7 @@ const mapAboutInstitute = (payload: IAboutInstitute | null | undefined): IAboutI
     image: normalizeStrapiMedia(payload.image),
     title: payload.title ?? null,
     description: payload.description ?? null,
-    bullets: payload.bullets ?? null,
+    bullets: mapBulletItems(payload.bullets),
     badgeText: payload.badgeText ?? null,
     badgeValue: payload.badgeValue ?? null,
     badgeColor: payload.badgeColor ?? null,
@@ -98,7 +128,7 @@ const mapAboutInstitute = (payload: IAboutInstitute | null | undefined): IAboutI
 
 const fetchAboutInstitute = async (institutionId: number): Promise<IAboutInstitute | null> => {
   const response = await axiosInstance.get<IAboutInstituteResponse>(
-    `/api/about-institutes?filters[institution][id][$eq]=${institutionId}&populate=image`
+    `/api/about-institutes?filters[institution][id][$eq]=${institutionId}`
   );
 
   if (!response.data.data || response.data.data.length === 0) {

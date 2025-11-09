@@ -1,4 +1,5 @@
 import type {
+  IIconBadge,
   INormalizedProgram,
   INormalizedProgramSection,
   IProgram,
@@ -8,7 +9,6 @@ import type {
 const PROGRAM_FIELDS = ["title", "description", "createdAt", "updatedAt"] as const;
 const PROGRAM_SECTION_FIELDS = [
   "title",
-  "icon",
   "description",
   "learnMoreText",
   "learnMoreUrl",
@@ -73,7 +73,41 @@ export const buildProgramSectionsQuery = (institutionId: number): string => {
     params.set(`populate[sections][fields][${index}]`, field);
   });
 
+  params.set("populate[sections][populate][icon]", "*");
+
   return params.toString();
+};
+
+export const normalizeIconBadge = (icon: unknown): IIconBadge | null => {
+  if (!icon || typeof icon !== "object") {
+    return null;
+  }
+
+  const iconRecord = icon as Record<string, unknown>;
+  const candidate = iconRecord.data ?? icon;
+  const resolved = resolveRecord(candidate);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+
+  const iconName = (attributes.iconName as string | null | undefined) ?? null;
+
+  if (!iconName) {
+    return null;
+  }
+
+  return {
+    id,
+    iconName,
+    displayName: (attributes.displayName as string | null | undefined) ?? null,
+    iconColor: (attributes.iconColor as string | null | undefined) ?? null,
+    backgroundColor: (attributes.backgroundColor as string | null | undefined) ?? null,
+    createdAt: (attributes.createdAt as string | undefined) ?? "",
+    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
+  };
 };
 
 /**
@@ -87,11 +121,12 @@ export const normalizeProgramSectionRecord = (section: IProgramSection | unknown
   }
 
   const { id, attributes } = resolved;
+  const icon = normalizeIconBadge(attributes.icon);
 
   return {
     id,
     title: (attributes.title as string | null | undefined) ?? "",
-    icon: (attributes.icon as string | null | undefined) ?? null,
+    icon,
     description: (attributes.description as string | null | undefined) ?? null,
     learnMoreText: (attributes.learnMoreText as string | null | undefined) ?? null,
     learnMoreUrl: (attributes.learnMoreUrl as string | null | undefined) ?? null,

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Children, cloneElement, isValidElement, type ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { IAboutInstitute } from "@/types/institution.types";
@@ -27,95 +26,6 @@ const markdownComponents: Components = {
   ),
 };
 
-const ICON_TOKEN_PATTERNS = [
-  /^\s*\[([a-zA-Z0-9_-]+)\]\s*(.*)$/,
-  /^\s*::([a-zA-Z0-9_-]+)::\s*(.*)$/,
-  /^\s*\{icon:\s*([a-zA-Z0-9_-]+)\}\s*(.*)$/,
-] as const;
-
-const extractIconToken = (
-  text: string
-): {
-  iconName?: string;
-  remaining: string;
-} => {
-  for (const pattern of ICON_TOKEN_PATTERNS) {
-    const match = text.match(pattern);
-
-    if (match) {
-      const [, iconName, remaining = ""] = match;
-      return { iconName, remaining: remaining.trimStart() };
-    }
-  }
-
-  return { remaining: text };
-};
-
-const stripIconToken = (nodeChildren: ReactNode[]): { iconName?: string; content: ReactNode[] } => {
-  if (nodeChildren.length === 0) {
-    return { content: nodeChildren };
-  }
-
-  const firstChild = nodeChildren[0];
-
-  if (typeof firstChild === "string") {
-    const { iconName, remaining } = extractIconToken(firstChild);
-
-    if (!iconName) {
-      return { content: nodeChildren };
-    }
-
-    const updatedChildren = [...nodeChildren];
-    updatedChildren[0] = remaining;
-
-    return { iconName, content: updatedChildren };
-  }
-
-  if (isValidElement(firstChild)) {
-    const grandchildren = Children.toArray((firstChild.props as { children?: ReactNode }).children ?? []);
-
-    if (grandchildren.length === 0) {
-      return { content: nodeChildren };
-    }
-
-    const firstGrandChild = grandchildren[0];
-
-    if (typeof firstGrandChild === "string") {
-      const { iconName, remaining } = extractIconToken(firstGrandChild);
-
-      if (!iconName) {
-        return { content: nodeChildren };
-      }
-
-      const updatedGrandChildren = [...grandchildren];
-      updatedGrandChildren[0] = remaining;
-
-      const updatedFirstChild = cloneElement(firstChild, {}, updatedGrandChildren);
-      const updatedChildren = [...nodeChildren];
-      updatedChildren[0] = updatedFirstChild;
-
-      return { iconName, content: updatedChildren };
-    }
-  }
-
-  return { content: nodeChildren };
-};
-
-const listComponents: Partial<Components> = {
-  ul: ({ children }) => <ul className='mt-6 list-none space-y-4'>{children}</ul>,
-  li: ({ children }) => {
-    const childArray = Children.toArray(children ?? []);
-    const { iconName, content } = stripIconToken(childArray);
-
-    return (
-      <li className='flex items-start gap-3'>
-        <IconBadge iconName={iconName} size='md' variant='primary' className='mt-1 shrink-0' />
-        <div className='space-y-1 text-base text-slate-600 sm:text-lg'>{content}</div>
-      </li>
-    );
-  },
-};
-
 const hasMeaningfulContent = (about?: IAboutInstitute | null): boolean => {
   if (!about) {
     return false;
@@ -124,7 +34,7 @@ const hasMeaningfulContent = (about?: IAboutInstitute | null): boolean => {
   return Boolean(
     hasText(about.title) ||
       hasText(about.description) ||
-      hasText(about.bullets) ||
+      (Array.isArray(about.bullets) && about.bullets.length > 0) ||
       about.image ||
       hasText(about.badgeText) ||
       hasText(about.badgeValue)
@@ -201,13 +111,32 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
             </div>
           )}
 
-          {hasText(about?.bullets) && (
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{ ...markdownComponents, ...listComponents } as Components}
-            >
-              {about?.bullets as string}
-            </ReactMarkdown>
+          {Array.isArray(about?.bullets) && about?.bullets.length > 0 && (
+            <ul className='mt-6 list-none space-y-4'>
+              {about.bullets.map((bullet) => {
+                const { icon } = bullet;
+                const bulletIcon = typeof icon === "number" ? null : icon;
+
+                return (
+                  <li key={bullet.id ?? bullet.text} className='flex items-start gap-3'>
+                    <IconBadge
+                      iconName={bulletIcon?.iconName}
+                      iconColor={bulletIcon?.iconColor}
+                      backgroundColor={bulletIcon?.backgroundColor}
+                      size='md'
+                      className='mt-1 shrink-0'
+                      variant='primary'
+                      ariaLabel={bulletIcon?.displayName ?? bulletIcon?.iconName ?? undefined}
+                    />
+                    <div className='space-y-1 text-base text-slate-600 sm:text-lg'>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                        {bullet.text}
+                      </ReactMarkdown>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           )}
         </div>
 

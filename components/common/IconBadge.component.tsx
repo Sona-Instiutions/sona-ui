@@ -65,6 +65,10 @@ export interface IconBadgeProps {
   className?: string;
   /** Additional classes for the icon element */
   iconClassName?: string;
+  /** Custom icon color overriding variant styles */
+  iconColor?: string | null;
+  /** Custom background color overriding variant styles */
+  backgroundColor?: string | null;
 }
 
 const getIconComponent = (iconName?: string | null): IconComponent => {
@@ -87,29 +91,39 @@ export function IconBadge({
   ariaLabel,
   className,
   iconClassName,
+  iconColor,
+  backgroundColor,
 }: IconBadgeProps) {
   const IconComponent = getIconComponent(iconName);
   const iconSize = ICON_SIZE_MAP[size];
+  const useCustomColors = Boolean(iconColor || backgroundColor);
+  const wrapperStyle = useCustomColors
+    ? {
+        backgroundColor: backgroundColor ?? undefined,
+        color: iconColor ?? undefined,
+      }
+    : undefined;
   const iconElement = createElement(IconComponent, {
     size: iconSize,
     weight,
     className: cn("shrink-0", iconClassName),
+    color: iconColor ?? undefined,
   });
 
   return (
     <span
       className={cn(
         "flex items-center justify-center rounded-full",
-        VARIANT_CLASS_MAP[variant],
+        useCustomColors ? null : VARIANT_CLASS_MAP[variant],
         SIZE_CLASS_MAP[size],
         className
       )}
       role={ariaLabel ? "img" : undefined}
       aria-label={ariaLabel}
       aria-hidden={ariaLabel ? undefined : true}
+      style={wrapperStyle}
     >
       {iconElement}
     </span>
   );
 }
-

@@ -1,5 +1,41 @@
 import type { IStrapiMedia } from "@/types/common.types";
 
+/** Icon badge entity providing configurable icon metadata */
+export interface IIconBadge {
+  /** Unique numeric identifier */
+  id: number;
+
+  /** Normalized icon token mapped to Phosphor icons (e.g., "check", "star") */
+  iconName: string;
+
+  /** Human-readable label to assist content editors */
+  displayName?: string | null;
+
+  /** Optional icon foreground color (any valid CSS color) */
+  iconColor?: string | null;
+
+  /** Optional badge background color (any valid CSS color) */
+  backgroundColor?: string | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Repeatable bullet item containing markdown text and icon reference */
+export interface IBulletItem {
+  /** Component identifier emitted by Strapi */
+  id: number;
+
+  /** Markdown-enabled bullet text content */
+  text: string;
+
+  /** Related icon badge or relation identifier when not populated */
+  icon: IIconBadge | number | null;
+}
+
 /** About section entity associated with an institution */
 export interface IAboutInstitute {
   /** Unique numeric identifier */
@@ -11,8 +47,8 @@ export interface IAboutInstitute {
   /** Markdown-enabled description content */
   description?: string | null;
 
-  /** Markdown-enabled bullet list content */
-  bullets?: string | null;
+  /** Markdown-enabled bullet items associated with about section */
+  bullets?: IBulletItem[] | null;
 
   /** Associated hero image */
   image?: IStrapiMedia | null;
@@ -125,8 +161,8 @@ export interface IProgramSection {
   /** Section title (e.g., Software Development) */
   title: string;
 
-  /** Optional phosphor icon token */
-  icon?: string | null;
+  /** Optional icon badge relationship */
+  icon?: IIconBadge | number | null;
 
   /** Markdown-enabled section description */
   description?: string | null;
@@ -190,7 +226,10 @@ export interface IProgramsResponse {
 
 /** Normalized program section entity with defaulted optional fields */
 export interface INormalizedProgramSection
-  extends Omit<IProgramSection, "description" | "learnMoreText" | "learnMoreUrl" | "learnMoreIsExternal" | "order" | "program"> {
+  extends Omit<
+    IProgramSection,
+    "description" | "learnMoreText" | "learnMoreUrl" | "learnMoreIsExternal" | "order" | "program" | "icon"
+  > {
   /** Markdown description normalized to string or null */
   description: string | null;
 
@@ -205,6 +244,9 @@ export interface INormalizedProgramSection
 
   /** Order normalized to number or null */
   order: number | null;
+
+  /** Icon badge fully populated or null */
+  icon: IIconBadge | null;
 }
 
 /** Normalized program entity with related sections */

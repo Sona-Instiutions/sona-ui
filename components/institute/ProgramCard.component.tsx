@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import { ArrowRight } from "phosphor-react";
 import { cn } from "@/lib/utils";
 import { IconBadge } from "@/components/common/IconBadge.component";
+import type { IIconBadge } from "@/types/institution.types";
 
 interface ProgramCardProps {
   /** Program name displayed prominently on the card */
@@ -11,7 +12,7 @@ interface ProgramCardProps {
   /** Supporting description outlining program details */
   description: string;
   /** Optional icon name token rendered inside the badge */
-  icon?: string | null;
+  icon?: IIconBadge | null;
   /** Optional CTA label (defaults to "Learn More" when URL provided) */
   learnMoreText?: string | null;
   /** Optional CTA link */
@@ -50,7 +51,14 @@ export function ProgramCard({
         className
       )}
     >
-      <IconBadge iconName={icon} size='lg' className='mb-5 shrink-0' ariaLabel={title} />
+      <IconBadge
+        iconName={icon?.iconName}
+        iconColor={icon?.iconColor}
+        backgroundColor={icon?.backgroundColor}
+        size='lg'
+        className='mb-5 shrink-0'
+        ariaLabel={icon?.displayName ?? title}
+      />
 
       <div className='flex flex-1 flex-col gap-4'>
         <h3 className='text-xl font-semibold text-slate-900'>{title}</h3>
