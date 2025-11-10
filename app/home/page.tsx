@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import StatsSection from "@/components/common/StatsSection";
+import StatsSection from "@/components/home/StatsSection";
+import AboutSection from "@/components/home/AboutSection";
+
 import {
   Carousel,
   CarouselContent,
@@ -102,6 +104,9 @@ export default function HomePage() {
 
       {/* Main Usp Section  */}
       <StatsSection /> 
+
+      {/* About us section  */}
+      <AboutSection/>
     </div>
   );
 }
