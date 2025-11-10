@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import * as React from "react";
+import StatsSection from "@/components/common/StatsSection";
 import {
   Carousel,
   CarouselContent,
@@ -57,6 +57,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Hero image section  */}
       <Carousel className="w-full  mx-auto relative">
         <CarouselContent>
           {banners.map((banner) => (
@@ -98,6 +99,9 @@ export default function HomePage() {
         <CarouselPrevious className="left-5 bg-black/50 hover:bg-black/70 text-white" />
         <CarouselNext className="right-5 bg-black/50 hover:bg-black/70 text-white" />
       </Carousel>
+
+      {/* Main Usp Section  */}
+      <StatsSection /> 
     </div>
   );
 }
