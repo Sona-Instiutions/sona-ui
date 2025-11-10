@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import StatsSection from "@/components/home/StatsSection";
 import AboutSection from "@/components/home/AboutSection";
+import LegacySection from "@/components/home/LegacySection";
+import WhyChooseSection from "@/components/home/WhyChooseSection";
 
 import {
   Carousel,
@@ -103,10 +105,19 @@ export default function HomePage() {
       </Carousel>
 
       {/* Main Usp Section  */}
-      <StatsSection /> 
+      <StatsSection />
 
       {/* About us section  */}
-      <AboutSection/>
+      <AboutSection />
+
+      {/* Lagacy Section  */}
+      <LegacySection />
+
+      {/* Why Choose Us  */}
+      <div className="why-scale-page">
+        <WhyChooseSection />
+      </div>
+
     </div>
   );
 }
