@@ -7,6 +7,7 @@ import WhyChooseSection from "@/components/home/WhyChooseSection";
 import CollaborateSection from "@/components/home/CollaborateSection";
 import InstitutionsSection from "@/components/home/InstitutionsSection";
 import LifeAtScaleSection from "@/components/home/LifeAtScaleSection";
+import NewsEventsSection from "@/components/home/NewsEventsSection";
 
 import {
   Carousel,
@@ -128,7 +129,10 @@ export default function HomePage() {
       <InstitutionsSection />
       
       {/* LifeAtScaleSection section  */}
-      <LifeAtScaleSection/>
+      <LifeAtScaleSection />
+      
+      {/* NewsEventsSection section  */}
+      <NewsEventsSection/>
 
     </div>
   );
