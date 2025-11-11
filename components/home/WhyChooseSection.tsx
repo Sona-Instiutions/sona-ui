@@ -48,7 +48,7 @@ export default function WhyChooseSection() {
                     </div>
 
                     {/* RIGHT FEATURES */}
-                    <div className="flex flex-col items-start space-y-12 text-center">
+                    <div className="flex flex-col items-center space-y-12 text-center">
                         <FeatureCard
                             icon={<Monitor className="w-6 h-6 text-yellow-500" />}
                             color="bg-yellow-100"

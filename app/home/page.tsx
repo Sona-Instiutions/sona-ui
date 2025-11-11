@@ -4,6 +4,9 @@ import StatsSection from "@/components/home/StatsSection";
 import AboutSection from "@/components/home/AboutSection";
 import LegacySection from "@/components/home/LegacySection";
 import WhyChooseSection from "@/components/home/WhyChooseSection";
+import CollaborateSection from "@/components/home/CollaborateSection";
+import InstitutionsSection from "@/components/home/InstitutionsSection";
+import LifeAtScaleSection from "@/components/home/LifeAtScaleSection";
 
 import {
   Carousel,
@@ -117,6 +120,15 @@ export default function HomePage() {
       <div className="why-scale-page">
         <WhyChooseSection />
       </div>
+
+      {/* Collaborate Section  */}
+      <CollaborateSection />
+      
+      {/* InstitutionsSection section   */}
+      <InstitutionsSection />
+      
+      {/* LifeAtScaleSection section  */}
+      <LifeAtScaleSection/>
 
     </div>
   );
