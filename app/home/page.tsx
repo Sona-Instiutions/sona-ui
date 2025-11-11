@@ -11,6 +11,7 @@ import NewsEventsSection from "@/components/home/NewsEventsSection";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 import IndustryLeadersSection from "@/components/home/IndustryLeadersSection";
 import LatestBlogsSection from "@/components/home/LatestBlogsSection";
+import CallToActionSection from "@/components/common/CallToActionSection";
 
 import {
   Carousel,
@@ -144,7 +145,11 @@ export default function HomePage() {
       <IndustryLeadersSection />
       
       {/* LatestBlogsSection section  */}
-      <LatestBlogsSection/>
+      <LatestBlogsSection />
+      
+      {/* CallToActionSection section  */}
+
+      <CallToActionSection bgColor="bg-yellow-500" />
 
     </div>
   );
