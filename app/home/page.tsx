@@ -8,6 +8,7 @@ import CollaborateSection from "@/components/home/CollaborateSection";
 import InstitutionsSection from "@/components/home/InstitutionsSection";
 import LifeAtScaleSection from "@/components/home/LifeAtScaleSection";
 import NewsEventsSection from "@/components/home/NewsEventsSection";
+import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 
 import {
   Carousel,
@@ -132,7 +133,10 @@ export default function HomePage() {
       <LifeAtScaleSection />
       
       {/* NewsEventsSection section  */}
-      <NewsEventsSection/>
+      <NewsEventsSection />
+      
+      {/* StudentStoriesSection section  */}
+      <StudentStoriesSection/>
 
     </div>
   );
