@@ -10,6 +10,7 @@ import LifeAtScaleSection from "@/components/home/LifeAtScaleSection";
 import NewsEventsSection from "@/components/home/NewsEventsSection";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 import IndustryLeadersSection from "@/components/home/IndustryLeadersSection";
+import LatestBlogsSection from "@/components/home/LatestBlogsSection";
 
 import {
   Carousel,
@@ -140,7 +141,10 @@ export default function HomePage() {
       <StudentStoriesSection />
       
       {/* IndustryLeadersSection section  */}
-      <IndustryLeadersSection/>
+      <IndustryLeadersSection />
+      
+      {/* LatestBlogsSection section  */}
+      <LatestBlogsSection/>
 
     </div>
   );
