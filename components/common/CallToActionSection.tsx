@@ -6,7 +6,7 @@ interface CallToActionProps {
 
 export default function CallToActionSection({ bgColor = "bg-yellow-600" }: CallToActionProps) {
     return (
-        <section className={`${bgColor} text-white py-20 relative overflow-hidden bg-opacity-20`}>
+        <section className={`${bgColor} text-white py-24 relative overflow-hidden bg-opacity-20`}>
             <div className="absolute inset-0 bg-black/20 bg-opacity-20"></div>
             <div className="container mx-auto px-6 text-center relative z-10 ">
                 <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
