@@ -94,6 +94,7 @@ export default function HomePage() {
         bgColor="bg-yellow-500"
         heading="Ready to Shape Your Future?"
         description="Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here."
+        
       />
 
     </div>

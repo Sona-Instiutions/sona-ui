@@ -4,12 +4,20 @@ interface CallToActionProps {
     bgColor?: string; // only color will change
     heading?: string;
     description?: string;
+    cta1?: string;
+    cta2?: string;
+    cta1Link?: string;
+    cta2Link?: string;
 }
 
 export default function CallToActionSection({
     bgColor = "bg-yellow-600",
     heading = "Ready to Shape Your Future?",
-    description = "Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here."
+    description = "Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here.",
+    cta1 = "Apply for Admission",
+    cta2 = "Schedule Campus Visit",
+    cta1Link = "#apply", // ✅ default link
+    cta2Link = "#visit",
 }: CallToActionProps) {
     return (
         <section className={`${bgColor} text-white py-24 relative overflow-hidden bg-opacity-20`}>
@@ -24,16 +32,16 @@ export default function CallToActionSection({
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                     <Link
-                        href="#apply"
+                        href={cta1Link}
                         className="bg-white text-yellow-700 font-semibold px-8 py-3 rounded-md shadow hover:bg-gray-100 transition"
                     >
-                        Apply for Admission
+                        {cta1}
                     </Link>
                     <Link
-                        href="#visit"
+                        href={cta2Link}
                         className="border border-white text-white font-semibold px-8 py-3 rounded-md transition-all duration-300 hover:bg-white hover:text-black"
                     >
-                        Schedule Campus Visit
+                        {cta2}
                     </Link>
                 </div>
             </div>
