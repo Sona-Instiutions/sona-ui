@@ -34,7 +34,7 @@ export default function CollaborateSection() {
 
   return (
     <section
-      className="relative bg-fixed bg-center bg-cover py-24 text-white"
+      className="relative bg-fixed bg-center bg-cover py-20 text-white"
       style={{ backgroundImage: "url('/images/collabarate-bg.webp')" }}
     >
       {/* Overlay */}
@@ -68,7 +68,7 @@ export default function CollaborateSection() {
         </div>
 
         {/* CTA Button */}
-        <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-md transition-all">
+        <button className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-md transition-all">
           Collaborate With Us
         </button>
       </div>

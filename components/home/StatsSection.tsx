@@ -12,7 +12,7 @@ export default function StatsSection() {
 
   return (
     <section
-      className="relative bg-fixed bg-center bg-cover py-24 text-white"
+      className="relative bg-fixed bg-center bg-cover py-20 text-white"
       style={{ backgroundImage: "url('/images/usp-bg.webp')" }}
     >
       <div className="absolute inset-0 bg-black/50" />

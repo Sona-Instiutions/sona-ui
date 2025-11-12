@@ -35,7 +35,7 @@ export default function LatestBlogsSection() {
   ];
 
   return (
-    <section className="py-24 bg-white text-center">
+    <section className="py-20 bg-white text-center">
       <div className="container mx-auto px-6">
         {/* Heading */}
         <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
@@ -84,7 +84,7 @@ export default function LatestBlogsSection() {
         </div>
 
         {/* CTA Button */}
-        <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-md transition">
+        <button className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-md transition">
           View All Articles
         </button>
       </div>

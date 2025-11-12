@@ -2,19 +2,24 @@ import Link from "next/link";
 
 interface CallToActionProps {
     bgColor?: string; // only color will change
+    heading?: string;
+    description?: string;
 }
 
-export default function CallToActionSection({ bgColor = "bg-yellow-600" }: CallToActionProps) {
+export default function CallToActionSection({
+    bgColor = "bg-yellow-600",
+    heading = "Ready to Shape Your Future?",
+    description = "Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here."
+}: CallToActionProps) {
     return (
         <section className={`${bgColor} text-white py-24 relative overflow-hidden bg-opacity-20`}>
             <div className="absolute inset-0 bg-black/20 bg-opacity-20"></div>
             <div className="container mx-auto px-6 text-center relative z-10 ">
                 <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
-                    Ready to Shape Your Future?
+                    {heading}{/* Ready to Shape Your Future? */}
                 </h2>
                 <p className="text-lg md:text-xl mb-10 opacity-90 max-w-3xl mx-auto">
-                    Join thousands of successful graduates who chose SCALE to transform
-                    their dreams into reality. Your journey to excellence starts here.
+                    {description}
                 </p>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6">
@@ -26,7 +31,7 @@ export default function CallToActionSection({ bgColor = "bg-yellow-600" }: CallT
                     </Link>
                     <Link
                         href="#visit"
-                        className="text-white font-semibold hover:underline"
+                        className="border border-white text-white font-semibold px-8 py-3 rounded-md transition-all duration-300 hover:bg-white hover:text-black"
                     >
                         Schedule Campus Visit
                     </Link>

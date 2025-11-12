@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Check } from "lucide-react"; // optional icons
 
 export default function AboutSection() {
     return (
@@ -20,7 +21,9 @@ export default function AboutSection() {
                     {/* Bullet points */}
                     <ul className="space-y-5 mb-10">
                         <li className="flex items-start gap-3">
-                            <div className="bg-yellow-400 rounded-full w-6 h-6 flex items-center justify-center text-white font-bold">✓</div>
+                            <div className="bg-yellow-400 rounded-full w-[26px] h-[26px] flex items-center justify-center text-white flex-shrink-0">
+                                <Check className="w-3.5 h-3.5" />
+                            </div>
                             <div>
                                 <h4 className="font-semibold text-gray-800">Industry-Aligned Curriculum</h4>
                                 <p className="text-sm text-gray-600">
@@ -30,7 +33,9 @@ export default function AboutSection() {
                         </li>
 
                         <li className="flex items-start gap-3">
-                            <div className="bg-yellow-400 rounded-full w-6 h-6 flex items-center justify-center text-white font-bold">✓</div>
+                            <div className="bg-yellow-400 rounded-full w-[26px] h-[26px] flex items-center justify-center text-white flex-shrink-0">
+                                <Check className="w-3.5 h-3.5" />
+                            </div>
                             <div>
                                 <h4 className="font-semibold text-gray-800">Global Partnerships</h4>
                                 <p className="text-sm text-gray-600">
@@ -40,7 +45,9 @@ export default function AboutSection() {
                         </li>
 
                         <li className="flex items-start gap-3">
-                            <div className="bg-yellow-400 rounded-full w-6 h-6 flex items-center justify-center text-white font-bold">✓</div>
+                            <div className="bg-yellow-400 rounded-full w-[26px] h-[26px] flex items-center justify-center text-white flex-shrink-0">
+                                <Check className="w-3.5 h-3.5" />
+                            </div>
                             <div>
                                 <h4 className="font-semibold text-gray-800">Future-Ready Skills</h4>
                                 <p className="text-sm text-gray-600">
@@ -50,7 +57,7 @@ export default function AboutSection() {
                         </li>
                     </ul>
 
-                    <button className="px-6 py-3 bg-blue-900 text-white font-semibold rounded-md hover:bg-blue-800 transition">
+                    <button className="cursor-pointer px-6 py-3 bg-blue-900 text-white font-semibold rounded-md hover:bg-blue-800 transition">
                         Discover Our Story
                     </button>
                 </div>

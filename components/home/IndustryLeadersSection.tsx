@@ -32,10 +32,10 @@ export default function IndustryLeadersSection() {
   ];
 
   const tags = [
-    { id: 1, text: "Internships", color: "bg-yellow-400 text-black" },
-    { id: 2, text: "Research Collaboration", color: "bg-yellow-400 text-black" },
-    { id: 3, text: "Campus Recruitment", color: "bg-yellow-400 text-black" },
-    { id: 4, text: "Guest Lectures", color: "bg-yellow-400 text-black" },
+    { id: 1, text: "Internships", color: "bg-yellow-400 text-black cursor-pointer" },
+    { id: 2, text: "Research Collaboration", color: "bg-yellow-400 text-black cursor-pointer" },
+    { id: 3, text: "Campus Recruitment", color: "bg-yellow-400 text-black cursor-pointer" },
+    { id: 4, text: "Guest Lectures", color: "bg-yellow-400 text-black cursor-pointer" },
   ];
 
   // State for active tab
@@ -47,7 +47,7 @@ export default function IndustryLeadersSection() {
   );
 
   return (
-    <section className="py-24 bg-gray-50 text-center">
+    <section className="py-20 bg-gray-50 text-center">
       <div className="container mx-auto px-6">
         {/* Heading */}
         <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
