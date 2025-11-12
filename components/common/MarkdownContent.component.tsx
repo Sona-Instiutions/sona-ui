@@ -21,9 +21,11 @@ export function MarkdownContent({ content, className, components }: MarkdownCont
   }
 
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]} components={components} className={className}>
-      {content}
-    </ReactMarkdown>
+    <div className={className}>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+        {content}
+      </ReactMarkdown>
+    </div>
   );
 }
 
