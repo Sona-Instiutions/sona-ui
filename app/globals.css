@@ -120,3 +120,15 @@
     @apply bg-background text-foreground;
   }
 }
+.why-scale-page .lg\:mx-0 {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.why-scale-page .bg-pattern {
+  background-image: radial-gradient(
+    circle at 25px 25px,
+    rgba(185, 28, 28, 0.08) 3px,
+    transparent 3px
+  );
+  background-size: 60px 60px;
+}
