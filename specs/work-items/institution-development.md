@@ -1,9 +1,10 @@
-# Work Item: Institution Detail & Banner Development
+# Work Item: Institution Detail Pages & Components Development
 
 **IDs:**
 
 - WI-001-UI-INSTITUTIONS — Create Dynamic Institution Detail Pages (`/institutions/[slug]`) _(Status: In Progress)_
 - WI-002-UI-INSTITUTION-BANNER — Create Institution Banner Component and API Integration _(Status: Completed)_  
+- WI-003-UI-INSTITUTIONS — Build value proposition hero section and hybrid rendering _(Status: In Progress)_
   **Priority:** High  
   **Milestone:** Phase 1 Foundation  
   **Owner:** Frontend Team
@@ -12,7 +13,7 @@
 
 ## Overview
 
-Develop the end-to-end institution detail experience, including server-side rendering, typed service layers, and the reusable hero banner module. The page consumes Strapi-powered data, renders metadata for SEO, and showcases the banner system with responsive design and accessibility baked in.
+Develop the comprehensive end-to-end institution detail experience, including server-side rendering, typed service layers, reusable hero banner module, and value proposition section. The page consumes Strapi-powered data, renders metadata for SEO, showcases the banner system with responsive design and accessibility baked in, and displays institution value propositions using customizable colors and responsive grids. All components support server-first rendering with optional client-side refetching.
 
 ---
 
@@ -32,10 +33,10 @@ Develop the end-to-end institution detail experience, including server-side rend
 
 #### Non-Functional Requirements
 
-- **Performance:** TTFB < 1s, FCP < 1.5s, responsive on mobile/tablet/desktop.
-- **Accessibility:** Semantic structure (`<header>`, `<main>`, `<footer>`), proper heading hierarchy, keyboard navigation, and screen reader support.
-- **Code Quality:** 100% TypeScript coverage, architecture decision adherence, ESLint clean, robust typed error handling.
-- **Developer Experience:** Clear service abstractions, reusable hooks/utilities, comprehensive JSDoc, and documented patterns.
+- **Performance:** TTFB < 1s, FCP < 1.5s, responsive on mobile/tablet/desktop, server-render initial HTML, limit client bundle size.
+- **Accessibility:** Semantic structure (`<header>`, `<main>`, `<footer>`), proper heading hierarchy, keyboard navigation, screen reader support, and sufficient color contrast.
+- **Code Quality:** 100% TypeScript coverage, architecture decision adherence, ESLint clean, robust typed error handling, zero lint warnings.
+- **Developer Experience:** Clear service abstractions, reusable hooks/utilities, comprehensive JSDoc, documented patterns, and normalized Strapi responses.
 
 ### Banner Module
 
@@ -52,6 +53,35 @@ Develop the end-to-end institution detail experience, including server-side rend
 - **Accessibility:** Maintain sufficient text contrast, follow heading hierarchy, include alt text, and ensure semantic markup.
 - **Code Quality:** TypeScript-safe props and responses, JSDoc coverage, Tailwind mobile-first approach per ADR 003, and extensible component design.
 - **Developer Experience:** Reusable banner component API, type-safe media handling, and readiness for future enhancements.
+
+### Value Proposition Section
+
+#### Functional Requirements
+
+- Fetch value proposition data server-side via `getValuePropositionByInstitution`.
+- Render section with:
+  - Background image + dark overlay (optional when image missing).
+  - Split title (`titlePrefix`, `titleHighlight`) with color overrides.
+  - Subtitle text.
+  - N proposition cards (1–6+) each with icon, colored title, markdown description.
+- Support hybrid rendering:
+  - Server component fetch wrapped in `Suspense` with skeleton fallback.
+  - Client utilities available for future refresh scenarios.
+- Integrate section after Programs on the institution page.
+- Gracefully handle missing data (null returns hide section).
+
+#### Non-Functional Requirements
+
+- **Performance:** Server-render initial HTML, limit client bundle size (cards remain server components).
+- **Mobile First:** Stack cards vertically on small screens, expand to responsive grids at ≥640px, ≥1024px, and beyond.
+- **Accessibility:** Maintain color contrast; provide ARIA labels for icons; proper heading hierarchy.
+- **Code Quality:** Typed responses, reusable color utilities, zero lint warnings, no new TypeScript errors.
+
+#### Developer Experience
+
+- New utilities (`applyColorStyle`, `getColorClassName`) to reuse color logic across sections.
+- Normalization helpers to keep Strapi responses strongly typed.
+- Work item documentation for onboarding.
 
 ---
 
@@ -74,6 +104,9 @@ Develop the end-to-end institution detail experience, including server-side rend
 │       └── institution.client.ts
 ├── types/
 │   └── institution.types.ts
+├── utils/
+│   ├── institution.utils.ts
+│   └── common.utils.ts
 ├── lib/
 │   └── axios.config.ts
 └── .env.example (updated)
@@ -81,11 +114,13 @@ Develop the end-to-end institution detail experience, including server-side rend
 
 #### File Locations
 
-- `types/institution.types.ts`
-- `services/server/institution.server.ts`
-- `services/client/institution.client.ts`
-- `app/institutions/[slug]/page.tsx`
-- `.env.local`
+- `types/institution.types.ts` — Shared types for institutions, banners, value propositions
+- `services/server/institution.server.ts` — Server-side service for fetching institution, banner, and value proposition data
+- `services/client/institution.client.ts` — Client-side TanStack Query hooks for refetching
+- `utils/institution.utils.ts` — Institution-specific normalization and query builders
+- `utils/common.utils.ts` — Color utilities and shared helpers
+- `app/institutions/[slug]/page.tsx` — Main page component
+- `.env.local` — Environment variables
 
 ### Banner Module
 
@@ -110,6 +145,91 @@ Develop the end-to-end institution detail experience, including server-side rend
   subtitle={institution.bannerSubtitle}
 />
 ```
+
+### Value Proposition Section
+
+#### Key Files
+
+```
+sona-ui/components/common/DecoratorLine.component.tsx
+sona-ui/components/common/SplitTitle.component.tsx
+sona-ui/components/institute/AchievementCard.component.tsx
+sona-ui/components/institute/InstitutionAchievements.component.tsx
+sona-ui/components/institute/RecognitionCard.component.tsx
+sona-ui/components/institute/InstitutionRecognitions.component.tsx
+sona-ui/components/institute/ValuePropositionCard.component.tsx
+sona-ui/components/institute/InstitutionValueProposition.component.tsx
+sona-ui/services/server/institution.server.ts
+sona-ui/services/client/institution.client.ts
+sona-ui/utils/institution.utils.ts
+sona-ui/utils/common.utils.ts
+```
+
+#### Data Flow
+
+- Server component awaits `getValuePropositionByInstitution`.
+- Normalization sorts propositions by `order` (falling back to title).
+- Optional client hook `useValueProposition` mirrors server fetch for future interactivity.
+
+#### Styling
+
+- Tailwind classes ensure mobile-first layout, overlay styling, and card design.
+- Cards use glassmorphism effect (`bg-black/20`, backdrop blur) for readability.
+
+#### Color Handling
+
+- Supports raw CSS colors (hex, rgba) and Tailwind `text-*` tokens.
+- Default fallback colors applied when values are empty or invalid.
+- Utilities: `applyColorStyle`, `getColorClassName` in `common.utils.ts`.
+
+#### Component Usage
+
+```typescript
+<Suspense fallback={<ValuePropositionSkeleton />}>
+  <InstitutionValueProposition
+    institution={institution}
+  />
+</Suspense>
+```
+
+### Achievements Section
+
+#### Data Flow
+
+- Server component `InstitutionAchievements` awaits `getAchievementsByInstitution`.
+- Normalization ensures statistic cards are sorted by `order` and provides defaults.
+- Client hook `useAchievementsByInstitution` mirrors the server fetch when interactive refresh is required.
+
+#### Styling
+
+- Mobile-first layout with responsive grid (1 → 2 → 4 columns).
+- Uses `DecoratorLine` and `SplitTitle` for consistent heading treatment.
+- `AchievementCard` emphasizes statistics with amber accents and subtle elevation.
+
+#### Content Handling
+
+- Section description rendered via `react-markdown` with GFM support.
+- Cards accept plain text descriptions with optional ordering.
+- Skeleton state mirrors final layout for smooth Suspense transitions.
+
+### Recognition Section
+
+#### Data Flow
+
+- Server component `InstitutionRecognitions` awaits `getRecognitionsByInstitution` and handles background color overrides.
+- Client hook `useRecognitionsByInstitution` supports future client-side refresh scenarios.
+
+#### Styling
+
+- Section background color derived from Strapi (`bg-*` tokens or raw CSS colors).
+- Decorative overlay ensures text contrast on dark backgrounds.
+- `RecognitionCard` uses `IconBadge` for consistent iconography and glassmorphism.
+
+#### Content Handling
+
+- Icons leverage badge metadata (`iconName`, optional colors, display name for aria labels).
+- Grid adapts from single column on mobile to three columns on desktop.
+- Skeleton variant mirrors card layout with translucent placeholders.
 
 ---
 
@@ -138,6 +258,41 @@ Develop the end-to-end institution detail experience, including server-side rend
 4. [x] Implement `InstitutionBanner.component.tsx` with responsive design and accessibility.
 5. [x] Integrate banner into the institution page and remove legacy hero.
 6. [x] Verify responsive layout, contrast, and error handling for missing data.
+
+### Value Proposition Section
+
+1. [ ] Extend shared types with value proposition interfaces and normalized variants.
+2. [ ] Add query/normalization helpers (`buildValuePropositionQuery`, `normalizeValuePropositionRecord`).
+3. [ ] Create color utilities in `common.utils.ts` (`applyColorStyle`, `getColorClassName`).
+4. [ ] Build `ValuePropositionCard` with markdown support and icon badge integration.
+5. [ ] Implement server-first `InstitutionValueProposition` component with Suspense skeleton.
+6. [ ] Wire section into `app/institutions/[slug]/page.tsx` after programs.
+7. [ ] Test with 1–6+ propositions across responsive breakpoints.
+8. [ ] Validate color contrast and accessibility.
+9. [ ] Run `npm run lint` and remediate issues.
+10. [ ] Update documentation (this file + backend counterpart).
+
+### Achievements Section
+
+1. [ ] Extend shared types and normalizers for achievements (`normalizeAchievementRecord`).
+2. [ ] Implement server fetch (`getAchievementsByInstitution`) and client hook.
+3. [ ] Build `AchievementCard` and `InstitutionAchievements` with Suspense skeleton.
+4. [ ] Leverage `DecoratorLine` and `SplitTitle` for heading treatment.
+5. [ ] Test responsive grid layouts (1–4 cards) and markdown description rendering.
+
+### Recognition Section
+
+1. [ ] Extend shared types and normalizers for recognition sections (`normalizeRecognitionSectionRecord`).
+2. [ ] Implement server fetch (`getRecognitionsByInstitution`) and client hook.
+3. [ ] Build `RecognitionCard` and `InstitutionRecognitions` with Suspense skeleton.
+4. [ ] Support background color overrides (Tailwind tokens + raw CSS colors).
+5. [ ] Validate icon badge rendering and responsive grid (1–3 cards).
+
+### Shared Components
+
+1. [ ] Extract `DecoratorLine.component.tsx` for reusable section decoration.
+2. [ ] Introduce `SplitTitle.component.tsx` for color-aware heading splits.
+3. [ ] Refactor `SectionHeader` to consume `DecoratorLine`.
 
 ---
 
@@ -168,6 +323,31 @@ Develop the end-to-end institution detail experience, including server-side rend
 - [x] Component props and media handling fully typed.
 - [x] Accessibility (contrast, alt text, semantics) validated.
 
+### Value Proposition Section
+
+- [ ] `/institutions/[slug]` renders the value proposition section with server-rendered HTML.
+- [ ] Section gracefully handles 1–6+ propositions without layout breakage.
+- [ ] Color overrides reflect Strapi inputs (validated fallback to defaults).
+- [ ] Skeleton fallback appears when Suspense delays resolution.
+- [ ] No new TypeScript or ESLint errors.
+- [ ] Documentation updated with setup, usage, and testing guidance.
+
+### Achievements Section
+
+- [ ] `/institutions/[slug]` renders the achievements section with statistic cards.
+- [ ] Markdown description renders with typography utilities.
+- [ ] Cards handle 1–4 statistics without layout issues.
+- [ ] Suspense skeleton matches final layout and a11y requirements.
+- [ ] Documentation updated with usage guidance and service references.
+
+### Recognition Section
+
+- [ ] `/institutions/[slug]` renders the recognition section with icon badges.
+- [ ] Custom background colors apply via Tailwind tokens or raw CSS values.
+- [ ] Grid adapts across breakpoints (mobile, tablet, desktop) without overflow.
+- [ ] Icon badges surface aria labels from icon metadata.
+- [ ] Documentation updated with usage guidance and service references.
+
 ---
 
 ## Testing Checklist
@@ -188,6 +368,32 @@ Develop the end-to-end institution detail experience, including server-side rend
 - Missing banner image raises actionable error messaging.
 - Absolute image URL construction validated for various Strapi deployments.
 
+### Value Proposition Section
+
+- [ ] Populate value propositions in Strapi (varied colors and proposition counts).
+- [ ] Verify server-rendered HTML includes proposition content.
+- [ ] Confirm responsive layout across 320px, 640px, 1024px, 1440px breakpoints.
+- [ ] Validate color contrast manually for custom values.
+- [ ] Test scenario with >4 propositions (e.g., 6 items) to ensure wrapping.
+- [ ] Confirm fallback behavior when background image missing.
+- [ ] Inspect skeleton fallback by introducing artificial delay (e.g., throttling).
+
+### Achievements Section
+
+- [ ] Seed achievement cards (1–4 items) and verify server-rendered HTML.
+- [ ] Confirm markdown description renders with expected typography.
+- [ ] Validate statistic typography and spacing across breakpoints.
+- [ ] Test Suspense skeleton while throttling network responses.
+- [ ] Ensure statistic text remains accessible with sufficient contrast.
+
+### Recognition Section
+
+- [ ] Seed recognition items with varied icon badges and background colors.
+- [ ] Validate responsive grid across 320px, 640px, 1024px breakpoints.
+- [ ] Confirm custom background colors render correctly for Tailwind tokens and raw hex values.
+- [ ] Verify icon badges expose aria labels sourced from badge metadata.
+- [ ] Test Suspense skeleton for layout stability.
+
 ---
 
 ## Architecture Alignment
@@ -204,8 +410,11 @@ Develop the end-to-end institution detail experience, including server-side rend
 
 ## Dependencies
 
-- Strapi backend with enhanced institution schema and banner fields.
-- Backend work item `sona-be/specs/work-items/institution-development.md`.
+- Strapi backend with enhanced institution schema, banner fields, and value proposition data model.
+- Backend work items:
+  - `sona-be/specs/work-items/institution-development.md`
+  - `sona-be/specs/work-items/institution-banner-development.md`
+  - `sona-be/specs/work-items/value-proposition-development.md`
 - Environment variables configured in `.env.local`.
 - Next.js 16 with React 19 server components, Tailwind CSS v4, TypeScript, TanStack Query.
 
@@ -218,6 +427,7 @@ Develop the end-to-end institution detail experience, including server-side rend
 - `sona-be/specs/work-items/institution-development.md`
 - `sona-be/specs/work-items/institution-banner-development.md`
 - `sona-be/specs/work-items/institution-banner-api-development.md`
+- `sona-be/specs/work-items/value-proposition-development.md`
 - `sona-be/specs/blueprints/institution-api-reference.md`
 
 ---
@@ -231,3 +441,5 @@ Develop the end-to-end institution detail experience, including server-side rend
 - Test with slugs containing special characters (UID should sanitize but verify).
 - Document custom styling or media handling decisions for future contributors.
 - Future banner enhancements could include animations, additional variants, or image optimization strategies.
+- Value propositions section integrates seamlessly after the programs section on the institution page.
+- Color handling should support both raw CSS colors and Tailwind tokens for maximum flexibility.

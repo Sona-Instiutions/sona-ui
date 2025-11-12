@@ -99,9 +99,7 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
     <section className='w-full bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12'>
       <div className='mx-auto flex w-full max-w-6xl flex-col gap-10 lg:flex-row lg:items-stretch'>
         <div className='flex flex-1 flex-col justify-center space-y-6'>
-          {hasText(about?.title) && (
-            <SectionHeader title={about?.title ?? ""} />
-          )}
+          {hasText(about?.title) && <SectionHeader title={about?.title ?? ""} />}
 
           {hasText(about?.description) && (
             <div className='space-y-4'>
@@ -162,7 +160,7 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
             </div>
 
             {hasBadge && (
-              <div className='absolute -bottom-10 right-[-20px] lg:right-[-40px] lg:bottom-15'>
+              <div className='absolute -bottom-10 right-[-20px] lg:right-[-40px] lg:-bottom-15'>
                 <AboutBadge value={about?.badgeValue} text={about?.badgeText} color={about?.badgeColor} />
               </div>
             )}

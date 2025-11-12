@@ -1,5 +1,16 @@
+import { isAxiosError } from "axios";
+
 import { axiosInstance } from "@/lib/axios.config";
-import { buildProgramSectionsQuery, normalizeProgramRecord } from "@/utils/institution.utils";
+import {
+  buildAchievementQuery,
+  buildProgramSectionsQuery,
+  buildRecognitionSectionQuery,
+  buildValuePropositionQuery,
+  normalizeAchievementRecord,
+  normalizeProgramRecord,
+  normalizeRecognitionSectionRecord,
+  normalizeValuePropositionRecord,
+} from "@/utils/institution.utils";
 import {
   IInstitution,
   IInstitutionResponse,
@@ -7,6 +18,12 @@ import {
   INormalizedInstitution,
   IProgramsResponse,
   INormalizedProgram,
+  INormalizedValueProposition,
+  IValuePropositionResponse,
+  INormalizedAchievement,
+  INormalizedRecognitionSection,
+  IAchievementResponse,
+  IRecognitionSectionResponse,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
@@ -120,11 +137,137 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
       bannerImage: normalizeStrapiMedia(institution.bannerImage),
       aboutInstitute: null,
       program: null,
+      valueProposition: null,
+      achievements: null,
+      recognitions: null,
     };
 
     return normalizedInstitution;
   } catch (error) {
     // Re-throw normalized errors from axios config
+    throw error;
+  }
+}
+
+/**
+ * Fetch value proposition associated with an institution (server-only).
+ */
+export async function getValuePropositionByInstitution(
+  institutionId: number
+): Promise<INormalizedValueProposition | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get<IValuePropositionResponse>(
+      `/api/value-propositions?${buildValuePropositionQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalized = normalizeValuePropositionRecord(response.data.data[0]);
+
+    return normalized ?? null;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status ?? 500;
+
+      if (status >= 400 && status < 500) {
+        return null;
+      }
+
+      throw {
+        status,
+        message: error.message,
+        details: error.response?.data ?? {},
+      } as IApiError;
+    }
+
+    throw error;
+  }
+}
+
+/**
+ * Fetch achievements associated with an institution (server-only).
+ */
+export async function getAchievementsByInstitution(
+  institutionId: number
+): Promise<INormalizedAchievement | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get<IAchievementResponse>(
+      `/api/achievements?${buildAchievementQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalized = normalizeAchievementRecord(response.data.data[0]);
+
+    return normalized ?? null;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status ?? 500;
+
+      if (status >= 400 && status < 500) {
+        return null;
+      }
+
+      throw {
+        status,
+        message: error.message,
+        details: error.response?.data ?? {},
+      } as IApiError;
+    }
+
+    throw error;
+  }
+}
+
+/**
+ * Fetch recognition section associated with an institution (server-only).
+ */
+export async function getRecognitionsByInstitution(
+  institutionId: number
+): Promise<INormalizedRecognitionSection | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get<IRecognitionSectionResponse>(
+      `/api/recognition-sections?${buildRecognitionSectionQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalized = normalizeRecognitionSectionRecord(response.data.data[0]);
+
+    return normalized ?? null;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status ?? 500;
+
+      if (status >= 400 && status < 500) {
+        return null;
+      }
+
+      throw {
+        status,
+        message: error.message,
+        details: error.response?.data ?? {},
+      } as IApiError;
+    }
+
     throw error;
   }
 }
