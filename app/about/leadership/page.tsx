@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BreadcrumbBanner from "@/components/common/BreadcrumbBanner";
+import LeadershipSection from "@/components/aboutus/leadership/LeaderProfile";
 import CallToActionSection from "@/components/common/CallToActionSection";
 
 
@@ -38,7 +39,8 @@ export default function HomePage() {
                 backgroundImage="/images/aboutus-banner.webp"
             />
 
-
+            {/* LeadershipSection Section  */}
+            <LeadershipSection/>
 
             {/* CallToActionSection section  */}
 
