@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import BreadcrumbBanner from "@/components/common/BreadcrumbBanner";
+import MainBanner from "@/components/common/MainBannerSection";
 import LeadershipSection from "@/components/aboutus/leadership/LeaderProfile";
+import ExecutiveLeadershipSection from "@/components/aboutus/leadership/ExecutiveLeadershipSection";
 import CallToActionSection from "@/components/common/CallToActionSection";
 
 
@@ -32,7 +33,7 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-white">
             {/* BreadcrumbBanner Section  */}
-            <BreadcrumbBanner
+            <MainBanner
                 title="Visionary Leadership"
                 highlight="Leadership"
                 description="Meet the exceptional leaders who guide our institution toward excellence in education, research, and innovation."
@@ -40,14 +41,20 @@ export default function HomePage() {
             />
 
             {/* LeadershipSection Section  */}
-            <LeadershipSection/>
+            <LeadershipSection />
+
+            {/* ExecutiveLeadershipSection Section  */}
+            <ExecutiveLeadershipSection />
 
             {/* CallToActionSection section  */}
-
             <CallToActionSection
                 bgColor="bg-yellow-500"
-                heading="Ready to Shape Your Future?"
-                description="Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here."
+                heading="Leadership Excellence"
+                description="Experience the difference that visionary leadership makes. Join an institution where excellence is not just an aspiration, but a daily reality guided by exceptional leaders."
+                cta1="Meet Our Faculty"
+                cta2="Join Our Team"
+                cta1Link="#apply"
+                cta2Link="#visit"
 
             />
 
