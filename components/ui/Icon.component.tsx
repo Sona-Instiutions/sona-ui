@@ -1,3 +1,5 @@
+'use client';
+
 import { FacebookLogo, InstagramLogo, LinkedinLogo, List, Phone, YoutubeLogo } from "phosphor-react";
 import * as React from "react";
 

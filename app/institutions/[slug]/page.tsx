@@ -4,7 +4,9 @@ import { getInstitutionBySlug } from "@/services/server/institution.server";
 import { IApiError } from "@/types/institution.types";
 import { InstitutionBanner } from "@/components/common/InstitutionBanner.component";
 import { InstitutionAbout } from "@/components/institute/InstitutionAbout.component";
+import { InstitutionAchievements } from "@/components/institute/InstitutionAchievements.component";
 import { InstitutionPrograms } from "@/components/institute/InstitutionPrograms.component";
+import { InstitutionValueProposition } from "@/components/institute/InstitutionValueProposition.component";
 
 interface InstitutionPageParams {
   slug: string;
@@ -93,6 +95,11 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* Programs section showcasing institution offerings */}
         <InstitutionPrograms institutionId={institution.id} />
+        {/* Achievements section highlighting institutional metrics */}
+        <InstitutionAchievements institutionId={institution.id} />
+
+        {/* Value Proposition section highlighting institutional advantages */}
+        <InstitutionValueProposition institutionId={institution.id} />
       </main>
     </div>
   );

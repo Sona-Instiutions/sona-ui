@@ -104,6 +104,12 @@ export interface IInstitution {
   /** Optional related program when populated */
   program?: IProgram | null;
 
+  /** Optional achievements section when populated */
+  achievements?: IAchievement | null;
+
+  /** Optional recognition section when populated */
+  recognitions?: IRecognitionSection | null;
+
   /** ISO 8601 timestamp of creation */
   createdAt: string;
 
@@ -127,6 +133,15 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
 
   /** Related program normalized or null */
   program?: INormalizedProgram | null;
+
+  /** Related value proposition normalized or null */
+  valueProposition?: INormalizedValueProposition | null;
+
+  /** Related achievement section normalized or null */
+  achievements?: INormalizedAchievement | null;
+
+  /** Related recognition section normalized or null */
+  recognitions?: INormalizedRecognitionSection | null;
 }
 
 /** Program entity describing the overall offering for an institution */
@@ -189,6 +204,266 @@ export interface IProgramSection {
   updatedAt: string;
 }
 
+/** Value proposition item describing a core advantage */
+export interface IValuePropositionItem {
+  /** Unique item identifier */
+  id: number;
+
+  /** Value proposition headline */
+  title: string;
+
+  /** Optional color value or class for the title */
+  titleColor?: string | null;
+
+  /** Markdown-enabled description content */
+  description?: string | null;
+
+  /** Associated icon badge */
+  icon?: IIconBadge | number | null;
+
+  /** Optional order to control display priority */
+  order?: number | null;
+
+  /** Related value proposition reference */
+  valueProposition?: number | IValueProposition | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Value proposition section entity */
+export interface IValueProposition {
+  /** Unique section identifier */
+  id: number;
+
+  /** Optional title prefix (e.g., \"Why Choose\") */
+  titlePrefix?: string | null;
+
+  /** Optional color value or class for the title prefix */
+  titlePrefixColor?: string | null;
+
+  /** Optional highlighted portion of the title */
+  titleHighlight?: string | null;
+
+  /** Optional color value or class for the title highlight */
+  titleHighlightColor?: string | null;
+
+  /** Supporting subtitle copy */
+  subtitle?: string | null;
+
+  /** Background image for the section */
+  backgroundImage?: IStrapiMedia | null;
+
+  /** Related propositions when populated */
+  propositions?: IValuePropositionItem[] | null;
+
+  /** Related institution reference */
+  institution?: number | IInstitution | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** API response for value proposition queries */
+export interface IValuePropositionResponse {
+  data: IValueProposition[];
+  meta: Record<string, unknown>;
+}
+
+/** Normalized value proposition item with defaults applied */
+export interface INormalizedValuePropositionItem
+  extends Omit<IValuePropositionItem, "description" | "icon" | "titleColor"> {
+  /** Markdown description normalized to string */
+  description: string;
+
+  /** Icon badge guaranteed to be populated or null */
+  icon: IIconBadge | null;
+
+  /** Title color normalized to string or null */
+  titleColor: string | null;
+}
+
+/** Normalized value proposition section */
+export interface INormalizedValueProposition
+  extends Omit<IValueProposition, "backgroundImage" | "propositions" | "titlePrefixColor" | "titleHighlightColor"> {
+  /** Background image guaranteed or null */
+  backgroundImage: IStrapiMedia | null;
+
+  /** Title prefix color normalized to string or null */
+  titlePrefixColor: string | null;
+
+  /** Title highlight color normalized to string or null */
+  titleHighlightColor: string | null;
+
+  /** Related propositions normalized to an array */
+  propositions: INormalizedValuePropositionItem[];
+}
+
+/** Achievement statistic card */
+export interface IAchievementItem {
+  /** Unique card identifier */
+  id: number;
+
+  /** Primary metric or number (e.g., 15K+) */
+  statistic: string;
+
+  /** Card headline */
+  title: string;
+
+  /** Supporting description text */
+  description?: string | null;
+
+  /** Optional order for manual sorting */
+  order?: number | null;
+
+  /** Related achievement section reference */
+  achievement?: number | IAchievement | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Achievement section entity */
+export interface IAchievement {
+  /** Unique section identifier */
+  id: number;
+
+  /** Optional title prefix (e.g., Tech School) */
+  titlePrefix?: string | null;
+
+  /** Optional color token for title prefix */
+  titlePrefixColor?: string | null;
+
+  /** Optional highlighted title segment */
+  titleHighlight?: string | null;
+
+  /** Optional color token for title highlight */
+  titleHighlightColor?: string | null;
+
+  /** Markdown/HTML enabled description */
+  description?: string | null;
+
+  /** Related achievement cards when populated */
+  achievements?: IAchievementItem[] | null;
+
+  /** Related institution reference */
+  institution?: number | IInstitution | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Normalized achievement card */
+export interface INormalizedAchievementItem extends Omit<IAchievementItem, "description" | "order" | "achievement"> {
+  /** Description normalized to string */
+  description: string;
+
+  /** Order normalized to number or null */
+  order: number | null;
+}
+
+/** Normalized achievement section */
+export interface INormalizedAchievement
+  extends Omit<IAchievement, "achievements" | "titlePrefixColor" | "titleHighlightColor" | "institution"> {
+  /** Title prefix color normalized */
+  titlePrefixColor: string | null;
+
+  /** Title highlight color normalized */
+  titleHighlightColor: string | null;
+
+  /** Description normalized */
+  description: string | null;
+
+  /** Array of normalized cards */
+  achievements: INormalizedAchievementItem[];
+}
+
+/** Recognition card describing awards or partnerships */
+export interface IRecognitionItem {
+  /** Unique card identifier */
+  id: number;
+
+  /** Related icon badge */
+  icon?: IIconBadge | number | null;
+
+  /** Recognition title */
+  title: string;
+
+  /** Supporting description */
+  description?: string | null;
+
+  /** Optional manual order */
+  order?: number | null;
+
+  /** Related recognition section reference */
+  recognitionSection?: number | IRecognitionSection | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Recognition section entity */
+export interface IRecognitionSection {
+  /** Unique section identifier */
+  id: number;
+
+  /** Section title (e.g., Industry Recognition) */
+  title: string;
+
+  /** Optional hex or token for background color */
+  backgroundColor?: string | null;
+
+  /** Related recognition cards when populated */
+  recognitions?: IRecognitionItem[] | null;
+
+  /** Related institution reference */
+  institution?: number | IInstitution | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Normalized recognition card */
+export interface INormalizedRecognitionItem
+  extends Omit<IRecognitionItem, "icon" | "description" | "order" | "recognitionSection"> {
+  /** Icon badge normalized */
+  icon: IIconBadge | null;
+
+  /** Description normalized */
+  description: string | null;
+
+  /** Order normalized */
+  order: number | null;
+}
+
+/** Normalized recognition section */
+export interface INormalizedRecognitionSection
+  extends Omit<IRecognitionSection, "recognitions" | "backgroundColor" | "institution"> {
+  /** Background color normalized */
+  backgroundColor: string | null;
+
+  /** Array of normalized recognition cards */
+  recognitions: INormalizedRecognitionItem[];
+}
+
 /** Type alias for institution slug with validation */
 export type TInstitutionSlug = string & { readonly __brand: "InstitutionSlug" };
 
@@ -224,6 +499,18 @@ export interface IProgramsResponse {
   };
 }
 
+/** API response for achievement section queries */
+export interface IAchievementResponse {
+  data: IAchievement[];
+  meta: Record<string, unknown>;
+}
+
+/** API response for recognition section queries */
+export interface IRecognitionSectionResponse {
+  data: IRecognitionSection[];
+  meta: Record<string, unknown>;
+}
+
 /** Normalized program section entity with defaulted optional fields */
 export interface INormalizedProgramSection
   extends Omit<
@@ -250,8 +537,7 @@ export interface INormalizedProgramSection
 }
 
 /** Normalized program entity with related sections */
-export interface INormalizedProgram
-  extends Omit<IProgram, "description" | "sections" | "institution"> {
+export interface INormalizedProgram extends Omit<IProgram, "description" | "sections" | "institution"> {
   /** Program description normalized to string or null */
   description: string | null;
 

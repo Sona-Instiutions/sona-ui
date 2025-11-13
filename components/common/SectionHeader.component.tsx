@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { DecoratorLine } from "@/components/common/DecoratorLine.component";
 
 type SectionHeaderAlignment = "left" | "center";
 
@@ -11,17 +12,9 @@ interface SectionHeaderProps {
   className?: string;
 }
 
-const LINE_BASE_CLASS =
-  "inline-block h-1.5 w-32 rounded-full bg-linear-to-r from-transparent via-blue-800 to-transparent shadow-sm";
-
 const ALIGNMENT_CLASS_MAP: Record<SectionHeaderAlignment, string> = {
   left: "items-start text-left",
   center: "items-center text-center",
-};
-
-const LINE_ALIGNMENT_MAP: Record<SectionHeaderAlignment, string> = {
-  left: "",
-  center: "mx-auto",
 };
 
 /**
@@ -30,7 +23,7 @@ const LINE_ALIGNMENT_MAP: Record<SectionHeaderAlignment, string> = {
 export function SectionHeader({ title, align = "center", className }: SectionHeaderProps) {
   return (
     <div className={cn("flex flex-col gap-3", ALIGNMENT_CLASS_MAP[align], className)}>
-      <span className={cn(LINE_BASE_CLASS, LINE_ALIGNMENT_MAP[align])} aria-hidden />
+      <DecoratorLine align={align} />
       <h2 className='text-2xl font-semibold sm:text-3xl md:text-4xl'>{title}</h2>
     </div>
   );

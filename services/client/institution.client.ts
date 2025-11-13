@@ -8,14 +8,30 @@
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
 import axiosInstance from "@/lib/axios.config";
-import { buildProgramSectionsQuery, normalizeIconBadge, normalizeProgramRecord } from "@/utils/institution.utils";
+import {
+  buildAchievementQuery,
+  buildProgramSectionsQuery,
+  buildRecognitionSectionQuery,
+  buildValuePropositionQuery,
+  normalizeAchievementRecord,
+  normalizeIconBadge,
+  normalizeProgramRecord,
+  normalizeRecognitionSectionRecord,
+  normalizeValuePropositionRecord,
+} from "@/utils/institution.utils";
 import type {
   IAboutInstitute,
   IAboutInstituteResponse,
   IApiError,
   IBulletItem,
+  IAchievementResponse,
+  INormalizedAchievement,
   INormalizedProgram,
+  INormalizedRecognitionSection,
+  INormalizedValueProposition,
   IProgramsResponse,
+  IRecognitionSectionResponse,
+  IValuePropositionResponse,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
@@ -156,7 +172,9 @@ export const useAboutInstitute = ({ institutionId }: UseAboutInstituteOptions) =
 };
 
 const fetchProgramByInstitution = async (institutionId: number): Promise<INormalizedProgram | null> => {
-  const response = await axiosInstance.get<IProgramsResponse>(`/api/programs?${buildProgramSectionsQuery(institutionId)}`);
+  const response = await axiosInstance.get<IProgramsResponse>(
+    `/api/programs?${buildProgramSectionsQuery(institutionId)}`
+  );
 
   if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
     return null;
@@ -181,4 +199,93 @@ export const useProgramByInstitution = ({ institutionId }: UseProgramsOptions) =
   });
 };
 
-export { fetchProgramByInstitution };
+const fetchValueProposition = async (institutionId: number): Promise<INormalizedValueProposition | null> => {
+  const response = await axiosInstance.get<IValuePropositionResponse>(
+    `/api/value-propositions?${buildValuePropositionQuery(institutionId)}`
+  );
+
+  if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+    return null;
+  }
+
+  return normalizeValuePropositionRecord(response.data.data[0]);
+};
+
+interface UseValuePropositionOptions {
+  institutionId?: number | null;
+}
+
+export const useValueProposition = ({ institutionId }: UseValuePropositionOptions) => {
+  const enabled = typeof institutionId === "number" && institutionId > 0;
+
+  return useQuery<INormalizedValueProposition | null, IApiError>({
+    queryKey: ["institutions", institutionId ?? "unknown", "value-proposition"],
+    queryFn: () => fetchValueProposition(institutionId as number),
+    enabled,
+    placeholderData: keepPreviousData,
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+const fetchAchievementsByInstitution = async (institutionId: number): Promise<INormalizedAchievement | null> => {
+  const response = await axiosInstance.get<IAchievementResponse>(
+    `/api/achievements?${buildAchievementQuery(institutionId)}`
+  );
+
+  if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+    return null;
+  }
+
+  return normalizeAchievementRecord(response.data.data[0]);
+};
+
+interface UseAchievementsOptions {
+  institutionId?: number | null;
+}
+
+export const useAchievementsByInstitution = ({ institutionId }: UseAchievementsOptions) => {
+  const enabled = typeof institutionId === "number" && institutionId > 0;
+
+  return useQuery<INormalizedAchievement | null, IApiError>({
+    queryKey: ["institutions", institutionId ?? "unknown", "achievements"],
+    queryFn: () => fetchAchievementsByInstitution(institutionId as number),
+    enabled,
+    placeholderData: keepPreviousData,
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+const fetchRecognitionsByInstitution = async (institutionId: number): Promise<INormalizedRecognitionSection | null> => {
+  const response = await axiosInstance.get<IRecognitionSectionResponse>(
+    `/api/recognition-sections?${buildRecognitionSectionQuery(institutionId)}`
+  );
+
+  if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+    return null;
+  }
+
+  return normalizeRecognitionSectionRecord(response.data.data[0]);
+};
+
+interface UseRecognitionsOptions {
+  institutionId?: number | null;
+}
+
+export const useRecognitionsByInstitution = ({ institutionId }: UseRecognitionsOptions) => {
+  const enabled = typeof institutionId === "number" && institutionId > 0;
+
+  return useQuery<INormalizedRecognitionSection | null, IApiError>({
+    queryKey: ["institutions", institutionId ?? "unknown", "recognitions"],
+    queryFn: () => fetchRecognitionsByInstitution(institutionId as number),
+    enabled,
+    placeholderData: keepPreviousData,
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+export {
+  fetchProgramByInstitution,
+  fetchValueProposition,
+  fetchAchievementsByInstitution,
+  fetchRecognitionsByInstitution,
+};
