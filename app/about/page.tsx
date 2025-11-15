@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import AboutBanner from "@/components/aboutus/AboutBanner";
+import MainBanner from "@/components/common/MainBannerSection";
+import PioneeringExcellenceSection from "@/components/aboutus/PioneeringExcellenceSection";
+import SonaVelliappaLegacySection from "@/components/aboutus/SonaVelliappaLegacySection";
+import TeachingApproachSection from "@/components/aboutus/TeachingApproachSection";
+import GlobalPartnershipsSection from "@/components/aboutus/GlobalPartnershipsSection";
+import CallToActionSection from "@/components/common/CallToActionSection";
 
 export const metadata: Metadata = {
   title: "SONA Institutions | Home",
@@ -28,8 +33,38 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* AboutBanner section */}
-      <AboutBanner />
+      {/* Banner Section */}
+      <MainBanner
+        title="About SCALE"
+        highlight="SCALE"
+        description="Shaping Tomorrow's Innovators Today"
+        backgroundImage="/images/aboutus-banner.webp"
+      />
+
+      {/* PioneeringExcellenceSection Section  */}
+      <PioneeringExcellenceSection />
+
+      {/* SonaVelliappaLegacySection Section  */}
+      <SonaVelliappaLegacySection />
+
+      {/* TeachingApproachSection Section  */}
+      <TeachingApproachSection />
+
+      {/* GlobalPartnershipsSection Section  */}
+      <GlobalPartnershipsSection />
+
+      {/* CallToActionSection section  */}
+      <CallToActionSection
+        bgColor="bg-red-700"
+        heading="Ready to Join Our Legacy?"
+        description="Become part of SCALE's transformative educational journey and shape your future with us. Experience excellence, innovation, and global opportunities."
+        cta1="Apply for Admission"
+        cta2="Schedule Campus Visit"
+        cta1Link="#apply"
+        cta2Link="#visit"
+
+      />
+
     </div>
   );
 }

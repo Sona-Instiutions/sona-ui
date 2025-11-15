@@ -1,0 +1,96 @@
+import { GraduationCap, FlaskConical, Rocket, Globe } from "lucide-react";
+
+export default function SonaVelliappaLegacySection() {
+  const items = [
+    {
+      id: 1,
+      icon: <GraduationCap className="w-7 h-7 text-yellow-400" />,
+      title: "Educational Pioneer",
+      description:
+        "Sona Velliappa’s visionary leadership established a foundation of academic excellence that has educated over 100,000 students across multiple disciplines.",
+      highlight: "1947",
+      subtext: "Foundation Year",
+    },
+    {
+      id: 2,
+      icon: <FlaskConical className="w-7 h-7 text-yellow-400" />,
+      title: "Research Innovation",
+      description:
+        "Pioneering research initiatives in engineering, medicine, and technology have resulted in over 500 patents and breakthrough innovations.",
+      highlight: "500+",
+      subtext: "Patents Filed",
+    },
+    {
+      id: 3,
+      icon: <Rocket className="w-7 h-7 text-yellow-400" />,
+      title: "ISRO Collaboration",
+      description:
+        "Strategic partnership with ISRO for Chandrayaan missions, contributing to India's space exploration achievements and satellite technology advancement.",
+      highlight: "15+",
+      subtext: "Space Projects",
+    },
+    {
+      id: 4,
+      icon: <Globe className="w-7 h-7 text-yellow-400" />,
+      title: "Global Impact",
+      description:
+        "International recognition and partnerships with leading universities worldwide, establishing SCALE as a globally respected educational institution.",
+      highlight: "50+",
+      subtext: "Global Partners",
+    },
+  ];
+
+  return (
+    <section
+      className="relative bg-center bg-cover bg-fixed py-24 text-white"
+      style={{ backgroundImage: "url('/images/sona-velliappa.webp')" }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/70" />
+
+      <div className="relative z-10 container mx-auto px-6 text-center">
+        {/* Section Heading */}
+        <h2 className="text-4xl font-extrabold mb-4">
+          The <span className="text-yellow-400">Sona Velliappa</span> Legacy
+        </h2>
+        <div className="w-20 h-[2px] bg-yellow-400 mx-auto mb-4"></div>
+        <p className="text-gray-200 max-w-3xl mx-auto mb-16">
+          Discover the rich heritage and transformative impact of our founder's
+          vision that continues to shape educational excellence across
+          generations.
+        </p>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="bg-white text-gray-900 rounded-3xl shadow-lg p-8 flex flex-col items-center justify-start hover:shadow-2xl transition-all duration-500"
+            >
+              {/* Icon */}
+              <div className="w-14 h-14 bg-[#002D72] rounded-2xl flex items-center justify-center mb-6">
+                {item.icon}
+              </div>
+
+              {/* Title */}
+              <h3 className="font-bold text-lg mb-3">{item.title}</h3>
+
+              {/* Description */}
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                {item.description}
+              </p>
+
+              {/* Highlight */}
+              <div>
+                <p className="text-yellow-500 text-xl font-extrabold leading-none">
+                  {item.highlight}
+                </p>
+                <p className="text-sm text-gray-500">{item.subtext}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

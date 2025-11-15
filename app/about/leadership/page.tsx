@@ -32,7 +32,7 @@ export default function HomePage() {
 
     return (
         <div className="min-h-screen bg-white">
-            {/* BreadcrumbBanner Section  */}
+            {/* Banner Section */}
             <MainBanner
                 title="Visionary Leadership"
                 highlight="Leadership"
