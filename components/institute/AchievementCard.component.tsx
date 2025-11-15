@@ -29,3 +29,4 @@ export function AchievementCard({ statistic, title, description, className }: Ac
     </article>
   );
 }
+
