@@ -23,10 +23,10 @@ export default function CallToActionSection({
         <section className={`${bgColor} text-white py-24 relative overflow-hidden bg-opacity-20`}>
             <div className="absolute inset-0 bg-black/20 bg-opacity-20"></div>
             <div className="container mx-auto px-6 text-center relative z-10 ">
-                <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
                     {heading}{/* Ready to Shape Your Future? */}
                 </h2>
-                <p className="text-lg md:text-xl mb-10 opacity-90 max-w-3xl mx-auto">
+                <p className="text-sm md:text-lg mb-10 opacity-90 max-w-3xl mx-auto">
                     {description}
                 </p>
 
