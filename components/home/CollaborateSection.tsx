@@ -34,7 +34,7 @@ export default function CollaborateSection() {
 
   return (
     <section
-      className="relative bg-fixed bg-center bg-cover py-20 text-white"
+      className="relative bg-fixed bg-center bg-cover py-7 md:py-20 text-white"
       style={{ backgroundImage: "url('/images/collabarate-bg.webp')" }}
     >
       {/* Overlay */}

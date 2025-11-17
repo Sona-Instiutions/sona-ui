@@ -16,7 +16,7 @@ export default function IndustryLeadersSection() {
     { id: 9, name: "SPOTIFY", tagline: "Audio Tech", icon: "/logos/spotify.svg", categories: ["Guest Lectures", "Internships"] },
     { id: 10, name: "UBER", tagline: "Mobility", icon: "/logos/uber.svg", categories: ["Campus Recruitment"] },
     { id: 11, name: "AIRBNB", tagline: "Hospitality", icon: "/logos/airbnb.svg", categories: ["Research Collaboration", "Guest Lectures"] },
-      { id: 12, name: "SLACK", tagline: "Collaboration", icon: "/logos/slack.svg", categories: ["Internships", "Guest Lectures"] },
+    { id: 12, name: "SLACK", tagline: "Collaboration", icon: "/logos/slack.svg", categories: ["Internships", "Guest Lectures"] },
     { id: 13, name: "MICROSOFT", tagline: "Cloud Solutions", icon: "/logos/microsoft.svg", categories: ["Internships", "Campus Recruitment"] },
     { id: 14, name: "GOOGLE", tagline: "AI & Analytics", icon: "/logos/google.svg", categories: ["Research Collaboration", "Internships"] },
     { id: 15, name: "AMAZON", tagline: "Web Services", icon: "/logos/amazon.svg", categories: ["Guest Lectures", "Campus Recruitment"] },
@@ -47,7 +47,7 @@ export default function IndustryLeadersSection() {
   );
 
   return (
-    <section className="py-20 bg-gray-50 text-center">
+    <section className="py-7 md:py-20 bg-gray-50 text-center">
       <div className="container mx-auto px-6">
         {/* Heading */}
         <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
@@ -83,24 +83,37 @@ export default function IndustryLeadersSection() {
         </div>
 
         {/* Partnership Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-3 bg-white px-6 py-4 rounded-full shadow-sm w-fit mx-auto">
-          <span className="text-gray-700 font-medium">
-            Partnership Opportunities:
-          </span>
-          {tags.map((tag) => (
-            <button
-              key={tag.id}
-              onClick={() => setActiveTab(tag.text)}
-              className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-300 ${
-                activeTab === tag.text
-                  ? `${tag.color} ring-2 ring-yellow-400`
-                  : "bg-gray-100 text-gray-700 hover:bg-yellow-100"
-              }`}
-            >
-              {tag.text}
-            </button>
-          ))}
+
+        <div className="bg-white p-2 md:p-4 rounded-full w-full overflow-hidden">
+          <div
+            className="
+    flex gap-4 items-center overflow-x-auto whitespace-nowrap
+    md:grid md:grid-flow-col md:auto-cols-fr md:gap-8
+    md:overflow-visible md:whitespace-normal md:flex-none
+  "
+          >
+            <span className="flex-shrink-0 text-gray-700 font-semibold mr-2">
+              Partnership Opportunities:
+            </span>
+            {/* Dynamic pills with functionality */}
+            {tags.map((tag) => (
+              <button
+                key={tag.id}
+                onClick={() => setActiveTab(tag.text)}
+                className={`
+          flex-shrink-0 snap-start px-4 py-2 rounded-full font-medium transition-all cursor-pointer
+          ${activeTab === tag.text
+                    ? "bg-yellow-400 text-black"
+                    : "bg-red-100 text-gray-700 hover:bg-red-200"
+                  }
+        `}
+              >
+                {tag.text}
+              </button>
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );

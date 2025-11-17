@@ -1,4 +1,13 @@
+"use client";
+
 import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function StudentStoriesSection() {
   const stories = [
@@ -26,55 +35,69 @@ export default function StudentStoriesSection() {
       text: `"SCALE's entrepreneurship program and incubation center helped me turn my sustainable technology idea into a successful startup with global impact."`,
       image: "/images/user-3.webp",
     },
+    {
+      id: 4,
+      name: "Priya Sharma",
+      role: "Founder, GreenTech Solutions",
+      batch: "MBA ’21",
+      text: `"SCALE's entrepreneurship program and incubation center helped me turn my sustainable technology idea into a successful startup with global impact."`,
+      image: "/images/user-3.webp",
+    },
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-7 md:py-20 bg-white">
       <div className="container mx-auto px-6 text-center">
         {/* Heading */}
         <h2 className="text-4xl font-extrabold text-gray-900 mb-2">
           Student <span className="text-yellow-500">Stories</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto mb-16">
-          Hear from our students and alumni about their transformative journey
-          at SCALE
+          Hear from our students and alumni about their transformative journey at SCALE
         </p>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stories.map((story) => (
-            <div
-              key={story.id}
-              className="bg-white rounded-2xl p-8 text-left border-l-4 border-blue-900 shadow-md hover:-translate-y-1 transition-all duration-300"
-            >
-              {/* Profile */}
-              <div className="flex items-center mb-4">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                  <Image
-                    src={story.image}
-                    alt={story.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">
-                    {story.name}
-                  </h3>
-                  <p className="text-sm text-gray-600">{story.role}</p>
-                  <p className="text-sm text-yellow-500 font-semibold">
-                    {story.batch}
+        {/* Carousel for both mobile + desktop */}
+        <Carousel className="w-full max-w-6xl mx-auto">
+          <CarouselContent>
+            {stories.map((story) => (
+              <CarouselItem
+                key={story.id}
+                className="basis-full md:basis-1/2 px-2 py-2 pl-4"
+              >
+                <div className="bg-white rounded-2xl p-8 text-left border-l-4 border-blue-900 shadow-md hover:-translate-y-1 transition-all duration-300">
+                  
+                  {/* Profile */}
+                  <div className="flex items-center mb-4">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+                      <Image
+                        src={story.image}
+                        alt={story.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900">{story.name}</h3>
+                      <p className="text-sm text-gray-600">{story.role}</p>
+                      <p className="text-sm text-yellow-500 font-semibold">
+                        {story.batch}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Quote */}
+                  <p className="text-gray-700 italic leading-relaxed">
+                    {story.text}
                   </p>
                 </div>
-              </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
 
-              {/* Quote */}
-              <p className="text-gray-700 italic leading-relaxed">
-                {story.text}
-              </p>
-            </div>
-          ))}
-        </div>
+          {/* Arrows */}
+          <CarouselPrevious className="left-0 bg-black/50 text-white" />
+          <CarouselNext className="right-0 bg-black/50 text-white" />
+        </Carousel>
       </div>
     </section>
   );

@@ -3,7 +3,7 @@ import { Monitor, Calculator, Users, Briefcase } from "lucide-react";
 
 export default function WhyChooseSection() {
     return (
-        <section className="relative py-20 bg-white bg-pattern">
+        <section className="relative py-7 md:py-20 bg-white bg-pattern">
             <div className="container mx-auto px-6 lg:px-12 text-center">
                 {/* Section Heading */}
                 <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
