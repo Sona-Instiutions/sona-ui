@@ -82,12 +82,26 @@ export default function BannerCarousel() { // ✅ removed { banners }
                 ))}
             </CarouselContent>
 
+            {/* Arrows container for mobile ONLY */}
+            <div className=" absolute bottom-15 left-18 flex gap-3 md:hidden z-50">
+                <CarouselPrevious
+                    className="bg-black/50 text-white size-8"
+                    data-carousel-prev
+                />
+                <CarouselNext
+                    className="bg-black/50 text-white size-8"
+                    data-carousel-next
+                />
+            </div>
+
+            {/* Desktop arrows (visible only on md and above) */}
             <CarouselPrevious
-                className="left-5 bg-black/50 text-white"
+                className="hidden md:flex left-5 top-1/2 -translate-y-1/2 bg-black/50 text-white z-50 pointer-events-auto"
                 data-carousel-prev
             />
+
             <CarouselNext
-                className="right-5 bg-black/50 text-white"
+                className="hidden md:flex right-5 top-1/2 -translate-y-1/2 bg-black/50 text-white z-50 pointer-events-auto"
                 data-carousel-next
             />
         </Carousel>

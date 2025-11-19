@@ -3,7 +3,7 @@ import { Check } from "lucide-react"; // optional icons
 
 export default function AboutSection() {
     return (
-        <section className="relative py-20 bg-white">
+        <section className="relative py-7 md:py-20 bg-white">
             <div className="container mx-auto px-6 md:px-12 lg:px-20 flex flex-col md:flex-row items-center gap-12">
 
                 {/* LEFT SIDE — TEXT CONTENT */}
