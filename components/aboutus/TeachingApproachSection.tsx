@@ -47,7 +47,7 @@ export default function TeachingApproachSection() {
     ];
 
     return (
-        <section className="bg-white py-20">
+        <section className="bg-white py-7 md:py-20">
             <div className="container mx-auto px-6 text-center">
                 {/* Heading */}
                 <h2 className="text-4xl font-extrabold text-gray-900 mb-4">

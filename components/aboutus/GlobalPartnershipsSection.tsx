@@ -53,7 +53,7 @@ export default function GlobalPartnershipsSection() {
 
   return (
     <section
-      className="relative bg-cover bg-center bg-fixed py-24 text-white"
+      className="relative bg-cover bg-center bg-fixed py-7 md:py-20 text-white"
       style={{ backgroundImage: "url('/images/sona-velliappa.webp')" }}
     >
       {/* Overlay */}

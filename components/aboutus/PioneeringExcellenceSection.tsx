@@ -24,7 +24,7 @@ export default function PioneeringExcellenceSection() {
   ];
 
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-7 md:py-20">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
         {/* LEFT: Content */}
         <div className="md:w-1/2 text-left">
