@@ -42,7 +42,7 @@ export default function SonaVelliappaLegacySection() {
 
   return (
     <section
-      className="relative bg-center bg-cover bg-fixed py-24 text-white"
+      className="relative bg-center bg-cover bg-fixed py-7 md:py-20 text-white"
       style={{ backgroundImage: "url('/images/sona-velliappa.webp')" }}
     >
       {/* Overlay */}
