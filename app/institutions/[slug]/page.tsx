@@ -7,6 +7,7 @@ import { InstitutionAbout } from "@/components/institute/InstitutionAbout.compon
 import { InstitutionAchievements } from "@/components/institute/InstitutionAchievements.component";
 import { InstitutionPrograms } from "@/components/institute/InstitutionPrograms.component";
 import { InstitutionValueProposition } from "@/components/institute/InstitutionValueProposition.component";
+import { InstitutionRecognitions } from "@/components/institute/InstitutionRecognitions.component";
 
 interface InstitutionPageParams {
   slug: string;
@@ -100,6 +101,8 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* Value Proposition section highlighting institutional advantages */}
         <InstitutionValueProposition institutionId={institution.id} />
+        {/* Recognitions section showcasing institutional recognitions */}
+        <InstitutionRecognitions institutionId={institution.id} />
       </main>
     </div>
   );
