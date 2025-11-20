@@ -1,9 +1,8 @@
-import { DecoratorLine } from "@/components/common/DecoratorLine.component";
-import { RecognitionCard } from "@/components/institute/RecognitionCard.component";
 import { getRecognitionsByInstitution } from "@/services/server/institution.server";
 import type { INormalizedRecognitionSection } from "@/types/institution.types";
 import { cn } from "@/lib/utils";
 import { hasText } from "@/utils/common.utils";
+import { IconBadge } from "../common/IconBadge.component";
 
 interface InstitutionRecognitionsProps {
   /** Institution identifier used to fetch recognitions */
@@ -57,7 +56,7 @@ function RecognitionSection({ recognitionSection }: RecognitionSectionProps) {
   return (
     <section
       className={cn(
-        "relative w-full overflow-hidden px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12",
+        "relative w-[80%] mx-auto my-10 rounded-4xl overflow-hidden px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12",
         backgroundClassName || "bg-slate-900"
       )}
       style={backgroundStyle}
@@ -70,8 +69,6 @@ function RecognitionSection({ recognitionSection }: RecognitionSectionProps) {
           containerMaxWidthClass
         )}
       >
-        <DecoratorLine align='center' gradientClassName='bg-linear-to-r from-transparent via-white/70 to-transparent' />
-
         {hasText(recognitionSection.title) && (
           <h2 className='text-center text-3xl font-bold leading-tight sm:text-4xl md:text-5xl'>
             {recognitionSection.title}
@@ -81,7 +78,21 @@ function RecognitionSection({ recognitionSection }: RecognitionSectionProps) {
         <div className='w-full'>
           <div className={gridColumnsClass}>
             {recognitionSection.recognitions.map((item) => (
-              <RecognitionCard key={item.id} icon={item.icon} title={item.title} description={item.description} />
+              <article
+                key={item.id}
+                className='flex h-full flex-col items-center justify-start gap-4 text-center text-white'
+              >
+                <IconBadge
+                  iconName={item.icon?.iconName}
+                  iconColor={item.icon?.iconColor ?? undefined}
+                  backgroundColor={item.icon?.backgroundColor ?? undefined}
+                  variant='secondary'
+                  size='lg'
+                  className='border border-white/10'
+                />
+                <h3 className='text-lg font-semibold sm:text-xl'>{item.title}</h3>
+                {hasText(item.description) && <p className='text-sm text-white/80 sm:text-base'>{item.description}</p>}
+              </article>
             ))}
           </div>
         </div>

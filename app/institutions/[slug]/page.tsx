@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getInstitutionBySlug } from "@/services/server/institution.server";
+import { getInstitutionBySlug, getAchievementsByInstitution } from "@/services/server/institution.server";
 import { IApiError } from "@/types/institution.types";
 import { InstitutionBanner } from "@/components/common/InstitutionBanner.component";
 import { InstitutionAbout } from "@/components/institute/InstitutionAbout.component";
@@ -60,10 +60,17 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
   const { slug } = await params;
 
   let institution;
+  let achievements = null;
 
   try {
     // Fetch institution data server-side for optimal performance
     institution = await getInstitutionBySlug(slug);
+
+    // Fetch achievements data
+    achievements = await getAchievementsByInstitution(institution.id).catch((err) => {
+      console.error("Failed to load achievements", err);
+      return null;
+    });
   } catch (err) {
     // Handle different error types
     const apiError = err as IApiError;
@@ -107,7 +114,7 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
         <InstitutionValueProposition institutionId={institution.id} />
 
         {/* Achievements section highlighting institutional metrics */}
-        <InstitutionAchievements institutionId={institution.id} />
+        <InstitutionAchievements achievementSection={achievements} />
         
         {/* Recognitions section showcasing institutional recognitions */}
         <InstitutionRecognitions institutionId={institution.id} />
