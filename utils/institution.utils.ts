@@ -4,11 +4,13 @@ import type {
   IIconBadge,
   INormalizedAchievement,
   INormalizedAchievementItem,
+  INormalizedKeyHighlightSection,
   INormalizedProgram,
   INormalizedProgramSection,
   INormalizedRecognitionItem,
   INormalizedValueProposition,
   INormalizedValuePropositionItem,
+  IKeyHighlightSection,
   IProgram,
   IProgramSection,
   IRecognitionItem,
@@ -25,6 +27,16 @@ const VALUE_PROPOSITION_FIELDS = [
   "titleHighlight",
   "titleHighlightColor",
   "subtitle",
+  "createdAt",
+  "updatedAt",
+] as const;
+
+const KEY_HIGHLIGHT_SECTION_FIELDS = [
+  "titlePrefix",
+  "titlePrefixColor",
+  "titleHighlight",
+  "titleHighlightColor",
+  "description",
   "createdAt",
   "updatedAt",
 ] as const;
@@ -277,6 +289,33 @@ export const buildValuePropositionQuery = (institutionId: number): string => {
 };
 
 /**
+ * Build Strapi query string for fetching key highlight section with media and highlights populated.
+ */
+export const buildKeyHighlightSectionQuery = (institutionId: number): string => {
+  const params = new URLSearchParams();
+
+  params.set("filters[institution][id][$eq]", String(institutionId));
+
+  KEY_HIGHLIGHT_SECTION_FIELDS.forEach((field, index) => {
+    params.set(`fields[${index}]`, field);
+  });
+
+  VALUE_PROPOSITION_RELATION_FIELDS.forEach((field, index) => {
+    params.set(`populate[highlights][fields][${index}]`, field);
+  });
+
+  params.set("populate[highlights][populate][icon]", "*");
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[image][fields][${index}]`, field);
+  });
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[backgroundImage][fields][${index}]`, field);
+  });
+
+  return params.toString();
+};
+
+/**
  * Normalize a single value proposition item record.
  */
 export const normalizeValuePropositionItemRecord = (
@@ -345,10 +384,50 @@ export const normalizeValuePropositionRecord = (
     subtitle: (attributes.subtitle as string | null | undefined) ?? null,
     backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
     propositions,
-    institution:
-      typeof attributes.institution === "number" || typeof attributes.institution === "object"
-        ? (attributes.institution as number | IValueProposition["institution"])
-        : null,
+    createdAt: (attributes.createdAt as string | undefined) ?? "",
+    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
+  };
+};
+
+/**
+ * Normalize a key highlight section record with populated relations.
+ */
+export const normalizeKeyHighlightSectionRecord = (
+  section: IKeyHighlightSection | unknown
+): INormalizedKeyHighlightSection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+
+  const highlightsRaw = extractCollection(attributes.highlights);
+  const highlights = highlightsRaw
+    .map((item) => normalizeValuePropositionItemRecord(item))
+    .filter((item): item is INormalizedValuePropositionItem => Boolean(item))
+    .sort((a, b) => {
+      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+
+      return a.title.localeCompare(b.title);
+    });
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? null,
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description: (attributes.description as string | null | undefined) ?? null,
+    image: normalizeStrapiMedia(attributes.image),
+    backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
+    highlights,
     createdAt: (attributes.createdAt as string | undefined) ?? "",
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };

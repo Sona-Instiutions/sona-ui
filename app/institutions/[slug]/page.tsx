@@ -5,6 +5,7 @@ import { IApiError } from "@/types/institution.types";
 import { InstitutionBanner } from "@/components/common/InstitutionBanner.component";
 import { InstitutionAbout } from "@/components/institute/InstitutionAbout.component";
 import { InstitutionAchievements } from "@/components/institute/InstitutionAchievements.component";
+import { InstitutionKeyHighlights } from "@/components/institute/InstitutionKeyHighlights.component";
 import { InstitutionPrograms } from "@/components/institute/InstitutionPrograms.component";
 import { InstitutionValueProposition } from "@/components/institute/InstitutionValueProposition.component";
 
@@ -93,10 +94,7 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
         {/* Banner section with background image and text overlay */}
         <InstitutionBanner
           image={institution.bannerImage}
-          titlePrefix={
-            institution.bannerTitlePrefix ||
-            (institution.bannerTitleHighlight ? null : institution.name)
-          }
+          titlePrefix={institution.bannerTitlePrefix || (institution.bannerTitleHighlight ? null : institution.name)}
           titlePrefixColor={institution.bannerTitlePrefixColor}
           titleHighlight={institution.bannerTitleHighlight}
           titleHighlightColor={institution.bannerTitleHighlightColor}
@@ -114,7 +112,9 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* Achievements section highlighting institutional metrics */}
         <InstitutionAchievements achievementSection={achievements} />
-        
+
+        {/* Key Highlights section highlighting specific advantages */}
+        <InstitutionKeyHighlights institutionId={institution.id} />
       </main>
     </div>
   );

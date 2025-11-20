@@ -125,6 +125,9 @@ export interface IInstitution {
   /** Optional achievements section when populated */
   achievements?: IAchievement | null;
 
+  /** Optional key highlight section when populated */
+  keyHighlightSection?: IKeyHighlightSection | null;
+
   /** ISO 8601 timestamp of creation */
   createdAt: string;
 
@@ -164,6 +167,8 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
   /** Related achievement section normalized or null */
   achievements?: INormalizedAchievement | null;
 
+  /** Related key highlight section normalized or null */
+  keyHighlightSection?: INormalizedKeyHighlightSection | null;
 }
 
 /** Program entity describing the overall offering for an institution */
@@ -324,6 +329,73 @@ export interface INormalizedValueProposition
   propositions: INormalizedValuePropositionItem[];
 }
 
+/** Key highlight section entity */
+export interface IKeyHighlightSection {
+  /** Unique section identifier */
+  id: number;
+
+  /** Optional title prefix (e.g., "Why Choose") */
+  titlePrefix?: string | null;
+
+  /** Optional color value or class for the title prefix */
+  titlePrefixColor?: string | null;
+
+  /** Optional highlighted portion of the title */
+  titleHighlight?: string | null;
+
+  /** Optional color value or class for the title highlight */
+  titleHighlightColor?: string | null;
+
+  /** Optional description */
+  description?: string | null;
+
+  /** Foreground or feature image for the section */
+  image?: IStrapiMedia | null;
+
+  /** Background image for the section */
+  backgroundImage?: IStrapiMedia | null;
+
+  /** Related highlights when populated */
+  highlights?: IValuePropositionItem[] | null;
+
+  /** Related institution reference */
+  institution?: number | IInstitution | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Normalized key highlight section */
+export interface INormalizedKeyHighlightSection
+  extends Omit<
+    IKeyHighlightSection,
+    "image" | "backgroundImage" | "highlights" | "titlePrefixColor" | "titleHighlightColor"
+  > {
+  /** Image guaranteed or null */
+  image: IStrapiMedia | null;
+
+  /** Background image guaranteed or null */
+  backgroundImage: IStrapiMedia | null;
+
+  /** Title prefix color normalized to string or null */
+  titlePrefixColor: string | null;
+
+  /** Title highlight color normalized to string or null */
+  titleHighlightColor: string | null;
+
+  /** Related highlights normalized to an array */
+  highlights: INormalizedValuePropositionItem[];
+}
+
+/** API response for key highlight section queries */
+export interface IKeyHighlightSectionResponse {
+  data: IKeyHighlightSection[];
+  meta: Record<string, unknown>;
+}
+
 /** Achievement statistic card */
 export interface IAchievementItem {
   /** Unique card identifier */
@@ -406,7 +478,13 @@ export interface INormalizedAchievementItem extends Omit<IAchievementItem, "desc
 export interface INormalizedAchievement
   extends Omit<
     IAchievement,
-    "achievements" | "recognitions" | "titlePrefixColor" | "titleHighlightColor" | "recognitionTitle" | "recognitionBackgroundColor" | "institution"
+    | "achievements"
+    | "recognitions"
+    | "titlePrefixColor"
+    | "titleHighlightColor"
+    | "recognitionTitle"
+    | "recognitionBackgroundColor"
+    | "institution"
   > {
   /** Title prefix color normalized */
   titlePrefixColor: string | null;

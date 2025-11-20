@@ -3,10 +3,12 @@ import { isAxiosError } from "axios";
 import { axiosInstance } from "@/lib/axios.config";
 import {
   buildAchievementQuery,
+  buildKeyHighlightSectionQuery,
   buildProgramSectionsQuery,
   buildValuePropositionQuery,
   normalizeAchievementRecord,
   normalizeColorValue,
+  normalizeKeyHighlightSectionRecord,
   normalizeProgramRecord,
   normalizeValuePropositionRecord,
 } from "@/utils/institution.utils";
@@ -21,6 +23,8 @@ import {
   IValuePropositionResponse,
   INormalizedAchievement,
   IAchievementResponse,
+  INormalizedKeyHighlightSection,
+  IKeyHighlightSectionResponse,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
@@ -139,6 +143,7 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
       program: null,
       valueProposition: null,
       achievements: null,
+      keyHighlightSection: null,
     };
 
     return normalizedInstitution;
@@ -192,9 +197,7 @@ export async function getValuePropositionByInstitution(
 /**
  * Fetch achievements associated with an institution (server-only).
  */
-export async function getAchievementsByInstitution(
-  institutionId: number
-): Promise<INormalizedAchievement | null> {
+export async function getAchievementsByInstitution(institutionId: number): Promise<INormalizedAchievement | null> {
   if (!institutionId || typeof institutionId !== "number") {
     return null;
   }
@@ -255,6 +258,47 @@ export async function getProgramByInstitution(institutionId: number): Promise<IN
 
     return normalizedProgram ?? null;
   } catch (error) {
+    throw error;
+  }
+}
+
+/**
+ * Fetch key highlights section associated with an institution (server-only).
+ */
+export async function getKeyHighlightsByInstitution(
+  institutionId: number
+): Promise<INormalizedKeyHighlightSection | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get<IKeyHighlightSectionResponse>(
+      `/api/key-highlight-sections?${buildKeyHighlightSectionQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalized = normalizeKeyHighlightSectionRecord(response.data.data[0]);
+
+    return normalized ?? null;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status ?? 500;
+
+      if (status >= 400 && status < 500) {
+        return null;
+      }
+
+      throw {
+        status,
+        message: error.message,
+        details: error.response?.data ?? {},
+      } as IApiError;
+    }
+
     throw error;
   }
 }

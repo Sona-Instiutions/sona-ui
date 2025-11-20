@@ -254,8 +254,4 @@ export const useAchievementsByInstitution = ({ institutionId }: UseAchievementsO
   });
 };
 
-export {
-  fetchProgramByInstitution,
-  fetchValueProposition,
-  fetchAchievementsByInstitution,
-};
+export { fetchProgramByInstitution, fetchValueProposition, fetchAchievementsByInstitution };

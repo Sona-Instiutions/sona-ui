@@ -68,15 +68,13 @@ export function InstitutionAchievements({ achievementSection }: InstitutionAchie
     recognitionCardCount === 1
       ? "max-w-3xl"
       : recognitionCardCount === 2
-        ? "max-w-4xl"
-        : recognitionCardCount === 3
-          ? "max-w-5xl"
-          : "max-w-6xl";
+      ? "max-w-4xl"
+      : recognitionCardCount === 3
+      ? "max-w-5xl"
+      : "max-w-6xl";
 
   const recognitionBackgroundToken = achievementSection.recognitionBackgroundColor ?? "";
-  const recognitionBackgroundClassName = recognitionBackgroundToken.startsWith("bg-")
-    ? recognitionBackgroundToken
-    : "";
+  const recognitionBackgroundClassName = recognitionBackgroundToken.startsWith("bg-") ? recognitionBackgroundToken : "";
   const recognitionBackgroundStyle =
     recognitionBackgroundToken && !recognitionBackgroundToken.startsWith("bg-")
       ? {
@@ -138,7 +136,10 @@ export function InstitutionAchievements({ achievementSection }: InstitutionAchie
           )}
           style={recognitionBackgroundStyle}
         >
-          <div className='absolute inset-0 bg-linear-to-r from-slate-950/70 via-slate-900/60 to-slate-950/70' aria-hidden />
+          <div
+            className='absolute inset-0 bg-linear-to-r from-slate-950/70 via-slate-900/60 to-slate-950/70'
+            aria-hidden
+          />
 
           <div
             className={cn(
