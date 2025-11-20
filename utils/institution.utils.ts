@@ -7,29 +7,17 @@ import type {
   INormalizedProgram,
   INormalizedProgramSection,
   INormalizedRecognitionItem,
-  INormalizedRecognitionSection,
   INormalizedValueProposition,
   INormalizedValuePropositionItem,
   IProgram,
   IProgramSection,
   IRecognitionItem,
-  IRecognitionSection,
   IValueProposition,
   IValuePropositionItem,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
 const PROGRAM_FIELDS = ["title", "description", "createdAt", "updatedAt"] as const;
-const PROGRAM_SECTION_FIELDS = [
-  "title",
-  "description",
-  "learnMoreText",
-  "learnMoreUrl",
-  "learnMoreIsExternal",
-  "order",
-  "createdAt",
-  "updatedAt",
-] as const;
 
 const VALUE_PROPOSITION_FIELDS = [
   "titlePrefix",
@@ -60,11 +48,11 @@ const ACHIEVEMENT_FIELDS = [
   "titleHighlight",
   "titleHighlightColor",
   "description",
+  "recognitionTitle",
+  "recognitionBackgroundColor",
 ] as const;
 
 const ACHIEVEMENT_ITEM_FIELDS = ["statistic", "title", "description", "order"] as const;
-
-const RECOGNITION_FIELDS = ["title", "backgroundColor"] as const;
 
 const RECOGNITION_ITEM_FIELDS = ["title", "description", "order"] as const;
 
@@ -382,15 +370,19 @@ export const buildAchievementQuery = (institutionId: number): string => {
     params.set(`populate[achievements][fields][${index}]`, field);
   });
 
+  RECOGNITION_ITEM_FIELDS.forEach((field, index) => {
+    params.set(`populate[recognitions][fields][${index}]`, field);
+  });
+
+  params.set("populate[recognitions][populate][icon]", "*");
+
   return params.toString();
 };
 
 /**
  * Normalize a single achievement card record.
  */
-export const normalizeAchievementItemRecord = (
-  item: IAchievementItem | unknown
-): INormalizedAchievementItem | null => {
+export const normalizeAchievementItemRecord = (item: IAchievementItem | unknown): INormalizedAchievementItem | null => {
   const resolved = resolveRecord(item);
 
   if (!resolved) {
@@ -416,9 +408,7 @@ export const normalizeAchievementItemRecord = (
 /**
  * Normalize an achievement section record with populated cards.
  */
-export const normalizeAchievementRecord = (
-  achievement: IAchievement | unknown
-): INormalizedAchievement | null => {
+export const normalizeAchievementRecord = (achievement: IAchievement | unknown): INormalizedAchievement | null => {
   const resolved = resolveRecord(achievement);
 
   if (!resolved) {
@@ -441,9 +431,30 @@ export const normalizeAchievementRecord = (
       return a.title.localeCompare(b.title);
     });
 
+  const recognitionsRaw = extractCollection(attributes.recognitions);
+  const recognitions = recognitionsRaw
+    .map((item) => normalizeRecognitionItemRecord(item))
+    .filter((item): item is INormalizedRecognitionItem => Boolean(item))
+    .sort((a, b) => {
+      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+
+      return a.title.localeCompare(b.title);
+    });
+
   const descriptionRaw = attributes.description;
   const description =
     typeof descriptionRaw === "string" && descriptionRaw.trim().length > 0 ? (descriptionRaw as string) : null;
+  const recognitionTitleRaw = attributes.recognitionTitle;
+  const recognitionTitle =
+    typeof recognitionTitleRaw === "string" && recognitionTitleRaw.trim().length > 0
+      ? (recognitionTitleRaw as string)
+      : null;
+  const recognitionBackgroundColor = normalizeColorValue(attributes.recognitionBackgroundColor) ?? "#1e3a5f";
 
   return {
     id,
@@ -453,38 +464,18 @@ export const normalizeAchievementRecord = (
     titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
     description,
     achievements,
+    recognitionTitle,
+    recognitionBackgroundColor,
+    recognitions,
     createdAt: (attributes.createdAt as string | undefined) ?? "",
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };
 };
 
 /**
- * Build Strapi query string for recognition sections with cards populated.
- */
-export const buildRecognitionSectionQuery = (institutionId: number): string => {
-  const params = new URLSearchParams();
-
-  params.set("filters[institution][id][$eq]", String(institutionId));
-
-  RECOGNITION_FIELDS.forEach((field, index) => {
-    params.set(`fields[${index}]`, field);
-  });
-
-  RECOGNITION_ITEM_FIELDS.forEach((field, index) => {
-    params.set(`populate[recognitions][fields][${index}]`, field);
-  });
-
-  params.set("populate[recognitions][populate][icon]", "*");
-
-  return params.toString();
-};
-
-/**
  * Normalize a recognition card record.
  */
-export const normalizeRecognitionItemRecord = (
-  item: IRecognitionItem | unknown
-): INormalizedRecognitionItem | null => {
+export const normalizeRecognitionItemRecord = (item: IRecognitionItem | unknown): INormalizedRecognitionItem | null => {
   const resolved = resolveRecord(item);
 
   if (!resolved) {
@@ -503,46 +494,6 @@ export const normalizeRecognitionItemRecord = (
     title: (attributes.title as string | null | undefined) ?? "",
     description,
     order: typeof attributes.order === "number" ? (attributes.order as number) : null,
-    createdAt: (attributes.createdAt as string | undefined) ?? "",
-    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
-  };
-};
-
-/**
- * Normalize a recognition section with populated recognitions.
- */
-export const normalizeRecognitionSectionRecord = (
-  recognition: IRecognitionSection | unknown
-): INormalizedRecognitionSection | null => {
-  const resolved = resolveRecord(recognition);
-
-  if (!resolved) {
-    return null;
-  }
-
-  const { id, attributes } = resolved;
-  const recognitionsRaw = extractCollection(attributes.recognitions);
-  const recognitions = recognitionsRaw
-    .map((item) => normalizeRecognitionItemRecord(item))
-    .filter((item): item is INormalizedRecognitionItem => Boolean(item))
-    .sort((a, b) => {
-      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
-      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
-
-      if (orderA !== orderB) {
-        return orderA - orderB;
-      }
-
-      return a.title.localeCompare(b.title);
-    });
-
-  const backgroundColor = normalizeColorValue(attributes.backgroundColor);
-
-  return {
-    id,
-    title: (attributes.title as string | null | undefined) ?? "",
-    backgroundColor,
-    recognitions,
     createdAt: (attributes.createdAt as string | undefined) ?? "",
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };

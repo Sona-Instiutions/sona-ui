@@ -4,12 +4,10 @@ import { axiosInstance } from "@/lib/axios.config";
 import {
   buildAchievementQuery,
   buildProgramSectionsQuery,
-  buildRecognitionSectionQuery,
   buildValuePropositionQuery,
   normalizeAchievementRecord,
   normalizeColorValue,
   normalizeProgramRecord,
-  normalizeRecognitionSectionRecord,
   normalizeValuePropositionRecord,
 } from "@/utils/institution.utils";
 import {
@@ -22,9 +20,7 @@ import {
   INormalizedValueProposition,
   IValuePropositionResponse,
   INormalizedAchievement,
-  INormalizedRecognitionSection,
   IAchievementResponse,
-  IRecognitionSectionResponse,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
@@ -143,7 +139,6 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
       program: null,
       valueProposition: null,
       achievements: null,
-      recognitions: null,
     };
 
     return normalizedInstitution;
@@ -214,47 +209,6 @@ export async function getAchievementsByInstitution(
     }
 
     const normalized = normalizeAchievementRecord(response.data.data[0]);
-
-    return normalized ?? null;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      const status = error.response?.status ?? 500;
-
-      if (status >= 400 && status < 500) {
-        return null;
-      }
-
-      throw {
-        status,
-        message: error.message,
-        details: error.response?.data ?? {},
-      } as IApiError;
-    }
-
-    throw error;
-  }
-}
-
-/**
- * Fetch recognition section associated with an institution (server-only).
- */
-export async function getRecognitionsByInstitution(
-  institutionId: number
-): Promise<INormalizedRecognitionSection | null> {
-  if (!institutionId || typeof institutionId !== "number") {
-    return null;
-  }
-
-  try {
-    const response = await axiosInstance.get<IRecognitionSectionResponse>(
-      `/api/recognition-sections?${buildRecognitionSectionQuery(institutionId)}`
-    );
-
-    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
-      return null;
-    }
-
-    const normalized = normalizeRecognitionSectionRecord(response.data.data[0]);
 
     return normalized ?? null;
   } catch (error) {

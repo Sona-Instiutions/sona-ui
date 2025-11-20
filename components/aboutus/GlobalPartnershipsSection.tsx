@@ -1,6 +1,5 @@
 import {
   GraduationCap,
-  Award,
   ShieldCheck,
   Globe,
   Star,

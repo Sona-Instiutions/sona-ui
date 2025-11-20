@@ -125,9 +125,6 @@ export interface IInstitution {
   /** Optional achievements section when populated */
   achievements?: IAchievement | null;
 
-  /** Optional recognition section when populated */
-  recognitions?: IRecognitionSection | null;
-
   /** ISO 8601 timestamp of creation */
   createdAt: string;
 
@@ -167,8 +164,6 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
   /** Related achievement section normalized or null */
   achievements?: INormalizedAchievement | null;
 
-  /** Related recognition section normalized or null */
-  recognitions?: INormalizedRecognitionSection | null;
 }
 
 /** Program entity describing the overall offering for an institution */
@@ -376,8 +371,17 @@ export interface IAchievement {
   /** Markdown/HTML enabled description */
   description?: string | null;
 
+  /** Optional recognition section title */
+  recognitionTitle?: string | null;
+
+  /** Optional recognition section background color */
+  recognitionBackgroundColor?: string | null;
+
   /** Related achievement cards when populated */
   achievements?: IAchievementItem[] | null;
+
+  /** Related recognition cards when populated */
+  recognitions?: IRecognitionItem[] | null;
 
   /** Related institution reference */
   institution?: number | IInstitution | null;
@@ -400,7 +404,10 @@ export interface INormalizedAchievementItem extends Omit<IAchievementItem, "desc
 
 /** Normalized achievement section */
 export interface INormalizedAchievement
-  extends Omit<IAchievement, "achievements" | "titlePrefixColor" | "titleHighlightColor" | "institution"> {
+  extends Omit<
+    IAchievement,
+    "achievements" | "recognitions" | "titlePrefixColor" | "titleHighlightColor" | "recognitionTitle" | "recognitionBackgroundColor" | "institution"
+  > {
   /** Title prefix color normalized */
   titlePrefixColor: string | null;
 
@@ -412,6 +419,15 @@ export interface INormalizedAchievement
 
   /** Array of normalized cards */
   achievements: INormalizedAchievementItem[];
+
+  /** Recognition title normalized */
+  recognitionTitle: string | null;
+
+  /** Recognition background color normalized */
+  recognitionBackgroundColor: string | null;
+
+  /** Array of normalized recognition cards */
+  recognitions: INormalizedRecognitionItem[];
 }
 
 /** Recognition card describing awards or partnerships */
@@ -431,33 +447,6 @@ export interface IRecognitionItem {
   /** Optional manual order */
   order?: number | null;
 
-  /** Related recognition section reference */
-  recognitionSection?: number | IRecognitionSection | null;
-
-  /** Creation timestamp */
-  createdAt: string;
-
-  /** Last updated timestamp */
-  updatedAt: string;
-}
-
-/** Recognition section entity */
-export interface IRecognitionSection {
-  /** Unique section identifier */
-  id: number;
-
-  /** Section title (e.g., Industry Recognition) */
-  title: string;
-
-  /** Optional hex or token for background color */
-  backgroundColor?: string | null;
-
-  /** Related recognition cards when populated */
-  recognitions?: IRecognitionItem[] | null;
-
-  /** Related institution reference */
-  institution?: number | IInstitution | null;
-
   /** Creation timestamp */
   createdAt: string;
 
@@ -466,8 +455,7 @@ export interface IRecognitionSection {
 }
 
 /** Normalized recognition card */
-export interface INormalizedRecognitionItem
-  extends Omit<IRecognitionItem, "icon" | "description" | "order" | "recognitionSection"> {
+export interface INormalizedRecognitionItem extends Omit<IRecognitionItem, "icon" | "description" | "order"> {
   /** Icon badge normalized */
   icon: IIconBadge | null;
 
@@ -476,16 +464,6 @@ export interface INormalizedRecognitionItem
 
   /** Order normalized */
   order: number | null;
-}
-
-/** Normalized recognition section */
-export interface INormalizedRecognitionSection
-  extends Omit<IRecognitionSection, "recognitions" | "backgroundColor" | "institution"> {
-  /** Background color normalized */
-  backgroundColor: string | null;
-
-  /** Array of normalized recognition cards */
-  recognitions: INormalizedRecognitionItem[];
 }
 
 /** Type alias for institution slug with validation */
@@ -526,12 +504,6 @@ export interface IProgramsResponse {
 /** API response for achievement section queries */
 export interface IAchievementResponse {
   data: IAchievement[];
-  meta: Record<string, unknown>;
-}
-
-/** API response for recognition section queries */
-export interface IRecognitionSectionResponse {
-  data: IRecognitionSection[];
   meta: Record<string, unknown>;
 }
 

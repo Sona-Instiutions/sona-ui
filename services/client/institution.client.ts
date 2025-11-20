@@ -11,13 +11,11 @@ import axiosInstance from "@/lib/axios.config";
 import {
   buildAchievementQuery,
   buildProgramSectionsQuery,
-  buildRecognitionSectionQuery,
   buildValuePropositionQuery,
   normalizeAchievementRecord,
   normalizeColorValue,
   normalizeIconBadge,
   normalizeProgramRecord,
-  normalizeRecognitionSectionRecord,
   normalizeValuePropositionRecord,
 } from "@/utils/institution.utils";
 import type {
@@ -28,10 +26,8 @@ import type {
   IAchievementResponse,
   INormalizedAchievement,
   INormalizedProgram,
-  INormalizedRecognitionSection,
   INormalizedValueProposition,
   IProgramsResponse,
-  IRecognitionSectionResponse,
   IValuePropositionResponse,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
@@ -258,37 +254,8 @@ export const useAchievementsByInstitution = ({ institutionId }: UseAchievementsO
   });
 };
 
-const fetchRecognitionsByInstitution = async (institutionId: number): Promise<INormalizedRecognitionSection | null> => {
-  const response = await axiosInstance.get<IRecognitionSectionResponse>(
-    `/api/recognition-sections?${buildRecognitionSectionQuery(institutionId)}`
-  );
-
-  if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
-    return null;
-  }
-
-  return normalizeRecognitionSectionRecord(response.data.data[0]);
-};
-
-interface UseRecognitionsOptions {
-  institutionId?: number | null;
-}
-
-export const useRecognitionsByInstitution = ({ institutionId }: UseRecognitionsOptions) => {
-  const enabled = typeof institutionId === "number" && institutionId > 0;
-
-  return useQuery<INormalizedRecognitionSection | null, IApiError>({
-    queryKey: ["institutions", institutionId ?? "unknown", "recognitions"],
-    queryFn: () => fetchRecognitionsByInstitution(institutionId as number),
-    enabled,
-    placeholderData: keepPreviousData,
-    staleTime: 5 * 60 * 1000,
-  });
-};
-
 export {
   fetchProgramByInstitution,
   fetchValueProposition,
   fetchAchievementsByInstitution,
-  fetchRecognitionsByInstitution,
 };

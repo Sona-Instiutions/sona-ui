@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import StatsSection from "@/components/home/StatsSection";
 import AboutSection from "@/components/home/AboutSection";
@@ -15,14 +14,6 @@ import LatestBlogsSection from "@/components/home/LatestBlogsSection";
 import CallToActionSection from "@/components/common/CallToActionSection";
 
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "@/components/ui/carousel";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "SONA Institutions | Home",

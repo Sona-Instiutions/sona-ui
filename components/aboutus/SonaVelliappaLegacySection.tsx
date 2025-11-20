@@ -55,7 +55,7 @@ export default function SonaVelliappaLegacySection() {
         </h2>
         <div className="w-20 h-[2px] bg-yellow-400 mx-auto mb-4"></div>
         <p className="text-gray-200 max-w-3xl mx-auto mb-16">
-          Discover the rich heritage and transformative impact of our founder's
+          Discover the rich heritage and transformative impact of our founder&apos;s
           vision that continues to shape educational excellence across
           generations.
         </p>

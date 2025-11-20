@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 export default function ContactSection() {
   return (
     <section className='py-16 bg-white'>
