@@ -69,7 +69,7 @@ export function InstitutionBanner({
             prefixColor={titlePrefixColor}
             highlight={titleHighlight}
             highlightColor={titleHighlightColor}
-            className="text-4xl font-bold text-white md:text-5xl lg:text-6xl"
+            className="text-2xl font-bold text-white md:text-4xl lg:text-5xl"
           />
 
           {/* Optional subtitle */}

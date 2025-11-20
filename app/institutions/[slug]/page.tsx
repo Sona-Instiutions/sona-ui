@@ -102,11 +102,13 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* Programs section showcasing institution offerings */}
         <InstitutionPrograms institutionId={institution.id} />
-        {/* Achievements section highlighting institutional metrics */}
-        <InstitutionAchievements institutionId={institution.id} />
 
         {/* Value Proposition section highlighting institutional advantages */}
         <InstitutionValueProposition institutionId={institution.id} />
+
+        {/* Achievements section highlighting institutional metrics */}
+        <InstitutionAchievements institutionId={institution.id} />
+        
         {/* Recognitions section showcasing institutional recognitions */}
         <InstitutionRecognitions institutionId={institution.id} />
 
