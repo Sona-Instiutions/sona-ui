@@ -13,16 +13,13 @@ import IndustryLeadersSection from "@/components/home/IndustryLeadersSection";
 import LatestBlogsSection from "@/components/home/LatestBlogsSection";
 import CallToActionSection from "@/components/common/CallToActionSection";
 
-
-
 export const metadata: Metadata = {
   title: "SONA Institutions | Home",
   description:
     "Welcome to SONA Institutions. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
   openGraph: {
     title: "SONA Institutions | Home",
-    description:
-      "Discover SONA Institutions – excellence in education, innovation, and industry collaboration.",
+    description: "Discover SONA Institutions – excellence in education, innovation, and industry collaboration.",
     type: "website",
     url: "https://sona.edu.in/",
     siteName: "SONA Institutions",
@@ -38,11 +35,10 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  
   return (
-    <div className="min-h-screen bg-white">
+    <div className='min-h-screen bg-white'>
       {/* Hero image section  */}
-      <HeroCarousel/>
+      <HeroCarousel />
 
       {/* Main Usp Section  */}
       <StatsSection />
@@ -54,40 +50,38 @@ export default function HomePage() {
       <LegacySection />
 
       {/* Why Choose Us  */}
-      <div className="why-scale-page">
+      <div className='why-scale-page'>
         <WhyChooseSection />
       </div>
 
       {/* Collaborate Section  */}
       <CollaborateSection />
-      
+
       {/* InstitutionsSection section   */}
       <InstitutionsSection />
-      
+
       {/* LifeAtScaleSection section  */}
       <LifeAtScaleSection />
-      
+
       {/* NewsEventsSection section  */}
       <NewsEventsSection />
-      
+
       {/* StudentStoriesSection section  */}
       <StudentStoriesSection />
-      
+
       {/* IndustryLeadersSection section  */}
       <IndustryLeadersSection />
-      
+
       {/* LatestBlogsSection section  */}
       <LatestBlogsSection />
-      
+
       {/* CallToActionSection section  */}
 
       <CallToActionSection
-        bgColor="bg-yellow-500"
-        heading="Ready to Shape Your Future?"
-        description="Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here."
-        
+        bgColor='bg-yellow-500'
+        heading='Ready to Shape Your Future?'
+        description='Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here.'
       />
-
     </div>
   );
 }
