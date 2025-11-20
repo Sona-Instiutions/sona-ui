@@ -194,14 +194,11 @@ export interface IProgramSection {
   /** Ordering index to control display priority */
   order?: number | null;
 
-  /** Related institution reference */
-  program?: number | IProgram | null;
+  /** Creation timestamp (optional for components) */
+  createdAt?: string;
 
-  /** Creation timestamp */
-  createdAt: string;
-
-  /** Last updated timestamp */
-  updatedAt: string;
+  /** Last updated timestamp (optional for components) */
+  updatedAt?: string;
 }
 
 /** Value proposition item describing a core advantage */

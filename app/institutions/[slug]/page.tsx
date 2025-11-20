@@ -103,6 +103,7 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
         <InstitutionValueProposition institutionId={institution.id} />
         {/* Recognitions section showcasing institutional recognitions */}
         <InstitutionRecognitions institutionId={institution.id} />
+
       </main>
     </div>
   );

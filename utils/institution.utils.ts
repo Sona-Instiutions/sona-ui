@@ -162,11 +162,8 @@ export const buildProgramSectionsQuery = (institutionId: number): string => {
     params.set(`fields[${index}]`, field);
   });
 
-  PROGRAM_SECTION_FIELDS.forEach((field, index) => {
-    params.set(`populate[sections][fields][${index}]`, field);
-  });
-
-  params.set("populate[sections][populate][icon]", "*");
+  // Simplified query to ensure we get all data
+  params.set("populate[sections][populate]", "*");
 
   return params.toString();
 };
