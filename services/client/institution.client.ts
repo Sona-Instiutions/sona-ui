@@ -14,6 +14,7 @@ import {
   buildRecognitionSectionQuery,
   buildValuePropositionQuery,
   normalizeAchievementRecord,
+  normalizeColorValue,
   normalizeIconBadge,
   normalizeProgramRecord,
   normalizeRecognitionSectionRecord,
@@ -133,7 +134,9 @@ const mapAboutInstitute = (payload: IAboutInstitute | null | undefined): IAboutI
   return {
     ...payload,
     image: normalizeStrapiMedia(payload.image),
-    title: payload.title ?? null,
+    titlePrefixColor: normalizeColorValue(payload.titlePrefixColor),
+    titleHighlight: payload.titleHighlight ?? null,
+    titleHighlightColor: normalizeColorValue(payload.titleHighlightColor),
     description: payload.description ?? null,
     bullets: mapBulletItems(payload.bullets),
     badgeText: payload.badgeText ?? null,

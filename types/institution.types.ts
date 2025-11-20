@@ -41,8 +41,17 @@ export interface IAboutInstitute {
   /** Unique numeric identifier */
   id: number;
 
-  /** Optional headline for the about section */
-  title?: string | null;
+  /** Optional title prefix */
+  titlePrefix?: string | null;
+
+  /** Optional title prefix color */
+  titlePrefixColor?: string | null;
+
+  /** Optional title highlight */
+  titleHighlight?: string | null;
+
+  /** Optional title highlight color */
+  titleHighlightColor?: string | null;
 
   /** Markdown-enabled description content */
   description?: string | null;
@@ -92,11 +101,20 @@ export interface IInstitution {
   /** Raw banner image for hero section (may be null when not set) */
   bannerImage?: IStrapiMedia | null;
 
-  /** Raw banner title for hero section (may be null when not set) */
-  bannerTitle?: string | null;
-
   /** Raw banner subtitle for hero section (may be null when not set) */
   bannerSubtitle?: string | null;
+
+  /** Optional banner title prefix */
+  bannerTitlePrefix?: string | null;
+
+  /** Optional banner title prefix color */
+  bannerTitlePrefixColor?: string | null;
+
+  /** Optional banner title highlight */
+  bannerTitleHighlight?: string | null;
+
+  /** Optional banner title highlight color */
+  bannerTitleHighlightColor?: string | null;
 
   /** Optional related about-institute entity when populated */
   aboutInstitute?: IAboutInstitute | null;
@@ -118,15 +136,24 @@ export interface IInstitution {
 }
 
 /** Normalized institution entity with banner fallbacks applied */
-export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage" | "bannerTitle" | "bannerSubtitle"> {
+export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage" | "bannerSubtitle"> {
   /** Banner image guaranteed to be set or explicitly null */
   bannerImage: IStrapiMedia | null;
 
-  /** Banner title with fallback to institution name */
-  bannerTitle: string;
-
   /** Banner subtitle normalized to string or null */
   bannerSubtitle: string | null;
+
+  /** Banner title prefix normalized to string or null */
+  bannerTitlePrefix: string | null;
+
+  /** Banner title prefix color normalized to string or null */
+  bannerTitlePrefixColor: string | null;
+
+  /** Banner title highlight normalized to string or null */
+  bannerTitleHighlight: string | null;
+
+  /** Banner title highlight color normalized to string or null */
+  bannerTitleHighlightColor: string | null;
 
   /** About section normalized to entity or null */
   aboutInstitute: IAboutInstitute | null;

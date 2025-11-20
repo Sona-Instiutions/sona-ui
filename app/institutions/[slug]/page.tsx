@@ -87,7 +87,13 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
         {/* Banner section with background image and text overlay */}
         <InstitutionBanner
           image={institution.bannerImage}
-          title={institution.bannerTitle}
+          titlePrefix={
+            institution.bannerTitlePrefix ||
+            (institution.bannerTitleHighlight ? null : institution.name)
+          }
+          titlePrefixColor={institution.bannerTitlePrefixColor}
+          titleHighlight={institution.bannerTitleHighlight}
+          titleHighlightColor={institution.bannerTitleHighlightColor}
           subtitle={institution.bannerSubtitle}
         />
 

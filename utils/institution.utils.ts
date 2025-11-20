@@ -107,7 +107,7 @@ const extractCollection = (value: unknown): unknown[] => {
   return [];
 };
 
-const normalizeColorValue = (value: unknown): string | null => {
+export const normalizeColorValue = (value: unknown): string | null => {
   if (typeof value !== "string") {
     return null;
   }

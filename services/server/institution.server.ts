@@ -7,6 +7,7 @@ import {
   buildRecognitionSectionQuery,
   buildValuePropositionQuery,
   normalizeAchievementRecord,
+  normalizeColorValue,
   normalizeProgramRecord,
   normalizeRecognitionSectionRecord,
   normalizeValuePropositionRecord,
@@ -132,8 +133,11 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
 
     const normalizedInstitution: INormalizedInstitution = {
       ...institution,
-      bannerTitle: institution.bannerTitle ?? institution.name,
       bannerSubtitle: institution.bannerSubtitle ?? null,
+      bannerTitlePrefix: (institution.bannerTitlePrefix as string | null | undefined) ?? null,
+      bannerTitlePrefixColor: normalizeColorValue(institution.bannerTitlePrefixColor),
+      bannerTitleHighlight: (institution.bannerTitleHighlight as string | null | undefined) ?? null,
+      bannerTitleHighlightColor: normalizeColorValue(institution.bannerTitleHighlightColor),
       bannerImage: normalizeStrapiMedia(institution.bannerImage),
       aboutInstitute: null,
       program: null,
