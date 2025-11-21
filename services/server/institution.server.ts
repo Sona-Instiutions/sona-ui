@@ -10,6 +10,7 @@ import {
   normalizeColorValue,
   normalizeKeyHighlightSectionRecord,
   normalizeProgramRecord,
+  normalizeTestimonialSectionRecord,
   normalizeValuePropositionRecord,
 } from "@/utils/institution.utils";
 import {
@@ -106,7 +107,9 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
 
   try {
     const response = await axiosInstance.get<IInstitutionResponse>(
-      `/api/institutions?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=bannerImage`
+      `/api/institutions?filters[slug][$eq]=${encodeURIComponent(
+        slug
+      )}&populate[0]=bannerImage&populate[1]=testimonialSection.testimonials.avatar`
     );
 
     // Strapi returns array even for single item filter
@@ -144,6 +147,11 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
       valueProposition: null,
       achievements: null,
       keyHighlightSection: null,
+      testimonialSection: normalizeTestimonialSectionRecord(
+        Array.isArray(institution.testimonialSection)
+          ? institution.testimonialSection[0]
+          : institution.testimonialSection
+      ),
     };
 
     return normalizedInstitution;

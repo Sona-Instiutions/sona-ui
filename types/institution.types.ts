@@ -128,6 +128,9 @@ export interface IInstitution {
   /** Optional key highlight section when populated */
   keyHighlightSection?: IKeyHighlightSection | null;
 
+  /** Optional testimonials section when populated */
+  testimonialSection?: ITestimonialSection | null;
+
   /** ISO 8601 timestamp of creation */
   createdAt: string;
 
@@ -169,6 +172,9 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
 
   /** Related key highlight section normalized or null */
   keyHighlightSection?: INormalizedKeyHighlightSection | null;
+
+  /** Related testimonials section normalized or null */
+  testimonialSection?: INormalizedTestimonialSection | null;
 }
 
 /** Program entity describing the overall offering for an institution */
@@ -542,6 +548,78 @@ export interface INormalizedRecognitionItem extends Omit<IRecognitionItem, "icon
 
   /** Order normalized */
   order: number | null;
+}
+
+/** Testimonial entity */
+/** Testimonial component item */
+export interface ITestimonial {
+  /** Unique identifier */
+  id: number;
+
+  /** Name of the person */
+  name: string;
+
+  /** Role/Designation of the person */
+  role: string;
+
+  /** Company or Organization */
+  company?: string | null;
+
+  /** Testimonial text */
+  quote: string;
+
+  /** Rating (1-5) */
+  rating: number;
+
+  /** Avatar image */
+  avatar?: IStrapiMedia | null;
+}
+
+/** Testimonial section entity */
+/** Testimonial section entity */
+export interface ITestimonialSection {
+  /** Unique identifier */
+  id: number;
+
+  /** Title prefix */
+  titlePrefix?: string | null;
+
+  /** Title prefix color */
+  titlePrefixColor?: string | null;
+
+  /** Title highlight */
+  titleHighlight?: string | null;
+
+  /** Title highlight color */
+  titleHighlightColor?: string | null;
+
+  /** Subtitle */
+  subtitle?: string | null;
+
+  /** List of testimonials */
+  testimonials?: ITestimonial[] | null;
+
+  /** Related institution */
+  institution?: number | IInstitution | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Normalized testimonial section */
+export interface INormalizedTestimonialSection
+  extends Omit<ITestimonialSection, "titlePrefixColor" | "titleHighlightColor" | "testimonials"> {
+  /** Title prefix color normalized */
+  titlePrefixColor: string | null;
+
+  /** Title highlight color normalized */
+  titleHighlightColor: string | null;
+
+  /** Normalized testimonials list */
+  testimonials: ITestimonial[];
 }
 
 /** Type alias for institution slug with validation */

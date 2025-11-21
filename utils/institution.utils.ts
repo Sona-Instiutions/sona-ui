@@ -14,6 +14,9 @@ import type {
   IProgram,
   IProgramSection,
   IRecognitionItem,
+  ITestimonial,
+  ITestimonialSection,
+  INormalizedTestimonialSection,
   IValueProposition,
   IValuePropositionItem,
 } from "@/types/institution.types";
@@ -577,3 +580,58 @@ export const normalizeRecognitionItemRecord = (item: IRecognitionItem | unknown)
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };
 };
+
+/**
+ * Normalize a single testimonial item record.
+ */
+export const normalizeTestimonialItemRecord = (item: ITestimonial | unknown): ITestimonial | null => {
+  const resolved = resolveRecord(item);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+
+  return {
+    id,
+    name: (attributes.name as string | null | undefined) ?? "",
+    role: (attributes.role as string | null | undefined) ?? "",
+    company: (attributes.company as string | null | undefined) ?? null,
+    quote: (attributes.quote as string | null | undefined) ?? "",
+    rating: typeof attributes.rating === "number" ? (attributes.rating as number) : 5,
+    avatar: normalizeStrapiMedia(attributes.avatar),
+  };
+};
+
+/**
+ * Normalize a testimonial section record with populated testimonials.
+ */
+export const normalizeTestimonialSectionRecord = (
+  section: ITestimonialSection | unknown
+): INormalizedTestimonialSection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const testimonialsRaw = extractCollection(attributes.testimonials);
+  const testimonials = testimonialsRaw
+    .map((item) => normalizeTestimonialItemRecord(item))
+    .filter((item): item is ITestimonial => Boolean(item));
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? null,
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    subtitle: (attributes.subtitle as string | null | undefined) ?? null,
+    testimonials,
+    createdAt: (attributes.createdAt as string | undefined) ?? "",
+    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
+  };
+};
+
