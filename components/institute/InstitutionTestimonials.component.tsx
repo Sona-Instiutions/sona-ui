@@ -1,7 +1,8 @@
-import { hasText } from "@/utils/common.utils";
+
 import type { INormalizedTestimonialSection } from "@/types/institution.types";
 import { TestimonialCard } from "./TestimonialCard.component";
 import { SectionHeader } from "../common/SectionHeader.component";
+import { MarkdownContent } from "../common/MarkdownContent.component";
 
 interface InstitutionTestimonialsProps {
   testimonialSection: INormalizedTestimonialSection | null;
@@ -12,7 +13,7 @@ export function InstitutionTestimonials({ testimonialSection }: InstitutionTesti
     return null;
   }
 
-  const { titlePrefix, titlePrefixColor, titleHighlight, titleHighlightColor, subtitle, testimonials } =
+  const { titlePrefix, titlePrefixColor, titleHighlight, titleHighlightColor, description, testimonials } =
     testimonialSection;
   return (
     <section className='w-full bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12'>
@@ -25,7 +26,10 @@ export function InstitutionTestimonials({ testimonialSection }: InstitutionTesti
       />
       <div className='mx-auto flex w-full max-w-7xl flex-col items-center gap-10'>
         <div className='flex flex-col items-center gap-4 text-center'>
-          {hasText(subtitle) && <p className='max-w-3xl text-base text-slate-600 sm:text-lg md:text-xl'>{subtitle}</p>}
+          <MarkdownContent
+            content={description}
+            className='max-w-3xl text-base text-slate-600 sm:text-lg md:text-xl'
+          />
         </div>
 
         {/* Testimonials Grid */}

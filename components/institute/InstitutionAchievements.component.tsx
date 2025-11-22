@@ -2,8 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { hasText } from "@/utils/common.utils";
-import { DecoratorLine } from "@/components/common/DecoratorLine.component";
-import { SplitTitle } from "@/components/common/SplitTitle.component";
+import { SectionHeader } from "@/components/common/SectionHeader.component";
 import { MarkdownContent } from "@/components/common/MarkdownContent.component";
 import { IconBadge } from "@/components/common/IconBadge.component";
 import type { INormalizedAchievement } from "@/types/institution.types";
@@ -87,15 +86,11 @@ export function InstitutionAchievements({ achievementSection }: InstitutionAchie
       {hasPrimaryContent && (
         <section className='w-full bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12'>
           <div className={cn("mx-auto flex w-full flex-col items-center gap-8", containerMaxWidthClass)}>
-            <DecoratorLine />
-
-            <SplitTitle
-              prefix={achievementSection.titlePrefix}
-              prefixColor={achievementSection.titlePrefixColor}
-              highlight={achievementSection.titleHighlight}
-              highlightColor={achievementSection.titleHighlightColor}
-              defaultPrefixClassName='text-slate-900'
-              defaultHighlightClassName='text-amber-500'
+            <SectionHeader
+              titlePrefix={achievementSection.titlePrefix}
+              titlePrefixColor={achievementSection.titlePrefixColor}
+              titleHighlight={achievementSection.titleHighlight}
+              titleHighlightColor={achievementSection.titleHighlightColor}
             />
 
             <MarkdownContent

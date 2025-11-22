@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import { KeyHighlightCard } from "@/components/institute/KeyHighlightCard.component";
+import { MarkdownContent } from "@/components/common/MarkdownContent.component";
 import { cn } from "@/lib/utils";
 import { buildMediaUrl, applyColorStyle, getColorClassName, hasText } from "@/utils/common.utils";
 import { getKeyHighlightsByInstitution } from "@/services/server/institution.server";
@@ -79,7 +80,10 @@ async function KeyHighlightSection({ highlightsPromise }: KeyHighlightSectionPro
               )}
             </h2>
             {hasText(section.description) && (
-              <p className='max-w-3xl text-base text-white/80 sm:text-lg'>{section.description}</p>
+              <MarkdownContent
+                content={section.description}
+                className='prose prose-invert max-w-3xl text-base text-white/80 sm:text-lg'
+              />
             )}
           </div>
 

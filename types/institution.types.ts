@@ -352,7 +352,7 @@ export interface IKeyHighlightSection {
   /** Optional color value or class for the title highlight */
   titleHighlightColor?: string | null;
 
-  /** Optional description */
+  /** Markdown-enabled description */
   description?: string | null;
 
   /** Foreground or feature image for the section */
@@ -593,8 +593,8 @@ export interface ITestimonialSection {
   /** Title highlight color */
   titleHighlightColor?: string | null;
 
-  /** Subtitle */
-  subtitle?: string | null;
+  /** Description */
+  description?: string | null;
 
   /** List of testimonials */
   testimonials?: ITestimonial[] | null;

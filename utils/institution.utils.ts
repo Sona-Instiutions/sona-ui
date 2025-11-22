@@ -628,7 +628,7 @@ export const normalizeTestimonialSectionRecord = (
     titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
     titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
     titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
-    subtitle: (attributes.subtitle as string | null | undefined) ?? null,
+    description: (attributes.description as string | null | undefined) ?? null,
     testimonials,
     createdAt: (attributes.createdAt as string | undefined) ?? "",
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
