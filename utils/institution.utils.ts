@@ -1,27 +1,34 @@
 import type {
   IAchievement,
   IAchievementItem,
+  ICampusGalleryColumn,
+  ICampusGalleryImage,
+  ICampusGallerySection,
   IIconBadge,
   INormalizedAchievement,
   INormalizedAchievementItem,
+  INormalizedCampusGalleryColumn,
+  INormalizedCampusGalleryImage,
+  INormalizedCampusGallerySection,
   INormalizedKeyHighlightSection,
+  INormalizedPartnershipSection,
   INormalizedProgram,
   INormalizedProgramSection,
   INormalizedRecognitionItem,
+  INormalizedTestimonialSection,
   INormalizedValueProposition,
   INormalizedValuePropositionItem,
   IKeyHighlightSection,
+  IPartnershipItem,
+  IPartnershipSection,
   IProgram,
   IProgramSection,
   IRecognitionItem,
   ITestimonial,
   ITestimonialSection,
-  INormalizedTestimonialSection,
   IValueProposition,
   IValuePropositionItem,
-  IPartnershipItem,
-  IPartnershipSection,
-  INormalizedPartnershipSection,
+  TCampusGalleryLayoutVariant,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
@@ -47,6 +54,19 @@ const KEY_HIGHLIGHT_SECTION_FIELDS = [
   "updatedAt",
 ] as const;
 
+const CAMPUS_GALLERY_SECTION_FIELDS = [
+  "titlePrefix",
+  "titlePrefixColor",
+  "titleHighlight",
+  "titleHighlightColor",
+  "description",
+  "createdAt",
+  "updatedAt",
+] as const;
+
+const CAMPUS_GALLERY_COLUMN_FIELDS = ["order"] as const;
+const CAMPUS_GALLERY_IMAGE_FIELDS = ["altText", "layoutVariant"] as const;
+
 const VALUE_PROPOSITION_RELATION_FIELDS = ["title", "titleColor", "description", "order"] as const;
 const MEDIA_FIELDS = [
   "url",
@@ -59,6 +79,9 @@ const MEDIA_FIELDS = [
   "size",
   "formats",
 ] as const;
+
+const GALLERY_LAYOUT_VARIANTS: readonly TCampusGalleryLayoutVariant[] = ["square", "tall", "wide"] as const;
+const DEFAULT_GALLERY_LAYOUT: TCampusGalleryLayoutVariant = "square";
 
 const ACHIEVEMENT_FIELDS = [
   "titlePrefix",
@@ -111,6 +134,10 @@ const extractCollection = (value: unknown): unknown[] => {
   }
 
   return [];
+};
+
+const isGalleryLayoutVariant = (value: unknown): value is TCampusGalleryLayoutVariant => {
+  return typeof value === "string" && GALLERY_LAYOUT_VARIANTS.includes(value as TCampusGalleryLayoutVariant);
 };
 
 export const normalizeColorValue = (value: unknown): string | null => {
@@ -314,6 +341,37 @@ export const buildKeyHighlightSectionQuery = (institutionId: number): string => 
   MEDIA_FIELDS.forEach((field, index) => {
     params.set(`populate[image][fields][${index}]`, field);
   });
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[backgroundImage][fields][${index}]`, field);
+  });
+
+  return params.toString();
+};
+
+/**
+ * Build Strapi query string for fetching campus gallery section with media populated.
+ */
+export const buildCampusGallerySectionQuery = (institutionId: number): string => {
+  const params = new URLSearchParams();
+
+  params.set("filters[institution][id][$eq]", String(institutionId));
+
+  CAMPUS_GALLERY_SECTION_FIELDS.forEach((field, index) => {
+    params.set(`fields[${index}]`, field);
+  });
+
+  CAMPUS_GALLERY_COLUMN_FIELDS.forEach((field, index) => {
+    params.set(`populate[columns][fields][${index}]`, field);
+  });
+
+  CAMPUS_GALLERY_IMAGE_FIELDS.forEach((field, index) => {
+    params.set(`populate[columns][populate][images][fields][${index}]`, field);
+  });
+
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[columns][populate][images][populate][image][fields][${index}]`, field);
+  });
+
   MEDIA_FIELDS.forEach((field, index) => {
     params.set(`populate[backgroundImage][fields][${index}]`, field);
   });
@@ -696,5 +754,111 @@ export const normalizePartnershipSectionRecord = (
     description: (attributes.description as string | null | undefined) ?? "",
     backgroundImage,
     partnerships,
+  };
+};
+
+/**
+ * Normalize a single campus gallery image record.
+ */
+export const normalizeCampusGalleryImageRecord = (
+  item: ICampusGalleryImage | unknown
+): INormalizedCampusGalleryImage | null => {
+  const resolved = resolveRecord(item);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const image = normalizeStrapiMedia(attributes.image);
+
+  if (!image) {
+    return null;
+  }
+
+  const layoutRaw = attributes.layoutVariant;
+  const layoutVariant = isGalleryLayoutVariant(layoutRaw) ? layoutRaw : DEFAULT_GALLERY_LAYOUT;
+
+  const altRaw = attributes.altText;
+  const altText = typeof altRaw === "string" ? altRaw.trim() || null : null;
+
+  return {
+    id,
+    image,
+    altText,
+    layoutVariant,
+  };
+};
+
+/**
+ * Normalize a campus gallery column record with its two images.
+ */
+export const normalizeCampusGalleryColumnRecord = (
+  column: ICampusGalleryColumn | unknown
+): INormalizedCampusGalleryColumn | null => {
+  const resolved = resolveRecord(column);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const imagesRaw = extractCollection(attributes.images);
+  const images = imagesRaw
+    .map((item) => normalizeCampusGalleryImageRecord(item))
+    .filter((item): item is INormalizedCampusGalleryImage => Boolean(item));
+
+  if (images.length !== 2) {
+    return null;
+  }
+
+  return {
+    id,
+    order: typeof attributes.order === "number" ? (attributes.order as number) : null,
+    images,
+  };
+};
+
+/**
+ * Normalize a campus gallery section record with populated columns.
+ */
+export const normalizeCampusGallerySectionRecord = (
+  section: ICampusGallerySection | unknown
+): INormalizedCampusGallerySection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const columnsRaw = extractCollection(attributes.columns);
+  const columns = columnsRaw
+    .map((column) => normalizeCampusGalleryColumnRecord(column))
+    .filter((column): column is INormalizedCampusGalleryColumn => Boolean(column))
+    .sort((a, b) => {
+      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+      return a.id - b.id;
+    });
+
+  if (columns.length === 0) {
+    return null;
+  }
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? null,
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description: (attributes.description as string | null | undefined) ?? null,
+    backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
+    columns,
+    createdAt: (attributes.createdAt as string | undefined) ?? "",
+    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };
 };

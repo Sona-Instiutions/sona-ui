@@ -107,9 +107,66 @@ export interface IPartnershipSection {
   partnerships: IPartnershipItem[];
 }
 
-/** Normalized partnership section */
-export interface INormalizedPartnershipSection extends IPartnershipSection {
-  // Add any normalized fields if necessary, for now it matches the raw type
+/** Normalized partnership section (currently matches raw structure) */
+export type INormalizedPartnershipSection = IPartnershipSection;
+
+/** Supported layout variants for gallery tiles */
+export type TCampusGalleryLayoutVariant = "square" | "tall" | "wide";
+
+/** Single gallery image item */
+export interface ICampusGalleryImage {
+  id: number;
+  image: IStrapiMedia;
+  altText?: string | null;
+  layoutVariant?: TCampusGalleryLayoutVariant | null;
+}
+
+/** Column grouping exactly two gallery images */
+export interface ICampusGalleryColumn {
+  id: number;
+  order?: number | null;
+  images?: ICampusGalleryImage[] | null;
+}
+
+/** Campus gallery section entity */
+export interface ICampusGallerySection {
+  id: number;
+  titlePrefix?: string | null;
+  titlePrefixColor?: string | null;
+  titleHighlight?: string | null;
+  titleHighlightColor?: string | null;
+  description?: string | null;
+  backgroundImage?: IStrapiMedia | null;
+  columns?: ICampusGalleryColumn[] | null;
+  institution?: number | IInstitution | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** Normalized gallery image item */
+export interface INormalizedCampusGalleryImage
+  extends Omit<ICampusGalleryImage, "altText" | "layoutVariant"> {
+  altText: string | null;
+  layoutVariant: TCampusGalleryLayoutVariant;
+}
+
+/** Normalized gallery column grouping */
+export interface INormalizedCampusGalleryColumn
+  extends Omit<ICampusGalleryColumn, "images" | "order"> {
+  order: number | null;
+  images: INormalizedCampusGalleryImage[];
+}
+
+/** Normalized campus gallery section */
+export interface INormalizedCampusGallerySection
+  extends Omit<
+    ICampusGallerySection,
+    "backgroundImage" | "columns" | "titlePrefixColor" | "titleHighlightColor"
+  > {
+  backgroundImage: IStrapiMedia | null;
+  titlePrefixColor: string | null;
+  titleHighlightColor: string | null;
+  columns: INormalizedCampusGalleryColumn[];
 }
 
 /** Institution entity from backend matching Strapi response structure */
@@ -159,6 +216,9 @@ export interface IInstitution {
   /** Optional partnership section when populated */
   partnershipSection?: IPartnershipSection | null;
 
+  /** Optional campus gallery section when populated */
+  campusGallerySection?: ICampusGallerySection | null;
+
   /** ISO 8601 timestamp of creation */
   createdAt: string;
 
@@ -206,6 +266,9 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
 
   /** Related partnership section normalized or null */
   partnershipSection?: INormalizedPartnershipSection | null;
+
+  /** Related campus gallery section normalized or null */
+  campusGallerySection?: INormalizedCampusGallerySection | null;
 }
 
 /** Program entity describing the overall offering for an institution */
@@ -430,6 +493,12 @@ export interface INormalizedKeyHighlightSection
 /** API response for key highlight section queries */
 export interface IKeyHighlightSectionResponse {
   data: IKeyHighlightSection[];
+  meta: Record<string, unknown>;
+}
+
+/** API response for campus gallery section queries */
+export interface ICampusGallerySectionResponse {
+  data: ICampusGallerySection[];
   meta: Record<string, unknown>;
 }
 

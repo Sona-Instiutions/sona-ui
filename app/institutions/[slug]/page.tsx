@@ -10,6 +10,7 @@ import { InstitutionPrograms } from "@/components/institute/InstitutionPrograms.
 import { InstitutionValueProposition } from "@/components/institute/InstitutionValueProposition.component";
 import { InstitutionTestimonials } from "@/components/institute/InstitutionTestimonials.component";
 import { InstitutionPartnerships } from "@/components/institute/InstitutionPartnerships.component";
+import { InstitutionGallery } from "@/components/institute/InstitutionGallery.component";
 
 interface InstitutionPageParams {
   slug: string;
@@ -123,6 +124,9 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* Partnerships section */}
         <InstitutionPartnerships partnershipSection={institution.partnershipSection || null} />
+
+        {/* Campus gallery section */}
+        <InstitutionGallery institutionId={institution.id} />
       </main>
     </div>
   );

@@ -3,10 +3,12 @@ import { isAxiosError } from "axios";
 import { axiosInstance } from "@/lib/axios.config";
 import {
   buildAchievementQuery,
+  buildCampusGallerySectionQuery,
   buildKeyHighlightSectionQuery,
   buildProgramSectionsQuery,
   buildValuePropositionQuery,
   normalizeAchievementRecord,
+  normalizeCampusGallerySectionRecord,
   normalizeColorValue,
   normalizeKeyHighlightSectionRecord,
   normalizeProgramRecord,
@@ -19,6 +21,7 @@ import {
   IInstitutionResponse,
   IApiError,
   INormalizedInstitution,
+  INormalizedCampusGallerySection,
   IProgramsResponse,
   INormalizedProgram,
   INormalizedValueProposition,
@@ -27,6 +30,7 @@ import {
   IAchievementResponse,
   INormalizedKeyHighlightSection,
   IKeyHighlightSectionResponse,
+  ICampusGallerySectionResponse,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
@@ -110,7 +114,7 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
     const response = await axiosInstance.get<IInstitutionResponse>(
       `/api/institutions?filters[slug][$eq]=${encodeURIComponent(
         slug
-      )}&populate[0]=bannerImage&populate[1]=testimonialSection.testimonials.avatar&populate[2]=partnershipSection.partnerships.companyLogo&populate[3]=partnershipSection.backgroundImage`
+      )}&populate[0]=bannerImage&populate[1]=testimonialSection.testimonials.avatar&populate[2]=partnershipSection.partnerships.companyLogo&populate[3]=partnershipSection.backgroundImage&populate[4]=campusGallerySection.columns.images.image&populate[5]=campusGallerySection.backgroundImage`
     );
 
     // Strapi returns array even for single item filter
@@ -154,6 +158,7 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
           : institution.testimonialSection
       ),
       partnershipSection: normalizePartnershipSectionRecord(institution.partnershipSection),
+      campusGallerySection: normalizeCampusGallerySectionRecord(institution.campusGallerySection),
     };
 
     return normalizedInstitution;
@@ -292,6 +297,47 @@ export async function getKeyHighlightsByInstitution(
     }
 
     const normalized = normalizeKeyHighlightSectionRecord(response.data.data[0]);
+
+    return normalized ?? null;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status ?? 500;
+
+      if (status >= 400 && status < 500) {
+        return null;
+      }
+
+      throw {
+        status,
+        message: error.message,
+        details: error.response?.data ?? {},
+      } as IApiError;
+    }
+
+    throw error;
+  }
+}
+
+/**
+ * Fetch campus gallery section associated with an institution (server-only).
+ */
+export async function getCampusGalleryByInstitution(
+  institutionId: number
+): Promise<INormalizedCampusGallerySection | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get<ICampusGallerySectionResponse>(
+      `/api/campus-gallery-sections?${buildCampusGallerySectionQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalized = normalizeCampusGallerySectionRecord(response.data.data[0]);
 
     return normalized ?? null;
   } catch (error) {
