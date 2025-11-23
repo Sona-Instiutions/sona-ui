@@ -12,6 +12,7 @@ import {
   normalizeProgramRecord,
   normalizeTestimonialSectionRecord,
   normalizeValuePropositionRecord,
+  normalizePartnershipSectionRecord,
 } from "@/utils/institution.utils";
 import {
   IInstitution,
@@ -109,7 +110,7 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
     const response = await axiosInstance.get<IInstitutionResponse>(
       `/api/institutions?filters[slug][$eq]=${encodeURIComponent(
         slug
-      )}&populate[0]=bannerImage&populate[1]=testimonialSection.testimonials.avatar`
+      )}&populate[0]=bannerImage&populate[1]=testimonialSection.testimonials.avatar&populate[2]=partnershipSection.partnerships.companyLogo&populate[3]=partnershipSection.backgroundImage`
     );
 
     // Strapi returns array even for single item filter
@@ -152,6 +153,7 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
           ? institution.testimonialSection[0]
           : institution.testimonialSection
       ),
+      partnershipSection: normalizePartnershipSectionRecord(institution.partnershipSection),
     };
 
     return normalizedInstitution;

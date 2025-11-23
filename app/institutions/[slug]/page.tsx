@@ -9,6 +9,7 @@ import { InstitutionKeyHighlights } from "@/components/institute/InstitutionKeyH
 import { InstitutionPrograms } from "@/components/institute/InstitutionPrograms.component";
 import { InstitutionValueProposition } from "@/components/institute/InstitutionValueProposition.component";
 import { InstitutionTestimonials } from "@/components/institute/InstitutionTestimonials.component";
+import { InstitutionPartnerships } from "@/components/institute/InstitutionPartnerships.component";
 
 interface InstitutionPageParams {
   slug: string;
@@ -119,6 +120,9 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* Testimonials section */}
         <InstitutionTestimonials testimonialSection={institution.testimonialSection || null} />
+
+        {/* Partnerships section */}
+        <InstitutionPartnerships partnershipSection={institution.partnershipSection || null} />
       </main>
     </div>
   );

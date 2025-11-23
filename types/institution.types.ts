@@ -87,6 +87,31 @@ export interface IAboutInstituteResponse {
   meta: Record<string, unknown>;
 }
 
+/** Partnership item containing company details */
+export interface IPartnershipItem {
+  id: number;
+  companyName: string;
+  companyLogo: IStrapiMedia;
+  backgroundColor?: string | null;
+}
+
+/** Partnership section entity */
+export interface IPartnershipSection {
+  id: number;
+  titlePrefix: string;
+  titlePrefixColor?: string | null;
+  titleHighlight: string;
+  titleHighlightColor?: string | null;
+  description: string;
+  backgroundImage: IStrapiMedia;
+  partnerships: IPartnershipItem[];
+}
+
+/** Normalized partnership section */
+export interface INormalizedPartnershipSection extends IPartnershipSection {
+  // Add any normalized fields if necessary, for now it matches the raw type
+}
+
 /** Institution entity from backend matching Strapi response structure */
 export interface IInstitution {
   /** Unique numeric identifier */
@@ -130,6 +155,9 @@ export interface IInstitution {
 
   /** Optional testimonials section when populated */
   testimonialSection?: ITestimonialSection | null;
+
+  /** Optional partnership section when populated */
+  partnershipSection?: IPartnershipSection | null;
 
   /** ISO 8601 timestamp of creation */
   createdAt: string;
@@ -175,6 +203,9 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
 
   /** Related testimonials section normalized or null */
   testimonialSection?: INormalizedTestimonialSection | null;
+
+  /** Related partnership section normalized or null */
+  partnershipSection?: INormalizedPartnershipSection | null;
 }
 
 /** Program entity describing the overall offering for an institution */

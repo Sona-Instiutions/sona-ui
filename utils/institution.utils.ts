@@ -19,6 +19,9 @@ import type {
   INormalizedTestimonialSection,
   IValueProposition,
   IValuePropositionItem,
+  IPartnershipItem,
+  IPartnershipSection,
+  INormalizedPartnershipSection,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
@@ -635,3 +638,63 @@ export const normalizeTestimonialSectionRecord = (
   };
 };
 
+/**
+ * Normalize a single partnership item record.
+ */
+export const normalizePartnershipItemRecord = (item: IPartnershipItem | unknown): IPartnershipItem | null => {
+  const resolved = resolveRecord(item);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const companyLogo = normalizeStrapiMedia(attributes.companyLogo);
+
+  if (!companyLogo) {
+    return null;
+  }
+
+  return {
+    id,
+    companyName: (attributes.companyName as string | null | undefined) ?? "",
+    companyLogo,
+    backgroundColor: normalizeColorValue(attributes.backgroundColor),
+  };
+};
+
+/**
+ * Normalize a partnership section record with populated partnerships.
+ */
+export const normalizePartnershipSectionRecord = (
+  section: IPartnershipSection | unknown
+): INormalizedPartnershipSection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const partnershipsRaw = extractCollection(attributes.partnerships);
+  const partnerships = partnershipsRaw
+    .map((item) => normalizePartnershipItemRecord(item))
+    .filter((item): item is IPartnershipItem => Boolean(item));
+
+  const backgroundImage = normalizeStrapiMedia(attributes.backgroundImage);
+
+  if (!backgroundImage) {
+    return null;
+  }
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? "",
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? "",
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description: (attributes.description as string | null | undefined) ?? "",
+    backgroundImage,
+    partnerships,
+  };
+};

@@ -56,12 +56,14 @@ async function KeyHighlightSection({ highlightsPromise }: KeyHighlightSectionPro
   return (
     <section
       className='relative w-full overflow-hidden bg-slate-950 px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12'
-      style={backgroundUrl ? { backgroundImage: `url('${backgroundUrl}')`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
+      style={
+        backgroundUrl
+          ? { backgroundImage: `url('${backgroundUrl}')`, backgroundSize: "cover", backgroundPosition: "center" }
+          : undefined
+      }
     >
       {/* Background overlay if image is present, otherwise simple bg */}
-      {backgroundUrl && (
-        <div className="absolute inset-0 bg-black/80 z-0" />
-      )}
+      {backgroundUrl && <div className='absolute inset-0 bg-linear-to-r from-black/40 via-black/30 to-black/20' />}
 
       <div className='relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 lg:flex-row lg:items-center lg:gap-16'>
         <div className='flex w-full flex-col gap-10'>
