@@ -4,12 +4,15 @@ import type {
   ICampusGalleryColumn,
   ICampusGalleryImage,
   ICampusGallerySection,
+  IFaqItem,
+  IFaqSection,
   IIconBadge,
   INormalizedAchievement,
   INormalizedAchievementItem,
   INormalizedCampusGalleryColumn,
   INormalizedCampusGalleryImage,
   INormalizedCampusGallerySection,
+  INormalizedFaqSection,
   INormalizedKeyHighlightSection,
   INormalizedPartnershipSection,
   INormalizedProgram,
@@ -66,6 +69,17 @@ const CAMPUS_GALLERY_SECTION_FIELDS = [
 
 const CAMPUS_GALLERY_COLUMN_FIELDS = ["order"] as const;
 const CAMPUS_GALLERY_IMAGE_FIELDS = ["altText", "layoutVariant"] as const;
+
+const FAQ_SECTION_FIELDS = [
+  "titlePrefix",
+  "titlePrefixColor",
+  "titleHighlight",
+  "titleHighlightColor",
+  "description",
+  "createdAt",
+  "updatedAt",
+] as const;
+const FAQ_ITEM_FIELDS = ["question", "answer", "order"] as const;
 
 const VALUE_PROPOSITION_RELATION_FIELDS = ["title", "titleColor", "description", "order"] as const;
 const MEDIA_FIELDS = [
@@ -370,6 +384,29 @@ export const buildCampusGallerySectionQuery = (institutionId: number): string =>
 
   MEDIA_FIELDS.forEach((field, index) => {
     params.set(`populate[columns][populate][images][populate][image][fields][${index}]`, field);
+  });
+
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[backgroundImage][fields][${index}]`, field);
+  });
+
+  return params.toString();
+};
+
+/**
+ * Build Strapi query string for fetching FAQ section with questions populated.
+ */
+export const buildFaqSectionQuery = (institutionId: number): string => {
+  const params = new URLSearchParams();
+
+  params.set("filters[institution][id][$eq]", String(institutionId));
+
+  FAQ_SECTION_FIELDS.forEach((field, index) => {
+    params.set(`fields[${index}]`, field);
+  });
+
+  FAQ_ITEM_FIELDS.forEach((field, index) => {
+    params.set(`populate[faqs][fields][${index}]`, field);
   });
 
   MEDIA_FIELDS.forEach((field, index) => {
@@ -858,6 +895,83 @@ export const normalizeCampusGallerySectionRecord = (
     description: (attributes.description as string | null | undefined) ?? null,
     backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
     columns,
+    createdAt: (attributes.createdAt as string | undefined) ?? "",
+    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
+  };
+};
+
+/**
+ * Normalize a single FAQ item record.
+ */
+export const normalizeFaqItemRecord = (item: IFaqItem | unknown): IFaqItem | null => {
+  const resolved = resolveRecord(item);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+
+  const questionRaw = attributes.question;
+  const answerRaw = attributes.answer;
+
+  const question =
+    typeof questionRaw === "string" && questionRaw.trim().length > 0 ? (questionRaw as string) : "";
+  const answer = typeof answerRaw === "string" ? (answerRaw as string) : "";
+
+  return {
+    id,
+    question,
+    answer,
+    order: typeof attributes.order === "number" ? (attributes.order as number) : null,
+  };
+};
+
+/**
+ * Normalize an FAQ section record with populated FAQs.
+ */
+export const normalizeFaqSectionRecord = (
+  section: IFaqSection | unknown
+): INormalizedFaqSection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const faqsRaw = extractCollection(attributes.faqs);
+  const faqs = faqsRaw
+    .map((item) => normalizeFaqItemRecord(item))
+    .filter((item): item is IFaqItem => Boolean(item))
+    .sort((a, b) => {
+      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+
+      return a.question.localeCompare(b.question);
+    });
+
+  if (faqs.length === 0) {
+    return null;
+  }
+
+  const descriptionRaw = attributes.description;
+  const description =
+    typeof descriptionRaw === "string" && descriptionRaw.trim().length > 0 ? (descriptionRaw as string) : null;
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? null,
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description,
+    backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
+    faqs,
     createdAt: (attributes.createdAt as string | undefined) ?? "",
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };

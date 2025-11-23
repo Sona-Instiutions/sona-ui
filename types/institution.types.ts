@@ -144,29 +144,91 @@ export interface ICampusGallerySection {
 }
 
 /** Normalized gallery image item */
-export interface INormalizedCampusGalleryImage
-  extends Omit<ICampusGalleryImage, "altText" | "layoutVariant"> {
+export interface INormalizedCampusGalleryImage extends Omit<ICampusGalleryImage, "altText" | "layoutVariant"> {
   altText: string | null;
   layoutVariant: TCampusGalleryLayoutVariant;
 }
 
 /** Normalized gallery column grouping */
-export interface INormalizedCampusGalleryColumn
-  extends Omit<ICampusGalleryColumn, "images" | "order"> {
+export interface INormalizedCampusGalleryColumn extends Omit<ICampusGalleryColumn, "images" | "order"> {
   order: number | null;
   images: INormalizedCampusGalleryImage[];
 }
 
 /** Normalized campus gallery section */
 export interface INormalizedCampusGallerySection
-  extends Omit<
-    ICampusGallerySection,
-    "backgroundImage" | "columns" | "titlePrefixColor" | "titleHighlightColor"
-  > {
+  extends Omit<ICampusGallerySection, "backgroundImage" | "columns" | "titlePrefixColor" | "titleHighlightColor"> {
   backgroundImage: IStrapiMedia | null;
   titlePrefixColor: string | null;
   titleHighlightColor: string | null;
   columns: INormalizedCampusGalleryColumn[];
+}
+
+/** Individual FAQ item comprising a question and answer */
+export interface IFaqItem {
+  /** Unique FAQ identifier */
+  id: number;
+
+  /** FAQ question text */
+  question: string;
+
+  /** Rich-text answer content */
+  answer: string;
+
+  /** Ordering index to allow manual sequencing */
+  order?: number | null;
+}
+
+/** FAQ section entity */
+export interface IFaqSection {
+  /** Unique section identifier */
+  id: number;
+
+  /** Optional title prefix */
+  titlePrefix?: string | null;
+
+  /** Optional color value or class for the prefix */
+  titlePrefixColor?: string | null;
+
+  /** Optional highlighted portion of the title */
+  titleHighlight?: string | null;
+
+  /** Optional color value or class for the highlight */
+  titleHighlightColor?: string | null;
+
+  /** Supporting descriptive copy */
+  description?: string | null;
+
+  /** Background image reference */
+  backgroundImage?: IStrapiMedia | null;
+
+  /** Related FAQ items */
+  faqs?: IFaqItem[] | null;
+
+  /** Related institution reference */
+  institution?: number | IInstitution | null;
+
+  /** Creation timestamp */
+  createdAt: string;
+
+  /** Last updated timestamp */
+  updatedAt: string;
+}
+
+/** Normalized FAQ section */
+export interface INormalizedFaqSection
+  extends Omit<IFaqSection, "backgroundImage" | "faqs" | "titlePrefixColor" | "titleHighlightColor"> {
+  /** Background image normalized to media or null */
+  backgroundImage: IStrapiMedia | null;
+
+  /** Title prefix color normalized to string or null */
+  titlePrefixColor: string | null;
+
+  /** Title highlight color normalized to string or null */
+  titleHighlightColor: string | null;
+
+  /** FAQ array guaranteed */
+  faqs: IFaqItem[];
 }
 
 /** Institution entity from backend matching Strapi response structure */
@@ -219,6 +281,9 @@ export interface IInstitution {
   /** Optional campus gallery section when populated */
   campusGallerySection?: ICampusGallerySection | null;
 
+  /** Optional FAQ section when populated */
+  faqSection?: IFaqSection | null;
+
   /** ISO 8601 timestamp of creation */
   createdAt: string;
 
@@ -269,6 +334,9 @@ export interface INormalizedInstitution extends Omit<IInstitution, "bannerImage"
 
   /** Related campus gallery section normalized or null */
   campusGallerySection?: INormalizedCampusGallerySection | null;
+
+  /** Related FAQ section normalized or null */
+  faqSection?: INormalizedFaqSection | null;
 }
 
 /** Program entity describing the overall offering for an institution */
@@ -499,6 +567,12 @@ export interface IKeyHighlightSectionResponse {
 /** API response for campus gallery section queries */
 export interface ICampusGallerySectionResponse {
   data: ICampusGallerySection[];
+  meta: Record<string, unknown>;
+}
+
+/** API response for FAQ section queries */
+export interface IFaqSectionResponse {
+  data: IFaqSection[];
   meta: Record<string, unknown>;
 }
 

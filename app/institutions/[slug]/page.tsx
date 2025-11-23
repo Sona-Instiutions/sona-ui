@@ -11,6 +11,7 @@ import { InstitutionValueProposition } from "@/components/institute/InstitutionV
 import { InstitutionTestimonials } from "@/components/institute/InstitutionTestimonials.component";
 import { InstitutionPartnerships } from "@/components/institute/InstitutionPartnerships.component";
 import { InstitutionGallery } from "@/components/institute/InstitutionGallery.component";
+import { InstitutionFaq } from "@/components/institute/InstitutionFaq.component";
 
 interface InstitutionPageParams {
   slug: string;
@@ -127,6 +128,9 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* Campus gallery section */}
         <InstitutionGallery institutionId={institution.id} />
+
+        {/* FAQ section */}
+        <InstitutionFaq institutionId={institution.id} />
       </main>
     </div>
   );
