@@ -1,53 +1,159 @@
 "use client";
 
+import { useState } from "react";
+import { useSubmitContactFormMutation } from "@/services/client/contactSubmission.client";
+
 export default function ContactSection() {
+  const [form, setForm] = useState({
+    Category: "",
+    FirstName: "",
+    LastName: "",
+    EmailAddress: "",
+    PhoneNumber: "",
+    Subject: "",
+    Message: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const { mutate, isPending } = useSubmitContactFormMutation();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // PHONE: Allow only numbers
+    if (name === "PhoneNumber") {
+      const numericValue = value.replace(/\D/g, ""); // remove letters
+      setForm({ ...form, PhoneNumber: numericValue });
+      setErrors({ ...errors, PhoneNumber: "" });
+      return;
+    }
+
+    setForm({ ...form, [name]: value });
+    setErrors({ ...errors, [name]: "" });
+  };
+
+  // VALIDATION FUNCTION
+  const validateForm = () => {
+    let newErrors: any = {};
+
+    if (!form.Category) newErrors.Category = "Please select a category";
+    if (!form.FirstName) newErrors.FirstName = "First name is required";
+
+    // EMAIL VALIDATION
+    if (!form.EmailAddress) {
+      newErrors.EmailAddress = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(form.EmailAddress)) {
+      newErrors.EmailAddress = "Enter a valid email address";
+    }
+
+    // PHONE VALIDATION
+    if (!form.PhoneNumber) {
+      newErrors.PhoneNumber = "Phone number is required";
+    } else if (!/^\d{10}$/.test(form.PhoneNumber)) {
+      newErrors.PhoneNumber = "Phone number must be 10 digits";
+    }
+
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSuccessMessage("");
+
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) return;
+
+    mutate(form, {
+      onSuccess: () => {
+        setSuccessMessage("Your message has been successfully submitted!");
+
+        // Reset form
+        setForm({
+          Category: "",
+          FirstName: "",
+          LastName: "",
+          EmailAddress: "",
+          PhoneNumber: "",
+          Subject: "",
+          Message: "",
+        });
+      },
+      onError: (error) => {
+        console.error("Form submit error:", error);
+      },
+    });
+  };
+
   return (
-    <section className='py-16 bg-white'>
-      <div className='container mx-auto px-6 md:px-8'>
-        {/* Layout */}
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-12'>
-          {/* ------------------------------------------------ */}
-          {/* LEFT — CONTACT FORM */}
-          {/* ------------------------------------------------ */}
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="md:col-span-2">
+            <h2 className="text-4xl font-extrabold text-gray-900 mb-3">Get In Touch</h2>
 
-          <div className='md:col-span-2'>
-            <h2 className='text-4xl font-extrabold text-gray-900 mb-3'>Get In Touch</h2>
-
-            <p className='text-gray-600 max-w-lg mb-10'>
-              Have questions about our programs, admissions, or campus life? We’d love to hear from you. Fill out the
-              form and our team will get back to you within 24 hours.
+            <p className="text-gray-600 max-w-lg mb-10">
+              Have questions about our programs, admissions, or campus life? We’d love to hear from you.
             </p>
 
-            <form className='space-y-6'>
-              {/* Select */}
+            {/* SUCCESS MESSAGE */}
+            {successMessage && (
+              <div className="bg-green-100 text-green-700 p-3 mb-6 rounded">
+                {successMessage}
+              </div>
+            )}
+
+            {/* FORM START */}
+            <form className="space-y-6" onSubmit={handleSubmit}>
+
+              {/* Category */}
               <div>
                 <label className='block text-sm font-medium text-gray-600 mb-1'>I am a</label>
-                <select className='w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 focus:ring-2 focus:ring-yellow-400 focus:outline-none'>
-                  <option>Select your category</option>
-                  <option>Student</option>
-                  <option>Parent</option>
-                  <option>Working Professional</option>
-                  <option>Other</option>
+                <select
+                  name="Category"
+                  value={form.Category}
+                  onChange={handleChange}
+                  className='w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                >
+                  <option value="">Select your category</option>
+                  <option value="Student">Student</option>
+                  <option value="Parent">Parent</option>
+                  <option value="Working Professional">Working Professional</option>
+                  <option value="Other">Other</option>
                 </select>
+
+                {errors.Category && <p className="text-red-500 text-sm">{errors.Category}</p>}
               </div>
 
-              {/* First + Last Name */}
+              {/* First Name */}
               <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
                 <div>
                   <label className='block text-sm font-medium text-gray-600 mb-1'>First Name</label>
+
                   <input
-                    type='text'
-                    placeholder='Enter your first name'
-                    className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                    name="FirstName"
+                    value={form.FirstName}
+                    onChange={handleChange}
+                    placeholder="First Name"
+                    className="w-full border rounded-lg px-4 py-3"
                   />
+                  {errors.FirstName && <p className="text-red-500 text-sm">{errors.FirstName}</p>}
                 </div>
 
+
+                {/* Last Name */}
                 <div>
                   <label className='block text-sm font-medium text-gray-600 mb-1'>Last Name</label>
+
                   <input
-                    type='text'
-                    placeholder='Enter your last name'
-                    className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                    name="LastName"
+                    value={form.LastName}
+                    onChange={handleChange}
+                    placeholder="Last Name"
+                    className="w-full border rounded-lg px-4 py-3"
                   />
                 </div>
               </div>
@@ -55,49 +161,70 @@ export default function ContactSection() {
               {/* Email */}
               <div>
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Email Address</label>
+
                 <input
-                  type='email'
-                  placeholder='Enter your email address'
-                  className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                  name="EmailAddress"
+                  type="email"
+                  value={form.EmailAddress}
+                  onChange={handleChange}
+                  placeholder="Email Address"
+                  className="w-full border rounded-lg px-4 py-3"
                 />
+                {errors.EmailAddress && (
+                  <p className="text-red-500 text-sm">{errors.EmailAddress}</p>
+                )}
               </div>
 
               {/* Phone */}
               <div>
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Phone Number</label>
+
                 <input
-                  type='tel'
-                  placeholder='Enter your phone number'
-                  className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                  name="PhoneNumber"
+                  value={form.PhoneNumber}
+                  onChange={handleChange}
+                  placeholder="Phone Number"
+                  maxLength={10}
+                  className="w-full border rounded-lg px-4 py-3"
                 />
+                {errors.PhoneNumber && (
+                  <p className="text-red-500 text-sm">{errors.PhoneNumber}</p>
+                )}
               </div>
 
               {/* Subject */}
               <div>
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Subject</label>
+
                 <input
-                  type='text'
-                  placeholder='What is this regarding?'
-                  className='w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
+                  name="Subject"
+                  value={form.Subject}
+                  onChange={handleChange}
+                  placeholder="Subject"
+                  className="w-full border rounded-lg px-4 py-3"
                 />
               </div>
 
               {/* Message */}
               <div>
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Message</label>
+
                 <textarea
-                  placeholder='Tell us more about your inquiry…'
-                  rows={5}
-                  className='w-full border border-gray-300 rounded-lg px-4 py-3 resize-none focus:ring-2 focus:ring-yellow-400 focus:outline-none'
-                ></textarea>
+                  name="Message"
+                  value={form.Message}
+                  onChange={handleChange}
+                  placeholder="Write your message"
+                  className="w-full border rounded-lg px-4 py-3"
+                />
               </div>
 
               {/* Submit */}
               <button
-                type='submit'
-                className='w-full bg-blue-900 text-white font-semibold py-3 rounded-lg hover:bg-blue-950 transition'
+                type="submit"
+                disabled={isPending}
+                className={`w-full bg-blue-900 text-white rounded-lg py-3 transition ${isPending ? "opacity-60 cursor-not-allowed" : "hover:bg-blue-800 cursor-pointer"} `}
               >
-                Send Message
+                {isPending ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>
@@ -179,16 +306,16 @@ export default function ContactSection() {
             </div>
 
             {/* CARD 3 */}
-            <div className='bg-blue-900 rounded-2xl p-6 shadow-md text-white text-left'>
+            {/* <div className='bg-blue-900 rounded-2xl p-6 shadow-md text-white text-left'>
               <h3 className='text-lg font-bold mb-2'>Schedule a Campus Tour</h3>
               <p className='text-sm mb-4'>Experience SCALE firsthand with a personalized campus tour.</p>
               <button className='bg-white text-blue-900 font-semibold px-6 py-2 rounded-md hover:bg-gray-200 transition'>
                 Book Your Visit
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 }
