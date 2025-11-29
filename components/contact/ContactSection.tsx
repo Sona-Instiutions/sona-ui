@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useSubmitContactFormMutation } from "@/services/client/contactSubmission.client";
 
 export default function ContactSection() {
@@ -14,12 +14,12 @@ export default function ContactSection() {
     Message: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState("");
 
   const { mutate, isPending } = useSubmitContactFormMutation();
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
     // PHONE: Allow only numbers
@@ -35,8 +35,8 @@ export default function ContactSection() {
   };
 
   // VALIDATION FUNCTION
-  const validateForm = () => {
-    let newErrors: any = {};
+  const validateForm = (): Record<string, string> => {
+    let newErrors: Record<string, string> = {};
 
     if (!form.Category) newErrors.Category = "Please select a category";
     if (!form.FirstName) newErrors.FirstName = "First name is required";
@@ -58,7 +58,7 @@ export default function ContactSection() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSuccessMessage("");
 
