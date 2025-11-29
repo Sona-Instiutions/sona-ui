@@ -32,7 +32,8 @@ const hasMeaningfulContent = (about?: IAboutInstitute | null): boolean => {
   }
 
   return Boolean(
-    hasText(about.title) ||
+    hasText(about.titlePrefix) ||
+      hasText(about.titleHighlight) ||
       hasText(about.description) ||
       (Array.isArray(about.bullets) && about.bullets.length > 0) ||
       about.image ||
@@ -92,14 +93,22 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
   }
 
   const imageUrl = buildMediaUrl(about?.image);
-  const imageAlt = about?.image?.alternativeText ?? about?.title ?? "Institution about section image";
+  const fallbackTitle = [about?.titlePrefix, about?.titleHighlight].filter((t) => t?.trim()).join(" ");
+  const imageAlt = about?.image?.alternativeText ?? (fallbackTitle || "Institution about section image");
   const hasBadge = hasText(about?.badgeText) || hasText(about?.badgeValue);
 
   return (
     <section className='w-full bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:px-12'>
       <div className='mx-auto flex w-full max-w-6xl flex-col gap-10 lg:flex-row lg:items-stretch'>
         <div className='flex flex-1 flex-col justify-center space-y-6'>
-          {hasText(about?.title) && <SectionHeader title={about?.title ?? ""} />}
+          {(hasText(about?.titlePrefix) || hasText(about?.titleHighlight)) && (
+            <SectionHeader
+              titlePrefix={about?.titlePrefix}
+              titlePrefixColor={about?.titlePrefixColor}
+              titleHighlight={about?.titleHighlight}
+              titleHighlightColor={about?.titleHighlightColor}
+            />
+          )}
 
           {hasText(about?.description) && (
             <div className='space-y-4'>

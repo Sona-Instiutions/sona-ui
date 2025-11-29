@@ -1,35 +1,41 @@
 import type {
   IAchievement,
   IAchievementItem,
+  ICampusGalleryColumn,
+  ICampusGalleryImage,
+  ICampusGallerySection,
+  IFaqItem,
+  IFaqSection,
   IIconBadge,
   INormalizedAchievement,
   INormalizedAchievementItem,
+  INormalizedCampusGalleryColumn,
+  INormalizedCampusGalleryImage,
+  INormalizedCampusGallerySection,
+  INormalizedFaqSection,
+  INormalizedKeyHighlightSection,
+  INormalizedPartnershipSection,
   INormalizedProgram,
   INormalizedProgramSection,
   INormalizedRecognitionItem,
-  INormalizedRecognitionSection,
+  INormalizedTestimonialSection,
   INormalizedValueProposition,
   INormalizedValuePropositionItem,
+  IKeyHighlightSection,
+  IPartnershipItem,
+  IPartnershipSection,
   IProgram,
   IProgramSection,
   IRecognitionItem,
-  IRecognitionSection,
+  ITestimonial,
+  ITestimonialSection,
   IValueProposition,
   IValuePropositionItem,
+  TCampusGalleryLayoutVariant,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
 const PROGRAM_FIELDS = ["title", "description", "createdAt", "updatedAt"] as const;
-const PROGRAM_SECTION_FIELDS = [
-  "title",
-  "description",
-  "learnMoreText",
-  "learnMoreUrl",
-  "learnMoreIsExternal",
-  "order",
-  "createdAt",
-  "updatedAt",
-] as const;
 
 const VALUE_PROPOSITION_FIELDS = [
   "titlePrefix",
@@ -40,6 +46,40 @@ const VALUE_PROPOSITION_FIELDS = [
   "createdAt",
   "updatedAt",
 ] as const;
+
+const KEY_HIGHLIGHT_SECTION_FIELDS = [
+  "titlePrefix",
+  "titlePrefixColor",
+  "titleHighlight",
+  "titleHighlightColor",
+  "description",
+  "createdAt",
+  "updatedAt",
+] as const;
+
+const CAMPUS_GALLERY_SECTION_FIELDS = [
+  "titlePrefix",
+  "titlePrefixColor",
+  "titleHighlight",
+  "titleHighlightColor",
+  "description",
+  "createdAt",
+  "updatedAt",
+] as const;
+
+const CAMPUS_GALLERY_COLUMN_FIELDS = ["order"] as const;
+const CAMPUS_GALLERY_IMAGE_FIELDS = ["altText", "layoutVariant"] as const;
+
+const FAQ_SECTION_FIELDS = [
+  "titlePrefix",
+  "titlePrefixColor",
+  "titleHighlight",
+  "titleHighlightColor",
+  "description",
+  "createdAt",
+  "updatedAt",
+] as const;
+const FAQ_ITEM_FIELDS = ["question", "answer", "order"] as const;
 
 const VALUE_PROPOSITION_RELATION_FIELDS = ["title", "titleColor", "description", "order"] as const;
 const MEDIA_FIELDS = [
@@ -54,17 +94,20 @@ const MEDIA_FIELDS = [
   "formats",
 ] as const;
 
+const GALLERY_LAYOUT_VARIANTS: readonly TCampusGalleryLayoutVariant[] = ["square", "tall", "wide"] as const;
+const DEFAULT_GALLERY_LAYOUT: TCampusGalleryLayoutVariant = "square";
+
 const ACHIEVEMENT_FIELDS = [
   "titlePrefix",
   "titlePrefixColor",
   "titleHighlight",
   "titleHighlightColor",
   "description",
+  "recognitionTitle",
+  "recognitionBackgroundColor",
 ] as const;
 
 const ACHIEVEMENT_ITEM_FIELDS = ["statistic", "title", "description", "order"] as const;
-
-const RECOGNITION_FIELDS = ["title", "backgroundColor"] as const;
 
 const RECOGNITION_ITEM_FIELDS = ["title", "description", "order"] as const;
 
@@ -107,7 +150,11 @@ const extractCollection = (value: unknown): unknown[] => {
   return [];
 };
 
-const normalizeColorValue = (value: unknown): string | null => {
+const isGalleryLayoutVariant = (value: unknown): value is TCampusGalleryLayoutVariant => {
+  return typeof value === "string" && GALLERY_LAYOUT_VARIANTS.includes(value as TCampusGalleryLayoutVariant);
+};
+
+export const normalizeColorValue = (value: unknown): string | null => {
   if (typeof value !== "string") {
     return null;
   }
@@ -162,11 +209,8 @@ export const buildProgramSectionsQuery = (institutionId: number): string => {
     params.set(`fields[${index}]`, field);
   });
 
-  PROGRAM_SECTION_FIELDS.forEach((field, index) => {
-    params.set(`populate[sections][fields][${index}]`, field);
-  });
-
-  params.set("populate[sections][populate][icon]", "*");
+  // Simplified query to ensure we get all data
+  params.set("populate[sections][populate]", "*");
 
   return params.toString();
 };
@@ -292,6 +336,87 @@ export const buildValuePropositionQuery = (institutionId: number): string => {
 };
 
 /**
+ * Build Strapi query string for fetching key highlight section with media and highlights populated.
+ */
+export const buildKeyHighlightSectionQuery = (institutionId: number): string => {
+  const params = new URLSearchParams();
+
+  params.set("filters[institution][id][$eq]", String(institutionId));
+
+  KEY_HIGHLIGHT_SECTION_FIELDS.forEach((field, index) => {
+    params.set(`fields[${index}]`, field);
+  });
+
+  VALUE_PROPOSITION_RELATION_FIELDS.forEach((field, index) => {
+    params.set(`populate[highlights][fields][${index}]`, field);
+  });
+
+  params.set("populate[highlights][populate][icon]", "*");
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[image][fields][${index}]`, field);
+  });
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[backgroundImage][fields][${index}]`, field);
+  });
+
+  return params.toString();
+};
+
+/**
+ * Build Strapi query string for fetching campus gallery section with media populated.
+ */
+export const buildCampusGallerySectionQuery = (institutionId: number): string => {
+  const params = new URLSearchParams();
+
+  params.set("filters[institution][id][$eq]", String(institutionId));
+
+  CAMPUS_GALLERY_SECTION_FIELDS.forEach((field, index) => {
+    params.set(`fields[${index}]`, field);
+  });
+
+  CAMPUS_GALLERY_COLUMN_FIELDS.forEach((field, index) => {
+    params.set(`populate[columns][fields][${index}]`, field);
+  });
+
+  CAMPUS_GALLERY_IMAGE_FIELDS.forEach((field, index) => {
+    params.set(`populate[columns][populate][images][fields][${index}]`, field);
+  });
+
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[columns][populate][images][populate][image][fields][${index}]`, field);
+  });
+
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[backgroundImage][fields][${index}]`, field);
+  });
+
+  return params.toString();
+};
+
+/**
+ * Build Strapi query string for fetching FAQ section with questions populated.
+ */
+export const buildFaqSectionQuery = (institutionId: number): string => {
+  const params = new URLSearchParams();
+
+  params.set("filters[institution][id][$eq]", String(institutionId));
+
+  FAQ_SECTION_FIELDS.forEach((field, index) => {
+    params.set(`fields[${index}]`, field);
+  });
+
+  FAQ_ITEM_FIELDS.forEach((field, index) => {
+    params.set(`populate[faqs][fields][${index}]`, field);
+  });
+
+  MEDIA_FIELDS.forEach((field, index) => {
+    params.set(`populate[backgroundImage][fields][${index}]`, field);
+  });
+
+  return params.toString();
+};
+
+/**
  * Normalize a single value proposition item record.
  */
 export const normalizeValuePropositionItemRecord = (
@@ -360,10 +485,50 @@ export const normalizeValuePropositionRecord = (
     subtitle: (attributes.subtitle as string | null | undefined) ?? null,
     backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
     propositions,
-    institution:
-      typeof attributes.institution === "number" || typeof attributes.institution === "object"
-        ? (attributes.institution as number | IValueProposition["institution"])
-        : null,
+    createdAt: (attributes.createdAt as string | undefined) ?? "",
+    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
+  };
+};
+
+/**
+ * Normalize a key highlight section record with populated relations.
+ */
+export const normalizeKeyHighlightSectionRecord = (
+  section: IKeyHighlightSection | unknown
+): INormalizedKeyHighlightSection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+
+  const highlightsRaw = extractCollection(attributes.highlights);
+  const highlights = highlightsRaw
+    .map((item) => normalizeValuePropositionItemRecord(item))
+    .filter((item): item is INormalizedValuePropositionItem => Boolean(item))
+    .sort((a, b) => {
+      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+
+      return a.title.localeCompare(b.title);
+    });
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? null,
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description: (attributes.description as string | null | undefined) ?? null,
+    image: normalizeStrapiMedia(attributes.image),
+    backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
+    highlights,
     createdAt: (attributes.createdAt as string | undefined) ?? "",
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };
@@ -385,15 +550,19 @@ export const buildAchievementQuery = (institutionId: number): string => {
     params.set(`populate[achievements][fields][${index}]`, field);
   });
 
+  RECOGNITION_ITEM_FIELDS.forEach((field, index) => {
+    params.set(`populate[recognitions][fields][${index}]`, field);
+  });
+
+  params.set("populate[recognitions][populate][icon]", "*");
+
   return params.toString();
 };
 
 /**
  * Normalize a single achievement card record.
  */
-export const normalizeAchievementItemRecord = (
-  item: IAchievementItem | unknown
-): INormalizedAchievementItem | null => {
+export const normalizeAchievementItemRecord = (item: IAchievementItem | unknown): INormalizedAchievementItem | null => {
   const resolved = resolveRecord(item);
 
   if (!resolved) {
@@ -419,9 +588,7 @@ export const normalizeAchievementItemRecord = (
 /**
  * Normalize an achievement section record with populated cards.
  */
-export const normalizeAchievementRecord = (
-  achievement: IAchievement | unknown
-): INormalizedAchievement | null => {
+export const normalizeAchievementRecord = (achievement: IAchievement | unknown): INormalizedAchievement | null => {
   const resolved = resolveRecord(achievement);
 
   if (!resolved) {
@@ -444,9 +611,30 @@ export const normalizeAchievementRecord = (
       return a.title.localeCompare(b.title);
     });
 
+  const recognitionsRaw = extractCollection(attributes.recognitions);
+  const recognitions = recognitionsRaw
+    .map((item) => normalizeRecognitionItemRecord(item))
+    .filter((item): item is INormalizedRecognitionItem => Boolean(item))
+    .sort((a, b) => {
+      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+
+      return a.title.localeCompare(b.title);
+    });
+
   const descriptionRaw = attributes.description;
   const description =
     typeof descriptionRaw === "string" && descriptionRaw.trim().length > 0 ? (descriptionRaw as string) : null;
+  const recognitionTitleRaw = attributes.recognitionTitle;
+  const recognitionTitle =
+    typeof recognitionTitleRaw === "string" && recognitionTitleRaw.trim().length > 0
+      ? (recognitionTitleRaw as string)
+      : null;
+  const recognitionBackgroundColor = normalizeColorValue(attributes.recognitionBackgroundColor) ?? "#1e3a5f";
 
   return {
     id,
@@ -456,38 +644,18 @@ export const normalizeAchievementRecord = (
     titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
     description,
     achievements,
+    recognitionTitle,
+    recognitionBackgroundColor,
+    recognitions,
     createdAt: (attributes.createdAt as string | undefined) ?? "",
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };
 };
 
 /**
- * Build Strapi query string for recognition sections with cards populated.
- */
-export const buildRecognitionSectionQuery = (institutionId: number): string => {
-  const params = new URLSearchParams();
-
-  params.set("filters[institution][id][$eq]", String(institutionId));
-
-  RECOGNITION_FIELDS.forEach((field, index) => {
-    params.set(`fields[${index}]`, field);
-  });
-
-  RECOGNITION_ITEM_FIELDS.forEach((field, index) => {
-    params.set(`populate[recognitions][fields][${index}]`, field);
-  });
-
-  params.set("populate[recognitions][populate][icon]", "*");
-
-  return params.toString();
-};
-
-/**
  * Normalize a recognition card record.
  */
-export const normalizeRecognitionItemRecord = (
-  item: IRecognitionItem | unknown
-): INormalizedRecognitionItem | null => {
+export const normalizeRecognitionItemRecord = (item: IRecognitionItem | unknown): INormalizedRecognitionItem | null => {
   const resolved = resolveRecord(item);
 
   if (!resolved) {
@@ -512,22 +680,270 @@ export const normalizeRecognitionItemRecord = (
 };
 
 /**
- * Normalize a recognition section with populated recognitions.
+ * Normalize a single testimonial item record.
  */
-export const normalizeRecognitionSectionRecord = (
-  recognition: IRecognitionSection | unknown
-): INormalizedRecognitionSection | null => {
-  const resolved = resolveRecord(recognition);
+export const normalizeTestimonialItemRecord = (item: ITestimonial | unknown): ITestimonial | null => {
+  const resolved = resolveRecord(item);
 
   if (!resolved) {
     return null;
   }
 
   const { id, attributes } = resolved;
-  const recognitionsRaw = extractCollection(attributes.recognitions);
-  const recognitions = recognitionsRaw
-    .map((item) => normalizeRecognitionItemRecord(item))
-    .filter((item): item is INormalizedRecognitionItem => Boolean(item))
+
+  return {
+    id,
+    name: (attributes.name as string | null | undefined) ?? "",
+    role: (attributes.role as string | null | undefined) ?? "",
+    company: (attributes.company as string | null | undefined) ?? null,
+    quote: (attributes.quote as string | null | undefined) ?? "",
+    rating: typeof attributes.rating === "number" ? (attributes.rating as number) : 5,
+    avatar: normalizeStrapiMedia(attributes.avatar),
+  };
+};
+
+/**
+ * Normalize a testimonial section record with populated testimonials.
+ */
+export const normalizeTestimonialSectionRecord = (
+  section: ITestimonialSection | unknown
+): INormalizedTestimonialSection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const testimonialsRaw = extractCollection(attributes.testimonials);
+  const testimonials = testimonialsRaw
+    .map((item) => normalizeTestimonialItemRecord(item))
+    .filter((item): item is ITestimonial => Boolean(item));
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? null,
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description: (attributes.description as string | null | undefined) ?? null,
+    testimonials,
+    createdAt: (attributes.createdAt as string | undefined) ?? "",
+    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
+  };
+};
+
+/**
+ * Normalize a single partnership item record.
+ */
+export const normalizePartnershipItemRecord = (item: IPartnershipItem | unknown): IPartnershipItem | null => {
+  const resolved = resolveRecord(item);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const companyLogo = normalizeStrapiMedia(attributes.companyLogo);
+
+  if (!companyLogo) {
+    return null;
+  }
+
+  return {
+    id,
+    companyName: (attributes.companyName as string | null | undefined) ?? "",
+    companyLogo,
+    backgroundColor: normalizeColorValue(attributes.backgroundColor),
+  };
+};
+
+/**
+ * Normalize a partnership section record with populated partnerships.
+ */
+export const normalizePartnershipSectionRecord = (
+  section: IPartnershipSection | unknown
+): INormalizedPartnershipSection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const partnershipsRaw = extractCollection(attributes.partnerships);
+  const partnerships = partnershipsRaw
+    .map((item) => normalizePartnershipItemRecord(item))
+    .filter((item): item is IPartnershipItem => Boolean(item));
+
+  const backgroundImage = normalizeStrapiMedia(attributes.backgroundImage);
+
+  if (!backgroundImage) {
+    return null;
+  }
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? "",
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? "",
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description: (attributes.description as string | null | undefined) ?? "",
+    backgroundImage,
+    partnerships,
+  };
+};
+
+/**
+ * Normalize a single campus gallery image record.
+ */
+export const normalizeCampusGalleryImageRecord = (
+  item: ICampusGalleryImage | unknown
+): INormalizedCampusGalleryImage | null => {
+  const resolved = resolveRecord(item);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const image = normalizeStrapiMedia(attributes.image);
+
+  if (!image) {
+    return null;
+  }
+
+  const layoutRaw = attributes.layoutVariant;
+  const layoutVariant = isGalleryLayoutVariant(layoutRaw) ? layoutRaw : DEFAULT_GALLERY_LAYOUT;
+
+  const altRaw = attributes.altText;
+  const altText = typeof altRaw === "string" ? altRaw.trim() || null : null;
+
+  return {
+    id,
+    image,
+    altText,
+    layoutVariant,
+  };
+};
+
+/**
+ * Normalize a campus gallery column record with its two images.
+ */
+export const normalizeCampusGalleryColumnRecord = (
+  column: ICampusGalleryColumn | unknown
+): INormalizedCampusGalleryColumn | null => {
+  const resolved = resolveRecord(column);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const imagesRaw = extractCollection(attributes.images);
+  const images = imagesRaw
+    .map((item) => normalizeCampusGalleryImageRecord(item))
+    .filter((item): item is INormalizedCampusGalleryImage => Boolean(item));
+
+  if (images.length !== 2) {
+    return null;
+  }
+
+  return {
+    id,
+    order: typeof attributes.order === "number" ? (attributes.order as number) : null,
+    images,
+  };
+};
+
+/**
+ * Normalize a campus gallery section record with populated columns.
+ */
+export const normalizeCampusGallerySectionRecord = (
+  section: ICampusGallerySection | unknown
+): INormalizedCampusGallerySection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const columnsRaw = extractCollection(attributes.columns);
+  const columns = columnsRaw
+    .map((column) => normalizeCampusGalleryColumnRecord(column))
+    .filter((column): column is INormalizedCampusGalleryColumn => Boolean(column))
+    .sort((a, b) => {
+      const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
+      const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+      return a.id - b.id;
+    });
+
+  if (columns.length === 0) {
+    return null;
+  }
+
+  return {
+    id,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? null,
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description: (attributes.description as string | null | undefined) ?? null,
+    backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
+    columns,
+    createdAt: (attributes.createdAt as string | undefined) ?? "",
+    updatedAt: (attributes.updatedAt as string | undefined) ?? "",
+  };
+};
+
+/**
+ * Normalize a single FAQ item record.
+ */
+export const normalizeFaqItemRecord = (item: IFaqItem | unknown): IFaqItem | null => {
+  const resolved = resolveRecord(item);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+
+  const questionRaw = attributes.question;
+  const answerRaw = attributes.answer;
+
+  const question =
+    typeof questionRaw === "string" && questionRaw.trim().length > 0 ? (questionRaw as string) : "";
+  const answer = typeof answerRaw === "string" ? (answerRaw as string) : "";
+
+  return {
+    id,
+    question,
+    answer,
+    order: typeof attributes.order === "number" ? (attributes.order as number) : null,
+  };
+};
+
+/**
+ * Normalize an FAQ section record with populated FAQs.
+ */
+export const normalizeFaqSectionRecord = (
+  section: IFaqSection | unknown
+): INormalizedFaqSection | null => {
+  const resolved = resolveRecord(section);
+
+  if (!resolved) {
+    return null;
+  }
+
+  const { id, attributes } = resolved;
+  const faqsRaw = extractCollection(attributes.faqs);
+  const faqs = faqsRaw
+    .map((item) => normalizeFaqItemRecord(item))
+    .filter((item): item is IFaqItem => Boolean(item))
     .sort((a, b) => {
       const orderA = a.order ?? Number.MAX_SAFE_INTEGER;
       const orderB = b.order ?? Number.MAX_SAFE_INTEGER;
@@ -536,16 +952,26 @@ export const normalizeRecognitionSectionRecord = (
         return orderA - orderB;
       }
 
-      return a.title.localeCompare(b.title);
+      return a.question.localeCompare(b.question);
     });
 
-  const backgroundColor = normalizeColorValue(attributes.backgroundColor);
+  if (faqs.length === 0) {
+    return null;
+  }
+
+  const descriptionRaw = attributes.description;
+  const description =
+    typeof descriptionRaw === "string" && descriptionRaw.trim().length > 0 ? (descriptionRaw as string) : null;
 
   return {
     id,
-    title: (attributes.title as string | null | undefined) ?? "",
-    backgroundColor,
-    recognitions,
+    titlePrefix: (attributes.titlePrefix as string | null | undefined) ?? null,
+    titlePrefixColor: normalizeColorValue(attributes.titlePrefixColor),
+    titleHighlight: (attributes.titleHighlight as string | null | undefined) ?? null,
+    titleHighlightColor: normalizeColorValue(attributes.titleHighlightColor),
+    description,
+    backgroundImage: normalizeStrapiMedia(attributes.backgroundImage),
+    faqs,
     createdAt: (attributes.createdAt as string | undefined) ?? "",
     updatedAt: (attributes.updatedAt as string | undefined) ?? "",
   };

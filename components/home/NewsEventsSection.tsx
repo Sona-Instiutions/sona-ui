@@ -1,7 +1,25 @@
 import Image from "next/image";
 
+type NewsItem =
+  | {
+      id: number;
+      type: "image";
+      src: string;
+      date: string;
+      title: string;
+      color?: never;
+    }
+  | {
+      id: number;
+      type: "card";
+      color: string;
+      date: string;
+      title: string;
+      src?: never;
+    };
+
 export default function NewsEventsSection() {
-  const news = [
+  const news: NewsItem[] = [
     {
       id: 1,
       type: "image",

@@ -49,7 +49,7 @@ export default function PioneeringExcellenceSection() {
             Founded on the principles of academic excellence and practical
             application, SCALE has emerged as a premier destination for students
             seeking world-class education that prepares them for the challenges
-            of tomorrow's dynamic professional landscape.
+            of tomorrow&apos;s dynamic professional landscape.
           </p>
 
           {/* Highlights List */}

@@ -1,12 +1,22 @@
 import { STRAPI_SERVER_URL } from "@/constants/app.constants";
 import type { IStrapiMedia } from "@/types/common.types";
+import { SplitTitle } from "@/components/common/SplitTitle.component";
 
 interface InstitutionBannerProps {
   /** Banner image object from Strapi media (may be null if not configured) */
   image: IStrapiMedia | null;
 
-  /** Main title text for the banner */
-  title: string;
+  /** Optional title prefix */
+  titlePrefix?: string | null;
+
+  /** Optional title prefix color */
+  titlePrefixColor?: string | null;
+
+  /** Optional title highlight */
+  titleHighlight?: string | null;
+
+  /** Optional title highlight color */
+  titleHighlightColor?: string | null;
 
   /** Optional subtitle text for the banner */
   subtitle?: string | null;
@@ -16,7 +26,14 @@ interface InstitutionBannerProps {
  * Institution banner hero component with background image and text overlay.
  * Displays a full-width responsive banner with institution name and description.
  */
-export function InstitutionBanner({ image, title, subtitle }: InstitutionBannerProps) {
+export function InstitutionBanner({
+  image,
+  titlePrefix,
+  titlePrefixColor,
+  titleHighlight,
+  titleHighlightColor,
+  subtitle,
+}: InstitutionBannerProps) {
   // Construct absolute image URL from Strapi media when available
   const normalizedBaseUrl = (STRAPI_SERVER_URL ?? "http://localhost:1337").replace(/\/api\/?$/, "").replace(/\/$/, "");
   const rawImageUrl = image?.url ?? null;
@@ -47,7 +64,13 @@ export function InstitutionBanner({ image, title, subtitle }: InstitutionBannerP
       <div className='relative z-10 flex w-full justify-center'>
         <div className='max-w-3xl space-y-3 text-center sm:space-y-4 md:space-y-5'>
           {/* Main heading */}
-          <h1 className='text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl'>{title}</h1>
+          <SplitTitle
+            prefix={titlePrefix}
+            prefixColor={titlePrefixColor}
+            highlight={titleHighlight}
+            highlightColor={titleHighlightColor}
+            className="text-2xl font-bold text-white md:text-4xl lg:text-5xl"
+          />
 
           {/* Optional subtitle */}
           {normalizedSubtitle && normalizedSubtitle.trim().length > 0 && (

@@ -14,6 +14,7 @@
 - Dynamic route: `/institutions/[slug]`
 - Fetch institution data from Strapi by slug (server-side rendering)
 - Display institution name and metadata
+- Render rich banner title with configurable prefix and highlight colors
 - Generate dynamic metadata (title, description) for SEO
 - Handle 404 cases when institution not found
 - Mobile-first responsive design

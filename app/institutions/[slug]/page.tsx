@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getInstitutionBySlug } from "@/services/server/institution.server";
+import { getInstitutionBySlug, getAchievementsByInstitution } from "@/services/server/institution.server";
 import { IApiError } from "@/types/institution.types";
 import { InstitutionBanner } from "@/components/common/InstitutionBanner.component";
 import { InstitutionAbout } from "@/components/institute/InstitutionAbout.component";
 import { InstitutionAchievements } from "@/components/institute/InstitutionAchievements.component";
+import { InstitutionKeyHighlights } from "@/components/institute/InstitutionKeyHighlights.component";
 import { InstitutionPrograms } from "@/components/institute/InstitutionPrograms.component";
 import { InstitutionValueProposition } from "@/components/institute/InstitutionValueProposition.component";
+import { InstitutionTestimonials } from "@/components/institute/InstitutionTestimonials.component";
+import { InstitutionPartnerships } from "@/components/institute/InstitutionPartnerships.component";
+import { InstitutionGallery } from "@/components/institute/InstitutionGallery.component";
+import { InstitutionFaq } from "@/components/institute/InstitutionFaq.component";
 
 interface InstitutionPageParams {
   slug: string;
@@ -59,10 +64,17 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
   const { slug } = await params;
 
   let institution;
+  let achievements = null;
 
   try {
     // Fetch institution data server-side for optimal performance
     institution = await getInstitutionBySlug(slug);
+
+    // Fetch achievements data
+    achievements = await getAchievementsByInstitution(institution.id).catch((err) => {
+      console.error("Failed to load achievements", err);
+      return null;
+    });
   } catch (err) {
     // Handle different error types
     const apiError = err as IApiError;
@@ -86,7 +98,10 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
         {/* Banner section with background image and text overlay */}
         <InstitutionBanner
           image={institution.bannerImage}
-          title={institution.bannerTitle}
+          titlePrefix={institution.bannerTitlePrefix || (institution.bannerTitleHighlight ? null : institution.name)}
+          titlePrefixColor={institution.bannerTitlePrefixColor}
+          titleHighlight={institution.bannerTitleHighlight}
+          titleHighlightColor={institution.bannerTitleHighlightColor}
           subtitle={institution.bannerSubtitle}
         />
 
@@ -95,11 +110,27 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* Programs section showcasing institution offerings */}
         <InstitutionPrograms institutionId={institution.id} />
-        {/* Achievements section highlighting institutional metrics */}
-        <InstitutionAchievements institutionId={institution.id} />
 
         {/* Value Proposition section highlighting institutional advantages */}
         <InstitutionValueProposition institutionId={institution.id} />
+
+        {/* Achievements section highlighting institutional metrics */}
+        <InstitutionAchievements achievementSection={achievements} />
+
+        {/* Key Highlights section highlighting specific advantages */}
+        <InstitutionKeyHighlights institutionId={institution.id} />
+
+        {/* Testimonials section */}
+        <InstitutionTestimonials testimonialSection={institution.testimonialSection || null} />
+
+        {/* Partnerships section */}
+        <InstitutionPartnerships partnershipSection={institution.partnershipSection || null} />
+
+        {/* Campus gallery section */}
+        <InstitutionGallery institutionId={institution.id} />
+
+        {/* FAQ section */}
+        <InstitutionFaq institutionId={institution.id} />
       </main>
     </div>
   );

@@ -3,27 +3,38 @@ import { isAxiosError } from "axios";
 import { axiosInstance } from "@/lib/axios.config";
 import {
   buildAchievementQuery,
+  buildCampusGallerySectionQuery,
+  buildFaqSectionQuery,
+  buildKeyHighlightSectionQuery,
   buildProgramSectionsQuery,
-  buildRecognitionSectionQuery,
   buildValuePropositionQuery,
   normalizeAchievementRecord,
+  normalizeCampusGallerySectionRecord,
+  normalizeColorValue,
+  normalizeFaqSectionRecord,
+  normalizeKeyHighlightSectionRecord,
   normalizeProgramRecord,
-  normalizeRecognitionSectionRecord,
+  normalizeTestimonialSectionRecord,
   normalizeValuePropositionRecord,
+  normalizePartnershipSectionRecord,
 } from "@/utils/institution.utils";
 import {
   IInstitution,
   IInstitutionResponse,
   IApiError,
   INormalizedInstitution,
+  INormalizedCampusGallerySection,
+  INormalizedFaqSection,
   IProgramsResponse,
   INormalizedProgram,
   INormalizedValueProposition,
   IValuePropositionResponse,
   INormalizedAchievement,
-  INormalizedRecognitionSection,
   IAchievementResponse,
-  IRecognitionSectionResponse,
+  INormalizedKeyHighlightSection,
+  IKeyHighlightSectionResponse,
+  ICampusGallerySectionResponse,
+  IFaqSectionResponse,
 } from "@/types/institution.types";
 import type { IStrapiMedia } from "@/types/common.types";
 
@@ -105,7 +116,9 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
 
   try {
     const response = await axiosInstance.get<IInstitutionResponse>(
-      `/api/institutions?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=bannerImage`
+      `/api/institutions?filters[slug][$eq]=${encodeURIComponent(
+        slug
+      )}&populate[0]=bannerImage&populate[1]=testimonialSection.testimonials.avatar&populate[2]=partnershipSection.partnerships.companyLogo&populate[3]=partnershipSection.backgroundImage&populate[4]=campusGallerySection.columns.images.image&populate[5]=campusGallerySection.backgroundImage&populate[6]=faqSection.faqs&populate[7]=faqSection.backgroundImage`
     );
 
     // Strapi returns array even for single item filter
@@ -132,14 +145,25 @@ export async function getInstitutionBySlug(slug: string): Promise<INormalizedIns
 
     const normalizedInstitution: INormalizedInstitution = {
       ...institution,
-      bannerTitle: institution.bannerTitle ?? institution.name,
       bannerSubtitle: institution.bannerSubtitle ?? null,
+      bannerTitlePrefix: (institution.bannerTitlePrefix as string | null | undefined) ?? null,
+      bannerTitlePrefixColor: normalizeColorValue(institution.bannerTitlePrefixColor),
+      bannerTitleHighlight: (institution.bannerTitleHighlight as string | null | undefined) ?? null,
+      bannerTitleHighlightColor: normalizeColorValue(institution.bannerTitleHighlightColor),
       bannerImage: normalizeStrapiMedia(institution.bannerImage),
       aboutInstitute: null,
       program: null,
       valueProposition: null,
       achievements: null,
-      recognitions: null,
+      keyHighlightSection: null,
+      testimonialSection: normalizeTestimonialSectionRecord(
+        Array.isArray(institution.testimonialSection)
+          ? institution.testimonialSection[0]
+          : institution.testimonialSection
+      ),
+      partnershipSection: normalizePartnershipSectionRecord(institution.partnershipSection),
+      campusGallerySection: normalizeCampusGallerySectionRecord(institution.campusGallerySection),
+      faqSection: normalizeFaqSectionRecord(institution.faqSection),
     };
 
     return normalizedInstitution;
@@ -193,9 +217,7 @@ export async function getValuePropositionByInstitution(
 /**
  * Fetch achievements associated with an institution (server-only).
  */
-export async function getAchievementsByInstitution(
-  institutionId: number
-): Promise<INormalizedAchievement | null> {
+export async function getAchievementsByInstitution(institutionId: number): Promise<INormalizedAchievement | null> {
   if (!institutionId || typeof institutionId !== "number") {
     return null;
   }
@@ -210,47 +232,6 @@ export async function getAchievementsByInstitution(
     }
 
     const normalized = normalizeAchievementRecord(response.data.data[0]);
-
-    return normalized ?? null;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      const status = error.response?.status ?? 500;
-
-      if (status >= 400 && status < 500) {
-        return null;
-      }
-
-      throw {
-        status,
-        message: error.message,
-        details: error.response?.data ?? {},
-      } as IApiError;
-    }
-
-    throw error;
-  }
-}
-
-/**
- * Fetch recognition section associated with an institution (server-only).
- */
-export async function getRecognitionsByInstitution(
-  institutionId: number
-): Promise<INormalizedRecognitionSection | null> {
-  if (!institutionId || typeof institutionId !== "number") {
-    return null;
-  }
-
-  try {
-    const response = await axiosInstance.get<IRecognitionSectionResponse>(
-      `/api/recognition-sections?${buildRecognitionSectionQuery(institutionId)}`
-    );
-
-    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
-      return null;
-    }
-
-    const normalized = normalizeRecognitionSectionRecord(response.data.data[0]);
 
     return normalized ?? null;
   } catch (error) {
@@ -297,6 +278,127 @@ export async function getProgramByInstitution(institutionId: number): Promise<IN
 
     return normalizedProgram ?? null;
   } catch (error) {
+    throw error;
+  }
+}
+
+/**
+ * Fetch key highlights section associated with an institution (server-only).
+ */
+export async function getKeyHighlightsByInstitution(
+  institutionId: number
+): Promise<INormalizedKeyHighlightSection | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get<IKeyHighlightSectionResponse>(
+      `/api/key-highlight-sections?${buildKeyHighlightSectionQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalized = normalizeKeyHighlightSectionRecord(response.data.data[0]);
+
+    return normalized ?? null;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status ?? 500;
+
+      if (status >= 400 && status < 500) {
+        return null;
+      }
+
+      throw {
+        status,
+        message: error.message,
+        details: error.response?.data ?? {},
+      } as IApiError;
+    }
+
+    throw error;
+  }
+}
+
+/**
+ * Fetch campus gallery section associated with an institution (server-only).
+ */
+export async function getCampusGalleryByInstitution(
+  institutionId: number
+): Promise<INormalizedCampusGallerySection | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get<ICampusGallerySectionResponse>(
+      `/api/campus-gallery-sections?${buildCampusGallerySectionQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalized = normalizeCampusGallerySectionRecord(response.data.data[0]);
+
+    return normalized ?? null;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status ?? 500;
+
+      if (status >= 400 && status < 500) {
+        return null;
+      }
+
+      throw {
+        status,
+        message: error.message,
+        details: error.response?.data ?? {},
+      } as IApiError;
+    }
+
+    throw error;
+  }
+}
+
+/**
+ * Fetch FAQ section associated with an institution (server-only).
+ */
+export async function getFaqSectionByInstitution(institutionId: number): Promise<INormalizedFaqSection | null> {
+  if (!institutionId || typeof institutionId !== "number") {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get<IFaqSectionResponse>(
+      `/api/faq-sections?${buildFaqSectionQuery(institutionId)}`
+    );
+
+    if (!Array.isArray(response.data.data) || response.data.data.length === 0) {
+      return null;
+    }
+
+    const normalized = normalizeFaqSectionRecord(response.data.data[0]);
+
+    return normalized ?? null;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const status = error.response?.status ?? 500;
+
+      if (status >= 400 && status < 500) {
+        return null;
+      }
+
+      throw {
+        status,
+        message: error.message,
+        details: error.response?.data ?? {},
+      } as IApiError;
+    }
+
     throw error;
   }
 }
