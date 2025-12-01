@@ -22,21 +22,14 @@ export default function BannerCarousel() {
   const banners = [
     {
       id: 1,
-      image: "/images/banner-image.webp",
+      image: "/images/banner-1.webp",
       title: "Believe That's Right For Your Future",
       subtitle:
         "Teach Tomorrow's Technology Today — Your Problem, Our Challenge. Shaping innovators who will transform the world.",
       buttonText: "Get Started Today",
       buttonLink: "#",
     },
-    {
-      id: 2,
-      image: "/images/banner-image.webp",
-      title: "Empowering Innovation & Excellence",
-      subtitle: "Join one of India's top institutions for Engineering, Technology & Management.",
-      buttonText: "Explore Programs",
-      buttonLink: "#",
-    },
+    
   ];
 
   return (

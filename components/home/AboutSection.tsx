@@ -13,9 +13,7 @@ export default function AboutSection() {
                     </h2>
 
                     <p className="text-gray-600 mb-8 leading-relaxed">
-                        SCALE by Sona Valliappa Group represents a revolutionary approach to education,
-                        bridging the gap between traditional learning and industry requirements through
-                        innovative curriculum and cutting-edge technology.
+                       A new-age tech business school where industry-built learning, global exposure, and innovation-driven education prepare students to become future-ready, ethical, and technology-powered leaders.
                     </p>
 
                     {/* Bullet points */}
@@ -25,9 +23,9 @@ export default function AboutSection() {
                                 <Check className="w-3.5 h-3.5" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-800">Industry-Aligned Curriculum</h4>
+                                <h4 className="font-semibold text-gray-800">Tech-powered leadership</h4>
                                 <p className="text-sm text-gray-600">
-                                    Courses designed with direct input from leading industry professionals
+                                    Building managers fluent in AI, analytics, digital strategy, and emerging technologies.
                                 </p>
                             </div>
                         </li>
@@ -37,9 +35,9 @@ export default function AboutSection() {
                                 <Check className="w-3.5 h-3.5" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-800">Global Partnerships</h4>
+                                <h4 className="font-semibold text-gray-800">Industry-built ecosystem</h4>
                                 <p className="text-sm text-gray-600">
-                                    Strategic alliances with top universities and corporations worldwide
+                                    Curriculum co-created with CXOs, founders, and global industry leaders.
                                 </p>
                             </div>
                         </li>
@@ -49,16 +47,16 @@ export default function AboutSection() {
                                 <Check className="w-3.5 h-3.5" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-800">Future-Ready Skills</h4>
+                                <h4 className="font-semibold text-gray-800">Global-ready education</h4>
                                 <p className="text-sm text-gray-600">
-                                    Focus on emerging technologies and sustainable solutions
+                                    International mentors, cross-border learning, and real-world business immersion.
                                 </p>
                             </div>
                         </li>
                     </ul>
 
                     <button className="cursor-pointer px-6 py-3 bg-blue-900 text-white font-semibold rounded-md hover:bg-blue-800 transition">
-                        Discover Our Story
+                        Discover more
                     </button>
                 </div>
 
@@ -67,7 +65,7 @@ export default function AboutSection() {
                     <div className="flex flex-col space-y-5">
                         <div className="rounded-[50%_0_0_0] overflow-hidden">
                             <Image
-                                src="/images/home-about-section.webp"
+                                src="/images/about-us-section-1.webp"
                                 alt="About Sona Image 1"
                                 width={400}
                                 height={300}
@@ -76,7 +74,7 @@ export default function AboutSection() {
                         </div>
                         <div className="rounded-[0_0_0_50%] overflow-hidden">
                             <Image
-                                src="/images/home-about-section.webp"
+                                src="/images/about-us-section-2.webp"
                                 alt="About Sona Image 4"
                                 width={400}
                                 height={300}
@@ -87,7 +85,7 @@ export default function AboutSection() {
                     <div className="flex flex-col space-y-5 mt-6">
                         <div className="rounded-[0_50%_0_0] overflow-hidden">
                             <Image
-                                src="/images/home-about-section.webp"
+                                src="/images/about-us-section-3.webp"
                                 alt="About Sona Image 2"
                                 width={400}
                                 height={300}
@@ -96,7 +94,7 @@ export default function AboutSection() {
                         </div>
                         <div className="rounded-[0_0_50%_0] overflow-hidden">
                             <Image
-                                src="/images/home-about-section.webp"
+                                src="/images/about-us-section-4.webp"
                                 alt="About Sona Image 3"
                                 width={400}
                                 height={300}

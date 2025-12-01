@@ -10,8 +10,7 @@ export default function WhyChooseSection() {
                     Why Choose <span className="text-yellow-500">SCALE</span>
                 </h2>
                 <p className="text-gray-600 max-w-2xl mx-auto mb-16">
-                    Discover what makes SCALE the preferred choice for students and
-                    industry partners worldwide.
+                    A fully tech-integrated, industry-driven, globally connected business school shaping future-ready leaders.
                 </p>
 
                 {/* Main layout grid */}
@@ -23,14 +22,14 @@ export default function WhyChooseSection() {
                             <FeatureCard
                                 icon={<Calculator className="w-6 h-6 text-red-500" />}
                                 color="bg-red-100"
-                                title="Industry-Relevant Curriculum"
-                                text="Learn skills and concepts that top companies actively seek in professionals today."
+                                title="Industry at the core"
+                                text="Practical learning shaped by leaders who build and impact global business."
                             />
                             <FeatureCard
                                 icon={<Briefcase className="w-6 h-6 text-green-500" />}
                                 color="bg-green-100"
-                                title="Expert Mentorship"
-                                text="Get guided by industry leaders and experienced mentors to accelerate your growth."
+                                title="100% tech-enabled curriculum"
+                                text="Business fundamentals combined with AI, cloud, analytics, and automation."
                             />
                         </div>
                     
@@ -42,7 +41,7 @@ export default function WhyChooseSection() {
                                 src="/images/why-choose-us.webp"
                                 alt="Sona Tower"
                                 fill
-                                className="object-cover"
+                                className="object-fill"
                             />
                         </div>
                     </div>
@@ -52,14 +51,14 @@ export default function WhyChooseSection() {
                         <FeatureCard
                             icon={<Monitor className="w-6 h-6 text-yellow-500" />}
                             color="bg-yellow-100"
-                            title="Career-Driven Outcomes"
-                            text="Structured support to help you land roles at leading companies."
+                            title="Startup-focused ecosystem"
+                            text="Incubation, mentorship, and real opportunities for innovators and founders."
                         />
                         <FeatureCard
                             icon={<Users className="w-6 h-6 text-blue-500" />}
                             color="bg-blue-100"
-                            title="Vibrant Learning Community"
-                            text="Connect with peers and professionals to stay motivated, networked, and inspired."
+                            title="Global pathways ensured "
+                            text="International faculties, immersions, and multinational career exposure."
                         />
                     </div>
                 </div>

@@ -16,7 +16,7 @@ export default function InstitutionsSection() {
       id: 1,
       title: "Sona Tech School",
       description:
-        "Premier engineering education with cutting-edge technology and industry partnerships.",
+        "Empowering learners with future-ready engineering, digital technologies, and research-driven education.",
       image: "/images/school-1.webp",
       link: "#",
     },
@@ -24,7 +24,7 @@ export default function InstitutionsSection() {
       id: 2,
       title: "Sona Finishing School",
       description:
-        "Excellence in professional education with state-of-the-art lab and research facilities.",
+        "Industry-aligned training that builds employability, communication skills, and professional readiness.",
       image: "/images/school-2.webp",
       link: "#",
     },
@@ -32,8 +32,16 @@ export default function InstitutionsSection() {
       id: 3,
       title: "Sona Business School",
       description:
-        "Transforming future business leaders through innovative MBA and management programs.",
+        "Tech-powered management programs grounded in industry guidance and global exposure.",
       image: "/images/school-3.webp",
+      link: "#",
+    },
+     {
+      id: 3,
+      title: "Sona Business School",
+      description:
+        "Tech-powered management programs grounded in industry guidance and global exposure.",
+      image: "/images/school-4.webp",
       link: "#",
     },
   ];
@@ -46,8 +54,8 @@ export default function InstitutionsSection() {
           Our <span className="text-yellow-500">Institutions</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-          Discover the diverse educational excellence across the Sona Valliappa
-          Group institutions.
+          A group ecosystem delivering technology, business, and finishing-school excellence.
+
         </p>
 
         {/* Carousel */}

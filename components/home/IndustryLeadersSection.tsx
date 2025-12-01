@@ -54,8 +54,7 @@ export default function IndustryLeadersSection() {
           Trusted by <span className="text-yellow-500">Industry Leaders</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto mb-16">
-          SCALE partners with global technology leaders and innovative companies to provide
-          students with real-world experience and career opportunities
+          SSCALE’s industry-built model enables strong collaborations with global enterprises and innovation-driven companies.
         </p>
 
         {/* Logos Grid */}
