@@ -37,7 +37,7 @@ export default function AboutPage() {
       <MainBanner
         title="About SCALE"
         highlight="SCALE"
-        description="Shaping Tomorrow's Innovators Today"
+        description="Where future-ready talent meets global technology demands"
         backgroundImage="/images/aboutus-banner.webp"
       />
 

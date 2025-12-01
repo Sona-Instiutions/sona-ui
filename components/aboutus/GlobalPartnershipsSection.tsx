@@ -61,11 +61,11 @@ export default function GlobalPartnershipsSection() {
       <div className="relative z-10 container mx-auto px-6 text-center">
         {/* Section Title */}
         <h2 className="text-4xl font-extrabold mb-4">
-          Global <span className="text-yellow-400">Partnerships</span> & Accreditations
+          Global <span className="text-yellow-400">Academic</span> Ecosystem
         </h2>
         <p className="text-gray-300 max-w-3xl mx-auto mb-16">
-          Our commitment to excellence is recognized worldwide through strategic
-          partnerships and prestigious accreditations.
+         Sona Tech School connects learners with global standards through international partnerships, recognised certifications, and globally benchmarked technology training. (25 words)
+
         </p>
 
         {/* University Partners */}
@@ -84,7 +84,7 @@ export default function GlobalPartnershipsSection() {
         </div>
 
         {/* Accreditations */}
-        <h3 className="text-2xl font-semibold mb-8">Accreditations & Certifications</h3>
+        <h3 className="text-2xl font-semibold mb-8">Accreditations and Certifications </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {accreditations.map((item) => (
             <div

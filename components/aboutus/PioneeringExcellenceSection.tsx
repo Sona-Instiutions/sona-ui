@@ -5,27 +5,27 @@ export default function PioneeringExcellenceSection() {
   const highlights = [
     {
       id: 1,
-      title: "Innovative Curriculum Design",
+      title: "By the Industry. For the Industry. To the Industry.",
       description:
-        "Courses crafted with direct industry input and future-focused learning outcomes.",
+        "Sona Tech School is built through direct collaboration with global industry leaders to ensure every programme is relevant, current, and aligned with real-world expectations.",
     },
     {
       id: 2,
-      title: "Research-Driven Excellence",
+      title: "Specialised Focus Areas for GCCs",
       description:
-        "Cutting-edge research facilities fostering innovation and discovery.",
+        "Learners gain expertise in domains such as Green IT, Synthetic Data Engineering, AI Ethics, Zero Trust Systems, and Autonomous Systems Governance.",
     },
     {
       id: 3,
-      title: "Global Impact Focus",
+      title: "Training on Emerging Technologies",
       description:
-        "Preparing graduates to address global challenges through sustainable solutions.",
+        "The curriculum covers top global emerging technologies including AI, Quantum, Cybersecurity, Digital Twins, Blockchain, Robotics, and Spatial Computing.",
     },
   ];
 
   return (
     <section className="bg-white py-7 md:py-20">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+      <div className="container mx-auto px-6 flex flex-col md:flex-row justify-center items-center gap-12">
         {/* LEFT: Content */}
         <div className="md:w-1/2 text-left">
           {/* Heading */}
@@ -39,19 +39,9 @@ export default function PioneeringExcellenceSection() {
 
           {/* Paragraphs */}
           <p className="text-gray-600 mb-6 leading-relaxed">
-            SCALE by Sona Valliappa Group represents a revolutionary approach to
-            education, bridging the gap between traditional learning and
-            industry requirements through innovative curriculum and cutting-edge
-            technology.
+            SCALE- Sona Centre for Advanced Learning and Entrepreneurship, prepares high-quality, industry-ready professionals equipped with advanced technologies, global industry practices, and future-focused skills demanded by GCCs. Designed in collaboration with industry leaders, the School develops talent that is technically strong, innovation-driven, and capable of contributing from day one.
+            With specialised pathways, global certifications, and 24×7 HOT Labs, Sona Tech School ensures learners gain practical expertise, deep industry awareness, and the agility to excel in a global tech ecosystem.
           </p>
-
-          <p className="text-gray-600 mb-10 leading-relaxed">
-            Founded on the principles of academic excellence and practical
-            application, SCALE has emerged as a premier destination for students
-            seeking world-class education that prepares them for the challenges
-            of tomorrow&apos;s dynamic professional landscape.
-          </p>
-
           {/* Highlights List */}
           <div className="space-y-6">
             {highlights.map((item) => (
