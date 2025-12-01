@@ -56,8 +56,8 @@ export default function AboutPage() {
       {/* CallToActionSection section  */}
       <CallToActionSection
         bgColor="bg-red-700"
-        heading="Ready to Join Our Legacy?"
-        description="Become part of SCALE's transformative educational journey and shape your future with us. Experience excellence, innovation, and global opportunities."
+        heading="Begin Your Journey With Sona Tech School"
+        description="pe your future with us. Experience excellence, innovation, and global opportunities."
         cta1="Apply for Admission"
         cta2="Schedule Campus Visit"
         cta1Link="#apply"
