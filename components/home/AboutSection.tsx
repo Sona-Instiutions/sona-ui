@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Check } from "lucide-react"; // optional icons
 
 export default function AboutSection() {
@@ -13,7 +14,7 @@ export default function AboutSection() {
                     </h2>
 
                     <p className="text-gray-600 mb-8 leading-relaxed">
-                       A new-age tech business school where industry-built learning, global exposure, and innovation-driven education prepare students to become future-ready, ethical, and technology-powered leaders.
+                        A new-age tech business school where industry-built learning, global exposure, and innovation-driven education prepare students to become future-ready, ethical, and technology-powered leaders.
                     </p>
 
                     {/* Bullet points */}
@@ -55,9 +56,11 @@ export default function AboutSection() {
                         </li>
                     </ul>
 
-                    <button className="cursor-pointer px-6 py-3 bg-blue-900 text-white font-semibold rounded-md hover:bg-blue-800 transition">
-                        Discover more
-                    </button>
+                    <Link href='/about'>
+                        <button className="cursor-pointer px-6 py-3 bg-blue-900 text-white font-semibold rounded-md hover:bg-blue-800 transition">
+                            Discover more
+                        </button>
+                    </Link>
                 </div>
 
                 {/* RIGHT SIDE — 4 IMAGES */}

@@ -64,7 +64,7 @@ export default function HomePage() {
       <LifeAtScaleSection />
 
       {/* NewsEventsSection section  */}
-      <NewsEventsSection />
+      {/* <NewsEventsSection /> */}
 
       {/* StudentStoriesSection section  */}
       <StudentStoriesSection />
@@ -73,7 +73,7 @@ export default function HomePage() {
       <IndustryLeadersSection />
 
       {/* LatestBlogsSection section  */}
-      <LatestBlogsSection />
+      {/* <LatestBlogsSection /> */}
 
       {/* CallToActionSection section  */}
 

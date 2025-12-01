@@ -29,22 +29,23 @@ export const HEADER_ABOUT_NAV: INavGroup[] = [
     href: "/about/leadership",
     description: "Meet the team building SCALE for tomorrow",
   },
+   {
+    label: "Milestone",
+    href: "/about/milestone",
+    description: "Explore state-of-the-art facilities and labs",
+  },
   {
     label: "Vision & Mission",
     href: "/about/vision",
     description: "Understand our guiding principles and aspirations",
   },
-  {
-    label: "Campus",
-    href: "/about/campus",
-    description: "Explore state-of-the-art facilities and labs",
-  },
+ 
 ];
 
 export const HEADER_HIGHLIGHT_NAV: INavItem[] = [
-  { label: "Admission", href: "/admission" },
-  { label: "International Collab", href: "/international-collaborations" },
-  { label: "Industry Collaborations", href: "/industry-collaborations" },
+  { label: "Admission", href: "/#" },
+  { label: "International Collab", href: "/#" },
+  { label: "Industry Collaborations", href: "/#" },
 ];
 
 export const FOOTER_TAGLINE =

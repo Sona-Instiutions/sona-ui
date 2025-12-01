@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { Icon } from "@/components/ui/Icon.component";
 import {
@@ -18,10 +19,17 @@ function FooterBrand() {
   return (
     <div className='flex flex-col gap-4'>
       <Link href='/' className='flex items-center gap-3' aria-label='SCALE home'>
-        <span className='flex h-12 w-12 items-center justify-center rounded-md bg-linear-to-br from-yellow-300 to-amber-400 shadow-lg'>
-          <span className='text-center text-lg font-bold text-blue-900'>S</span>
+        <span className='flex bg-white items-center justify-center rounded-md bg-linear-to-br'>
+          <span className='text-center text-lg font-bold'>
+            <Image
+              src="/images/logo.svg"
+              alt="Sona Tower"
+              width="100"
+              height="100"
+            />
+          </span>
         </span>
-        <span className='text-sm font-semibold text-white'>SCALE</span>
+       
       </Link>
       <p className='text-sm leading-relaxed text-blue-100'>{FOOTER_TAGLINE}</p>
       <div className='flex items-center gap-4 pt-2'>
