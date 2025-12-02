@@ -1,0 +1,57 @@
+import type { Metadata } from "next";
+import MainBanner from "@/components/common/MainBannerSection";
+import AboutMilestoneSection from "@/components/aboutus/milestone/AboutMilestone.component";
+import CallToActionSection from "@/components/common/CallToActionSection";
+
+
+
+export const metadata: Metadata = {
+  title: "SONA Institutions | Milestone",
+  description:
+    "Welcome to SONA Institutions. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
+  openGraph: {
+    title: "SONA Institutions | Milestone",
+    description:
+      "Discover SONA Institutions – excellence in education, innovation, and industry collaboration.",
+    type: "website",
+    url: "https://sona.edu.in/",
+    siteName: "SONA Institutions",
+    images: [
+      {
+        url: "/images/home-banner.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SONA Institutions Campus",
+      },
+    ],
+  },
+};
+
+export default function HomePage() {
+
+    return (
+      <div className="min-h-screen bg-white">
+        {/* Banner Section */}
+        <MainBanner
+          title="Our "
+          highlight="Milestones"
+          description=""
+          backgroundImage="/images/aboutus-banner.webp"
+        />
+
+        {/* About Milestones Section  */}
+        <AboutMilestoneSection />
+
+        {/* CallToActionSection section  */}
+        <CallToActionSection
+          bgColor="bg-yellow-500"
+          heading="Explore Our Institutions"
+          description="Discover the diverse academic programs and world-class facilities that make SCALE a leader in higher education. Join thousands of students who have transformed their lives through our innovative learning experiences."
+          cta1="View All Programs"
+          cta2="Campus Tour"
+          cta1Link="#apply"
+          cta2Link="#visit"
+        />
+      </div>
+    );
+}
