@@ -4,51 +4,59 @@ export default function ExecutiveLeadershipSection() {
   const ececutiveLeaders = [
     {
       id: 1,
-      image: "/images/leader-1.webp",
-      name: "Dr. Sarah Mitchell",
-      designation: "Chancellor & Chief Executive",
+      image: "/images/male.webp",
+      name: "Mr. Vijay Kumar Nair",
+      designation: " Volvo India – VP",
       description:
-        "Leading SCALE with 25+ years in higher education administration and strategic development.",
+        "Leads Volvo Group’s digital transformation, smart manufacturing, and enterprise technology  initiatives globally. ",
     },
     {
       id: 2,
-      image: "/images/leader-2.webp",
-      name: "Prof. Michael Chen",
-      designation: "Provost & Vice Chancellor",
+      image: "/images/male.webp",
+      name: "Mr. Aaloka Anant",
+      designation: "Data Privacy Leader, Global Consultant",
       description:
-        "Overseeing academic excellence and curriculum innovation across all departments and programs.",
+        "Drives enterprise data privacy, digital transformation, and responsible AI innovation for global organizations.",
     },
     {
       id: 3,
-      image: "/images/leader-3.webp",
-      name: "Dr. Priya Sharma",
-      designation: "Dean of Research & Innovation",
+      image: "/images/male.webp",
+      name: "Pankaj Kumar Mishraa",
+      designation: "TCS – GenAI Head ",
       description:
-        "Driving groundbreaking research initiatives and fostering innovation across all academic disciplines.",
+        "Leads TCS AI.Cloud’s GenAI strategy, cloud modernization, and high-impact transformation for global enterprises.",
     },
     {
       id: 4,
-      image: "/images/leader-4.webp",
-      name: "James Rodriguez",
-      designation: "Registrar & Student Affairs",
+      image: "/images/male.webp",
+      name: "Palash Gupta",
+      designation: "DeepTech & GCC Leader ",
       description:
-        "Ensuring exceptional student experience and comprehensive support throughout their academic journey.",
+        "Drives deep-tech innovation, GCC scaling, and enterprise product engineering across global technology ecosystems.",
     },
     {
       id: 5,
-      image: "/images/leader-5.webp",
-      name: "Dr. Lisa Thompson",
-      designation: "Chief Financial Officer",
+      image: "/images/male.webp",
+      name: "Saikat Das",
+      designation: "Walmart – Program Leader ",
       description:
-        "Managing institutional resources and strategic financial planning for sustainable growth.",
+        "Leads Walmart Global Tech’s large-scale e-commerce, agile delivery, and digital modernization programs.",
     },
     {
       id: 6,
-      image: "/images/leader-6.webp",
-      name: "David Kim",
-      designation: "Chief Technology Officer",
+      image: "/images/male.webp",
+      name: "Madhusudhan S J",
+      designation: "Manufacturing Digital Expert, Digital Transformation Consulting",
       description:
-        "Leading digital transformation and technology infrastructure for modern educational delivery.",
+        " Enables manufacturing modernization through IIoT, XR, Digital Twin, and strategic digital transformation roadmaps.",
+    },
+    {
+      id: 7,
+      image: "/images/male.webp",
+      name: "Sai Krishnan Mohan",
+      designation: "Data & AI Leader ",
+      description:
+        "Builds enterprise analytics functions, AI governance frameworks, and data-driven digital transformation strategies.",
     },
   ];
 
@@ -62,9 +70,7 @@ export default function ExecutiveLeadershipSection() {
           </h2>
           <div className="w-20 h-[2px] bg-yellow-500 mx-auto mb-4"></div>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Our distinguished leadership team combines academic excellence with
-            industry expertise to drive institutional growth and student
-            success.
+            A dynamic team of industry experts, academic leaders, and innovators shaping programs, research, and institutional strategy.
           </p>
         </div>
 
