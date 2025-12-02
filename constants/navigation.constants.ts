@@ -27,17 +27,17 @@ export const HEADER_ABOUT_NAV: INavGroup[] = [
   {
     label: "Leadership",
     href: "/about/leadership",
-    description: "Meet the team building SCALE for tomorrow",
+    description: "Get to know the team shaping SCALE’s future.",
   },
    {
     label: "Milestone",
     href: "/about/milestone",
-    description: "Explore state-of-the-art facilities and labs",
+    description: "Discover our century of innovation driving the progress.",
   },
   {
     label: "Vision & Mission",
     href: "/about/vision",
-    description: "Understand our guiding principles and aspirations",
+    description: "Learn about the principles and goals that guide us.",
   },
  
 ];

@@ -9,9 +9,8 @@ export default function LeadershipSection() {
       highlight: "Valliappa",
       designation: "Chairman",
       description: [
-        "Mr. Valliappa is a Chairman par excellence having been given the Herculean task of maintaining the world-class organizations and institutions.",
-        "He is a wizard when it comes to management and improvisation, and the astronomical growth of the Sona Group is a witness to it. Under his able guidance and erudition, The Sona Group has seen a business school, an arts and science college, a public school of international standard, and a medical college of naturopathy and yoga added to its name.",
-        "He is a visionary by all means and is fitting to be called the Father of IT in India. He was the first to house an IT firm, the Texas Instrument, at the Sona Tower. He is a multi-faceted personality bringing his magical touch to areas such as textile, education, and construction. He has held prestigious positions in Chamber of Commerce, FKCCI, BCIC, and KTMA, to mention a few.",
+        "Mr. C. Valliappa, founder of The Sona Group, is a prominent industrialist in South India with diverse interests spanning textiles, construction, and information technology. He has served as President of both the Industrial and Trade Chambers, including the Greater Mysore Chamber of Commerce and Industry and the Federation of Karnataka Chambers of Commerce & Industry.",
+        "A pivotal figure in placing India on the global IT map, he facilitated the partnership between Texas Instruments and the Sona Valliappa Group. In recognition of his contributions, he was invited by the White House to explore U.S.-India business opportunities—a rare distinction awarded to only one Indian businessman annually.",
       ],
       boldText: "",
     },
@@ -22,17 +21,17 @@ export default function LeadershipSection() {
       highlight: "Valliappa",
       designation: "Vice Chairman",
       description: [
-        "At SCALE, we believe in nurturing not just academic brilliance, but holistic development that prepares our students for global leadership. Our commitment extends beyond traditional classroom learning to create transformative educational experiences.",
-        "Through innovative research partnerships, industry collaborations, and cutting-edge technology integration, we ensure our graduates are equipped with both theoretical knowledge and practical skills essential for tomorrow's challenges.",
-        "Our faculty comprises renowned experts who bring real-world experience into the classroom, fostering an environment where curiosity thrives and innovation flourishes. We are committed to maintaining the highest standards of academic integrity and excellence.",
+        "Thyagu Valliappa is a fourth-generation entrepreneur and a transformative leader known for driving innovation across diverse sectors including technology, real estate, textiles, healthcare, logistics, and education. With over four decades of entrepreneurial experience, he has mentored more than 50 startups and played a pivotal role in shaping India’s startup and industry ecosystem.",
+        "As Founder & Chief Mentor of SCALE, he brings unmatched industry insight, a global mindset, and a passion for developing future-ready leaders. His work spans building world-class infrastructure, pioneering sportainment, advancing heritage healthcare, and strengthening industry–academia partnerships.",
+        "A visionary strategist and thought leader, he continues to inspire change through innovation, sustainability, and purposeful leadership.",
       ],
       boldText:
-        "Together, we are building a legacy of educational excellence that will continue to inspire generations of learners and leaders.",
+        "",
     },
   ];
 
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white">
       <div className="">
         
         {/* Leader Profiles */}
@@ -41,10 +40,10 @@ export default function LeadershipSection() {
             key={leader.id}
             className={`flex flex-col ${
               index % 2 === 0 ? "md:flex-row bg-gray-50" : "md:flex-row-reverse bg-white"
-            } items-center gap-10  p-10`}
+            } items-center justify-center p-10 py-20`}
           >
             {/* Image Card */}
-                <div className="relative bg-white rounded-2xl shadow-lg p-6 md:w-1/3 w-full flex justify-center items-center">
+                <div className="relative">
                     
               <div className="relative w-[280px] h-[320px] md:w-[320px] md:h-[360px] rounded-xl overflow-hidden">
                 <Image

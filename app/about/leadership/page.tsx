@@ -36,8 +36,8 @@ export default function HomePage() {
             <MainBanner
                 title="Visionary Leadership"
                 highlight="Leadership"
-                description="Meet the exceptional leaders who guide our institution toward excellence in education, research, and innovation."
-                backgroundImage="/images/aboutus-banner.webp"
+                description="Driving innovation, excellence, and transformative education through strategic vision and industry-aligned leadership."
+                backgroundImage="/images/aboutus-banner-leadership.webp"
             />
 
             {/* LeadershipSection Section  */}
@@ -50,9 +50,9 @@ export default function HomePage() {
             <CallToActionSection
                 bgColor="bg-yellow-500"
                 heading="Leadership Excellence"
-                description="Experience the difference that visionary leadership makes. Join an institution where excellence is not just an aspiration, but a daily reality guided by exceptional leaders."
+                description=""
                 cta1="Meet Our Faculty"
-                cta2="Join Our Team"
+                cta2="Join the Team"
                 cta1Link="#apply"
                 cta2Link="#visit"
 
