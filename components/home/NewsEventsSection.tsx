@@ -103,8 +103,8 @@ export default function NewsEventsSection() {
           News <span className="text-yellow-500">& Events</span>
         </h2>
         <p className="text-gray-600 max-w-3xl mx-auto mb-16">
-          Stay updated with the latest happenings, achievements, and upcoming
-          events at SCALE and across the Sona Valliappa Group institutions.
+          {/* Stay updated with the latest happenings, achievements, and upcoming
+          events at SCALE and across the Sona Valliappa Group institutions. */}
         </p>
 
         {/* Grid */}

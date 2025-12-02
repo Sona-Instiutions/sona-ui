@@ -30,9 +30,8 @@ export default function LifeAtScaleSection() {
           Life at <span className="text-yellow-500">SCALE</span>
         </h2>
         <p className="text-gray-600 max-w-3xl mx-auto mb-16">
-          Experience vibrant campus life filled with cultural celebrations,
-          academic achievements, and memorable moments that shape lifelong
-          friendships.
+          A fully residential ecosystem designed for learning, collaboration, leadership, and high-performance growth.
+
         </p>
 
         {/* MOBILE CAROUSEL */}
@@ -101,7 +100,7 @@ export default function LifeAtScaleSection() {
 
         {/* Button */}
         <button className="mt-4 md:mt-12 cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-md transition">
-          Explore Campus Life
+          Explore Campus
         </button>
 
       </div>

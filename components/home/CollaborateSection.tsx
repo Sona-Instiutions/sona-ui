@@ -5,30 +5,30 @@ export default function CollaborateSection() {
     {
       id: 1,
       icon: <GraduationCap className="w-8 h-8 text-yellow-500" />,
-      title: "Top Talent Access",
+      title: "Partner-driven learning ",
       description:
-        "Tap into skilled professionals and rising stars ready to make an impact.",
+        "Industry mentors collaborate to drive real-world project outcomes. ",
     },
     {
       id: 2,
       icon: <FlaskConical className="w-8 h-8 text-yellow-500" />,
-      title: "Innovation Hub",
+      title: "Innovation through research ",
       description:
-        "Leverage cutting-edge research and breakthrough solutions.",
+        "Labs advance ideas in AI, digital transformation, and future technologies. ",
     },
     {
       id: 3,
       icon: <Handshake className="w-8 h-8 text-yellow-500" />,
-      title: "Co-Create Solutions",
+      title: "Cross-border opportunities ",
       description:
-        "Collaborate on real-world projects that solve industry challenges.",
+        "Global institutions expand student mobility and academic exposure. ",
     },
     {
       id: 4,
       icon: <Lightbulb className="w-8 h-8 text-yellow-500" />,
-      title: "Industry-Ready Students",
+      title: "Corporate-ready talent",
       description:
-        "Collaborate with graduates equipped with practical skills and real-world experience.",
+        "Programs aligned with industry needs create high-impact professionals.",
     },
   ];
 
@@ -46,9 +46,8 @@ export default function CollaborateSection() {
           Collaborate <span className="text-yellow-400">&amp; Innovate</span>
         </h2>
         <p className="text-gray-200 max-w-3xl mx-auto mb-16">
-          Partner with SCALE to access top-tier talent, cutting-edge research,
-          and innovative solutions. Our industry collaboration program connects
-          your organization with the brightest minds and latest technologies.
+          CALE brings together enterprises, innovators, students, and global institutions to co-create solutions, accelerate research, develop talent, and build industry-focused projects that shape the future of business and technology.
+
         </p>
 
         {/* Info Cards */}
@@ -69,7 +68,7 @@ export default function CollaborateSection() {
 
         {/* CTA Button */}
         <button className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-md transition-all">
-          Collaborate With Us
+          Collaborate with us
         </button>
       </div>
     </section>

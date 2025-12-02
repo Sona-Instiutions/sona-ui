@@ -53,7 +53,7 @@ export default function StudentStoriesSection() {
           Student <span className="text-yellow-500">Stories</span>
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto mb-16">
-          Hear from our students and alumni about their transformative journey at SCALE
+          Real experiences shared by learners who transformed through SCALE’s tech-driven education.
         </p>
 
         {/* Carousel for both mobile + desktop */}

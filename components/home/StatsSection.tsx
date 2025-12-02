@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 
 export default function StatsSection() {
   const stats = [
-    { number: "25K+", label: "Students Graduated", sub: "Alumni worldwide making impact" },
-    { number: "98%", label: "Placement Rate", sub: "In top global companies" },
-    { number: "100+", label: "Industry Partners", sub: "Leading corporations worldwide" },
-    { number: "105+", label: "Years Legacy", sub: "Educational excellence since 1947" },
+    { number: "100", label: "Years of legacy", sub: "Shaped by excellence across generations." },
+    { number: "2", label: "Year fully residential PGDM program", sub: " Immersive learning designed for future leaders."},
+    { number: "100+", label: "Industry Partners", sub: "Robust ecosystem enabling career-ready exposure." },
+    { number: "5,000+", label: "Successful Alumni Worldwide", sub: "Strong network driving global professional growth." },
   ];
 
   return (

@@ -14,27 +14,27 @@ export default function SonaVelliappaLegacySection() {
     {
       id: 2,
       icon: <FlaskConical className="w-7 h-7 text-yellow-400" />,
-      title: "Research Innovation",
+      title: "Ethical and sustainable technology",
       description:
-        "Pioneering research initiatives in engineering, medicine, and technology have resulted in over 500 patents and breakthrough innovations.",
+        "Preparing responsible professionals capable of innovating in environments where technology and ethics intersect.",
       highlight: "500+",
       subtext: "Patents Filed",
     },
     {
       id: 3,
       icon: <Rocket className="w-7 h-7 text-yellow-400" />,
-      title: "ISRO Collaboration",
+      title: "Decades of academic excellence",
       description:
-        "Strategic partnership with ISRO for Chandrayaan missions, contributing to India's space exploration achievements and satellite technology advancement.",
+        "A proven legacy of producing technically strong, industry-ready graduates for global organisations.",
       highlight: "15+",
       subtext: "Space Projects",
     },
     {
       id: 4,
       icon: <Globe className="w-7 h-7 text-yellow-400" />,
-      title: "Global Impact",
+      title: "Built with global partnerships",
       description:
-        "International recognition and partnerships with leading universities worldwide, establishing SCALE as a globally respected educational institution.",
+        "Supporting learners with global exposure, advanced labs, and international training standards.",
       highlight: "50+",
       subtext: "Global Partners",
     },
@@ -51,13 +51,11 @@ export default function SonaVelliappaLegacySection() {
       <div className="relative z-10 container mx-auto px-6 text-center">
         {/* Section Heading */}
         <h2 className="text-4xl font-extrabold mb-4">
-          The <span className="text-yellow-400">Sona Velliappa</span> Legacy
+          A Legacy of <span className="text-yellow-400">Global-Ready</span> Talent
         </h2>
         <div className="w-20 h-[2px] bg-yellow-400 mx-auto mb-4"></div>
         <p className="text-gray-200 max-w-3xl mx-auto mb-16">
-          Discover the rich heritage and transformative impact of our founder&apos;s
-          vision that continues to shape educational excellence across
-          generations.
+         
         </p>
 
         {/* Cards Grid */}
@@ -81,12 +79,12 @@ export default function SonaVelliappaLegacySection() {
               </p>
 
               {/* Highlight */}
-              <div>
+              {/* <div>
                 <p className="text-yellow-500 text-xl font-extrabold leading-none">
                   {item.highlight}
                 </p>
                 <p className="text-sm text-gray-500">{item.subtext}</p>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

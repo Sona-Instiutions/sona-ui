@@ -64,7 +64,7 @@ export default function HomePage() {
       <LifeAtScaleSection />
 
       {/* NewsEventsSection section  */}
-      <NewsEventsSection />
+      {/* <NewsEventsSection /> */}
 
       {/* StudentStoriesSection section  */}
       <StudentStoriesSection />
@@ -73,14 +73,18 @@ export default function HomePage() {
       <IndustryLeadersSection />
 
       {/* LatestBlogsSection section  */}
-      <LatestBlogsSection />
+      {/* <LatestBlogsSection /> */}
 
       {/* CallToActionSection section  */}
 
       <CallToActionSection
         bgColor='bg-yellow-500'
-        heading='Ready to Shape Your Future?'
-        description='Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here.'
+        heading='Ready to Transform Your Career?'
+        description='Join our tech-driven business school designed to shape innovators, leaders, and global achievers.'
+        cta1="Apply for admission"
+        cta2="Schedule a campus visit"
+        cta1Link="#apply"
+        cta2Link="#visit"
       />
     </div>
   );

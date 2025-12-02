@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/Icon.component";
@@ -28,8 +29,13 @@ import {
 function HeaderBrand() {
   return (
     <Link href='/' className='flex items-center gap-3 mr-20' aria-label='SCALE home'>
-      <span className='flex h-16 w-16 items-center justify-center rounded-md bg-linear-to-br from-yellow-300 to-amber-400 shadow-lg'>
-        <span className='text-center text-xl font-bold text-blue-900'>S</span>
+      <span className='flex items-center justify-center rounded-md bg-linear-to-br bg-white'>
+        <Image
+          src="/images/logo.svg"
+          alt="Sona Tower"
+          width="136"
+          height="100"
+        />
       </span>
     </Link>
   );
@@ -79,12 +85,7 @@ function HeaderTopBar() {
 
 function HeaderMobileMenu() {
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant='ghost' size='icon' className='text-white lg:hidden mr-2' aria-label='Open navigation menu'>
-          <Icon name='menuIcon' className='size-6' />
-        </Button>
-      </SheetTrigger>
+    <Sheet>     
       <SheetContent side='left' className='flex h-full flex-col gap-6 bg-[#1a36a2] p-6 text-white'>
         <SheetHeader className='items-start gap-1'>
           <SheetTitle className='text-base font-semibold text-white'>SCALE Navigation</SheetTitle>
@@ -95,9 +96,9 @@ function HeaderMobileMenu() {
             Home
           </Link>
           <div className='flex flex-col gap-2'>
-            <span className='text-xs font-semibold uppercase text-blue-200'>About Us</span>
+           <Link href='/about'  className='text-xs font-semibold uppercase text-blue-200'>About Us</Link>
             {HEADER_ABOUT_NAV.map((item) => (
-              <Link key={item.label} href={item.href} className='text-sm text-white/90'>
+              <Link key={item.label} href={item.href} className='text-sm ml-4 text-white/90'>
                 {item.label}
               </Link>
             ))}
@@ -129,11 +130,16 @@ function HeaderMobileMenu() {
           </div>
         </div>
       </SheetContent>
+      <SheetTrigger asChild>
+        <Button variant='ghost' size='icon' className='text-white lg:hidden mr-2' aria-label='Open navigation menu'>
+          <Icon name='menuIcon' className='size-6' />
+        </Button>
+      </SheetTrigger>
     </Sheet>
   );
 }
 
-function HeaderDesktopNav() {
+function HeaderDesktopNav() {5
   return (
     <NavigationMenu className='hidden lg:flex'>
       <NavigationMenuList>
@@ -146,7 +152,10 @@ function HeaderDesktopNav() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger className='text-sm font-medium text-white transition hover:text-white/80'>
-            About Us
+            <Link href='/about' className='text-sm font-medium text-white transition hover:text-white/80'>
+              About Us
+            </Link>
+
           </NavigationMenuTrigger>
           <NavigationMenuContent className='w-[420px]'>
             <ul className='grid gap-2 p-4'>
@@ -164,8 +173,8 @@ function HeaderDesktopNav() {
         {HEADER_PRIMARY_NAV.filter((item) => item.label !== "Home").map((item) => (
           <NavigationMenuItem key={item.label}>
             <NavigationMenuLink asChild>
-              <Link href={item.href} className='text-sm font-medium text-white transition hover:text-white/80'>
-                {item.label}
+              <Link href={item.href} className='mr-6 text-sm font-medium text-white transition hover:text-white/80'>
+                {item.label }
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
@@ -197,9 +206,9 @@ function Header() {
     <header className='w-full bg-background shadow-sm'>
       <HeaderTopBar />
       <div className='border-b border-blue-900/60 bg-[#1a36a2]'>
-        <div className='relative mx-auto flex max-w-6xl flex-row items-center gap-2 px-4 py-4 text-white after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:bg-blue-400/40'>
-          <HeaderMobileMenu />
+        <div className='relative mx-auto flex justify-between max-w-6xl flex-row items-center gap-2 px-4 py-4 text-white after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:bg-blue-400/40'>
           <HeaderBrand />
+          <HeaderMobileMenu />
           <div className='items-center gap-1 lg:flex hidden'>
             <HeaderDesktopNav />
             <HeaderHighlightLinks />
