@@ -34,7 +34,7 @@ export default function AboutPage() {
             <MainBanner
                 title="Contact Us"
                 highlight="Us"
-                description="Get in touch with SCALE. We're here to help you start your journey towards academic excellence and career success."
+                description="Reach our team easily for admissions, partnerships, or general queries—we’re here to assist you."
                 backgroundImage="/images/contact.webp"
             />
 

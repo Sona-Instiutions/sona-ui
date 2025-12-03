@@ -83,8 +83,8 @@ export default function HomePage() {
         description='Join our tech-driven business school designed to shape innovators, leaders, and global achievers.'
         cta1="Apply for admission"
         cta2="Schedule a campus visit"
-        cta1Link="#apply"
-        cta2Link="#visit"
+        cta1Link="/contact"
+        cta2Link="/contact"
       />
     </div>
   );

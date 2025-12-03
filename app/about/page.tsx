@@ -55,13 +55,13 @@ export default function AboutPage() {
 
       {/* CallToActionSection section  */}
       <CallToActionSection
-        bgColor="bg-red-700"
+        bgColor="bg-yellow-500"
         heading="Begin Your Journey With Sona Tech School"
         description="pe your future with us. Experience excellence, innovation, and global opportunities."
         cta1="Apply for Admission"
         cta2="Schedule Campus Visit"
-        cta1Link="#apply"
-        cta2Link="#visit"
+        cta1Link="/contact"
+        cta2Link="/contact"
 
       />
 
