@@ -53,8 +53,8 @@ export default function HomePage() {
           description="Become part of a global journey, shaping innovative solutions and advancing the next century of excellence."
           cta1="Explore Career Opportunities"
           cta2="Partner With Us"
-          cta1Link="#apply"
-          cta2Link="#visit"
+          cta1Link="/contact"
+          cta2Link="/contact"
         />
       </div>
     );

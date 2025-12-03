@@ -49,12 +49,12 @@ export default function BannerCarousel() {
 
                   <p className='mt-4 text-base sm:text-lg md:text-xl lg:text-2xl max-w-xl'>{banner.subtitle}</p>
 
-                  <Link
+                  {/* <Link
                     href={banner.buttonLink}
                     className='mt-6 bg-yellow-400 text-black font-semibold px-5 sm:px-6 md:px-8 py-2 sm:py-3 rounded-md hover:bg-yellow-500 transition-all text-sm sm:text-base md:text-lg'
                   >
                     {banner.buttonText}
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </CarouselItem>

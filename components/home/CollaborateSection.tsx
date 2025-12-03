@@ -67,9 +67,9 @@ export default function CollaborateSection() {
         </div>
 
         {/* CTA Button */}
-        <button className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-md transition-all">
+        {/* <button className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-md transition-all">
           Collaborate with us
-        </button>
+        </button> */}
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useSubmitContactFormMutation } from "@/services/client/contactSubmission.client";
-
+import {Phone,MapPin,Mail,Clock3} from "lucide-react";
 export default function ContactSection() {
   const [form, setForm] = useState({
     Category: "",
@@ -93,10 +93,10 @@ export default function ContactSection() {
       <div className="container mx-auto px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="md:col-span-2">
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-3">Get In Touch</h2>
+            <h2 className="text-4xl font-extrabold text-gray-900 mb-3">Get in touch</h2>
 
             <p className="text-gray-600 max-w-lg mb-10">
-              Have questions about our programs, admissions, or campus life? We’d love to hear from you.
+              Share your details and let us know how we can support your learning, collaboration, or information needs.
             </p>
 
             {/* SUCCESS MESSAGE */}
@@ -224,7 +224,7 @@ export default function ContactSection() {
                 disabled={isPending}
                 className={`w-full bg-blue-900 text-white rounded-lg py-3 transition ${isPending ? "opacity-60 cursor-not-allowed" : "hover:bg-blue-800 cursor-pointer"} `}
               >
-                {isPending ? "Sending..." : "Send Message"}
+                {isPending ? "Sending..." : "Message us"}
               </button>
             </form>
           </div>
@@ -240,7 +240,9 @@ export default function ContactSection() {
 
               <div className='space-y-5 text-left'>
                 <div className='flex items-start gap-3'>
-                  <span className='text-blue-900 text-xl'>📞</span>
+                  <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
+                    <Phone size={20} />
+                  </div>
                   <div>
                     <p className='font-semibold'>Phone</p>
                     <p className='text-sm text-gray-600'>+91 427 230 1234</p>
@@ -249,7 +251,9 @@ export default function ContactSection() {
                 </div>
 
                 <div className='flex items-start gap-3'>
-                  <span className='text-blue-900 text-xl'>📧</span>
+                 <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
+                    <Mail size={20} />
+                  </div>
                   <div>
                     <p className='font-semibold'>Email</p>
                     <p className='text-sm text-gray-600'>admissions@scale. edu.in</p>
@@ -258,7 +262,9 @@ export default function ContactSection() {
                 </div>
 
                 <div className='flex items-start gap-3'>
-                  <span className='text-blue-900 text-xl'>📍</span>
+                  <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
+                    <MapPin size={20} />
+                  </div>
                   <div>
                     <p className='font-semibold'>Visit Us</p>
                     <p className='text-sm text-gray-600'>
@@ -272,7 +278,9 @@ export default function ContactSection() {
                 </div>
 
                 <div className='flex items-start gap-3'>
-                  <span className='text-blue-900 text-xl'>⏰</span>
+                  <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
+                    <Clock3 size={20} />
+                  </div>
                   <div>
                     <p className='font-semibold'>Campus Hours</p>
                     <p className='text-sm text-gray-600'>

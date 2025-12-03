@@ -70,8 +70,7 @@ export default function FindOurCampusSection() {
 
             <h4 className="font-bold text-gray-900 mb-2">By Car</h4>
             <p className="text-sm text-gray-600">
-              Free parking available on campus.  
-              Take Exit 12 from Salem–Bangalore Highway.
+              Enjoy free on-campus parking. Simply take Exit 12 on the Salem–Bangalore Highway to reach SCALE.
             </p>
           </div>
 
@@ -83,8 +82,7 @@ export default function FindOurCampusSection() {
 
             <h4 className="font-bold text-gray-900 mb-2">Public Transport</h4>
             <p className="text-sm text-gray-600">
-              Regular bus services from Salem and Bangalore.  
-              Shuttle available from railway station.
+               Frequent buses operate from Salem and Bangalore. A SCALE shuttle is available from the railway station.
             </p>
           </div>
 
@@ -96,8 +94,7 @@ export default function FindOurCampusSection() {
 
             <h4 className="font-bold text-gray-900 mb-2">By Air</h4>
             <p className="text-sm text-gray-600">
-              Salem Airport is 45 minutes away.  
-              Shuttle service available on request.
+              Salem Airport is just 45 minutes away, with shuttle services arranged on request.
             </p>
           </div>
 
@@ -109,8 +106,7 @@ export default function FindOurCampusSection() {
 
             <h4 className="font-bold text-gray-900 mb-2">By Train</h4>
             <p className="text-sm text-gray-600">
-              Salem Junction is the nearest railway station.  
-              Shuttle available during peak hours.
+              Salem Junction is the closest railway station. Shuttle services to campus run during peak hours.
             </p>
           </div>
 

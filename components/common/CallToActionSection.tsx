@@ -16,8 +16,8 @@ export default function CallToActionSection({
     description = "Join thousands of successful graduates who chose SCALE to transform their dreams into reality. Your journey to excellence starts here.",
     cta1 = "Apply for Admission",
     cta2 = "Schedule Campus Visit",
-    cta1Link = "#apply", // ✅ default link
-    cta2Link = "#visit",
+    cta1Link = "/contact", // ✅ default link
+    cta2Link = "/contact",
 }: CallToActionProps) {
     return (
         <section className={`${bgColor} text-white py-24 relative overflow-hidden bg-opacity-20`}>

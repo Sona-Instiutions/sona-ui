@@ -53,8 +53,8 @@ export default function HomePage() {
                 description=""
                 cta1="Meet Our Faculty"
                 cta2="Join the Team"
-                cta1Link="#apply"
-                cta2Link="#visit"
+                cta1Link="/contact"
+                cta2Link="/contact"
 
             />
 

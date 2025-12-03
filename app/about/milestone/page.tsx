@@ -49,8 +49,8 @@ export default function HomePage() {
           description="Discover the diverse academic programs and world-class facilities that make SCALE a leader in higher education. Join thousands of students who have transformed their lives through our innovative learning experiences."
           cta1="View All Programs"
           cta2="Campus Tour"
-          cta1Link="#apply"
-          cta2Link="#visit"
+          cta1Link="/contact"
+          cta2Link="/contact"
         />
       </div>
     );
