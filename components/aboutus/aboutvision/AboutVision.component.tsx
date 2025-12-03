@@ -3,27 +3,37 @@ import Image from "next/image";
 
 export default function VisionMissionSection() {
   const visionParagraphs = [
-    `To become an institute of great repute, in the fields of Science, Engineering, Technology and Management studies, by offering a full range of programmes of global standard to foster research, and to transform the students into globally competent personalities.`,
-    `We envision a future where SCALE graduates become global leaders, entrepreneurs, and innovators who drive positive change across industries and communities. Our commitment extends beyond traditional education to create an ecosystem that nurtures creativity, critical thinking, and sustainable solutions for tomorrow's challenges.`,
+    `To shape a new generation of tech-enabled, ethical, and globally conscious business leaders who innovate, transform industries, and create meaningful impact for society.`,
+    `We aspire to inspire and transform. By combining legacy, innovation, and excellence, we empower businesses and individuals to achieve their highest potential, overcome challenges, and create lasting impact that drives progress, growth, and success across industries globally.`,
   ];
 
-  const missionIntro = `To provide world-class education that combines academic rigor with practical application, fostering innovation, research excellence, and ethical leadership in our students.`;
+  const missionIntro = `Empower students with industry-relevant, technology-driven management education by integrating AI, digital transformation, analytics, and emerging technologies into every aspect of learning. Empower students with industry-relevant, technology-driven management education by integrating AI, digital transformation, analytics, and emerging technologies into every aspect of learning.`;
 
   const missionPoints = [
     {
       id: 1,
-      title: "Innovation Excellence",
-      text: "Cultivating a culture of innovation through cutting-edge research, entrepreneurship programs, and industry partnerships that drive technological advancement.",
+      title: "Build a vibrant ecosystem of global collaboration",
+      text: "through partnerships with international universities, industry mentors, thought leaders, and cross-border experiential programs.",
     },
     {
       id: 2,
-      title: "Global Impact",
-      text: "Preparing students to address global challenges through sustainable solutions, cross-cultural understanding, and collaborative international initiatives.",
+      title: "Foster a culture of entrepreneurship and innovation",
+      text: "through a world-class startup incubation centre that nurtures founders, accelerates ideas, and builds job creators.",
     },
     {
       id: 3,
-      title: "Lifelong Learning",
-      text: "Instilling a passion for continuous learning and adaptation in an ever-evolving technological and social landscape.",
+      title: "Provide a transformative residential learning environment",
+      text: "that develops leadership, character, creativity, teamwork, and lifelong learning habits.",
+    },
+    {
+      id: 4,
+      title: "Bridge academia and industry meaningfully",
+      text: "through live projects, corporate internships, labs, problem-solving workshops, and curricula designed in collaboration with industry experts.",
+    },
+    {
+      id: 5,
+      title: "Cultivate ethical, socially responsible leaders",
+      text: "who apply their knowledge to build inclusive, sustainable, and community-focused business solutions.",
     },
   ];
 
@@ -86,22 +96,14 @@ export default function VisionMissionSection() {
                         {/* simple icon - clipboard/target like */}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="w-5 h-5 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
+                          width="18"
+                          height="18"
+                          fill="#ffffff"
+                          className="bi bi-check-circle"
+                          viewBox="0 0 16 16"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M9 12l2 2 4-4"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M21 12c0 4.418-4.03 8-9 8s-9-3.582-9-8 4.03-8 9-8 9 3.582 9 8z"
-                          />
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                          <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
                         </svg>
                       </div>
                     </div>
@@ -110,7 +112,7 @@ export default function VisionMissionSection() {
                       <h4 className="text-sm md:text-base font-semibold text-gray-900">
                         {m.title}
                       </h4>
-                      <p className="text-sm text-gray-600 mt-2 leading-relaxed max-w-xl">
+                      <p className="text-md text-gray-600 leading-relaxed max-w-xl">
                         {m.text}
                       </p>
                     </div>
@@ -125,7 +127,7 @@ export default function VisionMissionSection() {
                 <div className="rounded-2xl overflow-hidden shadow-xl">
                   <div className="relative aspect-[16/12] w-full">
                     <Image
-                      src="/images/mission-group.jpg" // replace with your image
+                      src="/images/Our Mission.webp" // replace with your image
                       alt="Students group"
                       fill
                       className="object-cover"

@@ -36,8 +36,8 @@ export default function HomePage() {
         <MainBanner
           title="Vision, Mission and "
           highlight="Core Values"
-          description="Discover the foundational principles that drive our commitment to educational excellence and innovation"
-          backgroundImage="/images/aboutus-banner.webp"
+          description="Empowering global businesses through innovation, integrity, and a century-long legacy of excellence."
+          backgroundImage="/images/Banner-vision-mission.webp"
         />
 
         {/* About Vision Mission Section  */}
@@ -50,9 +50,9 @@ export default function HomePage() {
         <CallToActionSection
           bgColor="bg-yellow-500"
           heading="Join Our Vision"
-          description="Be part of an institution that's shaping the future of education and innovation. Experience the transformative power of our values-driven approach to learning and discovery."
-          cta1="Explore Programs"
-          cta2="Schedule Visit"
+          description="Become part of a global journey, shaping innovative solutions and advancing the next century of excellence."
+          cta1="Explore Career Opportunities"
+          cta2="Partner With Us"
           cta1Link="#apply"
           cta2Link="#visit"
         />
