@@ -12,7 +12,23 @@ export default function AboutMilestoneSection() {
         `The British had set up the Indian education system in a thoughtful manner i.e. there were many English schools for people to learn English, which made it easy for them to communicate with a large number of Indians. The British did not, however, invest much in higher education. As a visionary, our founder decided that the best way to develop India was to set up institutes that facilitate higher education in engineering. This resulted in the backward integration of human resources for the Group. Fondly named as ‘Kalathani’, which means ‘Father of Education’ people look up to him for his pioneering seminal work towards education.`,
         `As a philanthropic group, The Sona Group believes that ‘Education is Knowledge’ and has started several educational institutions, which have grown to become some of the best colleges in India.`,
       ],
-      image: "/images/milestone-gandhi.jpg",
+      image: "/images/Gandhi’s Educational Philosophy.webp",
+      icon: (
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="#ffffff"
+            strokeWidth="2"
+            d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+          />
+        </svg>
+      ),
       yearLabel: "1921 — CHANGING WAY HE CLOTHS",
     },
     {
@@ -24,7 +40,19 @@ export default function AboutMilestoneSection() {
         `With cutting-edge servers, high-speed connectivity, and cloud computing capabilities, Sona Tower enables seamless digital learning experiences, virtual laboratories, and collaborative research projects that connect our students and faculty with global academic communities.`,
         `The tower serves as the nerve center for our digital transformation initiatives, supporting everything from AI-powered learning analytics to virtual reality classrooms, ensuring our students are prepared for the digital economy of tomorrow.`,
       ],
-      image: "/images/milestone-tower.jpg",
+      image: "/images/Sona Tower IT Revolution.webp",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
+          <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
+        </svg>
+      ),
       yearLabel: "1980 — TECHNOLOGICAL LEAP",
     },
     {
@@ -36,7 +64,25 @@ export default function AboutMilestoneSection() {
         `Through collaborative research programs with ISRO, our students gain hands-on experience with satellite technology, space communications, and aerospace engineering. Our specialized laboratories simulate space conditions, allowing students to work on real mission-critical projects.`,
         `This partnership has established us as a premier institution for space science education in India, inspiring a new generation of space scientists and engineers who will lead future missions to the Moon, Mars, and beyond.`,
       ],
-      image: "/images/milestone-space.jpg",
+      image: "/images/ISRO and Chandrayaan Legacy.webp",
+      icon: (
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <g transform="rotate(-45 12 12)">
+            <path
+              stroke="#ffffff"
+              strokeWidth="1"
+              d="m10.051 8.102-3.778.322-1.994 1.994a.94.94 0 0 0 .533 1.6l2.698.316m8.39 1.617-.322 3.78-1.994 1.994a.94.94 0 0 1-1.595-.533l-.4-2.652m8.166-11.174a1.366 1.366 0 0 0-1.12-1.12c-1.616-.279-4.906-.623-6.38.853-1.671 1.672-5.211 8.015-6.31 10.023a.932.932 0 0 0 .162 1.111l.828.835.833.832a.932.932 0 0 0 1.111.163c2.008-1.102 8.35-4.642 10.021-6.312 1.475-1.478 1.133-4.77.855-6.385Zm-2.961 3.722a1.88 1.88 0 1 1-3.76 0 1.88 1.88 0 0 1 3.76 0Z"
+            />
+          </g>
+        </svg>
+      ),
       yearLabel: "2019 — SPACE EXCELLENCE",
     },
   ];
@@ -84,22 +130,7 @@ export default function AboutMilestoneSection() {
                     {/* Badge */}
                     <div className="mt-4 flex items-start">
                       <div className="bg-[#002D72] text-white px-4 py-2 rounded-full shadow-md inline-flex items-center gap-3 text-xs font-semibold">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-4 h-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path d="M12 2v6" />
-                          <path d="M12 22v-6" />
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="9"
-                          />
-                        </svg>
+                        {m.icon}
                         <span>{m.yearLabel}</span>
                       </div>
                     </div>
