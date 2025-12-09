@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { Download, Bell, Target } from "lucide-react"; // optional icons
+import { Download, Bell, Target } from "phosphor-react"; // optional icons
 
 export default function LegacySection() {
   const items = [
@@ -13,7 +14,7 @@ export default function LegacySection() {
     },
     {
       id: 2,
-      title: "Sona Tower Legacy",
+      title: "Sona Tower",
       description:
         "Establishing educational excellence with world-class infrastructure and innovative learning environments.",
       image: "/images/legacy-2.webp",

@@ -1,4 +1,5 @@
-import { BookOpen, Wrench, Users, Lightbulb } from "lucide-react";
+"use client";
+import { BookOpen, Wrench, Users, Lightbulb } from "phosphor-react";
 
 export default function TeachingApproachSection() {
     const approaches = [
@@ -54,7 +55,7 @@ export default function TeachingApproachSection() {
                     Our <span className="text-yellow-500">Approach</span>
                 </h2>
                 <p className="text-gray-600 max-w-3xl mx-auto mb-16">
-                    A structured, industry-integrated model focused on creating day-one-ready technology professionals.
+                   A structured, industry-integrated model focused on creating day-one-ready technology professionals.
                 </p>
 
                 {/* Teaching Cards */}
