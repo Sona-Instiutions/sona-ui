@@ -16,7 +16,7 @@ export default function BlogListingPage() {
       date: "March 15, 2025",
       excerpt:
         "Join us for the most anticipated robotics competition where engineering students showcase their innovative designs and compete for the championship title.",
-      image: "/images/events/event-1.jpg",
+      image: "/images/blog-1.webp",
     },
     {
       id: 2,
@@ -26,7 +26,7 @@ export default function BlogListingPage() {
       date: "March 22, 2025",
       excerpt:
         "Connect with industry leaders and explore cutting-edge technologies shaping the future of engineering and business innovation.",
-      image: "/images/events/event-2.jpg",
+      image: "/images/blog-1.webp",
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ export default function BlogListingPage() {
       date: "April 5, 2025",
       excerpt:
         "Celebrate the achievements of our graduating class as they embark on their professional journeys with SCALE’s world-class education.",
-      image: "/images/events/event-3.jpg",
+      image: "/images/blog-1.webp",
     },
     {
       id: 4,
@@ -46,7 +46,7 @@ export default function BlogListingPage() {
       date: "April 12, 2025",
       excerpt:
         "Discover breakthrough medical technologies and research findings that are revolutionizing healthcare delivery and patient outcomes.",
-      image: "/images/events/event-4.jpg",
+      image: "/images/blog-1.webp",
     },
     {
       id: 5,
@@ -56,7 +56,7 @@ export default function BlogListingPage() {
       date: "April 18, 2025",
       excerpt:
         "Experience the vibrant cultural diversity of SCALE through music, dance, art, and performances celebrating our global student community.",
-      image: "/images/events/event-5.jpg",
+      image: "/images/blog-1.webp",
     },
     {
       id: 6,
@@ -66,7 +66,7 @@ export default function BlogListingPage() {
       date: "May 8, 2025",
       excerpt:
         "Explore SCALE's partnership with ISRO in advancing space technology and satellite research for India's space exploration missions.",
-      image: "/images/events/event-6.jpg",
+      image: "/images/blog-1.webp",
     },
     {
       id: 7,
@@ -76,7 +76,7 @@ export default function BlogListingPage() {
       date: "May 15, 2025",
       excerpt:
         "Witness groundbreaking research projects by undergraduate and graduate students across engineering, medicine, and business disciplines.",
-      image: "/images/events/event-7.jpg",
+      image: "/images/blog-1.webp",
     },
     {
       id: 8,
@@ -86,7 +86,7 @@ export default function BlogListingPage() {
       date: "May 22, 2025",
       excerpt:
         "Connect with successful entrepreneurs, investors, and startup founders to explore opportunities in innovation and business development.",
-      image: "/images/events/event-8.jpg",
+      image: "/images/blog-1.webp",
     },
     {
       id: 9,
@@ -96,7 +96,7 @@ export default function BlogListingPage() {
       date: "June 2, 2025",
       excerpt:
         "Cheer for SCALE athletes as they compete in various sports disciplines, showcasing excellence beyond academics.",
-      image: "/images/events/event-9.jpg",
+      image: "/images/blog-1.webp",
     },
   ];
 
