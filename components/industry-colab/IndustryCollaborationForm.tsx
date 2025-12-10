@@ -13,13 +13,38 @@ import StepProgress from "./formSteps/StepProgress";
 const TOTAL_STEPS = 4;
 const STORAGE_KEY = "industry-collab-form";
 
+/* ------------------------------------------
+   ✅ 1 — Define Type for Entire Form
+------------------------------------------- */
+export type IndustryFormData = {
+  companyName: string;
+  industry: string;
+  companySize: string;
+  website: string;
+  companyDescription: string;
+
+  fullName: string;
+  jobTitle: string;
+  email: string;
+  phone: string;
+
+  collaborationTypes: string[]; 
+  timeline: string;
+  budgetRange: string;
+
+  projectDescription: string;
+  skills: string;
+  successMetrics: string;
+  additionalRequirements: string;
+};
+
 export default function IndustryMultiStepForm() {
   const [step, setStep] = useState(1);
 
-  // -----------------------------
-  // 1️⃣ React-Hook-Form instance
-  // -----------------------------
-  const form = useForm({
+  /* ------------------------------------------
+     2 — React Hook Form with typed defaults
+  ------------------------------------------- */
+  const form = useForm<IndustryFormData>({
     defaultValues: {
       companyName: "",
       industry: "",
@@ -45,41 +70,39 @@ export default function IndustryMultiStepForm() {
 
   const { handleSubmit, trigger, reset, watch } = form;
 
-  // -------------------------------------------
-  // 2️⃣ Load Saved Data From LocalStorage
-  // -------------------------------------------
+  /* ------------------------------------------
+     3 — Load saved form values
+  ------------------------------------------- */
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
-        const values = JSON.parse(saved);
-        reset(values); // Fill form with saved data
-      } catch { }
+        reset(JSON.parse(saved));
+      } catch {}
     }
   }, [reset]);
 
-  // ---------------------------------------------------
-  // 3️⃣ Persist Form Data Automatically on Every Change
-  // ---------------------------------------------------
+  /* ------------------------------------------
+     4 — Save form in localStorage on change
+  ------------------------------------------- */
   useEffect(() => {
     const subscription = watch((values) => {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
     });
-
     return () => subscription.unsubscribe();
   }, [watch]);
 
-
-  // --------------------------
-  // 4️⃣ Tanstack Mutation
-  // --------------------------
+  /* ------------------------------------------
+     5 — TanStack Mutation (Typed)
+  ------------------------------------------- */
   const mutation = useMutation({
-    mutationFn: async (data) => {
+    mutationFn: async (data: IndustryFormData) => {
       const res = await fetch("/api/collaboration/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+
       return res.json();
     },
 
@@ -90,10 +113,9 @@ export default function IndustryMultiStepForm() {
     },
   });
 
-
-  // ----------------------------------------
-  // 5️⃣ Step Navigation With Validation
-  // ----------------------------------------
+  /* ------------------------------------------
+     6 — Step Navigation + Validation
+  ------------------------------------------- */
   const nextStep = async () => {
     const valid = await trigger();
     if (!valid) {
@@ -105,25 +127,33 @@ export default function IndustryMultiStepForm() {
 
   const prevStep = () => setStep((s) => s - 1);
 
-  const submitForm = (data) => mutation.mutate(data);
+  /* ------------------------------------------
+     ❗ FIXED: Typed submitForm function
+  ------------------------------------------- */
+  const submitForm = (data: IndustryFormData) => {
+    mutation.mutate(data);
+  };
 
-  // --------------------------
-  // 6️⃣ Final JSX
-  // --------------------------
+  /* ------------------------------------------
+     7 — UI
+  ------------------------------------------- */
   return (
     <section className="py-16 bg-gray-50">
-      <div className=" max-w-5xl mx-auto space-y-10">
-        <div className="relative z-10 container mx-auto px-6 text-center">
+      <div className="max-w-5xl mx-auto space-y-10">
+
+        <div className="text-center px-6">
           <h2 className="text-4xl font-extrabold mb-4">
             Submit Your <span className="text-yellow-400">Requirements</span>
           </h2>
-          <p className="text-gray-600 max-w-3xl mx-auto mb-16">
-            Tell us about your collaboration needs and we'll create a customized partnership proposal tailored to your business objectives
+          <p className="text-gray-600 max-w-3xl mx-auto">
+            Tell us about your collaboration needs and we will create a customized proposal.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(submitForm)} className="shadow p-8 rounded-2xl bg-white">
-
+        <form
+          onSubmit={handleSubmit(submitForm)}
+          className="bg-white shadow p-8 rounded-2xl"
+        >
           <StepProgress step={step} />
 
           {step === 1 && <Step1Company form={form} />}
@@ -131,15 +161,9 @@ export default function IndustryMultiStepForm() {
           {step === 3 && <Step3Requirements form={form} />}
           {step === 4 && <Step4Project form={form} />}
 
-          {/* BUTTONS */}
           <div className="flex justify-between pt-6">
-
             {step > 1 ? (
-              <button
-                type="button"
-                onClick={prevStep}
-                className="px-8 py-3 rounded-lg bg-gray-200 text-gray-800"
-              >
+              <button type="button" onClick={prevStep} className="px-8 py-3 rounded-lg bg-gray-200">
                 Previous
               </button>
             ) : (
@@ -150,27 +174,22 @@ export default function IndustryMultiStepForm() {
               <button
                 type="button"
                 onClick={nextStep}
-                className="cursor-pointer px-8 py-3 rounded-lg bg-yellow-400 text-white"
+                className="px-8 py-3 rounded-lg bg-yellow-400 text-white"
               >
                 Next Step
               </button>
             ) : (
-              <button
-                type="submit"
-                className="cursor-pointer px-8 py-3 rounded-lg bg-yellow-400 text-white"
-              >
+              <button type="submit" className="px-8 py-3 rounded-lg bg-yellow-400 text-white">
                 {mutation.isPending ? "Submitting..." : "Submit Your Requirement"}
               </button>
             )}
-
           </div>
         </form>
 
         {mutation.isSuccess && (
-          <p className="text-green-600 font-semibold">Form submitted successfully!</p>
+          <p className="text-green-600 text-center">Form submitted successfully!</p>
         )}
       </div>
     </section>
-
   );
 }
