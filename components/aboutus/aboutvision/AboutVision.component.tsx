@@ -1,10 +1,10 @@
-// components/VisionMissionSection.tsx
+"use client";
+import { Check } from "phosphor-react";
 import Image from "next/image";
 
 export default function VisionMissionSection() {
   const visionParagraphs = [
-    `To shape a new generation of tech-enabled, ethical, and globally conscious business leaders who innovate, transform industries, and create meaningful impact for society.`,
-    `We aspire to inspire and transform. By combining legacy, innovation, and excellence, we empower businesses and individuals to achieve their highest potential, overcome challenges, and create lasting impact that drives progress, growth, and success across industries globally.`,
+    `To empower organizations, institutions, and innovators to accelerate business transformation, capability expansion, and entrepreneurial impact through integrated talent development, technology-enabled learning, and strategic innovation ecosystems.`,
   ];
 
   const missionIntro = `Empower students with industry-relevant, technology-driven management education by integrating AI, digital transformation, analytics, and emerging technologies into every aspect of learning. Empower students with industry-relevant, technology-driven management education by integrating AI, digital transformation, analytics, and emerging technologies into every aspect of learning.`;
@@ -92,19 +92,9 @@ export default function VisionMissionSection() {
                   >
                     {/* round icon badge (blue) */}
                     <div className="flex-shrink-0 mt-1">
-                      <div className="w-10 h-10 rounded-full bg-[#002D72] flex items-center justify-center shadow-md">
+                      <div className="bg-[#002D72] rounded-full w-[26px] h-[26px] flex items-center justify-center text-white flex-shrink-0">
                         {/* simple icon - clipboard/target like */}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="18"
-                          fill="#ffffff"
-                          className="bi bi-check-circle"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                          <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
-                        </svg>
+                        <Check className="w-3.5 h-3.5" />
                       </div>
                     </div>
 

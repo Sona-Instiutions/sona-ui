@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { Check } from "lucide-react";
+import { Check } from "phosphor-react";
 
 export default function PioneeringExcellenceSection() {
   const highlights = [
@@ -11,7 +12,7 @@ export default function PioneeringExcellenceSection() {
     },
     {
       id: 2,
-      title: "Specialised Focus Areas for GCCs",
+      title: "Specialised Focus Areas for GCCs ",
       description:
         "Learners gain expertise in domains such as Green IT, Synthetic Data Engineering, AI Ethics, Zero Trust Systems, and Autonomous Systems Governance.",
     },
@@ -39,8 +40,7 @@ export default function PioneeringExcellenceSection() {
 
           {/* Paragraphs */}
           <p className="text-gray-600 mb-6 leading-relaxed">
-            SCALE- Sona Centre for Advanced Learning and Entrepreneurship, prepares high-quality, industry-ready professionals equipped with advanced technologies, global industry practices, and future-focused skills demanded by GCCs. Designed in collaboration with industry leaders, the School develops talent that is technically strong, innovation-driven, and capable of contributing from day one.
-            With specialised pathways, global certifications, and 24×7 HOT Labs, Sona Tech School ensures learners gain practical expertise, deep industry awareness, and the agility to excel in a global tech ecosystem.
+            SCALE- Sona Centre for Advanced Learning and Entrepreneurship, prepares high-quality, industry-ready professionals equipped with advanced technologies, global industry practices, and future-focused skills demanded by GCCs. Designed in collaboration with industry leaders, the School develops talent that is technically strong, innovation-driven, and capable of contributing from day one. With specialised pathways, global certifications, and 24×7 HOT Labs, Sona Tech School ensures learners gain practical expertise, deep industry awareness, and the agility to excel in a global tech ecosystem.
           </p>
           {/* Highlights List */}
           <div className="space-y-6">

@@ -14,36 +14,52 @@ export default function InstitutionsSection() {
   const institutions = [
     {
       id: 1,
-      title: "Sona Tech School",
-      description:
-        "Empowering learners with future-ready engineering, digital technologies, and research-driven education.",
+      title: "Sona Global Capability Centre ",
+      description: "Build, scale, and transform world-class enterprise innovation hubs.",
       image: "/images/school-1.webp",
       link: "#",
     },
     {
       id: 2,
-      title: "Sona Finishing School",
+      title: "Sona School of Business & Management",
       description:
-        "Industry-aligned training that builds employability, communication skills, and professional readiness.",
+        "India's tech-powered school for globally conscious business leaders.",
       image: "/images/school-2.webp",
       link: "#",
     },
     {
       id: 3,
-      title: "Sona Business School",
+      title: "Sona Tech School",
       description:
-        "Tech-powered management programs grounded in industry guidance and global exposure.",
+        "TposurePrepare day-one-ready talent for global technology ecosystems.",
       image: "/images/school-3.webp",
       link: "#",
     },
      {
-      id: 3,
-      title: "Sona Business School",
+      id: 4,
+      title: "Sona Finishing School",
       description:
-        "Tech-powered management programs grounded in industry guidance and global exposure.",
+        "12-week bootcamp bridging academic learning and corporate expectations.",
       image: "/images/school-4.webp",
       link: "#",
     },
+     {
+      id: 5,
+      title: "AI Consulting",
+      description:
+        "Ecosystem where AI expertise meets entrepreneurial energy to scale ventures.",
+      image: "/images/school-4.webp",
+      link: "#",
+    },
+     {
+      id: 6,
+      title: "Flexi Staffing ",
+      description:
+        "Scalable, compliant, on-demand workforce solutions for rapid growth.",
+      image: "/images/school-4.webp",
+      link: "#",
+    },
+     
   ];
 
   return (
@@ -51,11 +67,10 @@ export default function InstitutionsSection() {
       <div className="container mx-auto px-6 text-center">
         {/* Heading */}
         <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
-          Our <span className="text-yellow-500">Institutions</span>
+          Our <span className="text-yellow-500">Verticals</span>
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-          A group ecosystem delivering technology, business, and finishing-school excellence.
-
+        <p className="text-gray-600 max-w-2xl mx-auto mb-12">A transformational ecosystem powered by six integrated verticals that bridge academia, industry, and innovation to develop world-class talent and scale high-impact enterprises. 
+          
         </p>
 
         {/* Carousel */}

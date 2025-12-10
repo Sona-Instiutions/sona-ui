@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function BannerCarousel() {
   // ✅ removed { banners }
@@ -23,9 +22,9 @@ export default function BannerCarousel() {
     {
       id: 1,
       image: "/images/banner-1.webp",
-      title: "Believe That's Right For Your Future",
+      title: "By the industry, for the industry, to the   ",
       subtitle:
-        "Teach Tomorrow's Technology Today — Your Problem, Our Challenge. Shaping innovators who will transform the world.",
+        "Tomorrow's technology today Shaping innovators who will transform the world",
       buttonText: "Get Started Today",
       buttonLink: "#",
     },
@@ -42,9 +41,9 @@ export default function BannerCarousel() {
                 <Image src={banner.image} alt={banner.title} fill priority className='object-cover' />
                 <div className='absolute inset-0 bg-black/40' />
                 <div className='absolute max-w-[1332px] mx-auto inset-0 flex flex-col justify-center items-start px-6 sm:px-10 md:px-20 text-left text-white z-10'>
-                  <h1 className='font-roboto leading-none text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold max-w-2xl'>
+                  <h1 className='font-roboto leading-none text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-bold max-w-2xl'>
                     {banner.title.split("Future")[0]}
-                    <span className='text-yellow-400'>Future</span>
+                    <span className='text-yellow-400'>industry</span>
                   </h1>
 
                   <p className='mt-4 text-base sm:text-lg md:text-xl lg:text-2xl max-w-xl'>{banner.subtitle}</p>
