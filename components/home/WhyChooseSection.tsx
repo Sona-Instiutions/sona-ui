@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import {Flask  ,Medal , Books , Desktop } from "phosphor-react";
+import {Laptop  ,Medal , Books , UserSquare } from "phosphor-react";
 
 export default function WhyChooseSection() {
     return (
@@ -19,7 +19,7 @@ export default function WhyChooseSection() {
                     {/* LEFT FEATURES */}
                     <div className="flex flex-col items-center space-y-12 text-center">
                         <FeatureCard
-                            icon={<Flask className="w-6 h-6 text-red-500" />}
+                            icon={<Laptop className="w-6 h-6 text-red-500" />}
                             color="bg-red-100"
                             title="24/7 HOT Labs"
                             text="Always-on access to real industry tools for continuous practical learning."
@@ -35,7 +35,7 @@ export default function WhyChooseSection() {
                     <div className="flex justify-center">
                         <div className="relative w-[280px] h-[500px] rounded-[2rem] overflow-hidden shadow-lg">
                             <Image
-                                src="/images/why-choose-us.webp"
+                                src="/images/why_choose_scale_center.webp"
                                 alt="Sona Tower"
                                 fill
                                 className="object-fill"
@@ -52,7 +52,7 @@ export default function WhyChooseSection() {
                             text="Programs co-created with GCC leaders to match real enterprise needs."
                         />
                         <FeatureCard
-                            icon={<Desktop  className="w-6 h-6 text-blue-500" />}
+                            icon={<UserSquare  className="w-6 h-6 text-blue-500" />}
                             color="bg-blue-100"
                             title="Day-One Readiness"
                             text="Talent trained to deliver impact from the very first day at work."

@@ -117,7 +117,7 @@ export default function VisionMissionSection() {
                 <div className="rounded-2xl overflow-hidden shadow-xl">
                   <div className="relative aspect-[16/12] w-full">
                     <Image
-                      src="/images/our-mission.webp" // replace with your image
+                      src="/images/mission-page.webp" // replace with your image
                       alt="Students group"
                       fill
                       className="object-cover"

@@ -9,7 +9,7 @@ export default function LegacySection() {
       title: "Gandhi's Vision",
       description:
         "Transforming India through education and peaceful revolution, inspiring generations of change-makers.",
-      image: "/images/legacy-1.webp",
+      image: "/images/gandhi.webp",
       icon: <Target className="w-8 h-8 text-white" />,
     },
     {
@@ -17,7 +17,7 @@ export default function LegacySection() {
       title: "Sona Tower",
       description:
         "Establishing educational excellence with world-class infrastructure and innovative learning environments.",
-      image: "/images/legacy-2.webp",
+      image: "/images/sona-tower-it-revolution.webp",
       icon: <Download className="w-8 h-8 text-white" />,
     },
     {
@@ -25,7 +25,7 @@ export default function LegacySection() {
       title: "ISRO Collaboration",
       description:
         "Partnering with ISRO for Chandrayaan missions, pioneering space research and technology innovation.",
-      image: "/images/legacy-3.webp",
+      image: "/images/isro-and-chandrayaan-legacy.webp",
       icon: <Bell className="w-8 h-8 text-white" />,
     },
   ];

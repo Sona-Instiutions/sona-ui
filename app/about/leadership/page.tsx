@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import MainBanner from "@/components/common/MainBannerSection";
 import LeadershipSection from "@/components/aboutus/leadership/LeaderProfile";
 import ExecutiveLeadershipSection from "@/components/aboutus/leadership/ExecutiveLeadershipSection";
-import CallToActionSection from "@/components/common/CallToActionSection";
+// import CallToActionSection from "@/components/common/CallToActionSection";
 
 
 
@@ -37,7 +37,7 @@ export default function HomePage() {
                 title="Visionary Leadership"
                 highlight="Leadership"
                 description="Driving innovation, excellence, and transformative education through strategic vision and industry-aligned leadership."
-                backgroundImage="/images/aboutus-banner-leadership.webp"
+                backgroundImage="/images/leadership.webp"
             />
 
             {/* LeadershipSection Section  */}
@@ -47,7 +47,7 @@ export default function HomePage() {
             <ExecutiveLeadershipSection />
 
             {/* CallToActionSection section  */}
-            <CallToActionSection
+            {/* <CallToActionSection
                 bgColor="bg-yellow-500"
                 heading="Leadership Excellence"
                 description=""
@@ -56,7 +56,7 @@ export default function HomePage() {
                 cta1Link="/contact"
                 cta2Link="/contact"
 
-            />
+            /> */}
 
         </div>
     );
