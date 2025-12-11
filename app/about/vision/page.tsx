@@ -37,7 +37,7 @@ export default function HomePage() {
           title="Vision, Mission and "
           highlight="Core Values"
           description="Empowering global businesses through innovation, integrity, and a century-long legacy of excellence."
-          backgroundImage="/images/Banner-vision-mission.webp"
+          backgroundImage="/images/banner-vision-mission.webp"
         />
 
         {/* About Vision Mission Section  */}

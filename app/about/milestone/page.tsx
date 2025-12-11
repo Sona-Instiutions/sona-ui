@@ -36,7 +36,7 @@ export default function HomePage() {
           title="Our "
           highlight="Milestones"
           description=""
-          backgroundImage="/images/banner-our -milestones.webp"
+          backgroundImage="/images/banner-our-milestones.webp"
         />
 
         {/* About Milestones Section  */}

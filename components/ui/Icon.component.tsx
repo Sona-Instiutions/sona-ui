@@ -1,6 +1,6 @@
 'use client';
 
-import { FacebookLogo, InstagramLogo, LinkedinLogo, List, Phone, YoutubeLogo } from "phosphor-react";
+import { FacebookLogo, InstagramLogo, LinkedinLogo, List, Phone, YoutubeLogo  } from "phosphor-react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ const icons = {
   linkedinIcon: LinkedinLogo,
   youtubeIcon: YoutubeLogo,
   menuIcon: List,
+  // xlogo:XLogo,
 };
 
 type IconName = keyof typeof icons;
