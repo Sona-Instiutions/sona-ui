@@ -1,10 +1,25 @@
 import { axiosInstance } from "@/lib/axios.config";
 import { useMutation } from "@tanstack/react-query";
 
-/**
- * Submit contact form to Strapi
- */
-export const submitContactForm = async (payload: any) => {
+/* ----------------------------------------------------
+   1️⃣ Type for Contact Submission Form
+---------------------------------------------------- */
+export interface ContactSubmissionPayload {
+  Category: string;
+  FirstName: string;
+  LastName: string;
+  EmailAddress: string;
+  PhoneNumber: string;
+  Subject: string;
+  Message: string;
+}
+
+/* ----------------------------------------------------
+   2️⃣ Submit Function (STRONGLY TYPED)
+---------------------------------------------------- */
+export const submitContactForm = async (
+  payload: ContactSubmissionPayload
+) => {
   const response = await axiosInstance.post("/api/contact-submissions", {
     data: {
       Category: payload.Category,
@@ -13,18 +28,19 @@ export const submitContactForm = async (payload: any) => {
       EmailAddress: payload.EmailAddress,
       PhoneNumber: payload.PhoneNumber,
       Subject: payload.Subject,
-      Message: payload.Message?.toString() || "",
-      submittedAt: new Date().toISOString(), // matches your Strapi field
+      Message: payload.Message ?? "",
+      submittedAt: new Date().toISOString(), // Strapi datetime field
     },
   });
 
   return response.data;
 };
 
-/**
- * TanStack Mutation Hook
- */
+/* ----------------------------------------------------
+   3️⃣ TanStack React Query Mutation Hook
+---------------------------------------------------- */
 export const useSubmitContactFormMutation = () =>
   useMutation({
-    mutationFn: submitContactForm,
+    mutationFn: (payload: ContactSubmissionPayload) =>
+      submitContactForm(payload),
   });

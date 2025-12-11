@@ -1,5 +1,5 @@
 "use client";
-import { Lightbulb ,ShieldCheck ,Users ,MagnifyingGlass , Rocket  } from "phosphor-react";
+import { Lightbulb ,ShieldCheck ,Users  } from "phosphor-react";
 
 export default function CoreValuesSection() {
   const values = [
