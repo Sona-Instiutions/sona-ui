@@ -1,3 +1,4 @@
+"use client"; 
 import {
   GraduationCap,
   ShieldCheck,
@@ -5,7 +6,7 @@ import {
   Star,
   Medal,
   Lightbulb,
-} from "lucide-react";
+} from "phosphor-react";
 
 export default function GlobalPartnershipsSection() {
   const universityPartners = [

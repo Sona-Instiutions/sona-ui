@@ -36,7 +36,7 @@ export default function ContactSection() {
 
   // VALIDATION FUNCTION
   const validateForm = (): Record<string, string> => {
-    let newErrors: Record<string, string> = {};
+    const newErrors: Record<string, string> = {};
 
     if (!form.Category) newErrors.Category = "Please select a category";
     if (!form.FirstName) newErrors.FirstName = "First name is required";

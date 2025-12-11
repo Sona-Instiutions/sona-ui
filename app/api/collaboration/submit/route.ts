@@ -37,10 +37,11 @@ export async function POST(req: Request) {
         }
 
         return NextResponse.json({ success: true, data: result });
-    } catch (error: any) {
-        console.error("❌ [API] Server ERROR:", error);
+    } catch (error) {
+        const err = error as Error;
+        console.error("❌ [API] Server ERROR:", err);
         return NextResponse.json(
-            { success: false, error: error.message },
+            { success: false, error: err.message },
             { status: 500 }
         );
     }
