@@ -12,7 +12,7 @@ export default function AboutMilestoneSection() {
         `The British had set up the Indian education system in a thoughtful manner i.e. there were many English schools for people to learn English, which made it easy for them to communicate with a large number of Indians. The British did not, however, invest much in higher education. As a visionary, our founder decided that the best way to develop India was to set up institutes that facilitate higher education in engineering. This resulted in the backward integration of human resources for the Group. Fondly named as ‘Kalathani’, which means ‘Father of Education’ people look up to him for his pioneering seminal work towards education.`,
         `As a philanthropic group, The Sona Group believes that ‘Education is Knowledge’ and has started several educational institutions, which have grown to become some of the best colleges in India.`,
       ],
-      image: "/images/Gandhi’s Educational Philosophy.webp",
+      image: "/images/gandhis-educational-philosophy.webp",
       icon: (
         <svg
           aria-hidden="true"
@@ -40,7 +40,7 @@ export default function AboutMilestoneSection() {
         `With cutting-edge servers, high-speed connectivity, and cloud computing capabilities, Sona Tower enables seamless digital learning experiences, virtual laboratories, and collaborative research projects that connect our students and faculty with global academic communities.`,
         `The tower serves as the nerve center for our digital transformation initiatives, supporting everything from AI-powered learning analytics to virtual reality classrooms, ensuring our students are prepared for the digital economy of tomorrow.`,
       ],
-      image: "/images/Sona Tower IT Revolution.webp",
+      image: "/images/sona-tower-it-revolution.webp",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ export default function AboutMilestoneSection() {
         `Through collaborative research programs with ISRO, our students gain hands-on experience with satellite technology, space communications, and aerospace engineering. Our specialized laboratories simulate space conditions, allowing students to work on real mission-critical projects.`,
         `This partnership has established us as a premier institution for space science education in India, inspiring a new generation of space scientists and engineers who will lead future missions to the Moon, Mars, and beyond.`,
       ],
-      image: "/images/ISRO and Chandrayaan Legacy.webp",
+      image: "/images/isro-and-chandrayaan-legacy.webp",
       icon: (
         <svg
           aria-hidden="true"
