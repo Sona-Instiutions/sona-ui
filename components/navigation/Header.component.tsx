@@ -59,9 +59,9 @@ function HeaderTopBar() {
           ))}
         </nav>
         <div className='flex flex-wrap items-center justify-center gap-2 text-blue-100'>
-          <a href='tel:+914272301234' className='flex items-center gap-1 whitespace-nowrap text-xs'>
+          <a href='tel:+919442592175' className='flex items-center gap-1 whitespace-nowrap text-xs'>
             <Icon name='phone' className='size-3' />
-            <span className='font-semibold hidden sm:inline'>+91 427 230 1234</span>
+            <span className='font-semibold hidden sm:inline'>+91 9442592175</span>
           </a>
           <div className='flex items-center gap-3 text-white/80'>
             {HEADER_SOCIAL_LINKS.map((link) => (
@@ -96,7 +96,7 @@ function HeaderMobileMenu() {
             Home
           </Link>
           <div className='flex flex-col gap-2'>
-           <Link href='/about'  className='text-xs font-semibold uppercase text-blue-200'>About Us</Link>
+           <Link href='/about'  className='text-xs font-semibold uppercase text-blue-200'>About SCALE</Link>
             {HEADER_ABOUT_NAV.map((item) => (
               <Link key={item.label} href={item.href} className='text-sm ml-4 text-white/90'>
                 {item.label}
