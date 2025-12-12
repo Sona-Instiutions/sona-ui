@@ -76,7 +76,7 @@ export default function GlobalPartnershipsSection() {
           {universityPartners.map((partner) => (
             <div
               key={partner.id}
-              className="bg-white backdrop-blur-md rounded-2xl p-6 flex flex-col items-center justify-center hover:bg-white/10 transition-all duration-300"
+              className="bg-white group backdrop-blur-md rounded-2xl p-6 flex flex-col items-center justify-center hover:bg-white/10 transition-all duration-300"
             >
               {/* <GraduationCap className="w-8 h-8 text-yellow-400 mb-3" /> */}
               <div className="relative w-28 h-28 mb-6 rounded-2xl overflow-hidden">
@@ -87,8 +87,8 @@ export default function GlobalPartnershipsSection() {
                   className="object-cover"
                 />
               </div>
-              <h4 className="font-semibold text-gray-500">{partner.name}</h4>
-              <p className="text-gray-500 text-sm">{partner.location}</p>
+              <h4 className="font-semibold text-gray-500 group-hover:text-white ">{partner.name}</h4>
+              <p className="text-gray-500 text-sm group-hover:text-white ">{partner.location}</p>
             </div>
           ))}
         </div>
