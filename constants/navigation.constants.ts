@@ -3,10 +3,10 @@ import type { IFooterContactInfo, INavGroup, INavItem, ISocialLink } from "@/typ
 export const HEADER_PARTNER_LINKS: INavItem[] = [
   { label: "GCC", href: "/institutions/sona-gcc" },
   { label: "Sona Business School", href: "https://www.sonabusinessschool.com/ " },
-  { label: "Sona finishing School", href: "#" },
+  { label: "Sona finishing School", href: "/institutions/sona-finishing-school" },
   { label: "Sona Tech School", href: "https://www.sonatech.ac.in/" },
-  { label: "AI Consultancy", href: "#" },
-  { label: "Flexi Staffing", href: "#" },
+  { label: "AI Consultancy", href: "/institutions/ai-consultancy" },
+  { label: "Flexi Staffing", href: "/institutions/sona-flexi-staffing" },
 ];
 
 export const HEADER_SOCIAL_LINKS: ISocialLink[] = [
@@ -73,10 +73,10 @@ export const FOOTER_QUICK_LINKS: INavItem[] = [
 export const FOOTER_INSTITUTIONS: INavItem[] = [
   { label: "GCC", href: "/institutions/sona-gcc" },
   { label: "Sona Business School", href: "https://www.sonabusinessschool.com/ " },
-  { label: "Sona finishing School", href: "#" },
+  { label: "Sona finishing School", href: "/institutions/sona-finishing-school" },
   { label: "Sona Tech School", href: "https://www.sonatech.ac.in/" },
-  { label: "AI Consultancy", href: "#" },
-  { label: "Flexi Staffing", href: "#" },
+  { label: "AI Consultancy", href: "/institutions/ai-consultancy" },
+  { label: "Flexi Staffing", href: "/institutions/sona-flexi-staffing" },
 ];
 
 export const FOOTER_CONTACT_INFO: IFooterContactInfo = {
