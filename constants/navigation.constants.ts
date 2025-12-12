@@ -25,6 +25,11 @@ export const HEADER_PRIMARY_NAV: INavItem[] = [
 
 export const HEADER_ABOUT_NAV: INavGroup[] = [
   {
+    label: "About SCALE",
+    href: "/about",
+    description: " ",
+  },
+  {
     label: "Vision, Mission & Value",
     href: "/about/vision",
     description: " ",
