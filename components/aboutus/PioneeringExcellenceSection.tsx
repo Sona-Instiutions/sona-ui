@@ -68,7 +68,7 @@ export default function PioneeringExcellenceSection() {
         <div className="md:w-1/2 relative">
           <div className="relative w-[520px] h-[400px] md:h-[420px] rounded-2xl overflow-hidden shadow-lg">
             <Image
-              src="/images/pioneering.webp"
+              src="/images/about-page-intro.webp"
               alt="SCALE Campus"
               fill
               className="object-cover rounded-2xl"
@@ -78,7 +78,7 @@ export default function PioneeringExcellenceSection() {
 
           {/* Badge */}
           <div className="absolute bottom-10 right-10 bg-[#002D72] text-white px-6 py-3 rounded-xl shadow-md text-center">
-            <p className="text-2xl font-bold leading-none">105</p>
+            <p className="text-2xl font-bold leading-none">105+</p>
             <p className="text-sm">Years of Legacy</p>
           </div>
         </div>

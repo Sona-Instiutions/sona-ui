@@ -80,9 +80,9 @@ export const FOOTER_INSTITUTIONS: INavItem[] = [
 ];
 
 export const FOOTER_CONTACT_INFO: IFooterContactInfo = {
-  address: "Sona Towers, Millers Road, Vasanth Nagar, Bengaluru, Karnataka 560001",
-  phone: "+91 427 230 1234",
-  email: "admissions@scale.edu.in",
+  address: "#43/1A , Billekempanahalli village, Bidadi Hobli, Ramnagara Taluk",
+  phone: "+91 944 259 2175",
+  email: "contact@scaleindia.in",
 };
 
 export const FOOTER_SOCIAL_LINKS: ISocialLink[] = [

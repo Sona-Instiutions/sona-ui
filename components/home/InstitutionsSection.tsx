@@ -16,15 +16,15 @@ export default function InstitutionsSection() {
       id: 1,
       title: "Sona Global Capability Centre ",
       description: "Build, scale, and transform world-class enterprise innovation hubs.",
-      image: "/images/school-1.webp",
-      link: "#",
+      image: "/images/gcc.webp",
+      link: "/institutions/sona-gcc",
     },
     {
       id: 2,
-      title: "Sona School of Business & Management",
+      title: "Sona Business School",
       description:
         "India's tech-powered school for globally conscious business leaders.",
-      image: "/images/school-2.webp",
+      image: "/images/sona_business_school.webp",
       link: "#",
     },
     {
@@ -32,15 +32,15 @@ export default function InstitutionsSection() {
       title: "Sona Tech School",
       description:
         "TposurePrepare day-one-ready talent for global technology ecosystems.",
-      image: "/images/school-3.webp",
-      link: "#",
+      image: "/images/sona_tech_school.webp",
+      link: "/institutions/sona-tech-school",
     },
      {
       id: 4,
       title: "Sona Finishing School",
       description:
         "12-week bootcamp bridging academic learning and corporate expectations.",
-      image: "/images/school-4.webp",
+      image: "/images/sona_finishing_school.webp",
       link: "#",
     },
      {
@@ -48,7 +48,7 @@ export default function InstitutionsSection() {
       title: "AI Consulting",
       description:
         "Ecosystem where AI expertise meets entrepreneurial energy to scale ventures.",
-      image: "/images/school-4.webp",
+      image: "/images/ai_consulting.webp",
       link: "#",
     },
      {
@@ -56,7 +56,7 @@ export default function InstitutionsSection() {
       title: "Flexi Staffing ",
       description:
         "Scalable, compliant, on-demand workforce solutions for rapid growth.",
-      image: "/images/school-4.webp",
+      image: "/images/flexi-staffing.webp",
       link: "#",
     },
      

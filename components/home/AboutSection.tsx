@@ -86,7 +86,7 @@ export default function AboutSection() {
                     <div className="flex flex-col space-y-5 mt-6">
                         <div className="rounded-[0_50%_0_0] overflow-hidden">
                             <Image
-                                src="/images/about-us-section-3.webp"
+                                src="/images/about-scale-3.webp"
                                 alt="About Sona Image 2"
                                 width={400}
                                 height={300}
@@ -95,7 +95,7 @@ export default function AboutSection() {
                         </div>
                         <div className="rounded-[0_0_50%_0] overflow-hidden">
                             <Image
-                                src="/images/about-us-section-4.webp"
+                                src="/images/about-scale-4.webp"
                                 alt="About Sona Image 3"
                                 width={400}
                                 height={300}

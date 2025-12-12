@@ -16,7 +16,7 @@ export default function StudentStoriesSection() {
       name: "Aarav S. ",
       role: "AI Enthusiast ",
       batch: " ",
-      text: `"I’m really looking forward to getting hands-on experience with advanced tools and labs. SCALE’s 24/7 HOT Labs will let me experiment freely and build practical skills, which I think is key to bridging the gap between what I learn in class and real-world industry demands." "`,
+      text: `"I’m really looking forward to getting hands-on experience with advanced tools and labs. SCALE’s 24/7 HOT Labs will let me experiment freely and build practical skills, which I think is key to bridging the gap between what I learn in class and real-world industry demands."`,
       image: "/images/male.webp",
     },
     {
@@ -24,7 +24,7 @@ export default function StudentStoriesSection() {
       name: "Meera P. ",
       role: "Software Developer Aspirant ",
       batch: " ",
-      text: `"Global certifications have always been a goal for me, and SCALE offers internationally recognized credentials that can really boost my career prospects. I’m excited to learn, prove my skills, and make myself more employable on a global scale. "`,
+      text: `"Global certifications have always been a goal for me, and SCALE offers internationally recognized credentials that can really boost my career prospects. I’m excited to learn, prove my skills, and make myself more employable on a global scale."`,
       image: "/images/female.webp",
     },
     {
@@ -32,7 +32,7 @@ export default function StudentStoriesSection() {
       name: "Rohan K. ",
       role: "Data Science Student ",
       batch: " ",
-      text: `"I’m eager to follow a curriculum that’s designed alongside top industry leaders. Knowing that the courses are co-created with tech companies gives me confidence that I’ll learn exactly what enterprises need, preparing me to be productive from day one. "`,
+      text: `"I’m eager to follow a curriculum that’s designed alongside top industry leaders. Knowing that the courses are co-created with tech companies gives me confidence that I’ll learn exactly what enterprises need, preparing me to be productive from day one."`,
       image: "/images/male.webp",
     },
     {
@@ -40,7 +40,7 @@ export default function StudentStoriesSection() {
       name: "Ananya T.",
       role: "Future Tech Leader",
       batch: "",
-      text: `""Day-One readiness is what excites me the most. I want to join SCALE to not only gain knowledge but also to develop practical skills and confidence to immediately contribute in real enterprise projects right after graduation."`,
+      text: `"Day-One readiness is what excites me the most. I want to join SCALE to not only gain knowledge but also to develop practical skills and confidence to immediately contribute in real enterprise projects right after graduation."`,
       image: "/images/female.webp",
     },
   ];
