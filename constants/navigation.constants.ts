@@ -4,7 +4,7 @@ export const HEADER_PARTNER_LINKS: INavItem[] = [
   { label: "GCC", href: "/institutions/sona-gcc" },
   { label: "Sona Business School", href: "https://www.sonabusinessschool.com/ " },
   { label: "Sona finishing School", href: "#" },
-  { label: "Sona Tech School", href: "/institutions/sona-tech-school" },
+  { label: "Sona Tech School", href: "https://www.sonatech.ac.in/" },
   { label: "AI Consultancy", href: "#" },
   { label: "Flexi Staffing", href: "#" },
 ];
@@ -74,7 +74,7 @@ export const FOOTER_INSTITUTIONS: INavItem[] = [
   { label: "GCC", href: "/institutions/sona-gcc" },
   { label: "Sona Business School", href: "https://www.sonabusinessschool.com/ " },
   { label: "Sona finishing School", href: "#" },
-  { label: "Sona Tech School", href: "/institutions/sona-tech-school" },
+  { label: "Sona Tech School", href: "https://www.sonatech.ac.in/" },
   { label: "AI Consultancy", href: "#" },
   { label: "Flexi Staffing", href: "#" },
 ];
