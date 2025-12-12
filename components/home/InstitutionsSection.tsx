@@ -25,7 +25,7 @@ export default function InstitutionsSection() {
       description:
         "India's tech-powered school for globally conscious business leaders.",
       image: "/images/sona_business_school.webp",
-      link: "#",
+      link: "https://www.sonabusinessschool.com/",
     },
     {
       id: 3,
@@ -33,7 +33,7 @@ export default function InstitutionsSection() {
       description:
         "TposurePrepare day-one-ready talent for global technology ecosystems.",
       image: "/images/sona_tech_school.webp",
-      link: "/institutions/sona-tech-school",
+      link: "https://www.sonatech.ac.in/",
     },
      {
       id: 4,
@@ -41,7 +41,7 @@ export default function InstitutionsSection() {
       description:
         "12-week bootcamp bridging academic learning and corporate expectations.",
       image: "/images/sona_finishing_school.webp",
-      link: "#",
+      link: "/institutions/sona-finishing-school",
     },
      {
       id: 5,
@@ -49,7 +49,7 @@ export default function InstitutionsSection() {
       description:
         "Ecosystem where AI expertise meets entrepreneurial energy to scale ventures.",
       image: "/images/ai_consulting.webp",
-      link: "#",
+      link: "/institutions/ai-consultancy",
     },
      {
       id: 6,
@@ -57,7 +57,7 @@ export default function InstitutionsSection() {
       description:
         "Scalable, compliant, on-demand workforce solutions for rapid growth.",
       image: "/images/flexi-staffing.webp",
-      link: "#",
+      link: "/institutions/sona-flexi-staffing",
     },
      
   ];
