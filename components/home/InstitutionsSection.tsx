@@ -21,11 +21,11 @@ export default function InstitutionsSection() {
     },
     {
       id: 2,
-      title: "Sona Business School",
+      title: "Sona School of Business & Management",
       description:
         "India's tech-powered school for globally conscious business leaders.",
       image: "/images/sona_business_school.webp",
-      link: "https://www.sonabusinessschool.com/",
+      link: "https://pgdm.scaleindia.in/",
     },
     {
       id: 3,

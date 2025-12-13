@@ -7,22 +7,22 @@ import AboutCoreValuesSection from "@/components/aboutus/aboutvision/AboutCoreVa
 
 
 export const metadata: Metadata = {
-  title: "SONA Institutions | About Vision",
+  title: "SCALE | About Vision",
   description:
-    "Welcome to SONA Institutions. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
+    "Welcome to SCALE. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
   openGraph: {
-    title: "SONA Institutions | Milestone",
+    title: "SCALE | Milestone",
     description:
-      "Discover SONA Institutions – excellence in education, innovation, and industry collaboration.",
+      "Discover SCALE – excellence in education, innovation, and industry collaboration.",
     type: "website",
     url: "https://sona.edu.in/",
-    siteName: "SONA Institutions",
+    siteName: "SCALE",
     images: [
       {
         url: "/images/home-banner.jpg",
         width: 1200,
         height: 630,
-        alt: "SONA Institutions Campus",
+        alt: "SCALE Campus",
       },
     ],
   },

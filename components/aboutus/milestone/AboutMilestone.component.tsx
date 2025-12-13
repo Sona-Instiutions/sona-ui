@@ -8,7 +8,7 @@ export default function AboutMilestoneSection() {
       titleLeft: "Gandhi's Educational",
       titleHighlight: "Philosophy",
       paragraphs: [
-        `Our founder did with tea plantations workers what our Father of Nation Mahatma Gandhi did with the mining workers in South Africa and the two men formed a lasting friendship. It was in 1921 in Kaliahthanthi’s house that the famous loin cloth incident took place (where Mahatma Gandhi removed his shirt, never to wear one again).`,
+        `Our founder did with tea plantations workers what our Father of Nation Mahatma Gandhi did with the mining workers in South Africa and the two men formed a lasting friendship. It was in 1921 in Kalaithanthai’s house that the famous loin cloth incident took place (where Mahatma Gandhi removed his shirt, never to wear one again).`,
         `The British had set up the Indian education system in a thoughtful manner i.e. there were many English schools for people to learn English, which made it easy for them to communicate with a large number of Indians. The British did not, however, invest much in higher education. As a visionary, our founder decided that the best way to develop India was to set up institutes that facilitate higher education in engineering. This resulted in the backward integration of human resources for the Group. Fondly named as ‘Kalathani’, which means ‘Father of Education’ people look up to him for his pioneering seminal work towards education.`,
         `As a philanthropic group, The Sona Group believes that ‘Education is Knowledge’ and has started several educational institutions, which have grown to become some of the best colleges in India.`,
       ],
