@@ -5,10 +5,10 @@ export default function ExecutiveLeadershipSection() {
     {
       id: 1,
       image: "/images/dr_venu_mittapally_gopal.webp",
-      name: "Dr M Venugopal",
+      name: "Dr. M Venugopal",
       designation: "Vice President",
       description:
-        "Sona Centre for Advance Learning & Entrepreneurship (SCALE).",
+        "",
     },
     {
       id: 2,
@@ -16,7 +16,7 @@ export default function ExecutiveLeadershipSection() {
       name: "Dr. Sheelan Misra",
       designation: "Dean (Marketing Strategy, IR & Industry Collaboration)",
       description:
-        "Sona Centre for Advance Learning & Entrepreneurship (SCALE).",
+        "",
     },
     {
       id: 3,
@@ -24,7 +24,7 @@ export default function ExecutiveLeadershipSection() {
       name: "N. T. Srinivasulu",
       designation: "Dean – MBA Admissions ",
       description:
-        "Sona Centre for Advance Learning & Entrepreneurship (SCALE).",
+        "",
     },
     {
       id: 4,
@@ -32,15 +32,15 @@ export default function ExecutiveLeadershipSection() {
       name: "Akhil Narayan",
       designation: "Learning and Development Manager",
       description:
-        "Sona Centre for Advance Learning & Entrepreneurship (SCALE)",
+        "",
     },
     {
       id: 5,
       image: "/images/mm.webp",
-      name: "Madhan G",
-      designation: "Hr Manager",
+      name: "G Madan",
+      designation: "HR Manager",
       description:
-        "Sona Centre for Advance Learning & Entrepreneurship (SCALE).",
+        "",
     },
     
   ];

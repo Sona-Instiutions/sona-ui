@@ -268,11 +268,11 @@ export default function ContactSection() {
                   <div>
                     <p className='font-semibold'>Visit Us</p>
                     <p className='text-sm text-gray-600'>
-                      #43/1A , Billekempanahalli village, 
+                      #43/1A , Billekempanahalli Village, 
                       <br />
-                       Bidadi Hobli,
+                       Bidadi Hobli, Ramnagara Taluk,
                       <br />
-                      Ramnagara Taluk
+                      Karnataka – 562109, India.
                     </p>
                   </div>
                 </div>

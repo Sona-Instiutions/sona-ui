@@ -10,11 +10,11 @@ import Image from "next/image";
 
 export default function GlobalPartnershipsSection() {
   const universityPartners = [
-    { id: 1, name: "Mr Kamal Bali", location: "MD Volvo – cc vc", image: "/images/kamal_bali.webp" },
+    { id: 1, name: "Mr. Kamal Bali", location: "President & MD, Volvo", image: "/images/kamal_bali.webp" },
     { id: 2, name: "Dr. Augustus (augie) Azariah", location: "Regional Director , Kyndryl India", image: "/images/dr_augustus.webp" },
     { id: 3, name: "Madhusudan Murthy", location: "Senior Vice President of Engineering GlobalLogic", image: "/images/madhusudan_murthy.webp" },
     { id: 4, name: "Viswanath PS", location: "Managing Director & CEO of Randstad India" , image: "/images/viswanath_ps.webp"},
-    { id: 5, name: "Dr Akali Fulma", location: "Director of International Relations University of West Alabama" , image: "/images/dr_akali_fulmer.webp"},
+    { id: 5, name: "Dr Akali Fulmar", location: "Director of International Relations University of West Alabama" , image: "/images/dr_akali_fulmer.webp"},
     { id: 6, name: "Pankaj Kumar Mishraa", location: "Head - Sales, GTM & GenAI at TCS AI.Cloud | Life-Sciences & Healthcare | AWS Business - North America | Business Story Telling Coach | Contextual Master | 8X AWS Certified" , image: "/images/pankaj_kumar_mishraa.webp"},
     { id: 7, name: "Palash Gupta", location: "Product R&D, Engineering, Strategy| GCC Leader| NASSCOM DeepTech| President PMI Bangalore| Board Member & Mentor Startup." , image: "/images/palash_gupta.webp"},
   ];
@@ -71,7 +71,7 @@ export default function GlobalPartnershipsSection() {
         </p>
 
         {/* University Partners */}
-        <h3 className="text-2xl font-semibold mb-8">SCALE Governning Council</h3>
+        <h3 className="text-2xl font-semibold mb-8">SCALE Governing Council</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
           {universityPartners.map((partner) => (
             <div

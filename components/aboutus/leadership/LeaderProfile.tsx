@@ -19,7 +19,7 @@ export default function LeadershipSection() {
       image: "/images/leader-thyagu.webp",
       name: "Thyagu Valliappa",
       highlight: "Valliappa",
-      designation: "Vice Chairman",
+      designation: "Founder & Chief Mentor",
       description: [
         "Thyagu Valliappa is a fourth-generation entrepreneur and a transformative leader known for driving innovation across diverse sectors including technology, real estate, textiles, healthcare, logistics, and education. With over four decades of entrepreneurial experience, he has mentored more than 50 startups and played a pivotal role in shaping India’s startup and industry ecosystem.",
         "As Founder & Chief Mentor of SCALE, he brings unmatched industry insight, a global mindset, and a passion for developing future-ready leaders. His work spans building world-class infrastructure, pioneering sportainment, advancing heritage healthcare, and strengthening industry–academia partnerships.",
