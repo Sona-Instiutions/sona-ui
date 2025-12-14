@@ -15,7 +15,7 @@ export default function AboutSection() {
                     </h2>
 
                     <p className="text-gray-600 mb-8 leading-relaxed">
-                        SCALE (Sona Centre of Advanced Learning & Entrepreneurship) is a next-generation ecosystem built to bridge the world of industry, talent, technology, and entrepreneurship. Backed by the 100+ year legacy of the Sona Group, SCALE unites global capability development, emerging-tech education, corporate innovation, startup incubation, and workforce solutions into one integrated platform. Designed by the industry, for the industry, and to the industry, SCALE accelerates talent readiness, enterprise capability, and innovation-driven growth for organizations across the world.
+                    Sona Centre of Advanced Learning & Entrepreneurship (SCALE) is a next-generation ecosystem built to bridge the world of industry, talent, technology, and entrepreneurship. Backed by the 100+ year legacy of the Sona Group, SCALE unites global capability development, emerging-tech education, corporate innovation, startup incubation, and workforce solutions into one integrated platform. Designed by the industry, for the industry, and to the industry, SCALE accelerates talent readiness, enterprise capability, and innovation-driven growth for organizations across the world.
                     </p>
                     {/* Bullet points */}
                     <ul className="space-y-5 mb-10">
@@ -75,7 +75,7 @@ export default function AboutSection() {
                         </div>
                         <div className="rounded-[0_0_0_50%] overflow-hidden">
                             <Image
-                                src="/images/about-us-section-2.webp"
+                                src="/images/about-scale-3.webp"
                                 alt="About Sona Image 4"
                                 width={400}
                                 height={300}
@@ -95,7 +95,7 @@ export default function AboutSection() {
                         </div>
                         <div className="rounded-[0_0_50%_0] overflow-hidden">
                             <Image
-                                src="/images/about-us-section-4.webp"
+                                src="/images/about-scale-4.webp"
                                 alt="About Sona Image 3"
                                 width={400}
                                 height={300}

@@ -41,11 +41,11 @@ export default function TeachingApproachSection() {
         },
     ];
 
-    const outcomes = [
-        { id: 1, percentage: "95%", label: "Aligned with GCC talent needs" },
-        { id: 2, percentage: "87%", label: "Global certifications" },
-        { id: 3, percentage: "92%", label: "24×7 HOT Labs" },
-    ];
+    // const outcomes = [
+    //     { id: 1, percentage: "95%", label: "Aligned with GCC talent needs" },
+    //     { id: 2, percentage: "87%", label: "Global certifications" },
+    //     { id: 3, percentage: "92%", label: "24×7 HOT Labs" },
+    // ];
 
     return (
         <section className="bg-white py-7 md:py-20">
@@ -87,7 +87,7 @@ export default function TeachingApproachSection() {
                 </div>
 
                 {/* Learning Outcomes */}
-                <div className="bg-[#002D72] text-white rounded-3xl py-10 px-6">
+                {/* <div className="bg-[#002D72] text-white rounded-3xl py-10 px-6">
                     <h3 className="text-2xl font-bold mb-8">Unique Strengths of Sona Tech School </h3>
 
                     <div className="flex flex-col sm:flex-row items-center justify-around gap-10">
@@ -100,7 +100,7 @@ export default function TeachingApproachSection() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
             </div>
         </section>
     );
