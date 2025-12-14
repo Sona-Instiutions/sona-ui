@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import MainBanner from "@/components/common/MainBannerSection";
 import ContactSection from "@/components/contact/ContactSection";
-import FindOurCampusSection from "@/components/contact/FindOurCampusSection";
+// import FindOurCampusSection from "@/components/contact/FindOurCampusSection";
 
 export const metadata: Metadata = {
     title: "SONA Institutions | Contact Us",
@@ -34,15 +34,15 @@ export default function AboutPage() {
             <MainBanner
                 title="Contact Us"
                 highlight="Us"
-                description="Reach our team easily for admissions, partnerships, or general queries—we’re here to assist you."
-                backgroundImage="/images/contact.webp"
+                description="For partnership discussions, talent needs, industry trained resources or ecosystem collaboration opportunities, SCALE welcomes dialogue with international organizations seeking transformational impact in India and beyond."
+                backgroundImage="/images/contact_us.webp"
             />
 
             {/* ContactForm Section  */}
             <ContactSection />
 
             {/* Find Our Campus Section  */}
-            <FindOurCampusSection/>
+            {/* <FindOurCampusSection/> */}
 
         </div>
     );

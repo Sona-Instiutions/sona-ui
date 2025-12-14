@@ -1,4 +1,5 @@
-import { GraduationCap, FlaskConical, Rocket, Globe } from "lucide-react";
+"use client";
+import { GraduationCap, Flask, Rocket, Globe } from "phosphor-react";
 
 export default function SonaVelliappaLegacySection() {
   const items = [
@@ -13,7 +14,7 @@ export default function SonaVelliappaLegacySection() {
     },
     {
       id: 2,
-      icon: <FlaskConical className="w-7 h-7 text-yellow-400" />,
+      icon: <Flask className="w-7 h-7 text-yellow-400" />,
       title: "Ethical and sustainable technology",
       description:
         "Preparing responsible professionals capable of innovating in environments where technology and ethics intersect.",
@@ -23,9 +24,9 @@ export default function SonaVelliappaLegacySection() {
     {
       id: 3,
       icon: <Rocket className="w-7 h-7 text-yellow-400" />,
-      title: "Decades of academic excellence",
+      title: "Decades of academic excellence ",
       description:
-        "A proven legacy of producing technically strong, industry-ready graduates for global organisations.",
+        "A proven legacy of producing technically strong, industry-ready graduates for global organisations. ",
       highlight: "15+",
       subtext: "Space Projects",
     },
@@ -34,7 +35,7 @@ export default function SonaVelliappaLegacySection() {
       icon: <Globe className="w-7 h-7 text-yellow-400" />,
       title: "Built with global partnerships",
       description:
-        "Supporting learners with global exposure, advanced labs, and international training standards.",
+       "Supporting learners with global exposure, advanced labs, and international training standards",
       highlight: "50+",
       subtext: "Global Partners",
     },

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import MainBanner from "@/components/common/MainBannerSection";
 import AboutVisionSection from "@/components/aboutus/aboutvision/AboutVision.component";
 import AboutCoreValuesSection from "@/components/aboutus/aboutvision/AboutCoreValues.component";
-import CallToActionSection from "@/components/common/CallToActionSection";
+// import CallToActionSection from "@/components/common/CallToActionSection";
 
 
 
@@ -37,7 +37,7 @@ export default function HomePage() {
           title="Vision, Mission and "
           highlight="Core Values"
           description="Empowering global businesses through innovation, integrity, and a century-long legacy of excellence."
-          backgroundImage="/images/Banner-vision-mission.webp"
+          backgroundImage="/images/vision.webp"
         />
 
         {/* About Vision Mission Section  */}
@@ -47,7 +47,7 @@ export default function HomePage() {
         <AboutCoreValuesSection />
 
         {/* CallToActionSection section  */}
-        <CallToActionSection
+        {/* <CallToActionSection
           bgColor="bg-yellow-500"
           heading="Join Our Vision"
           description="Become part of a global journey, shaping innovative solutions and advancing the next century of excellence."
@@ -55,7 +55,7 @@ export default function HomePage() {
           cta2="Partner With Us"
           cta1Link="/contact"
           cta2Link="/contact"
-        />
+        /> */}
       </div>
     );
 }

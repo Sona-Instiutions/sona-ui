@@ -7,10 +7,10 @@ import WhyChooseSection from "@/components/home/WhyChooseSection";
 import CollaborateSection from "@/components/home/CollaborateSection";
 import InstitutionsSection from "@/components/home/InstitutionsSection";
 import LifeAtScaleSection from "@/components/home/LifeAtScaleSection";
-import NewsEventsSection from "@/components/home/NewsEventsSection";
+// import NewsEventsSection from "@/components/home/NewsEventsSection";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection";
 import IndustryLeadersSection from "@/components/home/IndustryLeadersSection";
-import LatestBlogsSection from "@/components/home/LatestBlogsSection";
+// import LatestBlogsSection from "@/components/home/LatestBlogsSection";
 import CallToActionSection from "@/components/common/CallToActionSection";
 
 export const metadata: Metadata = {

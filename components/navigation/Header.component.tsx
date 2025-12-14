@@ -59,9 +59,9 @@ function HeaderTopBar() {
           ))}
         </nav>
         <div className='flex flex-wrap items-center justify-center gap-2 text-blue-100'>
-          <a href='tel:+914272301234' className='flex items-center gap-1 whitespace-nowrap text-xs'>
+          <a href='tel:+919442592175' className='flex items-center gap-1 whitespace-nowrap text-xs'>
             <Icon name='phone' className='size-3' />
-            <span className='font-semibold hidden sm:inline'>+91 427 230 1234</span>
+            <span className='font-semibold hidden sm:inline'>+91 9442592175</span>
           </a>
           <div className='flex items-center gap-3 text-white/80'>
             {HEADER_SOCIAL_LINKS.map((link) => (
@@ -85,7 +85,7 @@ function HeaderTopBar() {
 
 function HeaderMobileMenu() {
   return (
-    <Sheet>     
+    <Sheet>
       <SheetContent side='left' className='flex h-full flex-col gap-6 bg-[#1a36a2] p-6 text-white'>
         <SheetHeader className='items-start gap-1'>
           <SheetTitle className='text-base font-semibold text-white'>SCALE Navigation</SheetTitle>
@@ -96,7 +96,7 @@ function HeaderMobileMenu() {
             Home
           </Link>
           <div className='flex flex-col gap-2'>
-           <Link href='/about'  className='text-xs font-semibold uppercase text-blue-200'>About Us</Link>
+            About Us
             {HEADER_ABOUT_NAV.map((item) => (
               <Link key={item.label} href={item.href} className='text-sm ml-4 text-white/90'>
                 {item.label}
@@ -139,7 +139,8 @@ function HeaderMobileMenu() {
   );
 }
 
-function HeaderDesktopNav() {5
+function HeaderDesktopNav() {
+  5
   return (
     <NavigationMenu className='hidden lg:flex'>
       <NavigationMenuList>
@@ -152,10 +153,7 @@ function HeaderDesktopNav() {5
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger className='text-sm font-medium text-white transition hover:text-white/80'>
-            <Link href='/about' className='text-sm font-medium text-white transition hover:text-white/80'>
-              About Us
-            </Link>
-
+            About Us
           </NavigationMenuTrigger>
           <NavigationMenuContent className='w-[420px]'>
             <ul className='grid gap-2 p-4'>
@@ -174,7 +172,7 @@ function HeaderDesktopNav() {5
           <NavigationMenuItem key={item.label}>
             <NavigationMenuLink asChild>
               <Link href={item.href} className='mr-6 text-sm font-medium text-white transition hover:text-white/80'>
-                {item.label }
+                {item.label}
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>

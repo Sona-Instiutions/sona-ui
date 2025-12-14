@@ -4,60 +4,45 @@ export default function ExecutiveLeadershipSection() {
   const ececutiveLeaders = [
     {
       id: 1,
-      image: "/images/male.webp",
-      name: "Mr. Vijay Kumar Nair",
-      designation: " Volvo India – VP",
+      image: "/images/dr_venu_mittapally_gopal.webp",
+      name: "Dr M Venugopal",
+      designation: "Vice President",
       description:
-        "Leads Volvo Group’s digital transformation, smart manufacturing, and enterprise technology  initiatives globally. ",
+        "Sona Centre for Advance Learning & Entrepreneurship (SCALE).",
     },
     {
       id: 2,
-      image: "/images/male.webp",
-      name: "Mr. Aaloka Anant",
-      designation: "Data Privacy Leader, Global Consultant",
+      image: "/images/dr_sheelan_misra.webp",
+      name: "Dr. Sheelan Misra",
+      designation: "Dean (Marketing Strategy, IR & Industry Collaboration)",
       description:
-        "Drives enterprise data privacy, digital transformation, and responsible AI innovation for global organizations.",
+        "Sona Centre for Advance Learning & Entrepreneurship (SCALE).",
     },
     {
       id: 3,
-      image: "/images/male.webp",
-      name: "Pankaj Kumar Mishraa",
-      designation: "TCS – GenAI Head ",
+      image: "/images/nt_srinivasalu.webp",
+      name: "N. T. Srinivasulu",
+      designation: "Dean – MBA Admissions ",
       description:
-        "Leads TCS AI.Cloud’s GenAI strategy, cloud modernization, and high-impact transformation for global enterprises.",
+        "Sona Centre for Advance Learning & Entrepreneurship (SCALE).",
     },
     {
       id: 4,
-      image: "/images/male.webp",
-      name: "Palash Gupta",
-      designation: "DeepTech & GCC Leader ",
+      image: "/images/akhil.webp",
+      name: "Akhil Narayan",
+      designation: "Learning and Development Manager",
       description:
-        "Drives deep-tech innovation, GCC scaling, and enterprise product engineering across global technology ecosystems.",
+        "Sona Centre for Advance Learning & Entrepreneurship (SCALE)",
     },
     {
       id: 5,
-      image: "/images/male.webp",
-      name: "Saikat Das",
-      designation: "Walmart – Program Leader ",
+      image: "/images/mm.webp",
+      name: "Madhan G",
+      designation: "Hr Manager",
       description:
-        "Leads Walmart Global Tech’s large-scale e-commerce, agile delivery, and digital modernization programs.",
+        "Sona Centre for Advance Learning & Entrepreneurship (SCALE).",
     },
-    {
-      id: 6,
-      image: "/images/male.webp",
-      name: "Madhusudhan S J",
-      designation: "Manufacturing Digital Expert, Digital Transformation Consulting",
-      description:
-        " Enables manufacturing modernization through IIoT, XR, Digital Twin, and strategic digital transformation roadmaps.",
-    },
-    {
-      id: 7,
-      image: "/images/male.webp",
-      name: "Sai Krishnan Mohan",
-      designation: "Data & AI Leader ",
-      description:
-        "Builds enterprise analytics functions, AI governance frameworks, and data-driven digital transformation strategies.",
-    },
+    
   ];
 
   return (
@@ -66,12 +51,12 @@ export default function ExecutiveLeadershipSection() {
         {/* Section Heading */}
         <div className="mb-16">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-2">
-            Executive <span className="text-yellow-500">Leadership Team</span>
+             SCALE <span className="text-yellow-500">Leadership Team</span>
           </h2>
           <div className="w-20 h-[2px] bg-yellow-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 max-w-3xl mx-auto">
+          {/* <p className="text-gray-600 max-w-3xl mx-auto">
             A dynamic team of industry experts, academic leaders, and innovators shaping programs, research, and institutional strategy.
-          </p>
+          </p> */}
         </div>
 
         {/* Grid of Leaders */}

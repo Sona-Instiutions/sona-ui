@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import MainBanner from "@/components/common/MainBannerSection";
 import AboutMilestoneSection from "@/components/aboutus/milestone/AboutMilestone.component";
-import CallToActionSection from "@/components/common/CallToActionSection";
+// import CallToActionSection from "@/components/common/CallToActionSection";
 
 
 
@@ -36,14 +36,14 @@ export default function HomePage() {
           title="Our "
           highlight="Milestones"
           description=""
-          backgroundImage="/images/Banner_Our Milestones.webp"
+          backgroundImage="/images/milestone.webp"
         />
 
         {/* About Milestones Section  */}
         <AboutMilestoneSection />
 
         {/* CallToActionSection section  */}
-        <CallToActionSection
+        {/* <CallToActionSection
           bgColor="bg-yellow-500"
           heading="Explore Our Institutions"
           description="Discover the diverse academic programs and world-class facilities that make SCALE a leader in higher education. Join thousands of students who have transformed their lives through our innovative learning experiences."
@@ -51,7 +51,7 @@ export default function HomePage() {
           cta2="Campus Tour"
           cta1Link="/contact"
           cta2Link="/contact"
-        />
+        /> */}
       </div>
     );
 }

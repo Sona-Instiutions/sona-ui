@@ -2,7 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useSubmitContactFormMutation } from "@/services/client/contactSubmission.client";
-import {Phone,MapPin,Mail,Clock3} from "lucide-react";
+import {Phone,MapPin,Mail} from "lucide-react";
 export default function ContactSection() {
   const [form, setForm] = useState({
     Category: "",
@@ -36,7 +36,7 @@ export default function ContactSection() {
 
   // VALIDATION FUNCTION
   const validateForm = (): Record<string, string> => {
-    let newErrors: Record<string, string> = {};
+    const newErrors: Record<string, string> = {};
 
     if (!form.Category) newErrors.Category = "Please select a category";
     if (!form.FirstName) newErrors.FirstName = "First name is required";
@@ -111,7 +111,7 @@ export default function ContactSection() {
 
               {/* Category */}
               <div>
-                <label className='block text-sm font-medium text-gray-600 mb-1'>I am a</label>
+                {/* <label className='block text-sm font-medium text-gray-600 mb-1'>I am a</label> */}
                 <select
                   name="Category"
                   value={form.Category}
@@ -245,7 +245,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className='font-semibold'>Phone</p>
-                    <p className='text-sm text-gray-600'>+91 427 230 1234</p>
+                    <p className='text-sm text-gray-600'><a href="tel:+919442592175">+91 9442592175</a></p>
                     <p className='text-xs text-gray-500'>Monday – Friday, 9:00 AM – 6:00 PM IST</p>
                   </div>
                 </div>
@@ -256,7 +256,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className='font-semibold'>Email</p>
-                    <p className='text-sm text-gray-600'>admissions@scale. edu.in</p>
+                    <p className='text-sm text-gray-600'><a href="mailto:contact@scaleindia.in">contact@scaleindia.in</a></p>
                     <p className='text-xs text-gray-500'>We’ll respond within 24 hours</p>
                   </div>
                 </div>
@@ -268,16 +268,16 @@ export default function ContactSection() {
                   <div>
                     <p className='font-semibold'>Visit Us</p>
                     <p className='text-sm text-gray-600'>
-                      SCALE Campus
+                      #43/1A , Billekempanahalli village, 
                       <br />
-                      Salem–Bangalore Highway
+                       Bidadi Hobli,
                       <br />
-                      Tamil Nadu 636601, India
+                      Ramnagara Taluk
                     </p>
                   </div>
                 </div>
 
-                <div className='flex items-start gap-3'>
+                {/* <div className='flex items-start gap-3'>
                   <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
                     <Clock3 size={20} />
                   </div>
@@ -289,12 +289,12 @@ export default function ContactSection() {
                       Sunday: 10:00 AM – 4:00 PM
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
             {/* CARD 2 */}
-            <div className='bg-gray-100 rounded-2xl p-6 shadow-sm'>
+            {/* <div className='bg-gray-100 rounded-2xl p-6 shadow-sm'>
               <h3 className='text-lg font-bold mb-3'>Department Contacts</h3>
 
               <div className='space-y-3 text-left text-sm'>
@@ -311,7 +311,7 @@ export default function ContactSection() {
                   <span>Career Services</span> <strong>+91 427 230 1238</strong>
                 </p>
               </div>
-            </div>
+            </div> */}
 
             {/* CARD 3 */}
             {/* <div className='bg-blue-900 rounded-2xl p-6 shadow-md text-white text-left'>
