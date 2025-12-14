@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function LifeAtScaleSection() {
   const images = [
@@ -36,7 +37,14 @@ export default function LifeAtScaleSection() {
 
         {/* MOBILE CAROUSEL */}
         <div className="md:hidden ">
-          <Carousel>
+          <Carousel
+            plugins={[
+              Autoplay({
+                delay: 4000, // 3 seconds delay
+                stopOnInteraction: true,
+              }),
+            ]}
+          >
             <CarouselContent>
               {images.map((img) => (
                 <CarouselItem key={img.id} className="basis-full sm:basis-1/2 px-2">
