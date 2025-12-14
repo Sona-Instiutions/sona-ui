@@ -14,6 +14,7 @@ export const HEADER_SOCIAL_LINKS: ISocialLink[] = [
   { label: "Instagram", href: "https://www.instagram.com/scale_blr", iconName: "instagramIcon" },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/scale-sona-centre-for-advanced-learning-entrepreneurship/", iconName: "linkedinIcon" },
   { label: "YouTube", href: "https://youtube.com/@scale-blr", iconName: "youtubeIcon" },
+  { label: "X", href: "https://www.instagram.com/scale_blr", iconName: "xlogoIcon" },
 ];
 
 export const HEADER_PRIMARY_NAV: INavItem[] = [
@@ -95,6 +96,7 @@ export const FOOTER_SOCIAL_LINKS: ISocialLink[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/scale-sona-centre-for-advanced-learning-entrepreneurship/", iconName: "linkedinIcon" },
   { label: "Instagram", href: "https://www.instagram.com/scale_blr", iconName: "instagramIcon" },
   { label: "YouTube", href: "https://youtube.com/@scale-blr", iconName: "youtubeIcon" },
+  { label: "X", href: "https://www.instagram.com/scale_blr", iconName: "xlogoIcon" },
   
 ];
 
