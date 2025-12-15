@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Check } from "lucide-react"; // optional icons
+import { Check } from "phosphor-react"; // optional icons
 
 export default function AboutSection() {
     return (
@@ -14,9 +15,8 @@ export default function AboutSection() {
                     </h2>
 
                     <p className="text-gray-600 mb-8 leading-relaxed">
-                        A new-age tech business school where industry-built learning, global exposure, and innovation-driven education prepare students to become future-ready, ethical, and technology-powered leaders.
+                    Sona Centre of Advanced Learning & Entrepreneurship (SCALE) is a next-generation ecosystem built to bridge the world of industry, talent, technology, and entrepreneurship. Backed by the 100+ year legacy of the Sona Group, SCALE unites global capability development, emerging-tech education, corporate innovation, startup incubation, and workforce solutions into one integrated platform. Designed by the industry, for the industry, and to the industry, SCALE accelerates talent readiness, enterprise capability, and innovation-driven growth for organizations across the world.
                     </p>
-
                     {/* Bullet points */}
                     <ul className="space-y-5 mb-10">
                         <li className="flex items-start gap-3">
@@ -24,33 +24,31 @@ export default function AboutSection() {
                                 <Check className="w-3.5 h-3.5" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-800">Tech-powered leadership</h4>
+                                <h4 className="font-semibold text-gray-800">Industry-Built Learning</h4>
                                 <p className="text-sm text-gray-600">
-                                    Building managers fluent in AI, analytics, digital strategy, and emerging technologies.
+                                    Learning frameworks co-created with CXOs, innovators, and enterprise leaders.
                                 </p>
                             </div>
                         </li>
-
                         <li className="flex items-start gap-3">
                             <div className="bg-yellow-400 rounded-full w-[26px] h-[26px] flex items-center justify-center text-white flex-shrink-0">
                                 <Check className="w-3.5 h-3.5" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-800">Industry-built ecosystem</h4>
+                                <h4 className="font-semibold text-gray-800">Future-Ready Talent</h4>
                                 <p className="text-sm text-gray-600">
-                                    Curriculum co-created with CXOs, founders, and global industry leaders.
+                                    Programs aligned with emerging technologies and global capability needs.
                                 </p>
                             </div>
                         </li>
-
                         <li className="flex items-start gap-3">
                             <div className="bg-yellow-400 rounded-full w-[26px] h-[26px] flex items-center justify-center text-white flex-shrink-0">
                                 <Check className="w-3.5 h-3.5" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-800">Global-ready education</h4>
+                                <h4 className="font-semibold text-gray-800">Innovation & Enterprise Growth</h4>
                                 <p className="text-sm text-gray-600">
-                                    International mentors, cross-border learning, and real-world business immersion.
+                                    A platform where ideas evolve into ventures and talent becomes industry-ready.
                                 </p>
                             </div>
                         </li>
@@ -77,7 +75,7 @@ export default function AboutSection() {
                         </div>
                         <div className="rounded-[0_0_0_50%] overflow-hidden">
                             <Image
-                                src="/images/about-us-section-2.webp"
+                                src="/images/about-scale-3.webp"
                                 alt="About Sona Image 4"
                                 width={400}
                                 height={300}
@@ -97,7 +95,7 @@ export default function AboutSection() {
                         </div>
                         <div className="rounded-[0_0_50%_0] overflow-hidden">
                             <Image
-                                src="/images/about-us-section-4.webp"
+                                src="/images/about-scale-4.webp"
                                 alt="About Sona Image 3"
                                 width={400}
                                 height={300}

@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { Monitor, Calculator, Users, Briefcase } from "lucide-react";
+import {Laptop  ,Medal , Books , UserSquare } from "phosphor-react";
 
 export default function WhyChooseSection() {
     return (
@@ -10,35 +11,31 @@ export default function WhyChooseSection() {
                     Why Choose <span className="text-yellow-500">SCALE</span>
                 </h2>
                 <p className="text-gray-600 max-w-2xl mx-auto mb-16">
-                    A fully tech-integrated, industry-driven, globally connected business school shaping future-ready leaders.
+                A fully tech-integrated, industry-driven, globally connected ecosystem that provides education, capability centers, and innovation hubs to shape future-ready leaders.
                 </p>
 
                 {/* Main layout grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 items-center gap-10">
                     {/* LEFT FEATURES */}
-
-                    
-                        <div className="flex flex-col items-center space-y-12 text-center">
-                            <FeatureCard
-                                icon={<Calculator className="w-6 h-6 text-red-500" />}
-                                color="bg-red-100"
-                                title="Industry at the core"
-                                text="Practical learning shaped by leaders who build and impact global business."
-                            />
-                            <FeatureCard
-                                icon={<Briefcase className="w-6 h-6 text-green-500" />}
-                                color="bg-green-100"
-                                title="100% tech-enabled curriculum"
-                                text="Business fundamentals combined with AI, cloud, analytics, and automation."
-                            />
-                        </div>
-                    
-
+                    <div className="flex flex-col items-center space-y-12 text-center">
+                        <FeatureCard
+                            icon={<Laptop className="w-6 h-6 text-red-500" />}
+                            color="bg-red-100"
+                            title="24/7 HOT Labs"
+                            text="Hands-on Training lab, always-on access to real industry tools for practical learning."
+                        />
+                        <FeatureCard
+                            icon={<Medal className="w-6 h-6 text-green-500" />}
+                            color="bg-green-100"
+                            title="Global Certifications"
+                            text="Internationally backed credentials boosting global career readiness."
+                        />
+                    </div>
                     {/* CENTER IMAGE */}
                     <div className="flex justify-center">
                         <div className="relative w-[280px] h-[500px] rounded-[2rem] overflow-hidden shadow-lg">
                             <Image
-                                src="/images/why-choose-us.webp"
+                                src="/images/why_choose_scale_center.webp"
                                 alt="Sona Tower"
                                 fill
                                 className="object-fill"
@@ -49,16 +46,16 @@ export default function WhyChooseSection() {
                     {/* RIGHT FEATURES */}
                     <div className="flex flex-col items-center space-y-12 text-center">
                         <FeatureCard
-                            icon={<Monitor className="w-6 h-6 text-yellow-500" />}
+                            icon={<Books   className="w-6 h-6 text-yellow-500" />}
                             color="bg-yellow-100"
-                            title="Startup-focused ecosystem"
-                            text="Incubation, mentorship, and real opportunities for innovators and founders."
+                            title="Industry-Built Curriculum"
+                            text="Programs co-created with GCC leaders to match real enterprise needs."
                         />
                         <FeatureCard
-                            icon={<Users className="w-6 h-6 text-blue-500" />}
+                            icon={<UserSquare  className="w-6 h-6 text-blue-500" />}
                             color="bg-blue-100"
-                            title="Global pathways ensured "
-                            text="International faculties, immersions, and multinational career exposure."
+                            title="Day-One Readiness"
+                            text="Talent trained to deliver impact from the very first day at work."
                         />
                     </div>
                 </div>

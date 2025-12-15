@@ -7,22 +7,22 @@ import GlobalPartnershipsSection from "@/components/aboutus/GlobalPartnershipsSe
 import CallToActionSection from "@/components/common/CallToActionSection";
 
 export const metadata: Metadata = {
-  title: "SONA Institutions | Home",
+  title: "SCALE | Home",
   description:
-    "Welcome to SONA Institutions. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
+    "Welcome to SCALE. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
   openGraph: {
-    title: "SONA Institutions | Home",
+    title: "SCALE | Home",
     description:
-      "Discover SONA Institutions – excellence in education, innovation, and industry collaboration.",
+      "Discover SCALE – excellence in education, innovation, and industry collaboration.",
     type: "website",
     url: "https://sona.edu.in/",
-    siteName: "SONA Institutions",
+    siteName: "SCALE",
     images: [
       {
         url: "/images/home-banner.jpg",
         width: 1200,
         height: 630,
-        alt: "SONA Institutions Campus",
+        alt: "SCALE Campus",
       },
     ],
   },
@@ -56,8 +56,8 @@ export default function AboutPage() {
       {/* CallToActionSection section  */}
       <CallToActionSection
         bgColor="bg-yellow-500"
-        heading="Begin Your Journey With Sona Tech School"
-        description="pe your future with us. Experience excellence, innovation, and global opportunities."
+        heading="Begin Your Journey With SCALE"
+        description="Empowering learners with future-ready skills, global certifications, and hands-on expertise to build impactful careers in the world’s most advanced technology ecosystems."
         cta1="Apply for Admission"
         cta2="Schedule Campus Visit"
         cta1Link="/contact"

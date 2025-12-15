@@ -1,34 +1,36 @@
-import { GraduationCap, FlaskConical, Handshake, Lightbulb } from "lucide-react";
+"use client";
+
+import {FileVue ,Notebook  , Handshake  , Globe  } from "phosphor-react";
 
 export default function CollaborateSection() {
   const items = [
     {
       id: 1,
-      icon: <GraduationCap className="w-8 h-8 text-yellow-500" />,
-      title: "Partner-driven learning ",
+      icon: <FileVue   className="w-8 h-8 text-yellow-500" />,
+      title: "Talent Pipeline for Emerging Tech",
       description:
-        "Industry mentors collaborate to drive real-world project outcomes. ",
+        "Access day-one-ready talent skilled in AI, Cloud, and Data Science.",
     },
     {
       id: 2,
-      icon: <FlaskConical className="w-8 h-8 text-yellow-500" />,
-      title: "Innovation through research ",
+      icon: <Notebook  className="w-8 h-8 text-yellow-500" />,
+      title: "Innovation & Enterprise Acceleration",
       description:
-        "Labs advance ideas in AI, digital transformation, and future technologies. ",
+        "Co-create solutions and scale high-impact ventures faster.",
     },
     {
       id: 3,
       icon: <Handshake className="w-8 h-8 text-yellow-500" />,
-      title: "Cross-border opportunities ",
+      title: "Industry Co-Created Capability",
       description:
-        "Global institutions expand student mobility and academic exposure. ",
+        "Ensure maximum relevance and minimum time-to-value for all programs.",
     },
     {
       id: 4,
-      icon: <Lightbulb className="w-8 h-8 text-yellow-500" />,
-      title: "Corporate-ready talent",
+      icon: <Globe  className="w-8 h-8 text-yellow-500" />,
+      title: "Flexible Global Capability Scaling",
       description:
-        "Programs aligned with industry needs create high-impact professionals.",
+        "Build, operate, and transform GCCs with reduced operational risk.",
     },
   ];
 
@@ -46,8 +48,7 @@ export default function CollaborateSection() {
           Collaborate <span className="text-yellow-400">&amp; Innovate</span>
         </h2>
         <p className="text-gray-200 max-w-3xl mx-auto mb-16">
-          CALE brings together enterprises, innovators, students, and global institutions to co-create solutions, accelerate research, develop talent, and build industry-focused projects that shape the future of business and technology.
-
+          SCALE brings together enterprises, innovators, students, and global institutions to co-create solutions, accelerate research, develop talent, and build industry-focused projects that shape the future of business and technology.
         </p>
 
         {/* Info Cards */}

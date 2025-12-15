@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: InstitutionPageProps): Promis
   try {
     const institution = await getInstitutionBySlug(slug);
 
-    const title = `${institution.name} | SONA`;
+    const title = `${institution.name} | SCALE`;
     const description = `Learn more about ${institution.name} and explore programs, placements, and more.`;
     const url = `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "https://sona.edu.in"}/institutions/${slug}`;
 
@@ -53,8 +53,8 @@ export async function generateMetadata({ params }: InstitutionPageProps): Promis
   } catch {
     // Return default metadata if institution fetch fails
     return {
-      title: "Institution | SONA",
-      description: "Institution details on SONA",
+      title: "Institution | SCALE",
+      description: "Institution details on SCALE",
     };
   }
 }

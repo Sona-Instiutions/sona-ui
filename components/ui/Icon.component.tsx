@@ -1,17 +1,18 @@
 'use client';
 
-import { FacebookLogo, InstagramLogo, LinkedinLogo, List, Phone, YoutubeLogo } from "phosphor-react";
+import { FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, ListIcon, PhoneIcon, YoutubeLogoIcon, XLogoIcon  } from "@phosphor-icons/react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
 const icons = {
-  phone: Phone,
-  facebookIcon: FacebookLogo,
-  instagramIcon: InstagramLogo,
-  linkedinIcon: LinkedinLogo,
-  youtubeIcon: YoutubeLogo,
-  menuIcon: List,
+  phone: PhoneIcon,
+  facebookIcon: FacebookLogoIcon,
+  instagramIcon: InstagramLogoIcon,
+  linkedinIcon: LinkedinLogoIcon,
+  youtubeIcon: YoutubeLogoIcon,
+  menuIcon: ListIcon,
+  xlogoIcon:XLogoIcon,
 };
 
 type IconName = keyof typeof icons;

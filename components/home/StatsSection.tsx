@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 
 export default function StatsSection() {
   const stats = [
-    { number: "100", label: "Years of legacy", sub: "Shaped by excellence across generations." },
-    { number: "2", label: "Year fully residential PGDM program", sub: " Immersive learning designed for future leaders."},
-    { number: "100+", label: "Industry Partners", sub: "Robust ecosystem enabling career-ready exposure." },
-    { number: "5,000+", label: "Successful Alumni Worldwide", sub: "Strong network driving global professional growth." },
+    { number: "100+", label: "Years of legacy", sub: "Heritage shaping innovation and industry growth." },
+    { number: "200+", label: "Industry Collaborations", sub: "Partnerships driving capability and real outcomes.  "},
+    { number: "150+", label: "Hiring & Workforce Partners", sub: "Enterprises trusting SCALE for future-ready talent. " },
+    { number: "300+", label: "Corporate Projects Delivered", sub: "Practical learning aligned with real business needs." },
   ];
 
   return (
