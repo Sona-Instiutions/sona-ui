@@ -1,14 +1,22 @@
 
-export default function Step3Requirements({ form }) {
-  const { register, formState: { errors } } = form;
 
-  // Options list
+import { UseFormReturn } from "react-hook-form";
+import { IndustryFormData } from "../IndustryCollaborationForm";
+
+type StepProps = {
+  form: UseFormReturn<IndustryFormData>;
+};
+
+export default function Step3Requirements({ form }: StepProps) {
+  const { register, formState: { errors } } = form;
+    // Options list
   const collaborationOptions = [
     "Curriculum Design",
     "Internship Programs",
     "Contract-to-Hire",
     "Joint R&D Projects",
   ];
+
 
   return (
     <div className="bg-white space-y-8">

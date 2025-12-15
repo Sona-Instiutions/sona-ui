@@ -1,4 +1,11 @@
-export default function Step4Project({ form }) {
+import { UseFormReturn } from "react-hook-form";
+import { IndustryFormData } from "../IndustryCollaborationForm";
+
+type StepProps = {
+  form: UseFormReturn<IndustryFormData>;
+};
+
+export default function Step4Project({ form }: StepProps) {
   const { register, formState: { errors } } = form;
 
   return (

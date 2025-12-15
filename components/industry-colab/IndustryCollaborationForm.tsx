@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useState, useEffect, useRef } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 
 import Step1Company from "./formSteps/StepCompanyInfo";
@@ -14,7 +14,7 @@ const TOTAL_STEPS = 4;
 const STORAGE_KEY = "industry-collab-form";
 
 /* ------------------------------------------
-   ✅ 1 — Define Type for Entire Form
+   1 — Define Type for Entire Form
 ------------------------------------------- */
 export type IndustryFormData = {
   companyName: string;
@@ -28,7 +28,7 @@ export type IndustryFormData = {
   email: string;
   phone: string;
 
-  collaborationTypes: string[]; 
+  collaborationTypes: string[];
   timeline: string;
   budgetRange: string;
 
@@ -40,9 +40,10 @@ export type IndustryFormData = {
 
 export default function IndustryMultiStepForm() {
   const [step, setStep] = useState(1);
+  const isResetting = useRef(false); // Prevent autosave after submit/reset
 
   /* ------------------------------------------
-     2 — React Hook Form with typed defaults
+     2 — React Hook Form Initialization
   ------------------------------------------- */
   const form = useForm<IndustryFormData>({
     defaultValues: {
@@ -68,32 +69,58 @@ export default function IndustryMultiStepForm() {
     },
   });
 
-  const { handleSubmit, trigger, reset, watch } = form;
+  const { handleSubmit, trigger, reset, control } = form;
 
   /* ------------------------------------------
-     3 — Load saved form values
+     3 — Restore Saved Form on Refresh
+     ⭐ Includes re-validation fix so Step 3 → Step 4 works
   ------------------------------------------- */
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        reset(JSON.parse(saved));
-      } catch {}
+    function loadSaved() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved) as IndustryFormData;
+
+        form.reset(parsed);
+
+        (Object.keys(parsed) as (keyof IndustryFormData)[]).forEach((key) => {
+          form.setValue(key, parsed[key], {
+            shouldValidate: true,
+            shouldDirty: true,
+            shouldTouch: true,
+          });
+        });
+      }
     }
-  }, [reset]);
+
+    loadSaved();
+  }, [form]);
 
   /* ------------------------------------------
-     4 — Save form in localStorage on change
+     4 — Autosave Form on Change
   ------------------------------------------- */
+  const watchedValues = useWatch({ control });
+
   useEffect(() => {
-    const subscription = watch((values) => {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
+    if (isResetting.current) return; // Stop autosave during form reset
+
+    if (watchedValues) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(watchedValues));
+    }
+  }, [watchedValues]);
 
   /* ------------------------------------------
-     5 — TanStack Mutation (Typed)
+     5 — Step-wise Field Mapping
+  ------------------------------------------- */
+  const stepFields: Record<number, (keyof IndustryFormData)[]> = {
+    1: ["companyName", "industry", "companySize", "website", "companyDescription"],
+    2: ["fullName", "jobTitle", "email", "phone"],
+    3: ["collaborationTypes", "timeline", "budgetRange"],
+    4: ["projectDescription", "skills", "successMetrics", "additionalRequirements"],
+  };
+
+  /* ------------------------------------------
+     6 — TanStack Mutation (Submit Handler)
   ------------------------------------------- */
   const mutation = useMutation({
     mutationFn: async (data: IndustryFormData) => {
@@ -102,40 +129,50 @@ export default function IndustryMultiStepForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
       return res.json();
     },
 
     onSuccess: () => {
-      reset();
-      localStorage.removeItem(STORAGE_KEY);
-      setStep(1);
+      isResetting.current = true; // Prevent autosave loop
+
+      reset(); // Clear form values
+      localStorage.removeItem(STORAGE_KEY); // Clear saved draft
+      setStep(1); // Go back to step 1
+
+      setTimeout(() => {
+        isResetting.current = false; // Resume autosave after reset finishes
+      }, 500);
     },
   });
 
   /* ------------------------------------------
-     6 — Step Navigation + Validation
+     7 — Step Navigation (with Correct Validation)
   ------------------------------------------- */
   const nextStep = async () => {
-    const valid = await trigger();
+    const fields = stepFields[step]; // Validate only fields relevant to this step
+
+    // ⭐ shouldFocus fixes UX + validation accuracy
+    const valid = await trigger(fields, { shouldFocus: true });
+
     if (!valid) {
       alert("Please fill all required fields before continuing.");
       return;
     }
+
     setStep((s) => s + 1);
   };
 
   const prevStep = () => setStep((s) => s - 1);
 
   /* ------------------------------------------
-     ❗ FIXED: Typed submitForm function
+     8 — Final Submit Handler
   ------------------------------------------- */
   const submitForm = (data: IndustryFormData) => {
     mutation.mutate(data);
   };
 
   /* ------------------------------------------
-     7 — UI
+     9 — UI Rendering
   ------------------------------------------- */
   return (
     <section className="py-16 bg-gray-50">
