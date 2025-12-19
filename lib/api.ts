@@ -48,17 +48,48 @@ export async function getBlogBySlug(slug: string) {
 
 /* ---------------- RELATED BLOGS ---------------- */
 export async function getRelatedBlogs(
-  categorySlug: string,
-  currentSlug: string
+  categorySlug: string | undefined,
+  currentSlug: string,
+  tagSlug?: string
 ) {
+  const BASE = process.env.NEXT_PUBLIC_STRAPI_URL;
+
+  // 1️⃣ Try CATEGORY
+  if (categorySlug) {
+    const res = await fetch(
+      `${BASE}/api/blogs?filters[categories][slug][$eq]=${categorySlug}&filters[slug][$ne]=${currentSlug}&pagination[limit]=3&populate=thumbnail`,
+      { cache: "no-store" }
+    );
+    const json = await res.json();
+
+    if (json.data?.length > 0) {
+      return json.data;
+    }
+  }
+
+  // 2️⃣ Try TAG
+  if (tagSlug) {
+    const res = await fetch(
+      `${BASE}/api/blogs?filters[tags][slug][$eq]=${tagSlug}&filters[slug][$ne]=${currentSlug}&pagination[limit]=3&populate=thumbnail`,
+      { cache: "no-store" }
+    );
+    const json = await res.json();
+
+    if (json.data?.length > 0) {
+      return json.data;
+    }
+  }
+
+  // 3️⃣ RANDOM fallback
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/blogs?filters[categories][slug][$eq]=${categorySlug}&filters[slug][$ne]=${currentSlug}&pagination[limit]=4&populate=thumbnail`,
+    `${BASE}/api/blogs?filters[slug][$ne]=${currentSlug}&pagination[limit]=3&populate=thumbnail`,
     { cache: "no-store" }
   );
 
   const json = await res.json();
-  return Array.isArray(json?.data) ? json.data : [];
+  return json.data || [];
 }
+
 
 
 /* ---------------- SIDEBAR BLOGS ---------------- */

@@ -48,12 +48,21 @@ export interface Tag {
 }
 
 // Author
-export interface Author {
+export type Author = {
   id: number;
   name: string;
-  designation?: string;
-  avatar?: StrapiMedia;
-}
+  role?: string | null;
+  bio?: {
+    type: string;
+    children: {
+      type: string;
+      text: string;
+    }[];
+  }[] | null;
+  linkedin?: string | null;
+  twitter?: string | null;
+  email?: string | null;
+};
 
 // Rich text blocks (safe typing)
 export type RichTextBlock = {

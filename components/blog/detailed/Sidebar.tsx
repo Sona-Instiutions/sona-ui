@@ -9,14 +9,12 @@ import { Blog, Category, Tag } from "@/types/blog";
 type SidebarProps = {
   categories: (Category & { blogsCount?: number })[];
   recentPosts: Blog[];
-  relatedPosts: Blog[];
   tags: Tag[];
 };
 
 export default function Sidebar({
   categories = [],
   recentPosts = [],
-  relatedPosts = [],
   tags = [],
 }: SidebarProps) {
   const router = useRouter();
@@ -113,34 +111,6 @@ export default function Sidebar({
           ))}
         </ul>
       </div>
-
-      {/* Related Posts */}
-      {relatedPosts.length > 0 && (
-        <div className="rounded-2xl border p-5">
-          <h3 className="font-semibold mb-4">Related Posts</h3>
-          <ul className="space-y-4">
-            {relatedPosts.map((post) => (
-              <li key={post.id} className="flex gap-3">
-                <div className="relative w-14 h-14 rounded-lg overflow-hidden">
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.thumbnail?.url}`}
-                    alt={post.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="text-sm font-medium line-clamp-2"
-                >
-                  {post.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
 
       {/* Tags */}
       <div className="rounded-2xl border p-5">

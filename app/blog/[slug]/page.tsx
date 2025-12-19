@@ -4,6 +4,8 @@ import BlogContent from "@/components/blog/detailed/BlogContent";
 import Breadcrumbs from "@/components/blog/detailed/Breadcrumbs";
 import Sidebar from "@/components/blog/detailed/Sidebar";
 import { Blog } from "@/types/blog";
+import AuthorSection from "@/components/blog/detailed/AuthorSection";
+import RelatedArticles from "@/components/blog/detailed/RelatedArticles";
 
 export default async function BlogDetailPage({
   params,
@@ -27,12 +29,11 @@ export default async function BlogDetailPage({
   // ✅ Sidebar data fetched HERE
   const sidebarData = await getSidebarData();
   // ✅ FETCH RELATED BLOGS
-  const relatedBlogs = blog.categories?.[0]
-    ? await getRelatedBlogs(
-      blog.categories[0].slug,
-      blog.slug
-    )
-    : [];
+  const relatedBlogs = await getRelatedBlogs(
+  blog.categories?.[0]?.slug,
+  blog.slug,
+  blog.tags?.[0]?.slug
+);
 
   return (
     <div>
@@ -49,6 +50,8 @@ export default async function BlogDetailPage({
         {/* Main Content */}
         <div className="lg:col-span-3">
           <BlogContent blog={blog} />
+          <AuthorSection author={blog.author} />
+          <RelatedArticles blogs={relatedBlogs} />
         </div>
 
         {/* Sidebar */}
@@ -56,7 +59,6 @@ export default async function BlogDetailPage({
           categories={sidebarData.categories}
           recentPosts={sidebarData.recentPosts}
           tags={sidebarData.tags}
-          relatedPosts={relatedBlogs}
         />
       </section>
     </div>
