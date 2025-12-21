@@ -52,7 +52,7 @@ export interface IEvent {
   eventType: EEventType;
   eventDate: string;
   excerpt?: string;
-  content: IStrapiBlock[]; // Rich text blocks
+  content: IStrapiBlock[] | string; // Rich text blocks or Markdown string
   featuredImage?: IStrapiMedia;
   thumbnailImage?: IStrapiMedia;
   author?: string;
@@ -78,7 +78,7 @@ export interface INormalizedEvent {
   eventType: EEventType;
   eventDate: string; // ISO string
   excerpt: string | null;
-  content: IStrapiBlock[] | null;
+  content: IStrapiBlock[] | string | null;
   featuredImage: IStrapiMedia | null;
   thumbnailImage: IStrapiMedia | null;
   author: string | null;

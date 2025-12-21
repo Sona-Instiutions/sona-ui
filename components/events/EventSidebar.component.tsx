@@ -12,6 +12,7 @@ import Image from "next/image";
 import { INormalizedEvent, IEventCategory, IEventTag } from "@/types/events.types";
 import { EventSearch } from "./EventSearch.component";
 import { formatDate } from "@/utils/date.utils";
+import { buildMediaUrl } from "@/utils/common.utils";
 
 interface EventSidebarProps {
   recentEvents: INormalizedEvent[];
@@ -48,11 +49,12 @@ export function EventSidebar({ recentEvents, categories, tags }: EventSidebarPro
                   className='relative w-20 h-20 shrink-0 rounded-lg overflow-hidden block'
                 >
                   <Image
-                    src={event.thumbnailImage?.url || event.featuredImage?.url || "/images/placeholder-event.jpg"}
+                    src={buildMediaUrl(event.thumbnailImage) || buildMediaUrl(event.featuredImage) || "/images/event-1.webp"}
                     alt={event.title}
                     fill
                     className='object-cover transition-transform duration-300 group-hover:scale-110'
                     sizes='80px'
+                    unoptimized
                   />
                 </Link>
                 <div>

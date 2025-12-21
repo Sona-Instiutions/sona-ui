@@ -10,6 +10,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { buildMediaUrl } from "@/utils/common.utils";
 
 // Define local types since we can't import from the library
 type BlockNode = {
@@ -20,17 +23,19 @@ type BlockNode = {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   format?: "ordered" | "unordered";
   image?: {
+    id?: number;
     url: string;
     width: number;
     height: number;
     alternativeText?: string;
     caption?: string;
+    mime?: string;
   };
   [key: string]: unknown;
 };
 
 interface RichTextRendererProps {
-  content: BlockNode[] | null;
+  content: BlockNode[] | string | null;
   className?: string;
 }
 
@@ -106,14 +111,18 @@ const Block = ({ block }: { block: BlockNode }) => {
 
     case "image":
       if (!block.image) return null;
+      const imageUrl = buildMediaUrl(block.image as any);
+      if (!imageUrl) return null;
+
       return (
         <div className="relative w-full h-auto my-8 overflow-hidden rounded-xl">
           <Image
-            src={block.image.url}
+            src={imageUrl}
             alt={block.image.alternativeText || ""}
             width={block.image.width || 800}
             height={block.image.height || 600}
             className="object-cover w-full h-auto"
+            unoptimized
           />
           {block.image.caption && (
             <p className="mt-2 text-sm text-center text-gray-500 italic">
@@ -130,14 +139,28 @@ const Block = ({ block }: { block: BlockNode }) => {
 };
 
 export function RichTextRenderer({ content, className = "" }: RichTextRendererProps) {
-  if (!content || !Array.isArray(content)) return null;
+  if (!content) return null;
 
-  return (
-    <div className={`prose prose-lg max-w-none ${className}`}>
-      {content.map((block, index) => (
-        <Block key={index} block={block} />
-      ))}
-    </div>
-  );
+  // Handle Markdown string
+  if (typeof content === "string") {
+    return (
+      <div className={`prose prose-lg max-w-none ${className}`}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      </div>
+    );
+  }
+
+  // Handle Strapi Blocks array
+  if (Array.isArray(content)) {
+    return (
+      <div className={`prose prose-lg max-w-none ${className}`}>
+        {content.map((block, index) => (
+          <Block key={index} block={block} />
+        ))}
+      </div>
+    );
+  }
+
+  return null;
 }
 

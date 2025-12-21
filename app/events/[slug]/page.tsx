@@ -9,6 +9,7 @@ import { ShareButtons } from "@/components/common/ShareButtons.component";
 import { CommentList } from "@/components/events/CommentList.component";
 import { ViewCountTracker } from "@/components/events/ViewCountTracker.component";
 import { RECENT_EVENTS_LIMIT } from "@/constants/events.constants";
+import { buildMediaUrl } from "@/utils/common.utils";
 
 export const revalidate = 600; // 10 minutes
 
@@ -26,13 +27,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  const imageUrl = buildMediaUrl(event.featuredImage) || buildMediaUrl(event.thumbnailImage);
+
   return {
     title: `${event.title} | SCALE`,
     description: event.metaDescription || event.excerpt || `Event details for ${event.title}`,
     openGraph: {
       title: event.metaTitle || event.title,
       description: event.metaDescription || event.excerpt || "",
-      images: event.featuredImage?.url ? [event.featuredImage.url] : [],
+      images: imageUrl ? [imageUrl] : [],
       type: "article",
       publishedTime: event.publishedDate,
       authors: event.author ? [event.author] : undefined,

@@ -11,13 +11,14 @@ import { INormalizedEvent } from "@/types/events.types";
 import { CategoryBadge } from "./CategoryBadge.component";
 import { formatDate } from "@/utils/date.utils";
 import { User, Eye } from "phosphor-react";
+import { buildMediaUrl } from "@/utils/common.utils";
 
 interface EventHeroProps {
   event: INormalizedEvent;
 }
 
 export function EventHero({ event }: EventHeroProps) {
-  const imageUrl = event.featuredImage?.url || event.thumbnailImage?.url || "/images/placeholder-event.jpg";
+  const imageUrl = buildMediaUrl(event.featuredImage) || buildMediaUrl(event.thumbnailImage) || "/images/event-1.webp";
 
   return (
     <div className="relative w-full h-[60vh] min-h-[400px] bg-gray-900 overflow-hidden flex items-end">
@@ -29,6 +30,7 @@ export function EventHero({ event }: EventHeroProps) {
           fill
           className="object-cover opacity-60"
           priority
+          unoptimized
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/60 to-transparent" />

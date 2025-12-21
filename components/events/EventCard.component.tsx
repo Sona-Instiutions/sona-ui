@@ -12,6 +12,7 @@ import { CategoryBadge } from "./CategoryBadge.component";
 import { formatDate } from "@/utils/date.utils";
 import { truncateText } from "@/utils/text.utils";
 import { ArrowRight } from "lucide-react"; // Or Phosphor if I switch, but Lucide is in package.json
+import { buildMediaUrl } from "@/utils/common.utils";
 
 interface EventCardProps {
   event: INormalizedEvent;
@@ -19,7 +20,7 @@ interface EventCardProps {
 
 export function EventCard({ event }: EventCardProps) {
   const primaryCategory = event.categories?.[0];
-  const imageUrl = event.thumbnailImage?.url || event.featuredImage?.url || "/images/placeholder-event.jpg"; // Fallback if needed
+  const imageUrl = buildMediaUrl(event.thumbnailImage) || buildMediaUrl(event.featuredImage) || "/images/event-1.webp";
 
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100 group">
@@ -31,6 +32,7 @@ export function EventCard({ event }: EventCardProps) {
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          unoptimized
         />
         {/* Date Badge Overlay (Optional - Design has it inline, but sometimes overlay is nice. Sticking to design inline) */}
       </Link>
