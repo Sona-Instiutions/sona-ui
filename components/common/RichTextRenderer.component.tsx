@@ -111,7 +111,7 @@ const Block = ({ block }: { block: BlockNode }) => {
 
     case "image":
       if (!block.image) return null;
-      const imageUrl = buildMediaUrl(block.image as any);
+      const imageUrl = buildMediaUrl(block.image);
       if (!imageUrl) return null;
 
       return (

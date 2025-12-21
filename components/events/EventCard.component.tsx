@@ -58,7 +58,7 @@ export function EventCard({ event }: EventCardProps) {
 
         {/* Excerpt */}
         <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">
-          {event.excerpt || truncateText(event.content?.[0]?.children?.[0]?.text, 120)}
+          {event.excerpt || (Array.isArray(event.content) ? truncateText(event.content[0]?.children?.[0]?.text, 120) : "")}
         </p>
 
         {/* Footer */}
