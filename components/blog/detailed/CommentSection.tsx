@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getComments, postComment } from "@/lib/api";
+import { commentService } from "@/services/client/comment.service";
 import { isLoggedIn, getLoggedInUser } from "@/lib/auth";
 import type { Comment } from "@/types/blog";
 
@@ -20,38 +20,40 @@ export default function CommentSection({ blogId }: { blogId: number }) {
     const user = getLoggedInUser(); // ✅ ALWAYS AVAILABLE
 
     useEffect(() => {
-        getComments(blogId).then(setComments);
+        commentService.getComments(blogId).then(setComments);
     }, [blogId]);
 
     /* ===== POST COMMENT ===== */
     const submitComment = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        await postComment({
-            ...form,
-            blog: blogId,
+        await commentService.postComment({
+            blogId,
+            author: form.name,
+            email: form.email,
+            content: form.message,
         });
 
         setForm({ name: "", email: "", message: "" });
-        setComments(await getComments(blogId));
+        setComments(await commentService.getComments(blogId));
     };
 
     /* ===== POST REPLY ===== */
     const submitReply = async (parentId: number) => {
         if (!replyText) return;
 
-        await postComment({
-            name: user.username,
+        await commentService.postComment({
+            blogId,
+            author: user.username,
             email: user.email,
-            message: replyText,
-            blog: blogId,
+            content: replyText,
             parent: parentId,
             isAuthor: true,
         });
 
         setReplyText("");
         setReplyTo(null);
-        setComments(await getComments(blogId));
+        setComments(await commentService.getComments(blogId));
     };
 
     const parents = comments.filter((c) => !c.parent);

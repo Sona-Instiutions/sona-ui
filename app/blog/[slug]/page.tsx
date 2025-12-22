@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getBlogBySlug, getSidebarData, getRelatedBlogs } from "@/lib/api";
+import { getBlogBySlug, getSidebarData, getRelatedBlogs, } from "@/services/client/blog.service";
 import BlogContent from "@/components/blog/detailed/BlogContent";
 import Breadcrumbs from "@/components/blog/detailed/Breadcrumbs";
 import Sidebar from "@/components/blog/detailed/Sidebar";
