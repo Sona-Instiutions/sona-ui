@@ -132,3 +132,15 @@
   );
   background-size: 60px 60px;
 }
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #dc2626;
+}
+

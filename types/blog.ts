@@ -89,3 +89,11 @@ export interface Blog {
   tags?: Tag[];
   author?: Author;
 }
+export type Comment = {
+  id: number;
+  name: string;
+  message: string;
+  createdAt: string;
+  isAuthor?: boolean;
+  parent?: number | null;
+};

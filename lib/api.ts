@@ -151,7 +151,6 @@ export async function getSidebarData() {
 }
 
 /* ---------------- CATEGORY PAGE ---------------- */
-// lib/api.ts
 export async function getBlogsByCategory(slug: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/blogs?populate[]=categories&populate[]=thumbnail`,
@@ -176,16 +175,40 @@ export async function getBlogsByCategory(slug: string) {
 
   return filteredBlogs;
 }
+/* =====================
+   GET COMMENTS
+===================== */
+export async function getComments(blogId: number) {
+  const res = await fetch(
+    `${API_URL}/api/comments?filters[blog][id][$eq]=${blogId}&populate=parent&sort=createdAt:asc`,
+    { cache: "no-store" }
+  );
 
+  const json = await res.json();
+  return json.data || [];
+}
 
+/* =====================
+   POST COMMENT / REPLY
+===================== */
+export async function postComment(data: {
+  name: string;
+  email: string;
+  message: string;
+  blog: number;
+  parent?: number;
+  isAuthor?: boolean;
+}) {
+  const res = await fetch(`${API_URL}/api/comments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ data }),
+  });
 
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(err);
+  }
 
-
-
-
-
-
-
-
-
-
+  return res.json();
+}
