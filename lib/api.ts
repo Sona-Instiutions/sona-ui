@@ -5,8 +5,6 @@ if (!API_URL) {
   throw new Error("NEXT_PUBLIC_STRAPI_URL is not defined");
 }
 
-const mediaUrl = (file?: { url?: string }) =>
-  file?.url ? `${API_URL}${file.url}` : null;
 
 /* ---------------- BLOG LISTING ---------------- */
 export async function getBlogs() {

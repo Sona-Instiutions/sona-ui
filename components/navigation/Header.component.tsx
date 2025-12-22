@@ -140,7 +140,6 @@ function HeaderMobileMenu() {
 }
 
 function HeaderDesktopNav() {
-  5
   return (
     <NavigationMenu className='hidden lg:flex'>
       <NavigationMenuList>
