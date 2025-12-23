@@ -1,0 +1,106 @@
+// Common Strapi media type
+export interface StrapiMedia {
+  id: number;
+  url: string;
+  alternativeText?: string | null;
+  caption?: string | null;
+  width?: number | null;
+  height?: number | null;
+
+  // ✅ ADD THIS (IMPORTANT)
+  formats?: {
+    large?: {
+      url: string;
+      width?: number;
+      height?: number;
+    };
+    medium?: {
+      url: string;
+      width?: number;
+      height?: number;
+    };
+    small?: {
+      url: string;
+      width?: number;
+      height?: number;
+    };
+    thumbnail?: {
+      url: string;
+      width?: number;
+      height?: number;
+    };
+  };
+}
+
+
+// Category
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+// Tag
+export interface Tag {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+// Author
+export type Author = {
+  id: number;
+  name: string;
+  role?: string | null;
+  bio?: {
+    type: string;
+    children: {
+      type: string;
+      text: string;
+    }[];
+  }[] | null;
+  linkedin?: string | null;
+  twitter?: string | null;
+  email?: string | null;
+};
+
+// Rich text blocks (safe typing)
+export type RichTextBlock = {
+  type: string;
+  children?: {
+    type: string;
+    text?: string;
+  }[];
+};
+
+// Blog (matches your screenshot exactly)
+export interface Blog {
+  id: number;
+  title: string;
+  documentId: string;
+  slug: string;
+  excerpt: string;
+  content?: string | null;
+  publishedDate: string;
+  publishedAt?: string;   // Strapi system field
+  readTime?: number;
+  bannerImage?: StrapiMedia;
+  thumbnail?: StrapiMedia;
+  categories?: Category[];
+  tags?: Tag[];
+  author?: Author;
+}
+export interface Comment {
+  id: number;
+  name: string;
+  email: string;
+  message: string;
+  isAuthor?: boolean;
+  createdAt: string;
+  blog?: {
+    id: number;
+  } | null;
+  parent?: {
+    id: number;
+  } | null;
+}
