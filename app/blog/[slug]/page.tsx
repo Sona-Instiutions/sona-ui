@@ -7,8 +7,6 @@ import { Blog } from "@/types/blog";
 import AuthorSection from "@/components/blog/detailed/AuthorSection";
 import RelatedArticles from "@/components/blog/detailed/RelatedArticles";
 import { BlogCommentList } from "@/components/blog/detailed/BlogCommentList";
-
-
 export default async function BlogDetailPage({
   params,
 }: {
