@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { GalleryTile } from "@/components/institute/GalleryTile.component";
+import { GalleryDisplay } from "@/components/institute/GalleryDisplay.component";
 import { SectionHeader } from "@/components/common/SectionHeader.component";
 import { MarkdownContent } from "@/components/common/MarkdownContent.component";
 import { getCampusGalleryByInstitution } from "@/services/server/institution.server";
@@ -72,15 +72,7 @@ async function GallerySection({ galleryPromise }: GallerySectionProps) {
           )}
         </div>
 
-        <div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6 xl:gap-8'>
-          {section.columns.map((column, columnIndex) => (
-            <div key={column.id} className='flex flex-col gap-5'>
-              {column.images.map((image, index) => (
-                <GalleryTile key={image.id} image={image} priority={columnIndex === 0 && index < 2} />
-              ))}
-            </div>
-          ))}
-        </div>
+        <GalleryDisplay columns={section.columns} />
       </div>
     </section>
   );
@@ -92,7 +84,18 @@ function InstitutionGallerySkeleton() {
       <div className='mx-auto flex w-full max-w-7xl flex-col gap-8'>
         <div className='mx-auto h-10 w-56 animate-pulse rounded-full bg-slate-800 sm:h-12 sm:w-72' />
         <div className='mx-auto h-4 w-full max-w-3xl animate-pulse rounded-full bg-slate-800 sm:h-5' />
-        <div className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6'>
+        {/* Carousel skeleton - visible below lg breakpoint */}
+        <div className='lg:hidden'>
+          <div className='flex gap-5 overflow-hidden'>
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <div key={idx} className='min-w-0 shrink-0 grow-0 basis-full md:basis-1/2'>
+                <div className='aspect-square animate-pulse rounded-3xl bg-slate-800' />
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Grid skeleton - visible at lg breakpoint and above */}
+        <div className='hidden lg:grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6'>
           {Array.from({ length: 4 }).map((_, colIdx) => (
             <div key={colIdx} className='flex flex-col gap-5'>
               {[0, 1].map((rowIdx) => (

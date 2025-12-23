@@ -6,6 +6,7 @@ import { SectionHeader } from "../common/SectionHeader.component";
 import { MarkdownContent } from "../common/MarkdownContent.component";
 import { buildMediaUrl } from "@/utils/common.utils";
 import Image from "next/image";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 interface InstitutionPartnershipsProps {
   partnershipSection: INormalizedPartnershipSection | null;
@@ -58,8 +59,34 @@ export function InstitutionPartnerships({ partnershipSection }: InstitutionPartn
           </div>
         </div>
 
-        {/* Partnerships Grid */}
-        <div className='grid w-full grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+        {/* Partnerships Carousel - visible below lg breakpoint */}
+        <div className='lg:hidden w-full'>
+          <Carousel
+            className='w-full'
+            opts={{
+              align: "start",
+            }}
+          >
+            <CarouselContent className='-ml-6'>
+              {partnerships.map((partnership) => (
+                <CarouselItem key={partnership.id} className='pl-6 basis-1/2 sm:basis-1/3 md:basis-1/4'>
+                  <div className='h-full py-2'>
+                    <PartnershipCard partnership={partnership} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* Navigation Arrows */}
+            <div className='mt-8 flex justify-center gap-4 relative'>
+              <CarouselPrevious className='static translate-y-0 bg-black/50 text-white hover:bg-black/70 border-none' />
+              <CarouselNext className='static translate-y-0 bg-black/50 text-white hover:bg-black/70 border-none' />
+            </div>
+          </Carousel>
+        </div>
+
+        {/* Partnerships Grid - visible at lg breakpoint and above */}
+        <div className='hidden lg:grid w-full grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
           {partnerships.map((partnership) => (
             <PartnershipCard key={partnership.id} partnership={partnership} />
           ))}

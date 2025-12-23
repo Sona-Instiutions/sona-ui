@@ -23,7 +23,9 @@ export function GalleryTile({ image, priority = false, className }: GalleryTileP
     return null;
   }
 
-  const variantClasses = VARIANT_CLASS_MAP[image.layoutVariant] ?? VARIANT_CLASS_MAP.square;
+  // Only apply variant classes if className doesn't contain aspect ratio classes
+  const hasAspectRatio = className?.includes("aspect-");
+  const variantClasses = hasAspectRatio ? "" : VARIANT_CLASS_MAP[image.layoutVariant] ?? VARIANT_CLASS_MAP.square;
 
   return (
     <div
