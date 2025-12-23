@@ -12,6 +12,7 @@ import { InstitutionTestimonials } from "@/components/institute/InstitutionTesti
 import { InstitutionPartnerships } from "@/components/institute/InstitutionPartnerships.component";
 import { InstitutionGallery } from "@/components/institute/InstitutionGallery.component";
 import { InstitutionFaq } from "@/components/institute/InstitutionFaq.component";
+import CallToActionSection from "@/components/common/CallToActionSection";
 
 interface InstitutionPageParams {
   slug: string;
@@ -131,6 +132,16 @@ export default async function InstitutionPage({ params }: InstitutionPageProps) 
 
         {/* FAQ section */}
         <InstitutionFaq institutionId={institution.id} />
+
+        <CallToActionSection
+          bgColor='bg-yellow-500'
+          heading='Join Our Vision'
+          description='Become part of a global journey, shaping innovative solutions and advancing the next century of excellence.'
+          cta1='Explore Career Opportunities'
+          cta2='Partner With Us'
+          cta1Link='/contact'
+          cta2Link='/contact'
+        />
       </main>
     </div>
   );
