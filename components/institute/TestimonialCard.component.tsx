@@ -13,9 +13,7 @@ export const TestimonialCard = ({ testimonial }: ITestimonialCardProps) => {
   const { name, role, company, quote, rating, avatar } = testimonial;
   const avatarUrl = buildMediaUrl(avatar);
   return (
-    <div
-      className='flex h-full flex-col rounded-2xl bg-white p-8 shadow-sm transition-shadow hover:shadow-md border border-gray-100'
-    >
+    <div className='flex h-full flex-col rounded-2xl bg-white p-8 shadow-sm transition-shadow hover:shadow-md border border-gray-100'>
       <div className='mb-6 flex items-center gap-4'>
         <div className='relative h-14 w-14 overflow-hidden rounded-full bg-gray-100'>
           {avatarUrl ? (
