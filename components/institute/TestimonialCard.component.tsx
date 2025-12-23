@@ -7,7 +7,6 @@ import { ITestimonial } from "@/types/institution.types";
 
 interface ITestimonialCardProps {
   testimonial: ITestimonial;
-  key: string | number;
 }
 
 export const TestimonialCard = ({ testimonial }: ITestimonialCardProps) => {
@@ -15,7 +14,6 @@ export const TestimonialCard = ({ testimonial }: ITestimonialCardProps) => {
   const avatarUrl = buildMediaUrl(avatar);
   return (
     <div
-      key={testimonial.id}
       className='flex h-full flex-col rounded-2xl bg-white p-8 shadow-sm transition-shadow hover:shadow-md border border-gray-100'
     >
       <div className='mb-6 flex items-center gap-4'>
