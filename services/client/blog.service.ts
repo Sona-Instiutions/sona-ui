@@ -1,4 +1,4 @@
-import { fetchAPI } from "@/lib/api";
+import { fetchAPI } from "@/lib/fetcher";
 import { Blog, Category, Tag } from "@/types/blog";
 
 /* =========================

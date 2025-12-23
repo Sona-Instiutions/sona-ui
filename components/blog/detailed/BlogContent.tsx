@@ -15,9 +15,6 @@ export default function BlogContent({ blog }: { blog: Blog }) {
         <span>By {blog.author?.name}</span>
       </div>
 
-      {/* Excerpt */}
-      <p className="text-lg text-gray-700">{blog.excerpt}</p>
-
       {/* Content */}
       <RichTextRenderer content={blog.content} />
 

@@ -77,9 +77,10 @@ export type RichTextBlock = {
 export interface Blog {
   id: number;
   title: string;
+  documentId: string;
   slug: string;
   excerpt: string;
-  content: RichTextBlock[];
+  content?: string | null;
   publishedDate: string;
   publishedAt?: string;   // Strapi system field
   readTime?: number;

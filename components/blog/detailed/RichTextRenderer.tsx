@@ -1,30 +1,20 @@
-type RichTextChild = {
-  text?: string;
-};
+import ReactMarkdown from "react-markdown";
 
-type RichTextBlock = {
-  type: string;
-  children?: RichTextChild[];
-};
-export default function RichTextRenderer({ content }: { content: RichTextBlock[] }) {
+interface RichTextRendererProps {
+  content?: string | null;
+}
+
+/**
+ * Renders Strapi markdown content safely.
+ */
+export default function RichTextRenderer({
+  content,
+}: RichTextRendererProps) {
   if (!content) return null;
 
   return (
     <div className="prose max-w-none">
-      {content.map((block, i) => {
-        if (block.type === "paragraph") {
-          return (
-            
-            <p key={i}>
-              {block.children?.map((child, j) => (
-                <span key={j}>{child.text}</span>
-              ))}
-            </p>
-          );
-        }
-
-        return null;
-      })}
+      <ReactMarkdown>{content}</ReactMarkdown>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { fetchAPI } from "@/lib/api";
+import { fetchAPI } from "@/lib/fetcher";
 import type { Comment } from "@/types/blog";
 
 /* =========================

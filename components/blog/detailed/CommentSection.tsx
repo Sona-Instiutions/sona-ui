@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { commentService } from "@/services/client/comment.service";
-import { isLoggedIn, getLoggedInUser } from "@/lib/auth";
+import { isLoggedIn, getLoggedInUser } from "@/utils/blogauth.utils";
 import type { Comment } from "@/types/blog";
 
 export default function CommentSection({ blogId }: { blogId: number }) {

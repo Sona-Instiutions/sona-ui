@@ -7,6 +7,8 @@ import { Blog } from "@/types/blog";
 import AuthorSection from "@/components/blog/detailed/AuthorSection";
 import RelatedArticles from "@/components/blog/detailed/RelatedArticles";
 import CommentSection from "@/components/blog/detailed/CommentSection";
+import { BlogCommentList } from "@/components/blog/detailed/BlogCommentList";
+
 
 export default async function BlogDetailPage({
   params,
@@ -53,7 +55,8 @@ export default async function BlogDetailPage({
           <BlogContent blog={blog} />
           <AuthorSection author={blog.author} />
           <RelatedArticles blogs={relatedBlogs} />
-          <CommentSection blogId={blog.id} />
+          {/* <CommentSection blogId={blog.id} /> */}
+          <BlogCommentList blogDocumentId={blog.documentId} />
         </div>
 
         {/* Sidebar */}
