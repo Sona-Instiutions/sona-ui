@@ -1,10 +1,10 @@
 
 
 import { UseFormReturn } from "react-hook-form";
-import { IndustryFormData } from "../IndustryCollaborationForm";
+import { IIndustryCollaborationFormData } from "@/types/industry-collaboration.types";
 
 type StepProps = {
-  form: UseFormReturn<IndustryFormData>;
+  form: UseFormReturn<IIndustryCollaborationFormData>;
 };
 
 export default function Step3Requirements({ form }: StepProps) {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import MainBanner from "@/components/common/MainBannerSection";
 import CallToActionSection from "@/components/common/CallToActionSection";
-import IndustryCollaborationForm from "@/components/industry-colab/IndustryCollaborationForm";
+import IndustryMultiStepForm from "@/components/industry-colab/industrymultistepform";
 import WhyCollaborate from "@/components/industry-colab/WhyCollaborate";
 import CollaborationModels from "@/components/industry-colab/CollaborationModels";
 import SuccessStories from "@/components/industry-colab/SuccessStories";
@@ -50,7 +50,7 @@ export default function AboutPage() {
       <SuccessStories/>
 
       {/* IndustryCollaborationForm section  */}
-      <IndustryCollaborationForm />
+      <IndustryMultiStepForm />
 
       {/* CallToActionSection section  */}
       <CallToActionSection
