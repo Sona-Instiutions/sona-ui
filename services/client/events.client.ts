@@ -21,13 +21,11 @@ export async function fetchEventsClient(params: {
   pageParam?: number;
   pageSize?: number;
   eventType?: EEventType | string;
-  search?: string;
 }) {
   const query = buildEventsQuery({
     page: params.pageParam || 1,
     pageSize: params.pageSize,
     eventType: params.eventType,
-    search: params.search,
   });
 
   const { data } = await axiosInstance.get<IEventsResponse>(`/api/events?${query}`);
@@ -44,17 +42,15 @@ export async function fetchEventsClient(params: {
 export function useEventsInfiniteQuery(params: {
   pageSize?: number;
   eventType?: EEventType | string;
-  search?: string;
   initialData?: { data: INormalizedEvent[]; meta: IEventsResponse["meta"] }; // Optional initial data from SSR
 }) {
   return useInfiniteQuery({
-    queryKey: [EVENT_QUERY_KEYS.LIST, params.eventType, params.search],
+    queryKey: [EVENT_QUERY_KEYS.LIST, params.eventType],
     queryFn: ({ pageParam }) =>
       fetchEventsClient({
         pageParam: pageParam as number,
         pageSize: params.pageSize,
         eventType: params.eventType,
-        search: params.search,
       }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {

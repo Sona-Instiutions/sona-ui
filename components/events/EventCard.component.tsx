@@ -11,7 +11,6 @@ import { INormalizedEvent } from "@/types/events.types";
 import { CategoryBadge } from "./CategoryBadge.component";
 import { formatDate } from "@/utils/date.utils";
 import { truncateText } from "@/utils/text.utils";
-import { ArrowRight } from "lucide-react"; // Or Phosphor if I switch, but Lucide is in package.json
 import { buildMediaUrl } from "@/utils/common.utils";
 
 interface EventCardProps {
@@ -38,33 +37,33 @@ export function EventCard({ event }: EventCardProps) {
       </Link>
 
       {/* Content */}
-      <div className='flex flex-col flex-grow p-5'>
+      <div className='flex flex-col flex-grow p-6'>
         {/* Meta Header */}
-        <div className='flex items-center justify-between mb-3'>
+        <div className='flex items-center gap-3 mb-3'>
           {primaryCategory && <CategoryBadge name={primaryCategory.name} color={primaryCategory.color} />}
-          <span className='text-xs font-medium text-gray-500'>{formatDate(event.eventDate)}</span>
+          <span className='text-xs font-medium text-gray-400'>{formatDate(event.eventDate)}</span>
         </div>
 
         {/* Title */}
-        <Link href={`/events/${event.slug}`} className='block mb-2'>
-          <h3 className='text-lg font-bold text-gray-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2'>
+        <Link href={`/events/${event.slug}`} className='block mb-3'>
+          <h3 className='text-lg font-bold text-gray-900 leading-tight group-hover:text-blue-900 transition-colors line-clamp-2'>
             {event.title}
           </h3>
         </Link>
 
         {/* Excerpt */}
-        <p className='text-sm text-gray-600 mb-4 line-clamp-3 flex-grow'>
+        <p className='text-sm text-gray-600 mb-6 line-clamp-3'>
           {event.excerpt ||
             (Array.isArray(event.content) ? truncateText(event.content[0]?.children?.[0]?.text, 120) : "")}
         </p>
 
         {/* Footer */}
-        <div className='mt-auto pt-4 border-t border-gray-100 flex items-center justify-between'>
+        <div className='mt-auto pt-2'>
           <Link
             href={`/events/${event.slug}`}
-            className='text-sm font-semibold text-blue-600 flex items-center gap-1 hover:gap-2 transition-all'
+            className='inline-flex items-center justify-center w-full px-6 py-2.5 bg-blue-900 text-white text-sm font-semibold rounded-md hover:bg-blue-800 transition-colors'
           >
-            Read More <ArrowRight className='w-4 h-4' />
+            Read More
           </Link>
         </div>
       </div>

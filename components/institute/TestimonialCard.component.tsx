@@ -33,11 +33,13 @@ export const TestimonialCard = ({ testimonial }: ITestimonialCardProps) => {
         </div>
       </div>
 
-      <div className='mb-4 flex gap-1'>
-        {[...Array(5)].map((_, i) => (
-          <Star key={i} weight='fill' className={`h-4 w-4 ${i < rating ? "text-yellow-400" : "text-gray-200"}`} />
-        ))}
-      </div>
+      {rating && (
+        <div className='mb-4 flex gap-1'>
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} weight='fill' className={`h-4 w-4 ${i < rating ? "text-yellow-400" : "text-gray-200"}`} />
+          ))}
+        </div>
+      )}
 
       <p className='text-gray-600 leading-relaxed'>&quot;{quote}&quot;</p>
     </div>

@@ -56,9 +56,9 @@ export function EventsGrid({
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 mb-16">
         {events.map((event) => (
-          <div key={event.id} className="h-full">
+          <div key={event.id} className="flex flex-col h-full">
             <EventCard event={event} />
           </div>
         ))}
@@ -72,11 +72,11 @@ export function EventsGrid({
       </div>
 
       {hasNextPage && (
-        <div className="flex justify-center pt-4 pb-8">
+        <div className="flex justify-center pt-4 pb-12">
           <button
             onClick={() => fetchNextPage?.()}
             disabled={isFetchingNextPage}
-            className="px-8 py-3 bg-white border border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+            className="px-10 py-3 bg-gray-100 border border-gray-200 text-gray-700 font-semibold rounded-md hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
             {isFetchingNextPage ? "Loading..." : "Load More Events"}
           </button>

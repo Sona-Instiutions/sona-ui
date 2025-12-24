@@ -1,7 +1,7 @@
 /**
  * Events Page Client Wrapper
  *
- * Handles client-side state for events listing (filtering, search, pagination).
+ * Handles client-side state for events listing (filtering, pagination).
  * Integrates with TanStack Query.
  */
 
@@ -13,7 +13,6 @@ import { INormalizedEvent, EEventType, IEventsResponse } from "@/types/events.ty
 import { useEventsInfiniteQuery } from "@/services/client/events.client";
 import { EventsGrid } from "./EventsGrid.component";
 import { EventFilters } from "./EventFilters.component";
-import { EventSearch } from "./EventSearch.component";
 import { EVENTS_PAGE_SIZE } from "@/constants/events.constants";
 
 interface EventsPageClientProps {
@@ -26,14 +25,11 @@ function EventsPageContent({ initialData }: EventsPageClientProps) {
 
   // Read state from URL or default
   const typeParam = searchParams.get("type");
-  const searchParam = searchParams.get("search");
 
   const currentTab = (Object.values(EEventType).includes(typeParam as EEventType)
     ? typeParam
     : EEventType.ALL) as EEventType;
   
-  const currentSearch = searchParam || "";
-
   // Query Hook
   const {
     data,
@@ -44,8 +40,7 @@ function EventsPageContent({ initialData }: EventsPageClientProps) {
   } = useEventsInfiniteQuery({
     pageSize: EVENTS_PAGE_SIZE,
     eventType: currentTab,
-    search: currentSearch,
-    initialData: (currentTab === EEventType.ALL && !currentSearch) ? initialData : undefined,
+    initialData: currentTab === EEventType.ALL ? initialData : undefined,
   });
 
   // Flatten pages into single array
@@ -59,27 +54,16 @@ function EventsPageContent({ initialData }: EventsPageClientProps) {
     } else {
       params.set("type", tab);
     }
-    // Reset search on tab change? Usually keep it.
+    
     params.set("page", "1"); // Reset pagination (implicit by query key change)
     router.replace(`?${params.toString()}`, { scroll: false });
   };
 
-  const handleSearch = (term: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (term) {
-      params.set("search", term);
-    } else {
-      params.delete("search");
-    }
-    router.replace(`?${params.toString()}`, { scroll: false });
-  };
-
   return (
-    <div className="container mx-auto px-6 py-12">
-      {/* Filters & Search Toolbar */}
-      <div className="flex flex-col md:flex-row gap-6 justify-between items-center mb-12">
+    <div className="container mx-auto px-8 py-16">
+      {/* Filters Toolbar */}
+      <div className="flex flex-col items-center mb-16">
         <EventFilters currentTab={currentTab} onTabChange={handleTabChange} />
-        <EventSearch initialValue={currentSearch} onSearch={handleSearch} />
       </div>
 
       {/* Grid */}

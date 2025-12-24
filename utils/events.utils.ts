@@ -80,14 +80,12 @@ export const buildEventsQuery = ({
   page = 1,
   pageSize = 9,
   eventType,
-  search,
   slug,
   excludeId,
 }: {
   page?: number;
   pageSize?: number;
   eventType?: EEventType | string;
-  search?: string;
   slug?: string;
   excludeId?: number;
 }) => {
@@ -122,15 +120,6 @@ export const buildEventsQuery = ({
   // Filter by event type
   if (eventType && eventType !== EEventType.ALL) {
     query.filters.eventType = { $eq: eventType };
-  }
-
-  // Search filter (title or excerpt)
-  if (search) {
-    query.filters.$or = [
-      { title: { $containsi: search } },
-      { excerpt: { $containsi: search } },
-      // Note: searching within blocks content is harder in Strapi JSON filter, skipping for MVP
-    ];
   }
 
   // Exclude specific ID (for "Related Events" or "Recent Events")

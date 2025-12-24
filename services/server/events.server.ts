@@ -25,7 +25,6 @@ export async function getEvents(params: {
   page?: number;
   pageSize?: number;
   eventType?: EEventType | string;
-  search?: string;
 }): Promise<{ data: INormalizedEvent[]; meta: IEventsResponse["meta"] }> {
   try {
     const query = buildEventsQuery(params);
