@@ -29,9 +29,9 @@ export function EventsGrid({
   // Initial loading state (no data yet)
   if (isLoading && events.length === 0) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="h-full">
+          <div key={i} className="flex flex-col h-full">
             <EventCardSkeleton />
           </div>
         ))}

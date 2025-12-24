@@ -22,9 +22,9 @@ export function EventCard({ event }: EventCardProps) {
   const imageUrl = buildMediaUrl(event.thumbnailImage) || buildMediaUrl(event.featuredImage) || "/images/event-1.webp";
 
   return (
-    <div className='flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100 group'>
+    <div className='flex flex-col h-full min-h-[580px] bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100 group'>
       {/* Image Container */}
-      <Link href={`/events/${event.slug}`} className='relative h-48 w-full overflow-hidden block'>
+      <Link href={`/events/${event.slug}`} className='relative h-64 w-full overflow-hidden block'>
         <Image
           src={imageUrl}
           alt={event.title}
@@ -33,11 +33,10 @@ export function EventCard({ event }: EventCardProps) {
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           unoptimized
         />
-        {/* Date Badge Overlay (Optional - Design has it inline, but sometimes overlay is nice. Sticking to design inline) */}
       </Link>
 
       {/* Content */}
-      <div className='flex flex-col flex-grow p-6'>
+      <div className='flex flex-col flex-grow p-8'>
         {/* Meta Header */}
         <div className='flex items-center gap-3 mb-3'>
           {primaryCategory && <CategoryBadge name={primaryCategory.name} color={primaryCategory.color} />}
