@@ -6,10 +6,7 @@
 
 import { useQuery, useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios.config";
-import {
-  ICommentSubmission,
-  IEventComment,
-} from "@/types/comments.types";
+import { ICommentSubmission, IEventComment } from "@/types/comments.types";
 import { EVENT_QUERY_KEYS } from "@/constants/events.constants";
 
 /**
@@ -17,9 +14,7 @@ import { EVENT_QUERY_KEYS } from "@/constants/events.constants";
  * Uses the custom event comments endpoint.
  */
 export async function fetchEventComments(eventDocumentId: string): Promise<IEventComment[]> {
-  const { data } = await axiosInstance.get<{ data: IEventComment[] }>(
-    `/api/events/${eventDocumentId}/comments`
-  );
+  const { data } = await axiosInstance.get<{ data: IEventComment[] }>(`/api/events/${eventDocumentId}/comments`);
   return data.data;
 }
 
@@ -42,12 +37,9 @@ export function useSubmitEventComment() {
   return useMutation({
     mutationFn: async (payload: Omit<ICommentSubmission, "event"> & { eventDocumentId: string }) => {
       const { eventDocumentId, ...commentData } = payload;
-      const { data } = await axiosInstance.post<{ data: IEventComment }>(
-        `/api/events/${eventDocumentId}/comments`,
-        {
-          data: commentData,
-        }
-      );
+      const { data } = await axiosInstance.post<{ data: IEventComment }>(`/api/events/${eventDocumentId}/comments`, {
+        data: commentData,
+      });
       return data.data;
     },
     onSuccess: () => {
@@ -55,4 +47,3 @@ export function useSubmitEventComment() {
     },
   });
 }
-

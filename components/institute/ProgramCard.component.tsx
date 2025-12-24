@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -85,4 +85,3 @@ export function ProgramCard({
     </article>
   );
 }
-

@@ -48,10 +48,11 @@ export function EventSearch({
     return () => clearTimeout(handler);
   }, [value]);
 
-  const { data: suggestions = [], isFetching, isLoading } = useEventSearchSuggestionsQuery(
-    debouncedValue,
-    { enabled: isOpen && debouncedValue.length >= MIN_SEARCH_CHARS }
-  );
+  const {
+    data: suggestions = [],
+    isFetching,
+    isLoading,
+  } = useEventSearchSuggestionsQuery(debouncedValue, { enabled: isOpen && debouncedValue.length >= MIN_SEARCH_CHARS });
 
   const showSuggestions = isOpen && debouncedValue.length >= MIN_SEARCH_CHARS;
 
@@ -145,16 +146,16 @@ export function EventSearch({
             setSelectedIndex(-1);
           }}
           onKeyDown={handleKeyDown}
-          role="combobox"
+          role='combobox'
           aria-expanded={showSuggestions}
-          aria-haspopup="listbox"
-          aria-controls="search-suggestions"
+          aria-haspopup='listbox'
+          aria-controls='search-suggestions'
         />
         {value && (
           <button
             onClick={handleClear}
             className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors'
-            aria-label="Clear search"
+            aria-label='Clear search'
           >
             <XIcon size={16} weight='bold' />
           </button>
@@ -170,9 +171,9 @@ export function EventSearch({
 
       {/* Suggestions Dropdown */}
       {showSuggestions && (
-        <div 
-          id="search-suggestions"
-          role="listbox"
+        <div
+          id='search-suggestions'
+          role='listbox'
           className='absolute z-20 mt-2 w-full bg-white border border-gray-100 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 max-h-[400px] overflow-y-auto'
         >
           {suggestions.length > 0 ? (
@@ -189,7 +190,7 @@ export function EventSearch({
                     "flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors",
                     selectedIndex === index ? "bg-blue-50" : "hover:bg-gray-50"
                   )}
-                  role="option"
+                  role='option'
                   aria-selected={selectedIndex === index}
                 >
                   <div className='relative w-12 h-12 shrink-0 rounded-lg overflow-hidden bg-gray-100 shadow-sm border border-gray-50'>
@@ -203,9 +204,7 @@ export function EventSearch({
                     />
                   </div>
                   <div className='flex-1 min-w-0'>
-                    <h4 className='text-sm font-bold text-gray-900 truncate leading-tight mb-1'>
-                      {suggestion.title}
-                    </h4>
+                    <h4 className='text-sm font-bold text-gray-900 truncate leading-tight mb-1'>{suggestion.title}</h4>
                     <div className='flex items-center text-[10px] text-gray-500 font-medium'>
                       <CalendarBlankIcon size={12} className='mr-1 text-blue-500' />
                       {formatDate(suggestion.eventDate)}
