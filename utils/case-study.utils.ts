@@ -5,15 +5,8 @@
  */
 
 import qs from "qs";
-import {
-  ICaseStudy,
-  INormalizedCaseStudy,
-  ICaseStudyAuthor,
-  ICaseStudyAuthorData,
-  ICaseStudyCategory,
-  ICaseStudyTag,
-} from "@/types/case-study.types";
-import { IStrapiMedia } from "@/types/common.types";
+import { ICaseStudy, INormalizedCaseStudy, ICaseStudyAuthor } from "@/types/case-study.types";
+import { normalizeStrapiMedia, isAuthorData, getAuthorProperty, buildContentFilters } from "@/utils/common.utils";
 
 /**
  * Build Strapi query string for case studies
@@ -28,6 +21,13 @@ export function buildCaseStudiesQuery(params: {
   excludeId?: number;
 }): string {
   const { page = 1, pageSize = 10, categorySlug, tagSlug, search, slug, excludeId } = params;
+
+  const baseFilters = buildContentFilters({ slug, categorySlug, tagSlug, excludeId, search });
+
+  // Case studies include content in search
+  if (search && Array.isArray(baseFilters.$or)) {
+    baseFilters.$or.push({ content: { $containsi: search } });
+  }
 
   const query: Record<string, unknown> = {
     populate: {
@@ -47,70 +47,48 @@ export function buildCaseStudiesQuery(params: {
     },
   };
 
-  const filters: Record<string, unknown> = {};
-
-  if (slug) {
-    filters.slug = { $eq: slug };
-  }
-
-  if (excludeId) {
-    filters.id = { $ne: excludeId };
-  }
-
-  if (categorySlug) {
-    filters.categories = {
-      slug: { $eq: categorySlug },
-    };
-  }
-
-  if (tagSlug) {
-    filters.tags = {
-      slug: { $eq: tagSlug },
-    };
-  }
-
-  if (search) {
-    filters.$or = [
-      { title: { $containsi: search } },
-      { excerpt: { $containsi: search } },
-      { content: { $containsi: search } },
-    ];
-  }
-
-  if (Object.keys(filters).length > 0) {
-    query.filters = filters;
+  if (Object.keys(baseFilters).length > 0) {
+    query.filters = baseFilters;
   }
 
   return qs.stringify(query, { encodeValuesOnly: true });
 }
 
 /**
- * Extract author from different possible Strapi structures
+ * Normalize raw Strapi case study response to frontend interface.
  */
-export function extractCaseStudyAuthor(data: ICaseStudyAuthorData): ICaseStudyAuthor | null {
-  if (!data) return null;
+export function normalizeCaseStudy(item: ICaseStudy): INormalizedCaseStudy {
+  const authorData = item.author;
+  let normalizedAuthor: ICaseStudyAuthor | null = null;
 
-  // Check for flat structure first (most common in our implementation)
-  if (data.authorName || data.name || (typeof data === "string" && data)) {
-    return {
-      name: data.authorName || data.name || (data as unknown as string),
-      role: data.authorRole || data.role,
-      bio: data.authorBio || data.bio,
-      image: data.authorImage as IStrapiMedia,
-      linkedin: data.authorLinkedin || data.linkedin,
-      twitter: data.authorTwitter || data.twitter,
-      email: data.authorEmail || data.email,
+  if (typeof authorData === "string") {
+    normalizedAuthor = {
+      name: authorData,
+    };
+  } else if (isAuthorData(authorData)) {
+    normalizedAuthor = {
+      name: getAuthorProperty<string>(authorData, "name", "authorName") || "Sona Author",
+      role: getAuthorProperty<string | undefined>(authorData, "role", "authorRole"),
+      bio: getAuthorProperty<string | undefined>(authorData, "bio", "authorBio"),
+      image: normalizeStrapiMedia(authorData.authorImage || authorData.image),
+      linkedin: getAuthorProperty<string | undefined>(authorData, "linkedin", "authorLinkedin"),
+      twitter: getAuthorProperty<string | undefined>(authorData, "twitter", "authorTwitter"),
+      email: getAuthorProperty<string | undefined>(authorData, "email", "authorEmail"),
     };
   }
 
-  return null;
-}
-
-/**
- * Normalize raw Strapi case study response to frontend interface
- */
-export function normalizeCaseStudy(item: ICaseStudy): INormalizedCaseStudy {
-  const author = extractCaseStudyAuthor(item as unknown as ICaseStudyAuthorData);
+  // Fallback if some author fields are directly on the case study
+  if (!normalizedAuthor && isAuthorData(item)) {
+    normalizedAuthor = {
+      name: getAuthorProperty<string>(item, "name", "authorName") || "Sona Author",
+      role: getAuthorProperty<string | undefined>(item, "role", "authorRole"),
+      bio: getAuthorProperty<string | undefined>(item, "bio", "authorBio"),
+      image: normalizeStrapiMedia(item.authorImage || item.image),
+      linkedin: getAuthorProperty<string | undefined>(item, "linkedin", "authorLinkedin"),
+      twitter: getAuthorProperty<string | undefined>(item, "twitter", "authorTwitter"),
+      email: getAuthorProperty<string | undefined>(item, "email", "authorEmail"),
+    };
+  }
 
   return {
     id: item.id,
@@ -122,18 +100,20 @@ export function normalizeCaseStudy(item: ICaseStudy): INormalizedCaseStudy {
     publishedDate: item.publishedDate || null,
     projectDate: item.projectDate || null,
     readTime: item.readTime || null,
-    bannerImage: item.bannerImage || null,
-    thumbnail: item.thumbnail || item.bannerImage || null,
-    author,
+    bannerImage: normalizeStrapiMedia(item.bannerImage),
+    thumbnail: normalizeStrapiMedia(item.thumbnail || item.bannerImage),
+    author: normalizedAuthor,
     featured: item.featured || false,
     viewCount: item.viewCount || 0,
     metaTitle: item.metaTitle || item.title,
     metaDescription: item.metaDescription || item.excerpt,
-    categories: item.categories || ([] as ICaseStudyCategory[]),
-    tags: item.tags || ([] as ICaseStudyTag[]),
-    relatedCaseStudies: (item.relatedCaseStudies || []).map((related) => ({
-      ...normalizeCaseStudy(related),
-      relatedCaseStudies: [], // Avoid infinite recursion
-    })),
+    categories: Array.isArray(item.categories) ? item.categories : [],
+    tags: Array.isArray(item.tags) ? item.tags : [],
+    relatedCaseStudies: Array.isArray(item.relatedCaseStudies)
+      ? item.relatedCaseStudies.map((related) => ({
+          ...normalizeCaseStudy(related),
+          relatedCaseStudies: [], // Avoid infinite recursion
+        }))
+      : [],
   };
 }

@@ -33,7 +33,7 @@ import type {
   IValuePropositionItem,
   TCampusGalleryLayoutVariant,
 } from "@/types/institution.types";
-import type { IStrapiMedia } from "@/types/common.types";
+import { normalizeStrapiMedia } from "@/utils/common.utils";
 
 const PROGRAM_FIELDS = ["title", "description", "createdAt", "updatedAt"] as const;
 
@@ -162,39 +162,6 @@ export const normalizeColorValue = (value: unknown): string | null => {
   const trimmed = value.trim();
 
   return trimmed.length > 0 ? trimmed : null;
-};
-
-const normalizeStrapiMedia = (media: unknown): IStrapiMedia | null => {
-  if (!media || typeof media !== "object") {
-    return null;
-  }
-
-  const candidate = (media as Record<string, unknown>).data ?? media;
-  const resolved = resolveRecord(candidate);
-
-  if (!resolved) {
-    return null;
-  }
-
-  const { attributes, id } = resolved;
-  const url = typeof attributes.url === "string" ? (attributes.url as string) : null;
-
-  if (!url) {
-    return null;
-  }
-
-  return {
-    id,
-    url,
-    name: (attributes.name as string | undefined) ?? "",
-    mime: (attributes.mime as string | undefined) ?? "",
-    size: typeof attributes.size === "number" ? (attributes.size as number) : 0,
-    alternativeText: (attributes.alternativeText as string | null | undefined) ?? undefined,
-    caption: (attributes.caption as string | null | undefined) ?? undefined,
-    width: typeof attributes.width === "number" ? (attributes.width as number) : undefined,
-    height: typeof attributes.height === "number" ? (attributes.height as number) : undefined,
-    formats: (attributes.formats as Record<string, unknown> | undefined) ?? undefined,
-  };
 };
 
 /**
@@ -915,8 +882,7 @@ export const normalizeFaqItemRecord = (item: IFaqItem | unknown): IFaqItem | nul
   const questionRaw = attributes.question;
   const answerRaw = attributes.answer;
 
-  const question =
-    typeof questionRaw === "string" && questionRaw.trim().length > 0 ? (questionRaw as string) : "";
+  const question = typeof questionRaw === "string" && questionRaw.trim().length > 0 ? (questionRaw as string) : "";
   const answer = typeof answerRaw === "string" ? (answerRaw as string) : "";
 
   return {
@@ -930,9 +896,7 @@ export const normalizeFaqItemRecord = (item: IFaqItem | unknown): IFaqItem | nul
 /**
  * Normalize an FAQ section record with populated FAQs.
  */
-export const normalizeFaqSectionRecord = (
-  section: IFaqSection | unknown
-): INormalizedFaqSection | null => {
+export const normalizeFaqSectionRecord = (section: IFaqSection | unknown): INormalizedFaqSection | null => {
   const resolved = resolveRecord(section);
 
   if (!resolved) {

@@ -151,6 +151,15 @@ export interface INormalizedContentBase {
   tags: IContentTag[];
 }
 
+/** Common filter options for content queries (blogs, case studies, events) */
+export interface IContentQueryFilters {
+  slug?: string;
+  categorySlug?: string;
+  tagSlug?: string;
+  excludeId?: number;
+  search?: string;
+}
+
 /** Props for social share buttons */
 export interface IShareButtonsProps {
   /** The title of the content being shared */
