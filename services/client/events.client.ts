@@ -4,12 +4,13 @@
  * Client-side hooks for Events (TanStack Query).
  */
 
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios.config";
 import {
   IEventsResponse,
   INormalizedEvent,
   EEventType,
+  IEventSuggestionsResponse,
 } from "@/types/events.types";
 import { buildEventsQuery, normalizeEvent } from "@/utils/events.utils";
 import { EVENT_QUERY_KEYS } from "@/constants/events.constants";
@@ -64,6 +65,34 @@ export function useEventsInfiniteQuery(params: {
           pageParams: [1],
         }
       : undefined,
+  });
+}
+
+/**
+ * Fetch search suggestions for events.
+ */
+export async function fetchEventSuggestions(q: string, limit?: number) {
+  const { data } = await axiosInstance.get<IEventSuggestionsResponse>(
+    `/api/events/suggestions?q=${encodeURIComponent(q)}${limit ? `&limit=${limit}` : ""}`
+  );
+  return data.data;
+}
+
+/**
+ * Hook for event search suggestions.
+ */
+export function useEventSearchSuggestionsQuery(
+  q: string,
+  options: {
+    enabled?: boolean;
+    limit?: number;
+  } = {}
+) {
+  return useQuery({
+    queryKey: [EVENT_QUERY_KEYS.SUGGESTIONS, q],
+    queryFn: () => fetchEventSuggestions(q, options.limit),
+    enabled: options.enabled && q.length >= 3,
+    staleTime: 30000, // 30 seconds
   });
 }
 

@@ -107,6 +107,17 @@ export interface INormalizedEvent {
   eventHighlights?: any; // JSON
 }
 
+/** Lightweight event suggestion for autocomplete */
+export interface IEventSearchSuggestion {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  eventDate: string;
+  excerpt?: string;
+  thumbnailImage?: IStrapiMedia;
+}
+
 /** API Response wrapper for list of events */
 export interface IEventsResponse {
   data: IEvent[];
@@ -124,6 +135,11 @@ export interface IEventsResponse {
 export interface IEventResponse {
   data: IEvent;
   meta: Record<string, unknown>;
+}
+
+/** API Response wrapper for search suggestions */
+export interface IEventSuggestionsResponse {
+  data: IEventSearchSuggestion[];
 }
 
 /** Category list response */

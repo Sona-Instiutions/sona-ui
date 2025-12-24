@@ -9,7 +9,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { INormalizedEvent, IEventCategory, IEventTag } from "@/types/events.types";
+import { INormalizedEvent, IEventCategory, IEventTag, IEventSearchSuggestion } from "@/types/events.types";
 import { EventSearch } from "./EventSearch.component";
 import { formatDate } from "@/utils/date.utils";
 import { buildMediaUrl } from "@/utils/common.utils";
@@ -29,6 +29,10 @@ export function EventSidebar({ recentEvents, categories, tags }: EventSidebarPro
     }
   };
 
+  const handleSelectSuggestion = (suggestion: IEventSearchSuggestion) => {
+    router.push(`/events/${suggestion.slug}`);
+  };
+
   return (
     <aside className='space-y-10'>
       {/* Search Widget */}
@@ -37,7 +41,11 @@ export function EventSidebar({ recentEvents, categories, tags }: EventSidebarPro
           Search Events
           <span className="absolute -bottom-1 left-0 w-12 h-1 bg-blue-600 rounded-full"></span>
         </h3>
-        <EventSearch onSearch={handleSearch} placeholder='Search...' />
+        <EventSearch 
+          onSearch={handleSearch} 
+          onSelectSuggestion={handleSelectSuggestion}
+          placeholder='Search...' 
+        />
       </div>
 
       {/* Recent Events Widget */}
