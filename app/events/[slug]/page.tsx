@@ -7,6 +7,7 @@ import { RichTextRenderer } from "@/components/common/RichTextRenderer.component
 import { EventSidebar } from "@/components/events/EventSidebar.component";
 import { RelatedEvents } from "@/components/events/RelatedEvents.component";
 import { ShareButtons } from "@/components/common/ShareButtons.component";
+import { StickyShareButtons } from "@/components/common/StickyShareButtons.component";
 import { CommentList } from "@/components/events/CommentList.component";
 import { ViewCountTracker } from "@/components/events/ViewCountTracker.component";
 import { RECENT_EVENTS_LIMIT } from "@/constants/events.constants";
@@ -72,6 +73,8 @@ export default async function EventDetailPage({ params }: PageProps) {
     <main className='min-h-screen bg-white pb-20'>
       <ViewCountTracker eventDocumentId={event.documentId} />
 
+      <StickyShareButtons title={event.title} url={shareUrl} />
+
       <EventHero event={event} />
 
       <div className='container mx-auto px-6 py-12 md:py-20'>
@@ -82,8 +85,8 @@ export default async function EventDetailPage({ params }: PageProps) {
               <RichTextRenderer content={event.content} />
             </article>
 
-            {/* Social Share */}
-            <div className='py-10 border-y border-gray-100 mb-16'>
+            {/* Social Share (Mobile Only) */}
+            <div className='py-10 border-y border-gray-100 mb-16 lg:hidden'>
               <ShareButtons title={event.title} url={shareUrl} />
             </div>
 

@@ -8,6 +8,7 @@ import AuthorSection from "@/components/blog/detailed/AuthorSection";
 import RelatedArticles from "@/components/blog/detailed/RelatedArticles";
 import CommentSection from "@/components/blog/detailed/CommentSection";
 import { BlogCommentList } from "@/components/blog/detailed/BlogCommentList";
+import { StickyShareButtons } from "@/components/common/StickyShareButtons.component";
 
 
 export default async function BlogDetailPage({
@@ -38,8 +39,11 @@ export default async function BlogDetailPage({
   blog.tags?.[0]?.slug
 );
 
+  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://scale.sona.ac.in"}/blog/${slug}`;
+
   return (
     <div>
+      <StickyShareButtons title={blog.title} url={shareUrl} />
       <Breadcrumbs
         title={blog.title}
         bannerImage={bannerImageUrl}
@@ -52,7 +56,7 @@ export default async function BlogDetailPage({
       <section className="container py-10 grid grid-cols-1 lg:grid-cols-4 gap-10 mx-auto max-w-6xl">
         {/* Main Content */}
         <div className="lg:col-span-3">
-          <BlogContent blog={blog} />
+          <BlogContent blog={blog} shareUrl={shareUrl} />
           <AuthorSection author={blog.author} />
           <RelatedArticles blogs={relatedBlogs} />
           {/* <CommentSection blogId={blog.id} /> */}

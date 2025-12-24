@@ -1,7 +1,8 @@
 import RichTextRenderer from "./RichTextRenderer";
 import { Blog, Category, Tag } from "@/types/blog";
+import { ShareButtons } from "@/components/common/ShareButtons.component";
 
-export default function BlogContent({ blog }: { blog: Blog }) {
+export default function BlogContent({ blog, shareUrl }: { blog: Blog, shareUrl?: string }) {
 
   return (
     <article className="space-y-6">
@@ -17,6 +18,13 @@ export default function BlogContent({ blog }: { blog: Blog }) {
 
       {/* Content */}
       <RichTextRenderer content={blog.content} />
+
+      {/* Social Share (Mobile Only) */}
+      {shareUrl && (
+        <div className="py-8 border-y border-gray-100 lg:hidden">
+          <ShareButtons title={blog.title} url={shareUrl} />
+        </div>
+      )}
 
       {/* Categories */}
       <div className="flex gap-2 flex-wrap">

@@ -37,3 +37,20 @@ export interface IStrapiMedia {
   /** Full URL to the file including base URL */
   formats?: Record<string, unknown>;
 }
+
+/** Variant for share buttons layout */
+export type TShareButtonVariant = "horizontal" | "vertical";
+
+/** Props for social share buttons */
+export interface IShareButtonsProps {
+  /** The title of the content being shared */
+  title: string;
+  /** The full absolute URL of the page being shared */
+  url: string;
+  /** Layout orientation of buttons */
+  variant?: TShareButtonVariant;
+  /** Whether to show the platform name labels */
+  showLabels?: boolean;
+  /** Optional container class name */
+  className?: string;
+}
