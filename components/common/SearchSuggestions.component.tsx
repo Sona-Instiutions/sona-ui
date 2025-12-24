@@ -7,11 +7,12 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { MagnifyingGlassIcon, XIcon, CircleNotchIcon, CalendarBlankIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon, XIcon, CircleNotchIcon, CalendarBlankIcon, ClockIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { useBlogSearchSuggestionsQuery } from "@/services/client/blogs.client";
 import { useEventSearchSuggestionsQuery } from "@/services/client/events.client";
-import { MIN_SEARCH_CHARS, SEARCH_DEBOUNCE_MS } from "@/constants/events.constants"; // Shared constants
+// Both events and blogs use the same search constants
+import { MIN_SEARCH_CHARS, SEARCH_DEBOUNCE_MS } from "@/constants/events.constants";
 import { formatDate } from "@/utils/date.utils";
 import Image from "next/image";
 import { buildMediaUrl } from "@/utils/common.utils";
@@ -184,7 +185,7 @@ export function SearchSuggestions({
           {suggestions.length > 0 ? (
             <div className='py-2'>
               <div className='px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-gray-400 border-b border-gray-50 mb-1'>
-                Suggestions
+                {type === "event" ? "Event Suggestions" : "Blog Suggestions"}
               </div>
               {suggestions.map((suggestion, index) => (
                 <div
@@ -211,7 +212,11 @@ export function SearchSuggestions({
                   <div className='flex-1 min-w-0'>
                     <h4 className='text-sm font-bold text-gray-900 truncate leading-tight mb-1'>{suggestion.title}</h4>
                     <div className='flex items-center text-[10px] text-gray-500 font-medium'>
-                      <CalendarBlankIcon size={12} className='mr-1 text-blue-500' />
+                      {type === "event" ? (
+                        <CalendarBlankIcon size={12} className='mr-1 text-blue-500' />
+                      ) : (
+                        <ClockIcon size={12} className='mr-1 text-blue-500' />
+                      )}
                       {formatDate(getDate(suggestion))}
                     </div>
                   </div>

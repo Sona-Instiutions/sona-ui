@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { getEventBySlug, getRecentEvents, getEventCategories, getEventTags } from "@/services/server/events.server";
 import { EventHero } from "@/components/events/EventHero.component";
 import { AuthorSection } from "@/components/common/AuthorSection.component";
-import { EventSidebar } from "@/components/events/EventSidebar.component";
+import { ContentSidebar } from "@/components/common/ContentSidebar.component";
 import { ContentCard } from "@/components/common/ContentCard.component";
 import { ShareButtons } from "@/components/common/ShareButtons.component";
 import { StickyShareButtons } from "@/components/common/StickyShareButtons.component";
@@ -130,7 +130,14 @@ export default async function EventDetailPage({ params }: PageProps) {
           {/* Sidebar */}
           <div className='lg:col-span-4'>
             <div className='sticky top-24'>
-              <EventSidebar recentEvents={sidebarRecentEvents} categories={categories} tags={tags} />
+              <ContentSidebar
+                type='event'
+                recentItems={sidebarRecentEvents}
+                categories={categories}
+                tags={tags}
+                basePath='/events'
+                recentTitle='Recent Events'
+              />
             </div>
           </div>
         </div>

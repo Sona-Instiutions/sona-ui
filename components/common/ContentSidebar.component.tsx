@@ -1,0 +1,237 @@
+/**
+ * Content Sidebar Component
+ *
+ * Generic sidebar widget for Events or Blogs detail pages.
+ * Follows DRY principle by reusing common sidebar patterns.
+ */
+
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { SearchSuggestions } from "./SearchSuggestions.component";
+import { formatDate } from "@/utils/date.utils";
+import { buildMediaUrl } from "@/utils/common.utils";
+import { IEventSearchSuggestion } from "@/types/events.types";
+import { IBlogSearchSuggestion } from "@/types/blog.types";
+
+type ContentType = "event" | "blog";
+
+interface BaseContentItem {
+  id: number;
+  title: string;
+  slug: string;
+}
+
+interface EventItem extends BaseContentItem {
+  eventDate: string;
+  thumbnailImage?: unknown;
+  featuredImage?: unknown;
+}
+
+interface BlogItem extends BaseContentItem {
+  publishedDate: string;
+  thumbnail?: unknown;
+  bannerImage?: unknown;
+}
+
+type ContentItem = EventItem | BlogItem;
+
+interface BaseCategory {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+interface BaseTag {
+  id: number;
+  name: string;
+}
+
+interface ContentSidebarProps {
+  type: ContentType;
+  recentItems: ContentItem[];
+  categories?: BaseCategory[];
+  tags?: BaseTag[];
+  basePath: string; // e.g., "/events" or "/blogs"
+  recentTitle?: string; // e.g., "Recent Events" or "Recent Articles"
+}
+
+/**
+ * Type guard to check if item is an event
+ */
+function isEventItem(item: ContentItem): item is EventItem {
+  return "eventDate" in item;
+}
+
+/**
+ * Get thumbnail image for content item
+ */
+function getThumbnail(item: ContentItem, type: ContentType): unknown {
+  if (type === "event") {
+    const event = item as EventItem;
+    return event.thumbnailImage || event.featuredImage;
+  }
+  const blog = item as BlogItem;
+  return blog.thumbnail || blog.bannerImage;
+}
+
+/**
+ * Get date for content item
+ */
+function getDate(item: ContentItem, type: ContentType): string {
+  if (type === "event") {
+    return (item as EventItem).eventDate;
+  }
+  return (item as BlogItem).publishedDate;
+}
+
+/**
+ * Get placeholder image path
+ */
+function getPlaceholderImage(type: ContentType): string {
+  return type === "event" ? "/images/event-1.webp" : "/images/blog-placeholder.webp";
+}
+
+export function ContentSidebar({
+  type,
+  recentItems,
+  categories = [],
+  tags = [],
+  basePath,
+  recentTitle,
+}: ContentSidebarProps) {
+  const router = useRouter();
+
+  const handleSearch = (term: string) => {
+    if (term.trim()) {
+      router.push(`${basePath}?search=${encodeURIComponent(term)}`);
+    }
+  };
+
+  const handleSelectSuggestion = (suggestion: IEventSearchSuggestion | IBlogSearchSuggestion) => {
+    router.push(`${basePath}/${suggestion.slug}`);
+  };
+
+  const defaultRecentTitle = type === "event" ? "Recent Events" : "Recent Articles";
+  const searchTitle = type === "event" ? "Search Events" : "Search Blogs";
+
+  return (
+    <aside className='space-y-10'>
+      {/* Search Widget */}
+      <div className='bg-gray-50 p-6 rounded-2xl border border-gray-100'>
+        <h3 className='text-lg font-bold text-gray-900 mb-4 relative inline-block'>
+          {searchTitle}
+          <span className="absolute -bottom-1 left-0 w-12 h-1 bg-blue-600 rounded-full"></span>
+        </h3>
+        <SearchSuggestions
+          type={type}
+          onSearch={handleSearch}
+          onSelectSuggestion={handleSelectSuggestion}
+          placeholder='Search...'
+        />
+      </div>
+
+      {/* Recent Items Widget */}
+      {recentItems.length > 0 && (
+        <div>
+          <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
+            {recentTitle || defaultRecentTitle}
+            <span className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600"></span>
+          </h3>
+          <div className='space-y-6'>
+            {recentItems.map((item) => {
+              const thumbnail = getThumbnail(item, type);
+              const date = getDate(item, type);
+              const imageUrl = buildMediaUrl(thumbnail) || getPlaceholderImage(type);
+
+              return (
+                <div key={item.id} className='flex gap-4 group'>
+                  <Link
+                    href={`${basePath}/${item.slug}`}
+                    className='relative w-20 h-20 shrink-0 rounded-xl overflow-hidden block shadow-sm'
+                  >
+                    <Image
+                      src={imageUrl}
+                      alt={item.title}
+                      fill
+                      className='object-cover transition-transform duration-500 group-hover:scale-110'
+                      sizes='80px'
+                      unoptimized
+                    />
+                  </Link>
+                  <div className="flex flex-col justify-center">
+                    <div className='text-[10px] font-bold uppercase tracking-wider text-blue-600 mb-1'>
+                      {formatDate(date)}
+                    </div>
+                    <Link href={`${basePath}/${item.slug}`}>
+                      <h4 className='text-sm font-bold text-gray-900 leading-tight group-hover:text-blue-600 transition-colors line-clamp-2'>
+                        {item.title}
+                      </h4>
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Categories Widget */}
+      {categories.length > 0 && (
+        <div>
+          <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
+            Categories
+            <span className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600"></span>
+          </h3>
+          <ul className='space-y-3'>
+            {categories.map((cat) => {
+              // Events use type filter, blogs use category filter
+              const href =
+                type === "event"
+                  ? `${basePath}?type=${
+                      cat.slug === "industry" ? "industry" : cat.slug === "student" ? "student" : "all"
+                    }`
+                  : `${basePath}?category=${cat.slug}`;
+
+              return (
+                <li key={cat.id}>
+                  <Link href={href} className='flex items-center justify-between text-gray-600 hover:text-blue-600 transition-all py-1 group'>
+                    <span className="font-medium group-hover:translate-x-1 transition-transform">{cat.name}</span>
+                    <span className='text-[10px] font-bold bg-gray-100 px-2 py-1 rounded-md text-gray-500 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors'>
+                      {/* Placeholder count since it's not in the data yet */}
+                      12
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {/* Tags Widget */}
+      {tags.length > 0 && (
+        <div>
+          <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
+            Popular Tags
+            <span className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600"></span>
+          </h3>
+          <div className='flex flex-wrap gap-2'>
+            {tags.map((tag) => (
+              <Link
+                key={tag.id}
+                href={`${basePath}?search=${encodeURIComponent(tag.name)}`}
+                className='px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all'
+              >
+                #{tag.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </aside>
+  );
+}
+

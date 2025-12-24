@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import MainBanner from "@/components/common/MainBannerSection.component";
 import { BlogsPageClient } from "@/components/blog/BlogsPageClient.component";
+import { getBlogs } from "@/services/server/blogs.server";
+import { BLOG_PAGE_SIZE } from "@/constants/blog.constants";
+
+export const revalidate = 600; // 10 minutes
 
 export const metadata: Metadata = {
   title: "SONA Institutions | Blog",
@@ -22,7 +26,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogListingPage() {
+export default async function BlogListingPage() {
+  // Fetch initial data to support ISR
+  const initialData = await getBlogs({
+    page: 1,
+    pageSize: BLOG_PAGE_SIZE,
+  });
+
   return (
     <div className='min-h-screen bg-white'>
       {/* Banner Section */}
@@ -34,7 +44,7 @@ export default function BlogListingPage() {
       />
 
       {/* Blogs Client Section */}
-      <BlogsPageClient />
+      <BlogsPageClient initialData={initialData} />
     </div>
   );
 }
