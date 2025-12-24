@@ -2,7 +2,7 @@ import type { IFooterContactInfo, INavGroup, INavItem, ISocialLink } from "@/typ
 
 export const HEADER_PARTNER_LINKS: INavItem[] = [
   { label: "GCC", href: "/institutions/sona-gcc" },
-  { label: "Sona Business School", href: "https://www.sonabusinessschool.com/ " },
+  { label: "Sona Business School", href: "https://pgdm.scaleindia.in/" },
   { label: "Sona finishing School", href: "/institutions/sona-finishing-school" },
   { label: "Sona Tech School", href: "https://www.sonatech.ac.in/" },
   { label: "AI Consultancy", href: "/institutions/ai-consultancy" },
@@ -14,12 +14,13 @@ export const HEADER_SOCIAL_LINKS: ISocialLink[] = [
   { label: "Instagram", href: "https://www.instagram.com/scale_blr", iconName: "instagramIcon" },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/scale-sona-centre-for-advanced-learning-entrepreneurship/", iconName: "linkedinIcon" },
   { label: "YouTube", href: "https://youtube.com/@scale-blr", iconName: "youtubeIcon" },
+  { label: "X", href: "https://www.instagram.com/scale_blr", iconName: "xlogoIcon" },
 ];
 
 export const HEADER_PRIMARY_NAV: INavItem[] = [
   { label: "Home", href: "/" },
   { label: "Life @ SCALE", href: "#" },
-  { label: "Placements", href: "#" },
+  // { label: "Placements", href: "#" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -30,7 +31,7 @@ export const HEADER_ABOUT_NAV: INavGroup[] = [
     description: " ",
   },
   {
-    label: "Vision, Mission & Value",
+    label: "Vision, Mission & Core Values",
     href: "/about/vision",
     description: " ",
   },
@@ -57,8 +58,8 @@ export const HEADER_ABOUT_NAV: INavGroup[] = [
 
 export const HEADER_HIGHLIGHT_NAV: INavItem[] = [
   { label: "Admission", href: "/#" },
-  { label: "International Collab", href: "/#" },
-  { label: "Industry Collaborations", href: "/#" },
+  { label: "International Collaboration", href: "/#" },
+  { label: "Industry Collaboration ", href: "/#" },
 ];
 
 export const FOOTER_TAGLINE =
@@ -85,7 +86,7 @@ export const FOOTER_INSTITUTIONS: INavItem[] = [
 ];
 
 export const FOOTER_CONTACT_INFO: IFooterContactInfo = {
-  address: "#43/1A , Billekempanahalli village, Bidadi Hobli, Ramnagara Taluk",
+  address: "#43/1A , Billekempanahalli Village, Bidadi Hobli, Ramnagara Taluk, Karnataka – 562109, India.",
   phone: "+91 944 259 2175",
   email: "contact@scaleindia.in",
 };
@@ -95,6 +96,7 @@ export const FOOTER_SOCIAL_LINKS: ISocialLink[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/scale-sona-centre-for-advanced-learning-entrepreneurship/", iconName: "linkedinIcon" },
   { label: "Instagram", href: "https://www.instagram.com/scale_blr", iconName: "instagramIcon" },
   { label: "YouTube", href: "https://youtube.com/@scale-blr", iconName: "youtubeIcon" },
+  { label: "X", href: "https://www.instagram.com/scale_blr", iconName: "xlogoIcon" },
   
 ];
 

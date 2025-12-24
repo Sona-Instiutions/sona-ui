@@ -117,8 +117,8 @@ function HeaderMobileMenu() {
             </Link>
           ))}
           <div className='mt-2 flex flex-col gap-2 text-sm text-blue-100'>
-            <a href='tel:+914272301234' className='flex items-center gap-2 font-medium text-white'>
-              <Icon name='phone' className='size-4' /> +91 427 230 1234
+            <a href='tel:+919442592175' className='flex items-center gap-2 font-medium text-white'>
+              <Icon name='phone' className='size-4' /> +91 94425 92175
             </a>
             <div className='flex items-center gap-3 text-white/80'>
               {HEADER_SOCIAL_LINKS.map((link) => (
@@ -140,7 +140,6 @@ function HeaderMobileMenu() {
 }
 
 function HeaderDesktopNav() {
-  5
   return (
     <NavigationMenu className='hidden lg:flex'>
       <NavigationMenuList>

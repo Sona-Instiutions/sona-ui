@@ -1,5 +1,4 @@
 import { STRAPI_CLIENT_URL } from "@/constants/app.constants";
-import { IStrapiMedia } from "@/types/common.types";
 
 export const normalizeBaseUrl = (rawUrl: string | undefined): string => {
   const fallback = "http://localhost:1337";
@@ -10,7 +9,7 @@ export const normalizeBaseUrl = (rawUrl: string | undefined): string => {
   return rawUrl.replace(/\/api\/?$/, "").replace(/\/$/, "") || fallback;
 };
 
-export const buildMediaUrl = (media: IStrapiMedia | null | undefined): string | null => {
+export const buildMediaUrl = (media: { url: string } | null | undefined): string | null => {
   if (!media?.url) {
     return null;
   }

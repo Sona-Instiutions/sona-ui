@@ -7,22 +7,22 @@ import ExecutiveLeadershipSection from "@/components/aboutus/leadership/Executiv
 
 
 export const metadata: Metadata = {
-    title: "SONA Institutions | Leadership",
+    title: "SCALE | Leadership",
     description:
-        "Welcome to SONA Institutions. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
+        "Welcome to SCALE. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
     openGraph: {
-        title: "SONA Institutions | Leadership",
+        title: "SCALE | Leadership",
         description:
-            "Discover SONA Institutions – excellence in education, innovation, and industry collaboration.",
+            "Discover SCALE – excellence in education, innovation, and industry collaboration.",
         type: "website",
         url: "https://sona.edu.in/",
-        siteName: "SONA Institutions",
+        siteName: "SCALE",
         images: [
             {
                 url: "/images/home-banner.jpg",
                 width: 1200,
                 height: 630,
-                alt: "SONA Institutions Campus",
+                alt: "SCALE Campus",
             },
         ],
     },

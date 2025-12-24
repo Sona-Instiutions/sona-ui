@@ -11,7 +11,7 @@ export default function WhyChooseSection() {
                     Why Choose <span className="text-yellow-500">SCALE</span>
                 </h2>
                 <p className="text-gray-600 max-w-2xl mx-auto mb-16">
-                    A fully tech-integrated, industry-driven, globally connected business school shaping future-ready leaders.
+                A fully tech-integrated, industry-driven, globally connected ecosystem that provides education, capability centers, and innovation hubs to shape future-ready leaders.
                 </p>
 
                 {/* Main layout grid */}
@@ -22,7 +22,7 @@ export default function WhyChooseSection() {
                             icon={<Laptop className="w-6 h-6 text-red-500" />}
                             color="bg-red-100"
                             title="24/7 HOT Labs"
-                            text="Always-on access to real industry tools for continuous practical learning."
+                            text="Hands-on Training lab, always-on access to real industry tools for practical learning."
                         />
                         <FeatureCard
                             icon={<Medal className="w-6 h-6 text-green-500" />}

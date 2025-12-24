@@ -7,6 +7,7 @@ import { ProgramCard } from "@/components/institute/ProgramCard.component";
 import { useProgramByInstitution } from "@/services/client/institution.client";
 import { hasText } from "@/utils/common.utils";
 import { cn } from "@/lib/utils";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 interface InstitutionProgramsProps {
   /** Institution identifier used to fetch programs */
@@ -15,28 +16,47 @@ interface InstitutionProgramsProps {
 
 const DEFAULT_SECTION_TITLE = "Technology Programs";
 
-const renderLoadingSkeleton = () => {
+const renderSkeletonCard = () => (
+  <div className='flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
+    <div className='mb-5 h-12 w-12 rounded-full bg-slate-200' />
+    <div className='space-y-3'>
+      <div className='h-5 w-3/4 rounded-full bg-slate-200' />
+      <div className='h-4 w-full rounded-full bg-slate-200' />
+      <div className='h-4 w-5/6 rounded-full bg-slate-200' />
+    </div>
+    <div className='mt-auto h-9 w-32 rounded-full bg-slate-200' />
+  </div>
+);
+
+const renderLoadingSkeleton = (sectionCount: number) => {
   const skeletonKeys = ["program-skeleton-1", "program-skeleton-2", "program-skeleton-3"];
+  const gridColumnsClass =
+    sectionCount >= 3 ? "md:grid-cols-2 lg:grid-cols-3" : sectionCount === 2 ? "md:grid-cols-2" : "";
 
   return (
-    <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-      {skeletonKeys.map((key) => (
-        <div key={key} className='flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm'>
-          <div className='mb-5 h-12 w-12 rounded-full bg-slate-200' />
-          <div className='space-y-3'>
-            <div className='h-5 w-3/4 rounded-full bg-slate-200' />
-            <div className='h-4 w-full rounded-full bg-slate-200' />
-            <div className='h-4 w-5/6 rounded-full bg-slate-200' />
-          </div>
-          <div className='mt-auto h-9 w-32 rounded-full bg-slate-200' />
+    <>
+      {/* Carousel skeleton - visible below lg breakpoint */}
+      <div className='lg:hidden'>
+        <div className='flex gap-6 overflow-hidden'>
+          {skeletonKeys.map((key) => (
+            <div key={key} className='min-w-0 shrink-0 grow-0 basis-full md:basis-1/2'>
+              {renderSkeletonCard()}
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+      {/* Grid skeleton - visible at lg breakpoint and above */}
+      <div className={cn("hidden lg:grid grid-cols-1 gap-6 sm:gap-8", gridColumnsClass)}>
+        {skeletonKeys.map((key) => (
+          <div key={key}>{renderSkeletonCard()}</div>
+        ))}
+      </div>
+    </>
   );
 };
 
 /**
- * Institution programs section showing technology offerings in responsive grid.
+ * Institution programs section showing technology offerings in responsive carousel (small/medium devices) and grid (large devices).
  */
 export function InstitutionPrograms({ institutionId }: InstitutionProgramsProps) {
   const hasValidId = typeof institutionId === "number" && institutionId > 0;
@@ -90,21 +110,57 @@ export function InstitutionPrograms({ institutionId }: InstitutionProgramsProps)
 
         <div className='mt-12'>
           {isDataLoading ? (
-            <div className='animate-pulse'>{renderLoadingSkeleton()}</div>
+            <div className='animate-pulse'>{renderLoadingSkeleton(sectionCount)}</div>
           ) : (
-            <div className={cn("grid grid-cols-1 gap-6 sm:gap-8", gridColumnsClass)}>
-              {sections.map((programSection) => (
-                <ProgramCard
-                  key={programSection.id}
-                  title={programSection.title}
-                  description={programSection.description ?? ""}
-                  icon={programSection.icon}
-                  learnMoreText={programSection.learnMoreText}
-                  learnMoreUrl={programSection.learnMoreUrl ?? undefined}
-                  learnMoreIsExternal={programSection.learnMoreIsExternal ?? undefined}
-                />
-              ))}
-            </div>
+            <>
+              {/* Carousel - visible below lg breakpoint */}
+              <div className='lg:hidden'>
+                <Carousel
+                  className='w-full'
+                  opts={{
+                    align: "start",
+                  }}
+                >
+                  <CarouselContent className='-ml-6'>
+                    {sections.map((programSection) => (
+                      <CarouselItem key={programSection.id} className='pl-6 basis-full md:basis-1/2'>
+                        <div className='h-full py-2'>
+                          <ProgramCard
+                            title={programSection.title}
+                            description={programSection.description ?? ""}
+                            icon={programSection.icon}
+                            learnMoreText={programSection.learnMoreText}
+                            learnMoreUrl={programSection.learnMoreUrl ?? undefined}
+                            learnMoreIsExternal={programSection.learnMoreIsExternal ?? undefined}
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+
+                  {/* Navigation Arrows */}
+                  <div className='mt-8 flex justify-center gap-4 relative'>
+                    <CarouselPrevious className='static translate-y-0 bg-black/50 text-white hover:bg-black/70 border-none' />
+                    <CarouselNext className='static translate-y-0 bg-black/50 text-white hover:bg-black/70 border-none' />
+                  </div>
+                </Carousel>
+              </div>
+
+              {/* Grid - visible at lg breakpoint and above */}
+              <div className={cn("hidden lg:grid grid-cols-1 gap-6 sm:gap-8", gridColumnsClass)}>
+                {sections.map((programSection) => (
+                  <ProgramCard
+                    key={programSection.id}
+                    title={programSection.title}
+                    description={programSection.description ?? ""}
+                    icon={programSection.icon}
+                    learnMoreText={programSection.learnMoreText}
+                    learnMoreUrl={programSection.learnMoreUrl ?? undefined}
+                    learnMoreIsExternal={programSection.learnMoreIsExternal ?? undefined}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
