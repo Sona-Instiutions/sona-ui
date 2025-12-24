@@ -15,9 +15,9 @@ import { formatDate } from "@/utils/date.utils";
 import { buildMediaUrl } from "@/utils/common.utils";
 import { IEventSearchSuggestion } from "@/types/events.types";
 import { IBlogSearchSuggestion } from "@/types/blog.types";
-import { IStrapiMedia } from "@/types/common.types";
-
-type ContentType = "event" | "blog";
+import { ICaseStudySearchSuggestion } from "@/types/case-study.types";
+import { IStrapiMedia, TContentType } from "@/types/common.types";
+import { CONTENT_TYPE_EVENT, CONTENT_TYPE_BLOG } from "@/constants/common.constants";
 
 interface BaseContentItem {
   id: number;
@@ -32,12 +32,18 @@ interface EventItem extends BaseContentItem {
 }
 
 interface BlogItem extends BaseContentItem {
-  publishedDate: string;
+  publishedDate: string | null;
   thumbnail?: IStrapiMedia | null;
   bannerImage?: IStrapiMedia | null;
 }
 
-type ContentItem = EventItem | BlogItem;
+interface CaseStudyItem extends BaseContentItem {
+  publishedDate: string | null;
+  thumbnail?: IStrapiMedia | null;
+  bannerImage?: IStrapiMedia | null;
+}
+
+type ContentItem = EventItem | BlogItem | CaseStudyItem;
 
 interface BaseCategory {
   id: number;
@@ -51,7 +57,7 @@ interface BaseTag {
 }
 
 interface ContentSidebarProps {
-  type: ContentType;
+  type: TContentType;
   recentItems: ContentItem[];
   categories?: BaseCategory[];
   tags?: BaseTag[];
@@ -62,30 +68,31 @@ interface ContentSidebarProps {
 /**
  * Get thumbnail image for content item
  */
-function getThumbnail(item: ContentItem, type: ContentType): IStrapiMedia | null | undefined {
-  if (type === "event") {
+function getThumbnail(item: ContentItem, type: TContentType): IStrapiMedia | null | undefined {
+  if (type === CONTENT_TYPE_EVENT) {
     const event = item as EventItem;
     return event.thumbnailImage || event.featuredImage || null;
   }
-  const blog = item as BlogItem;
-  return blog.thumbnail || blog.bannerImage || null;
+  const itemWithImage = item as BlogItem | CaseStudyItem;
+  return itemWithImage.thumbnail || itemWithImage.bannerImage || null;
 }
 
 /**
  * Get date for content item
  */
-function getDate(item: ContentItem, type: ContentType): string {
-  if (type === "event") {
+function getDate(item: ContentItem, type: TContentType): string {
+  if (type === CONTENT_TYPE_EVENT) {
     return (item as EventItem).eventDate;
   }
-  return (item as BlogItem).publishedDate;
+  return (item as BlogItem | CaseStudyItem).publishedDate || new Date().toISOString();
 }
 
 /**
  * Get placeholder image path
  */
-function getPlaceholderImage(type: ContentType): string {
-  return type === "event" ? "/images/event-1.webp" : "/images/blog-placeholder.webp";
+function getPlaceholderImage(type: TContentType): string {
+  if (type === CONTENT_TYPE_EVENT) return "/images/event-1.webp";
+  return "/images/blog-placeholder.webp";
 }
 
 export function ContentSidebar({
@@ -104,12 +111,20 @@ export function ContentSidebar({
     }
   };
 
-  const handleSelectSuggestion = (suggestion: IEventSearchSuggestion | IBlogSearchSuggestion) => {
+  const handleSelectSuggestion = (
+    suggestion: IEventSearchSuggestion | IBlogSearchSuggestion | ICaseStudySearchSuggestion
+  ) => {
     router.push(`${basePath}/${suggestion.slug}`);
   };
 
-  const defaultRecentTitle = type === "event" ? "Recent Events" : "Recent Articles";
-  const searchTitle = type === "event" ? "Search Events" : "Search Blogs";
+  const defaultRecentTitle =
+    type === CONTENT_TYPE_EVENT
+      ? "Recent Events"
+      : type === CONTENT_TYPE_BLOG
+      ? "Recent Articles"
+      : "Recent Case Studies";
+  const searchTitle =
+    type === CONTENT_TYPE_EVENT ? "Search Events" : type === CONTENT_TYPE_BLOG ? "Search Blogs" : "Search Case Studies";
 
   return (
     <aside className='space-y-10'>
@@ -117,7 +132,7 @@ export function ContentSidebar({
       <div className='bg-gray-50 p-6 rounded-2xl border border-gray-100'>
         <h3 className='text-lg font-bold text-gray-900 mb-4 relative inline-block'>
           {searchTitle}
-          <span className="absolute -bottom-1 left-0 w-12 h-1 bg-blue-600 rounded-full"></span>
+          <span className='absolute -bottom-1 left-0 w-12 h-1 bg-blue-600 rounded-full'></span>
         </h3>
         <SearchSuggestions
           type={type}
@@ -132,7 +147,7 @@ export function ContentSidebar({
         <div>
           <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
             {recentTitle || defaultRecentTitle}
-            <span className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600"></span>
+            <span className='absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600'></span>
           </h3>
           <div className='space-y-6'>
             {recentItems.map((item) => {
@@ -155,7 +170,7 @@ export function ContentSidebar({
                       unoptimized
                     />
                   </Link>
-                  <div className="flex flex-col justify-center">
+                  <div className='flex flex-col justify-center'>
                     <div className='text-[10px] font-bold uppercase tracking-wider text-blue-600 mb-1'>
                       {formatDate(date)}
                     </div>
@@ -177,13 +192,13 @@ export function ContentSidebar({
         <div>
           <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
             Categories
-            <span className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600"></span>
+            <span className='absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600'></span>
           </h3>
           <ul className='space-y-3'>
             {categories.map((cat) => {
-              // Events use type filter, blogs use category filter
+              // Events use type filter, blogs/case studies use category filter
               const href =
-                type === "event"
+                type === CONTENT_TYPE_EVENT
                   ? `${basePath}?type=${
                       cat.slug === "industry" ? "industry" : cat.slug === "student" ? "student" : "all"
                     }`
@@ -191,8 +206,11 @@ export function ContentSidebar({
 
               return (
                 <li key={cat.id}>
-                  <Link href={href} className='flex items-center justify-between text-gray-600 hover:text-blue-600 transition-all py-1 group'>
-                    <span className="font-medium group-hover:translate-x-1 transition-transform">{cat.name}</span>
+                  <Link
+                    href={href}
+                    className='flex items-center justify-between text-gray-600 hover:text-blue-600 transition-all py-1 group'
+                  >
+                    <span className='font-medium group-hover:translate-x-1 transition-transform'>{cat.name}</span>
                     <span className='text-[10px] font-bold bg-gray-100 px-2 py-1 rounded-md text-gray-500 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors'>
                       {/* Placeholder count since it's not in the data yet */}
                       12
@@ -210,7 +228,7 @@ export function ContentSidebar({
         <div>
           <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
             Popular Tags
-            <span className="absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600"></span>
+            <span className='absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600'></span>
           </h3>
           <div className='flex flex-wrap gap-2'>
             {tags.map((tag) => (
@@ -228,4 +246,3 @@ export function ContentSidebar({
     </aside>
   );
 }
-

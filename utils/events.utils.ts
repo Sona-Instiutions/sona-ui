@@ -105,6 +105,7 @@ export const normalizeEvent = (event: IEvent): INormalizedEvent => {
     featuredImage: normalizeStrapiMedia(event.featuredImage),
     thumbnailImage: normalizeStrapiMedia(event.thumbnailImage),
     author: normalizedAuthor,
+    featured: event.featured || false,
     publishedDate: event.publishedDate,
     viewCount: event.viewCount || 0,
     categories: Array.isArray(event.categories) ? event.categories : [],

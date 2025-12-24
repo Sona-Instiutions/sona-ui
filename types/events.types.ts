@@ -5,7 +5,16 @@
  * Follows ADR 005 naming conventions: interfaces with I prefix, type aliases with T prefix.
  */
 
-import { IStrapiMedia } from "./common.types";
+import {
+  IStrapiMedia,
+  IContentAuthor,
+  IContentCategory,
+  IContentTag,
+  IContentAuthorData,
+  IPaginationMeta,
+  IContentBase,
+  INormalizedContentBase,
+} from "./common.types";
 
 /** Event type enumeration */
 export enum EEventType {
@@ -15,69 +24,22 @@ export enum EEventType {
 }
 
 /** Event category structure */
-export interface IEventCategory {
-  id: number;
-  name: string;
-  slug: string;
-  description?: string;
-  color?: string;
-  icon?: unknown; // Will rely on icon-badge relation if needed, or simple string
-  order?: number;
-}
+export type IEventCategory = IContentCategory;
 
 /** Event tag structure */
-export interface IEventTag {
-  id: number;
-  name: string;
-  slug: string;
-}
-
-/** Strapi Block structure (simplified) */
-export interface IStrapiBlock {
-  type: string;
-  children: Array<{
-    type: string;
-    text: string;
-    [key: string]: unknown;
-  }>;
-  [key: string]: unknown;
-}
+export type IEventTag = IContentTag;
 
 /** Author structure for events */
-export interface IEventAuthor {
-  name: string;
-  role?: string;
-  bio?: string;
-  image?: IStrapiMedia | null;
-  linkedin?: string;
-  twitter?: string;
-  email?: string;
-}
+export type IEventAuthor = IContentAuthor;
 
 /** Main Event interface (Raw Strapi Response shape) */
-export interface IEvent {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
+export interface IEvent extends IContentBase {
   eventType: EEventType;
   eventDate: string;
-  excerpt?: string;
-  content: IStrapiBlock[] | string; // Rich text blocks or Markdown string
   featuredImage?: IStrapiMedia;
   thumbnailImage?: IStrapiMedia;
-  author?: string | IEventAuthor;
   publishedDate: string;
-  featured?: boolean;
-  viewCount?: number;
-  metaTitle?: string;
-  metaDescription?: string;
-  categories?: IEventCategory[];
-  tags?: IEventTag[];
   relatedEvents?: IEvent[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
   // New fields for specific event types
   eventLocation?: string;
   eventTime?: string;
@@ -86,25 +48,14 @@ export interface IEvent {
 }
 
 /** Normalized Event interface for frontend consumption */
-export interface INormalizedEvent {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
+export interface INormalizedEvent extends Omit<INormalizedContentBase, "author"> {
   eventType: EEventType;
   eventDate: string; // ISO string
-  excerpt: string | null;
-  content: IStrapiBlock[] | string | null;
   featuredImage: IStrapiMedia | null;
   thumbnailImage: IStrapiMedia | null;
-  author: string | IEventAuthor | null;
+  author: string | IEventAuthor | null; // Events can have string author
   publishedDate: string;
-  viewCount: number;
-  categories: IEventCategory[];
-  tags: IEventTag[];
   relatedEvents: INormalizedEvent[]; // Recursive but usually limited depth in normalization
-  metaTitle: string | null;
-  metaDescription: string | null;
   // New fields
   eventLocation?: string | null;
   eventTime?: string | null;
@@ -126,14 +77,7 @@ export interface IEventSearchSuggestion {
 /** API Response wrapper for list of events */
 export interface IEventsResponse {
   data: IEvent[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
+  meta: IPaginationMeta;
 }
 
 /** API Response wrapper for single event */
@@ -150,45 +94,16 @@ export interface IEventSuggestionsResponse {
 /** Category list response */
 export interface IEventCategoriesResponse {
   data: IEventCategory[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
+  meta: IPaginationMeta;
 }
 
 /** Tag list response */
 export interface IEventTagsResponse {
   data: IEventTag[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
+  meta: IPaginationMeta;
 }
 
 /**
  * Author data structure that can come in different formats from Strapi.
  */
-export interface IAuthorData {
-  name?: string;
-  authorName?: string;
-  role?: string;
-  authorRole?: string;
-  bio?: string;
-  authorBio?: string;
-  image?: unknown;
-  authorImage?: unknown;
-  linkedin?: string;
-  authorLinkedin?: string;
-  twitter?: string;
-  authorTwitter?: string;
-  email?: string;
-  authorEmail?: string;
-}
+export type IAuthorData = IContentAuthorData;

@@ -5,92 +5,42 @@
  * Follows ADR 005 naming conventions: interfaces with I prefix, type aliases with T prefix.
  */
 
-import { IStrapiMedia } from "./common.types";
+import {
+  IStrapiMedia,
+  IContentAuthor,
+  IContentCategory,
+  IContentTag,
+  IContentAuthorData,
+  IPaginationMeta,
+  IContentBase,
+  INormalizedContentBase,
+} from "./common.types";
 
 /** Blog category structure */
-export interface IBlogCategory {
-  id: number;
-  name: string;
-  slug: string;
-  description?: string;
-  color?: string;
-  icon?: unknown;
-  order?: number;
-}
+export type IBlogCategory = IContentCategory;
 
 /** Blog tag structure */
-export interface IBlogTag {
-  id: number;
-  name: string;
-  slug: string;
-}
-
-/** Strapi Block structure (simplified) */
-export interface IStrapiBlock {
-  type: string;
-  children: Array<{
-    type: string;
-    text: string;
-    [key: string]: unknown;
-  }>;
-  [key: string]: unknown;
-}
+export type IBlogTag = IContentTag;
 
 /** Author structure for blogs */
-export interface IBlogAuthor {
-  name: string;
-  role?: string;
-  bio?: string;
-  image?: IStrapiMedia | null;
-  linkedin?: string;
-  twitter?: string;
-  email?: string;
-}
+export type IBlogAuthor = IContentAuthor;
 
 /** Main Blog interface (Raw Strapi Response shape) */
-export interface IBlog {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: IStrapiBlock[] | string;
+export interface IBlog extends IContentBase {
+  excerpt: string; // Required for blogs
   publishedDate: string;
   readTime?: number;
   bannerImage?: IStrapiMedia;
   thumbnail?: IStrapiMedia;
-  author?: string | IBlogAuthor;
-  featured?: boolean;
-  viewCount?: number;
-  metaTitle?: string;
-  metaDescription?: string;
-  categories?: IBlogCategory[];
-  tags?: IBlogTag[];
   relatedBlogs?: IBlog[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
 }
 
 /** Normalized Blog interface for frontend consumption */
-export interface INormalizedBlog {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: IStrapiBlock[] | string | null;
+export interface INormalizedBlog extends INormalizedContentBase {
   publishedDate: string;
   readTime: number | null;
   bannerImage: IStrapiMedia | null;
   thumbnail: IStrapiMedia | null;
-  author: IBlogAuthor | null;
-  featured: boolean;
-  viewCount: number;
-  metaTitle: string | null;
-  metaDescription: string | null;
-  categories: IBlogCategory[];
-  tags: IBlogTag[];
   relatedBlogs: INormalizedBlog[];
 }
 
@@ -108,16 +58,7 @@ export interface IBlogSearchSuggestion {
 /** API Response wrapper for list of blogs */
 export interface IBlogsResponse {
   data: IBlog[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-      start?: number;
-      limit?: number;
-    };
-  };
+  meta: IPaginationMeta;
 }
 
 /** API Response wrapper for single blog */
@@ -134,45 +75,16 @@ export interface IBlogSuggestionsResponse {
 /** Category list response */
 export interface IBlogCategoriesResponse {
   data: IBlogCategory[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
+  meta: IPaginationMeta;
 }
 
 /** Tag list response */
 export interface IBlogTagsResponse {
   data: IBlogTag[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
+  meta: IPaginationMeta;
 }
 
 /**
  * Author data structure that can come in different formats from Strapi.
  */
-export interface IBlogAuthorData {
-  name?: string;
-  authorName?: string;
-  role?: string;
-  authorRole?: string;
-  bio?: string;
-  authorBio?: string;
-  image?: unknown;
-  authorImage?: unknown;
-  linkedin?: string;
-  authorLinkedin?: string;
-  twitter?: string;
-  authorTwitter?: string;
-  email?: string;
-  authorEmail?: string;
-}
+export type IBlogAuthorData = IContentAuthorData;

@@ -14,7 +14,8 @@ import { CategoryBadge } from "./CategoryBadge.component";
 import { Breadcrumb, type BreadcrumbItem } from "./Breadcrumb.component";
 import { buildMediaUrl } from "@/utils/common.utils";
 import { formatDate } from "@/utils/date.utils";
-import { IStrapiMedia } from "@/types/common.types";
+import { IStrapiMedia, TContentType } from "@/types/common.types";
+import { CONTENT_TYPE_EVENT, CONTENT_TYPE_BLOG, CONTENT_TYPE_CASE_STUDY } from "@/constants/common.constants";
 
 interface ContentCategory {
   id: number;
@@ -29,12 +30,12 @@ interface ContentAuthor {
 }
 
 interface ContentHeroProps {
-  type: "event" | "blog";
+  type: TContentType;
   title: string;
   image?: IStrapiMedia | null;
   breadcrumbs: BreadcrumbItem[];
   categories?: ContentCategory[];
-  date: string;
+  date?: string | null;
   author?: string | ContentAuthor | null;
   viewCount?: number;
   readTime?: number | null;
@@ -55,7 +56,11 @@ export function ContentHero({
 }: ContentHeroProps) {
   const imageUrl =
     buildMediaUrl(image) ||
-    (type === "event" ? "/images/event-1.webp" : "/images/blog-placeholder.webp");
+    (type === CONTENT_TYPE_EVENT
+      ? "/images/event-1.webp"
+      : type === CONTENT_TYPE_BLOG
+      ? "/images/blog-placeholder.webp"
+      : "/images/blog-placeholder.webp"); // reuse blog placeholder for case studies
 
   const authorName = typeof author === "string" ? author : author?.name;
 
@@ -63,14 +68,7 @@ export function ContentHero({
     <div className='relative w-full h-[60vh] min-h-[450px] bg-gray-900 overflow-hidden flex items-end'>
       {/* Background Image */}
       <div className='absolute inset-0 z-0'>
-        <Image
-          src={imageUrl}
-          alt={title}
-          fill
-          className='object-cover opacity-60'
-          priority
-          unoptimized
-        />
+        <Image src={imageUrl} alt={title} fill className='object-cover opacity-60' priority unoptimized />
         {/* Gradient Overlay */}
         <div className='absolute inset-0 bg-linear-to-t from-gray-900 via-gray-900/60 to-transparent' />
       </div>
@@ -89,22 +87,20 @@ export function ContentHero({
           </div>
 
           {/* Title */}
-          <h1 className='text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight'>
-            {title}
-          </h1>
+          <h1 className='text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight'>{title}</h1>
 
-          {/* Excerpt for Blogs */}
-          {type === "blog" && excerpt && (
-            <p className='text-lg md:text-xl text-gray-300 mb-8 line-clamp-2 max-w-3xl leading-relaxed'>
-              {excerpt}
-            </p>
+          {/* Excerpt for Blogs & Case Studies */}
+          {(type === CONTENT_TYPE_BLOG || type === CONTENT_TYPE_CASE_STUDY) && excerpt && (
+            <p className='text-lg md:text-xl text-gray-300 mb-8 line-clamp-2 max-w-3xl leading-relaxed'>{excerpt}</p>
           )}
 
           {/* Metadata */}
           <div className='flex flex-wrap items-center gap-6 text-gray-300 text-sm md:text-base'>
-            <div className='flex items-center gap-2'>
-              <span className='font-semibold text-white'>{formatDate(date)}</span>
-            </div>
+            {date && (
+              <div className='flex items-center gap-2'>
+                <span className='font-semibold text-white'>{formatDate(date)}</span>
+              </div>
+            )}
 
             {authorName && (
               <div className='flex items-center gap-2 border-l border-gray-700 pl-6 first:border-0 first:pl-0'>
@@ -132,4 +128,3 @@ export function ContentHero({
     </div>
   );
 }
-

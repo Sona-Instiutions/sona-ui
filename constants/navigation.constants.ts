@@ -10,9 +10,12 @@ export const HEADER_PARTNER_LINKS: INavItem[] = [
 ];
 
 export const HEADER_SOCIAL_LINKS: ISocialLink[] = [
-  
   { label: "Instagram", href: "https://www.instagram.com/scale_blr", iconName: "instagramIcon" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/scale-sona-centre-for-advanced-learning-entrepreneurship/", iconName: "linkedinIcon" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/scale-sona-centre-for-advanced-learning-entrepreneurship/",
+    iconName: "linkedinIcon",
+  },
   { label: "YouTube", href: "https://youtube.com/@scale-blr", iconName: "youtubeIcon" },
   { label: "X", href: "https://www.instagram.com/scale_blr", iconName: "xlogoIcon" },
 ];
@@ -20,6 +23,7 @@ export const HEADER_SOCIAL_LINKS: ISocialLink[] = [
 export const HEADER_PRIMARY_NAV: INavItem[] = [
   { label: "Home", href: "/" },
   { label: "Life @ SCALE", href: "#" },
+  { label: "Case Studies", href: "/case-studies" },
   // { label: "Placements", href: "#" },
   { label: "Contact Us", href: "/contact" },
 ];
@@ -39,21 +43,22 @@ export const HEADER_ABOUT_NAV: INavGroup[] = [
     label: "SCALE Leadership",
     href: "/about/leadership",
     description: "",
-  },{
+  },
+  {
     label: "Chairman's Message",
     href: "/about/leadership#chairman-message",
     description: "",
-  },{
+  },
+  {
     label: "Vice Chairman's Message",
     href: "/about/leadership#vice-chairman-message",
     description: "",
   },
-   {
+  {
     label: "Milestone",
     href: "/about/milestone",
     description: " ",
   },
- 
 ];
 
 export const HEADER_HIGHLIGHT_NAV: INavItem[] = [
@@ -71,8 +76,9 @@ export const FOOTER_QUICK_LINKS: INavItem[] = [
   { label: "About SCALE", href: "/about" },
   { label: "Industry Collaborations", href: "#" },
   { label: "Placements", href: "#" },
-  { label: "Events & News", href: "#" },
-  { label: "Blogs", href: "#" },
+  { label: "Events & News", href: "/events" },
+  { label: "Blogs", href: "/blogs" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -92,12 +98,14 @@ export const FOOTER_CONTACT_INFO: IFooterContactInfo = {
 };
 
 export const FOOTER_SOCIAL_LINKS: ISocialLink[] = [
-  
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/scale-sona-centre-for-advanced-learning-entrepreneurship/", iconName: "linkedinIcon" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/scale-sona-centre-for-advanced-learning-entrepreneurship/",
+    iconName: "linkedinIcon",
+  },
   { label: "Instagram", href: "https://www.instagram.com/scale_blr", iconName: "instagramIcon" },
   { label: "YouTube", href: "https://youtube.com/@scale-blr", iconName: "youtubeIcon" },
   { label: "X", href: "https://www.instagram.com/scale_blr", iconName: "xlogoIcon" },
-  
 ];
 
 export const FOOTER_LEGAL_LINKS: INavItem[] = [

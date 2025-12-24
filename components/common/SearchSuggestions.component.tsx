@@ -11,16 +11,17 @@ import { MagnifyingGlassIcon, XIcon, CircleNotchIcon, CalendarBlankIcon, ClockIc
 import { cn } from "@/lib/utils";
 import { useBlogSearchSuggestionsQuery } from "@/services/client/blogs.client";
 import { useEventSearchSuggestionsQuery } from "@/services/client/events.client";
-// Both events and blogs use the same search constants
 import { MIN_SEARCH_CHARS, SEARCH_DEBOUNCE_MS } from "@/constants/events.constants";
+import { CONTENT_TYPE_EVENT, CONTENT_TYPE_BLOG } from "@/constants/common.constants";
 import { formatDate } from "@/utils/date.utils";
 import Image from "next/image";
 import { buildMediaUrl } from "@/utils/common.utils";
 import { IEventSearchSuggestion } from "@/types/events.types";
 import { IBlogSearchSuggestion } from "@/types/blog.types";
+import { TContentType } from "@/types/common.types";
 
 interface SearchSuggestionsProps {
-  type: "event" | "blog";
+  type: TContentType;
   initialValue?: string;
   onSearch: (value: string) => void;
   onSelectSuggestion?: (suggestion: IEventSearchSuggestion | IBlogSearchSuggestion) => void;
@@ -54,16 +55,16 @@ export function SearchSuggestions({
   }, [value]);
 
   // Hooks
-  const eventQuery = useEventSearchSuggestionsQuery(debouncedValue, { 
-    enabled: type === "event" && isOpen && debouncedValue.length >= MIN_SEARCH_CHARS 
+  const eventQuery = useEventSearchSuggestionsQuery(debouncedValue, {
+    enabled: type === CONTENT_TYPE_EVENT && isOpen && debouncedValue.length >= MIN_SEARCH_CHARS,
   });
-  const blogQuery = useBlogSearchSuggestionsQuery(debouncedValue, { 
-    enabled: type === "blog" && isOpen && debouncedValue.length >= MIN_SEARCH_CHARS 
+  const blogQuery = useBlogSearchSuggestionsQuery(debouncedValue, {
+    enabled: type === CONTENT_TYPE_BLOG && isOpen && debouncedValue.length >= MIN_SEARCH_CHARS,
   });
 
-  const suggestions = (type === "event" ? eventQuery.data : blogQuery.data) || [];
-  const isFetching = type === "event" ? eventQuery.isFetching : blogQuery.isFetching;
-  const isLoading = type === "event" ? eventQuery.isLoading : blogQuery.isLoading;
+  const suggestions = (type === CONTENT_TYPE_EVENT ? eventQuery.data : blogQuery.data) || [];
+  const isFetching = type === CONTENT_TYPE_EVENT ? eventQuery.isFetching : blogQuery.isFetching;
+  const isLoading = type === CONTENT_TYPE_EVENT ? eventQuery.isLoading : blogQuery.isLoading;
 
   const showSuggestions = isOpen && debouncedValue.length >= MIN_SEARCH_CHARS;
 
@@ -130,9 +131,9 @@ export function SearchSuggestions({
 
   // Helper to get image safely
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getThumbnail = (s: any) => type === "event" ? s.thumbnailImage : s.thumbnail;
+  const getThumbnail = (s: any) => (type === CONTENT_TYPE_EVENT ? s.thumbnailImage : s.thumbnail);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getDate = (s: any) => type === "event" ? s.eventDate : s.publishedDate;
+  const getDate = (s: any) => (type === CONTENT_TYPE_EVENT ? s.eventDate : s.publishedDate);
 
   return (
     <div ref={containerRef} className={cn("relative max-w-md w-full", className)}>
@@ -148,7 +149,7 @@ export function SearchSuggestions({
           ref={inputRef}
           type='text'
           className='block w-full pl-11 pr-10 py-3.5 border border-gray-200 rounded-2xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm'
-          placeholder={placeholder || `Search ${type === "event" ? "events" : "blogs"}...`}
+          placeholder={placeholder || `Search ${type === CONTENT_TYPE_EVENT ? "events" : "blogs"}...`}
           value={value}
           onFocus={() => setIsOpen(true)}
           onChange={(e) => {
@@ -188,7 +189,7 @@ export function SearchSuggestions({
           {suggestions.length > 0 ? (
             <div className='py-2'>
               <div className='px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-gray-400 border-b border-gray-50 mb-1'>
-                {type === "event" ? "Event Suggestions" : "Blog Suggestions"}
+                {type === CONTENT_TYPE_EVENT ? "Event Suggestions" : "Blog Suggestions"}
               </div>
               {suggestions.map((suggestion, index) => (
                 <div
@@ -215,7 +216,7 @@ export function SearchSuggestions({
                   <div className='flex-1 min-w-0'>
                     <h4 className='text-sm font-bold text-gray-900 truncate leading-tight mb-1'>{suggestion.title}</h4>
                     <div className='flex items-center text-[10px] text-gray-500 font-medium'>
-                      {type === "event" ? (
+                      {type === CONTENT_TYPE_EVENT ? (
                         <CalendarBlankIcon size={12} className='mr-1 text-blue-500' />
                       ) : (
                         <ClockIcon size={12} className='mr-1 text-blue-500' />
@@ -239,4 +240,3 @@ export function SearchSuggestions({
     </div>
   );
 }
-

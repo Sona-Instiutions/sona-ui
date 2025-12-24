@@ -5,6 +5,8 @@
  * Follows ADR 005 naming conventions.
  */
 
+import { IPaginationMeta } from "./common.types";
+
 /** Comment status enumeration */
 export enum ECommentStatus {
   PENDING = "pending",
@@ -40,14 +42,7 @@ export interface ICommentSubmission {
 /** API Response for comments list */
 export interface IEventCommentsResponse {
   data: IEventComment[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
+  meta: IPaginationMeta;
 }
 
 /** API Response for single comment (submission result) */
@@ -55,4 +50,3 @@ export interface IEventCommentResponse {
   data: IEventComment;
   meta: Record<string, unknown>;
 }
-
