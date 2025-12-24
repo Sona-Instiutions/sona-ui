@@ -6,7 +6,8 @@
 
 import React from "react";
 import { INormalizedEvent } from "@/types/events.types";
-import { EventCard } from "./EventCard.component";
+import { ContentCard } from "@/components/common/ContentCard.component";
+import { formatDate } from "@/utils/date.utils";
 
 interface RelatedEventsProps {
   events: INormalizedEvent[];
@@ -23,11 +24,17 @@ export function RelatedEvents({ events }: RelatedEventsProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {events.slice(0, 3).map((event) => (
           <div key={event.id} className="h-full">
-            <EventCard event={event} />
+            <ContentCard
+              title={event.title}
+              href={`/events/${event.slug}`}
+              image={event.thumbnailImage || event.featuredImage}
+              date={formatDate(event.eventDate)}
+              category={event.categories?.[0]}
+              buttonText="View Event"
+            />
           </div>
         ))}
       </div>
     </div>
   );
 }
-

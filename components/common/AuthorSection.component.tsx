@@ -1,7 +1,7 @@
 /**
- * Author Bio Component
+ * Author Section Component
  *
- * Displays author information at the end of an event article.
+ * Displays author information at the end of an article.
  */
 
 "use client";
@@ -9,15 +9,25 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { IEventAuthor } from "@/types/events.types";
 import { LinkedinLogoIcon, TwitterLogoIcon, EnvelopeIcon } from "@phosphor-icons/react";
 import { buildMediaUrl } from "@/utils/common.utils";
+import { IStrapiMedia } from "@/types/common.types";
 
-interface AuthorBioProps {
-  author: string | IEventAuthor | null;
+export interface IAuthorProfile {
+  name: string;
+  role?: string;
+  bio?: string;
+  image?: IStrapiMedia | null;
+  linkedin?: string;
+  twitter?: string;
+  email?: string;
 }
 
-export function AuthorBio({ author }: AuthorBioProps) {
+interface AuthorSectionProps {
+  author: string | IAuthorProfile | null;
+}
+
+export function AuthorSection({ author }: AuthorSectionProps) {
   if (!author) return null;
 
   // Handle both string and object formats
@@ -78,3 +88,4 @@ export function AuthorBio({ author }: AuthorBioProps) {
     </section>
   );
 }
+

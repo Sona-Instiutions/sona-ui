@@ -12,8 +12,13 @@ import {
   EEventType,
   IEventSuggestionsResponse,
 } from "@/types/events.types";
+import { ICommentSubmission, IEventComment } from "@/types/comments.types";
 import { buildEventsQuery, normalizeEvent } from "@/utils/events.utils";
 import { EVENT_QUERY_KEYS } from "@/constants/events.constants";
+
+/* =========================================
+   EVENTS LIST & SEARCH
+   ========================================= */
 
 /**
  * Client-side fetcher for events (used by TanStack Query).
@@ -30,7 +35,7 @@ export async function fetchEventsClient(params: {
   });
 
   const { data } = await axiosInstance.get<IEventsResponse>(`/api/events?${query}`);
-  
+
   return {
     data: data.data.map(normalizeEvent),
     meta: data.meta,
@@ -107,3 +112,52 @@ export function useIncrementEventViewCount() {
   });
 }
 
+/* =========================================
+   EVENT COMMENTS
+   ========================================= */
+
+/**
+ * Fetch approved comments for an event.
+ * Uses the custom event comments endpoint.
+ */
+export async function fetchEventComments(eventDocumentId: string): Promise<IEventComment[]> {
+  const { data } = await axiosInstance.get<{ data: IEventComment[] }>(
+    `/api/events/${eventDocumentId}/comments`
+  );
+  return data.data;
+}
+
+/**
+ * Hook to fetch comments.
+ */
+export function useEventComments(eventDocumentId?: string) {
+  return useQuery({
+    queryKey: [EVENT_QUERY_KEYS.COMMENTS, eventDocumentId],
+    queryFn: () => fetchEventComments(eventDocumentId!),
+    enabled: !!eventDocumentId,
+    staleTime: 60 * 1000, // 1 minute
+  });
+}
+
+/**
+ * Hook to submit a new comment.
+ */
+export function useSubmitEventComment() {
+  return useMutation({
+    mutationFn: async (
+      payload: Omit<ICommentSubmission, "event"> & { eventDocumentId: string }
+    ) => {
+      const { eventDocumentId, ...commentData } = payload;
+      const { data } = await axiosInstance.post<{ data: IEventComment }>(
+        `/api/events/${eventDocumentId}/comments`,
+        {
+          data: commentData,
+        }
+      );
+      return data.data;
+    },
+    onSuccess: () => {
+      // Invalidation or toast handled by consumer
+    },
+  });
+}

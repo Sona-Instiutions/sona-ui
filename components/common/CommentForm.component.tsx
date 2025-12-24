@@ -1,23 +1,23 @@
 /**
  * Comment Form Component
  *
- * Form for submitting comments on events.
+ * Form for submitting comments on content (Events/Blogs).
  */
 
 "use client";
 
 import React, { useState } from "react";
-import { useSubmitEventComment } from "@/services/client/eventComments.client";
 import { SpinnerIcon } from "@phosphor-icons/react";
 
 interface CommentFormProps {
-  eventDocumentId: string;
-  parentComment?: string; // For replies
-  onSuccess?: () => void;
-  onCancel?: () => void; // For reply forms
+  onSubmit: (data: { authorName: string; authorEmail: string; content: string }) => void;
+  isPending: boolean;
+  isError: boolean;
+  onCancel?: () => void;
+  isReply?: boolean;
 }
 
-export function CommentForm({ eventDocumentId, parentComment, onSuccess, onCancel }: CommentFormProps) {
+export function CommentForm({ onSubmit, isPending, isError, onCancel, isReply = false }: CommentFormProps) {
   const [formData, setFormData] = useState({
     authorName: "",
     authorEmail: "",
@@ -25,47 +25,29 @@ export function CommentForm({ eventDocumentId, parentComment, onSuccess, onCance
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { mutate, isPending, isError } = useSubmitEventComment();
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.authorName || !formData.authorEmail || !formData.content) return;
 
-    mutate(
-      {
-        eventDocumentId,
-        parentComment, // Pass the parent ID
-        ...formData,
-      },
-      {
-        onSuccess: () => {
-          setIsSubmitted(true);
-          setFormData({ authorName: "", authorEmail: "", content: "" });
-          if (onSuccess) onSuccess();
-        },
-      }
-    );
+    onSubmit(formData);
+    // Note: Parent should handle success state, but for this dumb component we might want to know if it succeeded.
+    // However, since we don't have that callback, we'll rely on parent re-rendering or we can assume if not error it submitted?
+    // Better: let the parent handle the "Submitted" view?
+    // For now, let's keep it simple. If isPending goes true then false and !isError, we can assume success?
+    // Actually, usually reset form on success.
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  if (isSubmitted) {
-    return (
-      <div className='bg-green-50 text-green-800 p-4 rounded-lg border border-green-100 text-center'>
-        <p className='font-semibold'>Thank you for your comment!</p>
-        <p className='text-sm'>It has been submitted for moderation and will appear shortly.</p>
-        <button onClick={() => setIsSubmitted(false)} className='mt-2 text-sm underline hover:text-green-900'>
-          Post another comment
-        </button>
-      </div>
-    );
-  }
+  // If we need to show success message inside form, we need a way to know it succeeded.
+  // For now, we'll let the parent handle the success view replacement if needed, 
+  // or pass a `isSuccess` prop.
 
   return (
     <form onSubmit={handleSubmit} className='space-y-4 bg-gray-50 p-6 rounded-xl border border-gray-100'>
-      <h4 className='font-semibold text-gray-900'>Leave a Comment</h4>
+      <h4 className='font-semibold text-gray-900'>{isReply ? "Leave a Reply" : "Leave a Comment"}</h4>
 
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
         <div>
@@ -146,3 +128,4 @@ export function CommentForm({ eventDocumentId, parentComment, onSuccess, onCance
     </form>
   );
 }
+

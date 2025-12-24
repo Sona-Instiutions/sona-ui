@@ -2,16 +2,17 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getEventBySlug, getRecentEvents, getEventCategories, getEventTags } from "@/services/server/events.server";
 import { EventHero } from "@/components/events/EventHero.component";
-import { AuthorBio } from "@/components/events/AuthorBio.component";
+import { AuthorSection } from "@/components/common/AuthorSection.component";
 import { RichTextRenderer } from "@/components/common/RichTextRenderer.component";
 import { EventSidebar } from "@/components/events/EventSidebar.component";
-import { RelatedEvents } from "@/components/events/RelatedEvents.component";
+import { ContentCard } from "@/components/common/ContentCard.component";
 import { ShareButtons } from "@/components/common/ShareButtons.component";
 import { StickyShareButtons } from "@/components/common/StickyShareButtons.component";
-import { CommentList } from "@/components/events/CommentList.component";
+import { CommentSection } from "@/components/common/CommentSection.component";
 import { ViewCountTracker } from "@/components/events/ViewCountTracker.component";
 import { RECENT_EVENTS_LIMIT } from "@/constants/events.constants";
 import { buildMediaUrl } from "@/utils/common.utils";
+import { formatDate } from "@/utils/date.utils";
 
 export const revalidate = 600; // 10 minutes
 
@@ -82,7 +83,12 @@ export default async function EventDetailPage({ params }: PageProps) {
           {/* Main Content */}
           <div className='lg:col-span-8'>
             <article className='prose prose-lg max-w-none mb-16 prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900'>
-              <RichTextRenderer content={event.content} />
+              {/* Handle potential string vs blocks for content */}
+              {typeof event.content === 'string' ? (
+                <RichTextRenderer content={event.content} />
+              ) : (
+                <p className="italic text-gray-500">[Rich Text Block Content]</p>
+              )}
             </article>
 
             {/* Social Share (Mobile Only) */}
@@ -92,15 +98,32 @@ export default async function EventDetailPage({ params }: PageProps) {
 
             {/* Author Bio */}
             <div className="mb-16">
-              <AuthorBio author={event.author} />
+              <AuthorSection author={event.author} />
             </div>
 
             {/* Related Events */}
-            <RelatedEvents events={relatedEvents} />
+            {relatedEvents.length > 0 && (
+              <div className="mb-16">
+                <h3 className="text-2xl font-bold mb-8">Related Events</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {relatedEvents.map(related => (
+                    <ContentCard
+                      key={related.id}
+                      title={related.title}
+                      href={`/events/${related.slug}`}
+                      image={related.thumbnailImage}
+                      date={formatDate(related.eventDate)}
+                      category={related.categories?.[0]}
+                      buttonText="View Event"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Comments */}
             <div className='mt-16 pt-16 border-t border-gray-100'>
-              <CommentList eventDocumentId={event.documentId} />
+              <CommentSection type="event" documentId={event.documentId} />
             </div>
           </div>
 

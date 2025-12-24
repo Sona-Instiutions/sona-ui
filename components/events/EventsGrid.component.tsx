@@ -7,9 +7,10 @@
 
 import React from "react";
 import { INormalizedEvent } from "@/types/events.types";
-import { EventCard } from "./EventCard.component";
+import { ContentCard } from "@/components/common/ContentCard.component";
 import { EventCardSkeleton } from "./EventCardSkeleton.component";
 import { SmileySadIcon } from "@phosphor-icons/react";
+import { formatDate } from "@/utils/date.utils";
 
 interface EventsGridProps {
   events: INormalizedEvent[];
@@ -53,7 +54,15 @@ export function EventsGrid({ events, isLoading, hasNextPage, isFetchingNextPage,
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 mb-16'>
         {events.map((event) => (
           <div key={event.id} className='flex flex-col h-full'>
-            <EventCard event={event} />
+            <ContentCard
+              title={event.title}
+              href={`/events/${event.slug}`}
+              image={event.thumbnailImage || event.featuredImage}
+              date={formatDate(event.eventDate)}
+              excerpt={event.excerpt}
+              category={event.categories?.[0]}
+              buttonText="Read More"
+            />
           </div>
         ))}
         {/* Skeletons for next page loading */}

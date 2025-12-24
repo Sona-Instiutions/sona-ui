@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
 import MainBanner from "@/components/common/MainBannerSection.component";
-import BlogListing from "@/components/blog/BlogList.component";
-
+import { BlogsPageClient } from "@/components/blog/BlogsPageClient.component";
 
 export const metadata: Metadata = {
   title: "SONA Institutions | Blog",
-  description:
-    "Welcome to SONA Institutions. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
+  description: "Explore insights, news, and updates from SONA Institutions.",
   openGraph: {
-    title: "SONA Institutions | Contact Us",
-    description:
-      "Discover SONA Institutions – excellence in education, innovation, and industry collaboration.",
+    title: "SONA Institutions | Blog",
+    description: "Explore insights, news, and updates from SONA Institutions.",
     type: "website",
-    url: "https://sona.edu.in/",
+    url: "https://sona.edu.in/blog",
     siteName: "SONA Institutions",
     images: [
       {
@@ -27,18 +24,17 @@ export const metadata: Metadata = {
 
 export default function BlogListingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className='min-h-screen bg-white'>
       {/* Banner Section */}
       <MainBanner
-        title="Blog"
-        highlight="Listing"
-        description="Reach our team easily for admissions, partnerships, or general queries—we’re here to assist you."
-        backgroundImage="/images/contact.webp"
+        title='Blog'
+        highlight='Insights'
+        description='Latest news, research, and stories from our community.'
+        backgroundImage='/images/contact.webp'
       />
 
-      {/* BlogListing Section  */}
-      <BlogListing />
-
+      {/* Blogs Client Section */}
+      <BlogsPageClient />
     </div>
   );
 }
