@@ -1,12 +1,5 @@
 "use client";
 import Image from "next/image";
-// import {
-//   ShieldCheck,
-//   Globe,
-//   Star,
-//   Medal,
-//   Lightbulb,
-// } from "phosphor-react";
 
 export default function GlobalPartnershipsSection() {
   const universityPartners = [

@@ -54,14 +54,6 @@
 - **Decision:** Run `npm run lint` after every unit of work prior to review or merge, and forbid disabling TypeScript via `// @ts-nocheck`, `// @ts-ignore`, or similar directives except in vetted, documented edge cases approved through an ADR.
 - **Consequences:** Keeps the codebase type-safe, prevents style regressions, and surfaces violations during development instead of production.
 
-### ADR 007 — Migrate From lucide-react Brand Icons To Phosphor Icons
-
-- **Date:** 2025-11-06
-- **Status:** Accepted
-- **Context:** lucide-react has deprecated all brand icons (Facebook, Instagram, LinkedIn, YouTube) and plans to remove them in v1.0. The project requires a sustainable solution for rendering brand social media icons.
-- **Decision:** Use Phosphor icons (`phosphor-react`) for all brand icons, migrating from lucide-react brand components. All icon imports must follow the naming convention: **icon name with `Icon` suffix** (e.g., `facebookIcon`, `instagramIcon`, `linkedinIcon`, `youtubeIcon`, `menuIcon`). This distinction ensures clarity when differentiating between Phosphor icon names and their usage within the `Icon.component.tsx` abstraction layer.
-- **Consequences:** Eliminates deprecation warnings, ensures long-term compatibility, provides access to a broader set of icon weights and styles via Phosphor's flexible API, and establishes a clear naming convention that scales as new icons are added.
-
 ### ADR 008 — JSDoc Documentation Standards
 
 - **Date:** 2025-11-08
@@ -69,6 +61,14 @@
 - **Context:** Consistent and concise documentation improves code readability and maintainability across the team.
 - **Decision:** Every function, method, and exported entity must have JSDoc comments. JSDoc descriptions must not exceed 2 lines; use `@param`, `@returns`, and `@throws` tags for detailed specifications. Use `@example` tags for complex functions.
 - **Consequences:** Ensures predictable documentation, reduces cognitive load when reading code, and enables IDE intellisense support.
+
+### ADR 009 — Standardize On @phosphor-icons/react With Icon Suffix Naming
+
+- **Date:** 2025-01-15
+- **Status:** Accepted
+- **Context:** The `phosphor-react` package referenced in ADR 007 is deprecated and no longer maintained. The project requires a single, consistent icon library with clear naming conventions to prevent confusion, ensure long-term maintainability, and enable reliable linting rules. Inconsistent icon naming makes code harder to scan and increases the risk of accidental misuse or incorrect imports.
+- **Decision:** The project must use only `@phosphor-icons/react` for all icons. The deprecated `phosphor-react` package is forbidden and must not be used anywhere in the codebase. All icon components imported from `@phosphor-icons/react` must follow a strict naming convention: every icon component name must end with the `Icon` suffix (e.g., `ArrowRightIcon`, `InstagramIcon`, `FacebookIcon`). This rule applies to all new code and existing code must be migrated to comply.
+- **Consequences:** Ensures linting consistency by enabling ESLint rules that can enforce the `Icon` suffix pattern, improves code clarity by making icon usage immediately identifiable, prevents accidental use of deprecated packages, and guarantees long-term maintenance through alignment with the actively maintained Phosphor icons ecosystem. Existing code using `phosphor-react` or icon names without the `Icon` suffix must be refactored to comply with this standard.
 
 ---
 
@@ -131,7 +131,7 @@
   - Respect motion guidance: animate opacity/transform only, honor `prefers-reduced-motion`, and avoid long-running transitions.
 - **shadcn/ui + Radix**
   - Maintain source components under `components/ui/`. Extend via wrappers in `components/common/` instead of mutating generated files.
-  - Use Phosphor icons with the `Icon` suffix; avoid duotone weights to stay on-brand.
+  - Use `@phosphor-icons/react` for all icons with the `Icon` suffix naming convention (see ADR 009); avoid duotone weights to stay on-brand.
 - **Component Boundaries**
   - Keep components ≤ ~200 lines. Move derived logic into hooks (`<name>.hook.ts`) or utilities.
   - Server components assemble data; client components manage interactivity (forms, modals, gestures).

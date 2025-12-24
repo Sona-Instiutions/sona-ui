@@ -2,18 +2,18 @@
 
 import Image from "next/image";
 import {
-  Buildings,
-  Heartbeat,
-  Leaf,
-  UsersThree,
-} from "phosphor-react";
+  BuildingsIcon,
+  HeartbeatIcon,
+  LeafIcon,
+  UsersThreeIcon,
+} from "@phosphor-icons/react";
 
 export default function SuccessStories() {
   const stories = [
     {
       company: "TechCorp Solutions",
       field: "Software Development",
-      icon: <Buildings size={22} weight="fill" className="text-blue-500" />,
+      icon: <BuildingsIcon size={22} weight="fill" className="text-blue-500" />,
       img: "/images/event-2.webp",
       title: "50% Faster Time-to-Market",
       desc: "Through our joint R&D program, TechCorp developed a revolutionary AI platform that reduced their product development cycle by 50%, resulting in $2M additional revenue.",
@@ -23,7 +23,7 @@ export default function SuccessStories() {
     {
       company: "HealthTech Innovations",
       field: "Medical Technology",
-      icon: <Heartbeat size={22} weight="fill" className="text-green-500" />,
+      icon: <HeartbeatIcon size={22} weight="fill" className="text-green-500" />,
       img: "/images/event-2.webp",
       title: "FDA-Approved Medical Device",
       desc: "Collaborative research with our Medical College led to the development of a groundbreaking diagnostic device that received FDA approval and is now used in 200+ hospitals.",
@@ -33,7 +33,7 @@ export default function SuccessStories() {
     {
       company: "GreenEnergy Corp",
       field: "Renewable Energy",
-      icon: <Leaf size={22} weight="fill" className="text-green-600" />,
+      icon: <LeafIcon size={22} weight="fill" className="text-green-600" />,
       img: "/images/event-2.webp",
       title: "30% Efficiency Improvement",
       desc: "Our engineering students developed an innovative solar panel design that increased energy efficiency by 30%, helping GreenEnergy secure $10M in new contracts.",
@@ -101,7 +101,7 @@ export default function SuccessStories() {
                 </p>
 
                 <div className="flex items-center gap-2 text-gray-700">
-                  <UsersThree size={18} weight="fill" className="text-gray-500" />
+                  <UsersThreeIcon size={18} weight="fill" className="text-gray-500" />
                   <span>{item.participants}</span>
                 </div>
               </div>

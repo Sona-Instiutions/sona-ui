@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "phosphor-react";
+import { PlusIcon } from "@phosphor-icons/react";
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { MarkdownContent } from "@/components/common/MarkdownContent.component";
@@ -26,7 +26,7 @@ export function FaqAccordionItem({ value, question, answer }: FaqAccordionItemPr
       <AccordionTrigger className='group gap-6 px-0 text-base font-semibold text-slate-900 no-underline sm:text-lg [&>svg]:hidden'>
         <span className='flex-1 text-left leading-tight'>{question}</span>
         <span className='flex h-10 w-10 items-center justify-center text-amber-400 transition-all group-data-[state=open]:border-amber-200 group-data-[state=open]:bg-amber-50'>
-          <Plus
+          <PlusIcon
             size={18}
             weight='bold'
             className='transition-transform duration-200 group-data-[state=open]:rotate-45'

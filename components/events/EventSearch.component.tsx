@@ -7,7 +7,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { MagnifyingGlass, X, CircleNotch, CalendarBlank } from "phosphor-react";
+import { MagnifyingGlassIcon, XIcon, CircleNotchIcon, CalendarBlankIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { useEventSearchSuggestionsQuery } from "@/services/client/events.client";
 import { MIN_SEARCH_CHARS, SEARCH_DEBOUNCE_MS } from "@/constants/events.constants";
@@ -127,9 +127,9 @@ export function EventSearch({
       <div className='relative'>
         <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400'>
           {isFetching ? (
-            <CircleNotch size={20} className='animate-spin' />
+            <CircleNotchIcon size={20} className='animate-spin' />
           ) : (
-            <MagnifyingGlass size={20} weight='bold' />
+            <MagnifyingGlassIcon size={20} weight='bold' />
           )}
         </div>
         <input
@@ -156,7 +156,7 @@ export function EventSearch({
             className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors'
             aria-label="Clear search"
           >
-            <X size={16} weight='bold' />
+            <XIcon size={16} weight='bold' />
           </button>
         )}
       </div>
@@ -207,7 +207,7 @@ export function EventSearch({
                       {suggestion.title}
                     </h4>
                     <div className='flex items-center text-[10px] text-gray-500 font-medium'>
-                      <CalendarBlank size={12} className='mr-1 text-blue-500' />
+                      <CalendarBlankIcon size={12} className='mr-1 text-blue-500' />
                       {formatDate(suggestion.eventDate)}
                     </div>
                   </div>
@@ -217,7 +217,7 @@ export function EventSearch({
           ) : !isLoading ? (
             <div className='p-8 text-center'>
               <div className='inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-50 mb-3'>
-                <MagnifyingGlass size={24} className='text-gray-300' />
+                <MagnifyingGlassIcon size={24} className='text-gray-300' />
               </div>
               <p className='text-sm font-medium text-gray-900'>No events found</p>
               <p className='text-xs text-gray-500 mt-1'>Try adjusting your search term</p>

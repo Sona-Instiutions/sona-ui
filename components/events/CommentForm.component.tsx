@@ -8,7 +8,7 @@
 
 import React, { useState } from "react";
 import { useSubmitEventComment } from "@/services/client/eventComments.client";
-import { Spinner } from "phosphor-react";
+import { SpinnerIcon } from "@phosphor-icons/react";
 
 interface CommentFormProps {
   eventDocumentId: string;
@@ -139,7 +139,7 @@ export function CommentForm({ eventDocumentId, parentComment, onSuccess, onCance
           disabled={isPending}
           className='flex items-center gap-2 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed'
         >
-          {isPending && <Spinner className='animate-spin' />}
+          {isPending && <SpinnerIcon weight='bold' className='animate-spin' />}
           {isPending ? "Submitting..." : "Post Comment"}
         </button>
       </div>

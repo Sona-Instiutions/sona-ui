@@ -11,7 +11,7 @@ import { INormalizedEvent } from "@/types/events.types";
 import { CategoryBadge } from "./CategoryBadge.component";
 import { Breadcrumb } from "../common/Breadcrumb.component";
 import { formatDate } from "@/utils/date.utils";
-import { User, Eye } from "phosphor-react";
+import { UserIcon, EyeIcon } from "@phosphor-icons/react";
 import { buildMediaUrl } from "@/utils/common.utils";
 
 interface EventHeroProps {
@@ -69,13 +69,13 @@ export function EventHero({ event }: EventHeroProps) {
             
             {event.author && (
               <div className="flex items-center gap-2">
-                <User weight="bold" />
+                <UserIcon weight="bold" />
                 <span>By {typeof event.author === "string" ? event.author : event.author.name}</span>
               </div>
             )}
 
             <div className="flex items-center gap-2">
-              <Eye weight="bold" />
+              <EyeIcon weight="bold" />
               <span>{event.viewCount} Views</span>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { buildMediaUrl } from "@/utils/common.utils";
 import Image from "next/image";
-import { Star } from "phosphor-react";
+import { StarIcon } from "@phosphor-icons/react";
 import { ITestimonial } from "@/types/institution.types";
 
 interface ITestimonialCardProps {
@@ -36,7 +36,7 @@ export const TestimonialCard = ({ testimonial }: ITestimonialCardProps) => {
       {rating && (
         <div className='mb-4 flex gap-1'>
           {[...Array(5)].map((_, i) => (
-            <Star key={i} weight='fill' className={`h-4 w-4 ${i < rating ? "text-yellow-400" : "text-gray-200"}`} />
+            <StarIcon key={i} weight='fill' className={`h-4 w-4 ${i < rating ? "text-yellow-400" : "text-gray-200"}`} />
           ))}
         </div>
       )}

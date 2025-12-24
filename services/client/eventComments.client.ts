@@ -6,10 +6,7 @@
 
 import { useQuery, useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios.config";
-import qs from "qs";
 import {
-  IEventCommentsResponse,
-  IEventCommentResponse,
   ICommentSubmission,
   IEventComment,
 } from "@/types/comments.types";

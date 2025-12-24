@@ -1,16 +1,16 @@
 "use client";
 
 import {
-  BookOpen,
-  BriefcaseMetal,
-  UsersThree,
-  Lightbulb,
-} from "phosphor-react";
+  BookOpenIcon,
+  BriefcaseMetalIcon,
+  UsersThreeIcon,
+  LightbulbIcon,
+} from "@phosphor-icons/react";
 
 export default function CollaborationModels() {
   const models = [
     {
-      icon: <BookOpen size={32} weight="duotone" className="text-blue-600" />,
+      icon: <BookOpenIcon size={32} weight="duotone" className="text-blue-600" />,
       iconBg: "bg-blue-100",
       title: "Curriculum Design",
       desc: "Collaborate with our faculty to design industry-relevant curricula that address your specific skill requirements and emerging technology needs.",
@@ -23,7 +23,7 @@ export default function CollaborationModels() {
     },
     {
       icon: (
-        <BriefcaseMetal size={32} weight="duotone" className="text-green-600" />
+        <BriefcaseMetalIcon size={32} weight="duotone" className="text-green-600" />
       ),
       iconBg: "bg-green-100",
       title: "Internship Programs",
@@ -36,7 +36,7 @@ export default function CollaborationModels() {
       image: "/images/internship.jpg",
     },
     {
-      icon: <UsersThree size={32} weight="duotone" className="text-purple-600" />,
+      icon: <UsersThreeIcon size={32} weight="duotone" className="text-purple-600" />,
       iconBg: "bg-purple-100",
       title: "Contract-to-Hire",
       desc: "Evaluate talent through contract positions with the option to hire permanently, reducing recruitment risks and ensuring perfect fit.",
@@ -48,7 +48,7 @@ export default function CollaborationModels() {
       image: "/images/contract.jpg",
     },
     {
-      icon: <Lightbulb size={32} weight="duotone" className="text-orange-600" />,
+      icon: <LightbulbIcon size={32} weight="duotone" className="text-orange-600" />,
       iconBg: "bg-orange-100",
       title: "Joint R&D Projects",
       desc: "Partner with our research centers for collaborative innovation projects that drive breakthrough solutions and competitive advantages.",

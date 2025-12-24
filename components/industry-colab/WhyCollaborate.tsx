@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import {
-  UserPlus,
-  Flask,
-  CurrencyDollar,
-  Globe,
-  GraduationCap,
-  Medal,
-} from "phosphor-react";
+  UserPlusIcon,
+  FlaskIcon,
+  CurrencyDollarIcon,
+  GlobeIcon,
+  GraduationCapIcon,
+  MedalIcon,
+} from "@phosphor-icons/react";
 
 export default function WhyCollaborate() {
     const cards = [
@@ -15,37 +15,37 @@ export default function WhyCollaborate() {
             title: "Access Top Talent",
             desc: "Connect with pre-screened, industry-ready graduates with cutting-edge skills",
             img: "/images/about-us-section-1.webp",
-            icon: <UserPlus size={24} weight="duotone" className="text-white"/>,
+            icon: <UserPlusIcon size={24} weight="duotone" className="text-white"/>,
         },
         {
             title: "Research & Innovation",
             desc: "Leverage our state-of-the-art facilities and expert faculty for breakthrough solutions",
             img: "/images/about-us-section-1.webp",
-            icon: <Flask size={24} weight="duotone" className="text-white"/>,
+            icon: <FlaskIcon size={24} weight="duotone" className="text-white"/>,
         },
         {
             title: "Cost–Effective Solutions",
             desc: "Reduce training costs while accessing high-quality talent and research capabilities",
             img: "/images/about-us-section-1.webp",
-            icon: <CurrencyDollar size={24} weight="duotone" className="text-white"/>,
+            icon: <CurrencyDollarIcon size={24} weight="duotone" className="text-white"/>,
         },
         {
             title: "Global Network Access",
             desc: "Tap into our extensive alumni network and international partnerships worldwide",
             img: "/images/about-us-section-1.webp",
-            icon: <Globe size={24} weight="duotone" className="text-white"/>,
+            icon: <GlobeIcon size={24} weight="duotone" className="text-white"/>,
         },
         {
             title: "Customized Training",
             desc: "Tailored programs designed specifically for your industry needs and requirements",
             img: "/images/about-us-section-1.webp",
-            icon: <GraduationCap size={24} weight="duotone" className="text-white"/>,
+            icon: <GraduationCapIcon size={24} weight="duotone" className="text-white"/>,
         },
         {
             title: "Brand Enhancement",
             desc: "Enhance your corporate reputation through association with educational excellence",
             img: "/images/about-us-section-1.webp",
-            icon: <Medal size={24} weight="duotone" className="text-white"/>,
+            icon: <MedalIcon size={24} weight="duotone" className="text-white"/>,
         },
     ];
 

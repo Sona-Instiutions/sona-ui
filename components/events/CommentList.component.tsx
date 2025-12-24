@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { useEventComments } from "@/services/client/eventComments.client";
 import { CommentForm } from "./CommentForm.component";
 import { formatRelativeTime } from "@/utils/date.utils";
-import { User, ArrowBendDownRight, ThumbsUp } from "phosphor-react";
+import { UserIcon, ArrowBendDownRightIcon, ThumbsUpIcon } from "@phosphor-icons/react";
 import { IEventComment } from "@/types/comments.types";
 import { cn } from "@/lib/utils";
 
@@ -41,7 +41,7 @@ function CommentItem({ comment, isReply = false, eventDocumentId }: CommentItemP
       <div className='flex gap-4 mb-4'>
         {/* Avatar Placeholder */}
         <div className='shrink-0 w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-500 border border-blue-100'>
-          <User weight='bold' />
+          <UserIcon weight='bold' />
         </div>
 
         <div className='grow'>
@@ -65,7 +65,7 @@ function CommentItem({ comment, isReply = false, eventDocumentId }: CommentItemP
                 hasLiked ? "text-blue-600" : "text-gray-400 hover:text-blue-600"
               )}
             >
-              <ThumbsUp weight={hasLiked ? "fill" : "bold"} size={14} />
+              <ThumbsUpIcon weight={hasLiked ? "fill" : "bold"} size={14} />
               <span>{likes > 0 ? likes : "Like"}</span>
             </button>
 
@@ -73,7 +73,7 @@ function CommentItem({ comment, isReply = false, eventDocumentId }: CommentItemP
               onClick={() => setShowReplyForm(!showReplyForm)}
               className='flex items-center gap-1.5 text-gray-400 hover:text-blue-600 transition-colors'
             >
-              <ArrowBendDownRight weight='bold' size={14} />
+              <ArrowBendDownRightIcon weight='bold' size={14} />
               <span>Reply</span>
             </button>
           </div>

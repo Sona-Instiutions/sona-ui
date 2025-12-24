@@ -10,7 +10,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IEventAuthor } from "@/types/events.types";
-import { LinkedinLogo, TwitterLogo, Envelope } from "phosphor-react";
+import { LinkedinLogoIcon, TwitterLogoIcon, EnvelopeIcon } from "@phosphor-icons/react";
 import { buildMediaUrl } from "@/utils/common.utils";
 
 interface AuthorBioProps {
@@ -60,17 +60,17 @@ export function AuthorBio({ author }: AuthorBioProps) {
           <div className="flex items-center justify-center md:justify-end gap-3 text-gray-400">
             {linkedin && (
               <Link href={linkedin} target="_blank" className="hover:text-blue-700 transition-colors">
-                <LinkedinLogo size={20} weight="fill" />
+                <LinkedinLogoIcon size={20} weight="fill" />
               </Link>
             )}
             {twitter && (
               <Link href={twitter} target="_blank" className="hover:text-sky-500 transition-colors">
-                <TwitterLogo size={20} weight="fill" />
+                <TwitterLogoIcon size={20} weight="fill" />
               </Link>
             )}
             {email && (
               <Link href={`mailto:${email}`} className="hover:text-gray-900 transition-colors">
-                <Envelope size={20} weight="fill" />
+                <EnvelopeIcon size={20} weight="fill" />
               </Link>
             )}
           </div>

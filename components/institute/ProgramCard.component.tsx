@@ -3,7 +3,7 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ArrowRight } from "phosphor-react";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { IconBadge } from "@/components/common/IconBadge.component";
 import type { IIconBadge } from "@/types/institution.types";
@@ -73,12 +73,12 @@ export function ProgramCard({
         isExternal ? (
           <a href={learnMoreUrl} target='_blank' rel='noopener noreferrer' className={CTA_BASE_CLASS}>
             {ctaLabel}
-            <ArrowRight size={18} weight='bold' aria-hidden />
+            <ArrowRightIcon size={18} weight='bold' aria-hidden />
           </a>
         ) : (
           <Link href={learnMoreUrl} className={CTA_BASE_CLASS}>
             {ctaLabel}
-            <ArrowRight size={18} weight='bold' aria-hidden />
+            <ArrowRightIcon size={18} weight='bold' aria-hidden />
           </Link>
         )
       ) : null}

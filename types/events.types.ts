@@ -48,7 +48,7 @@ export interface IEventAuthor {
   name: string;
   role?: string;
   bio?: string;
-  image?: IStrapiMedia;
+  image?: IStrapiMedia | null;
   linkedin?: string;
   twitter?: string;
   email?: string;
@@ -78,6 +78,11 @@ export interface IEvent {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  // New fields for specific event types
+  eventLocation?: string;
+  eventTime?: string;
+  registrationStatus?: string;
+  eventHighlights?: Record<string, unknown> | null; // JSON
 }
 
 /** Normalized Event interface for frontend consumption */
@@ -104,7 +109,7 @@ export interface INormalizedEvent {
   eventLocation?: string | null;
   eventTime?: string | null;
   registrationStatus?: string | null;
-  eventHighlights?: any; // JSON
+  eventHighlights?: Record<string, unknown> | null; // JSON
 }
 
 /** Lightweight event suggestion for autocomplete */
@@ -168,3 +173,22 @@ export interface IEventTagsResponse {
   };
 }
 
+/**
+ * Author data structure that can come in different formats from Strapi.
+ */
+export interface IAuthorData {
+  name?: string;
+  authorName?: string;
+  role?: string;
+  authorRole?: string;
+  bio?: string;
+  authorBio?: string;
+  image?: unknown;
+  authorImage?: unknown;
+  linkedin?: string;
+  authorLinkedin?: string;
+  twitter?: string;
+  authorTwitter?: string;
+  email?: string;
+  authorEmail?: string;
+}
