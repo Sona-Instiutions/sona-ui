@@ -1,4 +1,7 @@
-export default function StepProgress({ step }) {
+type StepProgressProps = {
+  step: number;
+};
+export default function StepProgress({ step }: StepProgressProps) {
   const steps = [1, 2, 3, 4];
 
   return (

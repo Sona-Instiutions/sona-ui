@@ -1,17 +1,19 @@
-export default function Step1Company({ form }) {
+import { UseFormReturn } from "react-hook-form";
+import { IIndustryCollaborationFormData } from "@/types/industry-collaboration.types";
+
+type StepProps = {
+  form: UseFormReturn<IIndustryCollaborationFormData>;
+};
+
+export default function Step1Company({ form }: StepProps) {
   const { register, formState: { errors } } = form;
 
   return (
     <div className="bg-white space-y-8">
-
       {/* SECTION TITLE */}
-      <h2 className="text-2xl font-bold text-gray-900">
-        Company Information
-      </h2>
+      <h2 className="text-2xl font-bold text-gray-900">Company Information</h2>
 
-      {/* GRID: 2 columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
         {/* Company Name */}
         <div className="flex flex-col gap-2">
           <label className="text-gray-700 font-semibold">
@@ -23,9 +25,7 @@ export default function Step1Company({ form }) {
             placeholder="Enter company name"
             {...register("companyName", { required: true })}
           />
-          {errors.companyName && (
-            <p className="text-red-500 text-sm">This field is required</p>
-          )}
+          {errors.companyName && <p className="text-red-500 text-sm">This field is required</p>}
         </div>
 
         {/* Industry */}
@@ -44,9 +44,7 @@ export default function Step1Company({ form }) {
             <option>Finance</option>
             <option>Healthcare</option>
           </select>
-          {errors.industry && (
-            <p className="text-red-500 text-sm">This field is required</p>
-          )}
+          {errors.industry && <p className="text-red-500 text-sm">This field is required</p>}
         </div>
 
         {/* Company Size */}
@@ -65,9 +63,7 @@ export default function Step1Company({ form }) {
             <option>50 - 200 Employees</option>
             <option>200+ Employees</option>
           </select>
-          {errors.companySize && (
-            <p className="text-red-500 text-sm">This field is required</p>
-          )}
+          {errors.companySize && <p className="text-red-500 text-sm">This field is required</p>}
         </div>
 
         {/* Website */}
@@ -85,7 +81,6 @@ export default function Step1Company({ form }) {
       {/* Company Description */}
       <div className="flex flex-col gap-2">
         <label className="text-gray-700 font-semibold">Company Description</label>
-
         <textarea
           rows={3}
           className="w-full border rounded-xl px-4 py-3 bg-gray-50 focus:ring-2 

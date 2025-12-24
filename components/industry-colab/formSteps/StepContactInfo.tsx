@@ -1,4 +1,11 @@
-export default function Step2Contact({ form }) {
+import { UseFormReturn } from "react-hook-form";
+import { IIndustryCollaborationFormData } from "@/types/industry-collaboration.types";
+
+type StepProps = {
+  form: UseFormReturn<IIndustryCollaborationFormData>;
+};
+
+export default function Step2Contact({ form }: StepProps) {
   const { register, formState: { errors } } = form;
 
   return (
