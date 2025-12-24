@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import MainBanner from "@/components/common/MainBannerSection";
+import MainBanner from "@/components/common/MainBannerSection.component";
 import AboutMilestoneSection from "@/components/aboutus/milestone/AboutMilestone.component";
 // import CallToActionSection from "@/components/common/CallToActionSection";
 

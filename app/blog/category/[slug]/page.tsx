@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { getBlogsByCategory } from "@/services/client/blog.service";
-import BlogCard from "@/components/blog/detailed/BlogCard";
-import { Blog } from "@/types/blog";
+import { getBlogsByCategory } from "@/services/client/blog.client";
+import BlogCard from "@/components/blog/detailed/BlogCard.component";
+import { Blog } from "@/types/blog.types";
 
 export default async function CategoryPage({
     params,

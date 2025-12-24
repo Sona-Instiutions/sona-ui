@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { commentService } from "@/services/client/comment.service";
+import { commentService } from "@/services/client/comment.client";
 import { isLoggedIn, getLoggedInUser } from "@/utils/blogauth.utils";
-import type { Comment } from "@/types/blog";
+import type { Comment } from "@/types/blog.types";
 
 export default function CommentSection({ blogId }: { blogId: number }) {
     const [comments, setComments] = useState<Comment[]>([]);

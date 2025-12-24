@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useBlogComments } from "@/services/client/blogComments.client";
-import { BlogCommentForm } from "./BlogCommentForm";
+import { BlogCommentForm } from "./BlogCommentForm.component";
 import { IEventComment } from "@/types/comments.types";
 import { UserIcon, ArrowBendDownRightIcon } from "@phosphor-icons/react";
 import { formatRelativeTime } from "@/utils/date.utils";

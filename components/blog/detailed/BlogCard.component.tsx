@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Blog } from "@/types/blog";
+import { Blog } from "@/types/blog.types";
 
 export default function BlogCard({ blog }: { blog: Blog }) {
   const imageUrl = blog.thumbnail?.url

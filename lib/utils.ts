@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { StrapiMedia } from "@/types/blog";
+import { StrapiMedia } from "@/types/blog.types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import MainBanner from "@/components/common/MainBannerSection";
-import CallToActionSection from "@/components/common/CallToActionSection";
-import IndustryMultiStepForm from "@/components/industry-colab/industrymultistepform";
-import WhyCollaborate from "@/components/industry-colab/WhyCollaborate";
-import CollaborationModels from "@/components/industry-colab/CollaborationModels";
-import SuccessStories from "@/components/industry-colab/SuccessStories";
+import MainBanner from "@/components/common/MainBannerSection.component";
+import CallToActionSection from "@/components/common/CallToActionSection.component";
+import IndustryMultiStepForm from "@/components/industry-colab/industrymultistepform.component";
+import WhyCollaborate from "@/components/industry-colab/WhyCollaborate.component";
+import CollaborationModels from "@/components/industry-colab/CollaborationModels.component";
+import SuccessStories from "@/components/industry-colab/SuccessStories.component";
 
 export const metadata: Metadata = {
   title: "SONA Institutions | Industry Colab",

@@ -1,5 +1,5 @@
-import RichTextRenderer from "./RichTextRenderer";
-import { Blog, Category, Tag } from "@/types/blog";
+import RichTextRenderer from "./RichTextRenderer.component";
+import { Blog, Category, Tag } from "@/types/blog.types";
 import { ShareButtons } from "@/components/common/ShareButtons.component";
 
 export default function BlogContent({ blog, shareUrl }: { blog: Blog, shareUrl?: string }) {

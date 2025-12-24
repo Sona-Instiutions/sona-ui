@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import { getBlogBySlug, getSidebarData, getRelatedBlogs } from "@/services/client/blog.service";
-import BlogContent from "@/components/blog/detailed/BlogContent";
-import Breadcrumbs from "@/components/blog/detailed/Breadcrumbs";
-import Sidebar from "@/components/blog/detailed/Sidebar";
-import { Blog } from "@/types/blog";
-import AuthorSection from "@/components/blog/detailed/AuthorSection";
-import RelatedArticles from "@/components/blog/detailed/RelatedArticles";
-import { BlogCommentList } from "@/components/blog/detailed/BlogCommentList";
+import { getBlogBySlug, getSidebarData, getRelatedBlogs } from "@/services/client/blog.client";
+import BlogContent from "@/components/blog/detailed/BlogContent.component";
+import Breadcrumbs from "@/components/blog/detailed/Breadcrumbs.component";
+import Sidebar from "@/components/blog/detailed/Sidebar.component";
+import { Blog } from "@/types/blog.types";
+import AuthorSection from "@/components/blog/detailed/AuthorSection.component";
+import RelatedArticles from "@/components/blog/detailed/RelatedArticles.component";
+import { BlogCommentList } from "@/components/blog/detailed/BlogCommentList.component";
 import { StickyShareButtons } from "@/components/common/StickyShareButtons.component";
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {

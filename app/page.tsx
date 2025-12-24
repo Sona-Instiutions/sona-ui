@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import HeroCarousel from "@/components/home/HeroCarousel";
-import StatsSection from "@/components/home/StatsSection";
-import AboutSection from "@/components/home/AboutSection";
-import LegacySection from "@/components/home/LegacySection";
-import WhyChooseSection from "@/components/home/WhyChooseSection";
-import CollaborateSection from "@/components/home/CollaborateSection";
-import InstitutionsSection from "@/components/home/InstitutionsSection";
-import LifeAtScaleSection from "@/components/home/LifeAtScaleSection";
-// import NewsEventsSection from "@/components/home/NewsEventsSection";
-import StudentStoriesSection from "@/components/home/StudentStoriesSection";
-import IndustryLeadersSection from "@/components/home/IndustryLeadersSection";
-// import LatestBlogsSection from "@/components/home/LatestBlogsSection";
-import CallToActionSection from "@/components/common/CallToActionSection";
+import HeroCarousel from "@/components/home/HeroCarousel.component";
+import StatsSection from "@/components/home/StatsSection.component";
+import AboutSection from "@/components/home/AboutSection.component";
+import LegacySection from "@/components/home/LegacySection.component";
+import WhyChooseSection from "@/components/home/WhyChooseSection.component";
+import CollaborateSection from "@/components/home/CollaborateSection.component";
+import InstitutionsSection from "@/components/home/InstitutionsSection.component";
+import LifeAtScaleSection from "@/components/home/LifeAtScaleSection.component";
+// import NewsEventsSection from "@/components/home/NewsEventsSection.component";
+import StudentStoriesSection from "@/components/home/StudentStoriesSection.component";
+import IndustryLeadersSection from "@/components/home/IndustryLeadersSection.component";
+// import LatestBlogsSection from "@/components/home/LatestBlogsSection.component";
+import CallToActionSection from "@/components/common/CallToActionSection.component";
 
 export const metadata: Metadata = {
   title: "SCALE | Home",

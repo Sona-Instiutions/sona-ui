@@ -4,11 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 
-import Step1Company from "./formSteps/StepCompanyInfo";
-import Step2Contact from "./formSteps/StepContactInfo";
-import Step3Requirements from "./formSteps/StepRequirements";
-import Step4Project from "./formSteps/StepProjectDetails";
-import StepProgress from "./formSteps/StepProgress";
+import Step1Company from "./formSteps/StepCompanyInfo.component";
+import Step2Contact from "./formSteps/StepContactInfo.component";
+import Step3Requirements from "./formSteps/StepRequirements.component";
+import Step4Project from "./formSteps/StepProjectDetails.component";
+import StepProgress from "./formSteps/StepProgress.component";
 
 import type { IIndustryCollaborationFormData } from "@/types/industry-collaboration.types";
 import { submitIndustryCollaboration } from "@/services/client/industrycollab.client";

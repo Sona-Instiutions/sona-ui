@@ -4,8 +4,8 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { blogService } from "@/services/client/blog.service";
-import { Category } from "@/types/blog";
+import { blogService } from "@/services/client/blog.client";
+import { Category } from "@/types/blog.types";
 import { mediaUrl } from "@/lib/utils";
 
 export default function BlogListing() {

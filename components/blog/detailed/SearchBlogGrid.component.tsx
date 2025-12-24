@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Blog } from "@/types/blog";
+import { Blog } from "@/types/blog.types";
 
 export default function BlogGrid({ posts }: { posts: Blog[] }) {
   if (!posts?.length) {

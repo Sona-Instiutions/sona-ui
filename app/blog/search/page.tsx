@@ -1,4 +1,4 @@
-import SearchBlogGrid from "@/components/blog/detailed/SearchBlogGrid";
+import SearchBlogGrid from "@/components/blog/detailed/SearchBlogGrid.component";
 
 async function searchBlogs(query: string) {
   const res = await fetch(

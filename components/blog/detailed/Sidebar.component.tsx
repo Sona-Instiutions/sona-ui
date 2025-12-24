@@ -5,7 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
-import { Blog, Category, Tag } from "@/types/blog";
+import { Blog, Category, Tag } from "@/types/blog.types";
 type SidebarProps = {
   categories: (Category & { blogsCount?: number })[];
   recentPosts: Blog[];

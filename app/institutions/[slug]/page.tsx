@@ -12,7 +12,7 @@ import { InstitutionTestimonials } from "@/components/institute/InstitutionTesti
 import { InstitutionPartnerships } from "@/components/institute/InstitutionPartnerships.component";
 import { InstitutionGallery } from "@/components/institute/InstitutionGallery.component";
 import { InstitutionFaq } from "@/components/institute/InstitutionFaq.component";
-import CallToActionSection from "@/components/common/CallToActionSection";
+import CallToActionSection from "@/components/common/CallToActionSection.component";
 
 interface InstitutionPageParams {
   slug: string;

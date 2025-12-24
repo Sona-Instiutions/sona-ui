@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import MainBanner from "@/components/common/MainBannerSection";
-import PioneeringExcellenceSection from "@/components/aboutus/PioneeringExcellenceSection";
-import SonaVelliappaLegacySection from "@/components/aboutus/SonaVelliappaLegacySection";
-import TeachingApproachSection from "@/components/aboutus/TeachingApproachSection";
-import GlobalPartnershipsSection from "@/components/aboutus/GlobalPartnershipsSection";
-import CallToActionSection from "@/components/common/CallToActionSection";
+import MainBanner from "@/components/common/MainBannerSection.component";
+import PioneeringExcellenceSection from "@/components/aboutus/PioneeringExcellenceSection.component";
+import SonaVelliappaLegacySection from "@/components/aboutus/SonaVelliappaLegacySection.component";
+import TeachingApproachSection from "@/components/aboutus/TeachingApproachSection.component";
+import GlobalPartnershipsSection from "@/components/aboutus/GlobalPartnershipsSection.component";
+import CallToActionSection from "@/components/common/CallToActionSection.component";
 
 export const metadata: Metadata = {
   title: "SCALE | Home",

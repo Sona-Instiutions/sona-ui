@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import MainBanner from "@/components/common/MainBannerSection";
-import BlogListing from "@/components/blog/BlogList";
+import MainBanner from "@/components/common/MainBannerSection.component";
+import BlogListing from "@/components/blog/BlogList.component";
 
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import MainBanner from "@/components/common/MainBannerSection";
-import LeadershipSection from "@/components/aboutus/leadership/LeaderProfile";
-import ExecutiveLeadershipSection from "@/components/aboutus/leadership/ExecutiveLeadershipSection";
+import MainBanner from "@/components/common/MainBannerSection.component";
+import LeadershipSection from "@/components/aboutus/leadership/LeaderProfile.component";
+import ExecutiveLeadershipSection from "@/components/aboutus/leadership/ExecutiveLeadershipSection.component";
 // import CallToActionSection from "@/components/common/CallToActionSection";
 
 

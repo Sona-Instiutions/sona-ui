@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Author } from "@/types/blog";
+import { Author } from "@/types/blog.types";
 import { LinkedinLogoIcon, XLogoIcon, EnvelopeIcon } from "@phosphor-icons/react";
 
 export default function AuthorSection({ author }: { author?: Author | null }) {
