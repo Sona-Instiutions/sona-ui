@@ -9,6 +9,7 @@
 import Image from "next/image";
 import { INormalizedEvent } from "@/types/events.types";
 import { CategoryBadge } from "./CategoryBadge.component";
+import { Breadcrumb } from "../common/Breadcrumb.component";
 import { formatDate } from "@/utils/date.utils";
 import { User, Eye } from "phosphor-react";
 import { buildMediaUrl } from "@/utils/common.utils";
@@ -20,9 +21,15 @@ interface EventHeroProps {
 export function EventHero({ event }: EventHeroProps) {
   const imageUrl = buildMediaUrl(event.featuredImage) || buildMediaUrl(event.thumbnailImage) || "/images/event-1.webp";
 
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Events", href: "/events" },
+    { label: event.title },
+  ];
+
   return (
     <div className="relative w-full h-[60vh] min-h-[400px] bg-gray-900 overflow-hidden flex items-end">
-      {/* Background Image */}
+      {/* Background Image ... */}
       <div className="absolute inset-0 z-0">
         <Image
           src={imageUrl}
@@ -39,6 +46,9 @@ export function EventHero({ event }: EventHeroProps) {
       {/* Content */}
       <div className="container mx-auto px-6 relative z-10 pb-16">
         <div className="max-w-4xl">
+          {/* Breadcrumb */}
+          <Breadcrumb items={breadcrumbItems} light className="mb-6" />
+
           {/* Badges */}
           <div className="flex flex-wrap gap-2 mb-6">
             {event.categories?.map((cat) => (
@@ -60,7 +70,7 @@ export function EventHero({ event }: EventHeroProps) {
             {event.author && (
               <div className="flex items-center gap-2">
                 <User weight="bold" />
-                <span>By {event.author}</span>
+                <span>By {typeof event.author === "string" ? event.author : event.author.name}</span>
               </div>
             )}
 

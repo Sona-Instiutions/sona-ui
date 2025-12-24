@@ -9,6 +9,7 @@ import {
   IEvent,
   INormalizedEvent,
   EEventType,
+  IEventAuthor,
 } from "@/types/events.types";
 import { IStrapiMedia } from "@/types/common.types";
 
@@ -49,6 +50,36 @@ export const normalizeStrapiMedia = (media: unknown): IStrapiMedia | null => {
  * Normalizes raw event data into a clean interface.
  */
 export const normalizeEvent = (event: IEvent): INormalizedEvent => {
+  const authorData = event.author;
+  let normalizedAuthor: string | IEventAuthor | null = null;
+
+  if (typeof authorData === "string") {
+    normalizedAuthor = authorData;
+  } else if (authorData && typeof authorData === "object") {
+    normalizedAuthor = {
+      name: (authorData as any).name || (authorData as any).authorName || "SCALE Author",
+      role: (authorData as any).authorRole || (authorData as any).role,
+      bio: (authorData as any).authorBio || (authorData as any).bio,
+      image: normalizeStrapiMedia((authorData as any).authorImage || (authorData as any).image),
+      linkedin: (authorData as any).authorLinkedin || (authorData as any).linkedin,
+      twitter: (authorData as any).authorTwitter || (authorData as any).twitter,
+      email: (authorData as any).authorEmail || (authorData as any).email,
+    };
+  }
+
+  // Fallback if some author fields are directly on the event (older Strapi versions or specific schema)
+  if (!normalizedAuthor && (event as any).authorBio) {
+    normalizedAuthor = {
+      name: (event as any).author || "SCALE Author",
+      role: (event as any).authorRole,
+      bio: (event as any).authorBio,
+      image: normalizeStrapiMedia((event as any).authorImage),
+      linkedin: (event as any).authorLinkedin,
+      twitter: (event as any).authorTwitter,
+      email: (event as any).authorEmail,
+    };
+  }
+
   return {
     id: event.id,
     documentId: event.documentId,
@@ -60,7 +91,7 @@ export const normalizeEvent = (event: IEvent): INormalizedEvent => {
     content: event.content || null,
     featuredImage: normalizeStrapiMedia(event.featuredImage),
     thumbnailImage: normalizeStrapiMedia(event.thumbnailImage),
-    author: event.author || null,
+    author: normalizedAuthor,
     publishedDate: event.publishedDate,
     viewCount: event.viewCount || 0,
     categories: Array.isArray(event.categories) ? event.categories : [],
@@ -70,6 +101,10 @@ export const normalizeEvent = (event: IEvent): INormalizedEvent => {
       : [],
     metaTitle: event.metaTitle || null,
     metaDescription: event.metaDescription || null,
+    eventLocation: event.eventLocation || null,
+    eventTime: event.eventTime || null,
+    registrationStatus: event.registrationStatus || null,
+    eventHighlights: event.eventHighlights || null,
   };
 };
 
@@ -94,6 +129,7 @@ export const buildEventsQuery = ({
     populate: {
       featuredImage: { fields: ["url", "alternativeText", "width", "height", "mime"] },
       thumbnailImage: { fields: ["url", "alternativeText", "width", "height", "mime"] },
+      authorImage: { fields: ["url", "alternativeText", "width", "height", "mime"] },
       categories: { fields: ["name", "slug", "color"] },
       tags: { fields: ["name", "slug"] },
       // Minimal populate for related events to avoid deep nesting issues

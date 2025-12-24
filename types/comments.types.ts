@@ -24,6 +24,7 @@ export interface IEventComment {
   createdAt: string; // ISO string
   updatedAt: string;
   publishedAt: string;
+  likes?: number;
   replies?: IEventComment[];
 }
 

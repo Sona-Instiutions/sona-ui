@@ -12,11 +12,12 @@ import { Spinner } from "phosphor-react";
 
 interface CommentFormProps {
   eventDocumentId: string;
+  parentComment?: string; // For replies
   onSuccess?: () => void;
   onCancel?: () => void; // For reply forms
 }
 
-export function CommentForm({ eventDocumentId, onSuccess, onCancel }: CommentFormProps) {
+export function CommentForm({ eventDocumentId, parentComment, onSuccess, onCancel }: CommentFormProps) {
   const [formData, setFormData] = useState({
     authorName: "",
     authorEmail: "",
@@ -33,6 +34,7 @@ export function CommentForm({ eventDocumentId, onSuccess, onCancel }: CommentFor
     mutate(
       {
         eventDocumentId,
+        parentComment, // Pass the parent ID
         ...formData,
       },
       {

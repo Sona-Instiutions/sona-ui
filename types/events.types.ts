@@ -43,6 +43,17 @@ export interface IStrapiBlock {
   [key: string]: unknown;
 }
 
+/** Author structure for events */
+export interface IEventAuthor {
+  name: string;
+  role?: string;
+  bio?: string;
+  image?: IStrapiMedia;
+  linkedin?: string;
+  twitter?: string;
+  email?: string;
+}
+
 /** Main Event interface (Raw Strapi Response shape) */
 export interface IEvent {
   id: number;
@@ -55,7 +66,7 @@ export interface IEvent {
   content: IStrapiBlock[] | string; // Rich text blocks or Markdown string
   featuredImage?: IStrapiMedia;
   thumbnailImage?: IStrapiMedia;
-  author?: string;
+  author?: string | IEventAuthor;
   publishedDate: string;
   featured?: boolean;
   viewCount?: number;
@@ -81,7 +92,7 @@ export interface INormalizedEvent {
   content: IStrapiBlock[] | string | null;
   featuredImage: IStrapiMedia | null;
   thumbnailImage: IStrapiMedia | null;
-  author: string | null;
+  author: string | IEventAuthor | null;
   publishedDate: string;
   viewCount: number;
   categories: IEventCategory[];
@@ -89,6 +100,11 @@ export interface INormalizedEvent {
   relatedEvents: INormalizedEvent[]; // Recursive but usually limited depth in normalization
   metaTitle: string | null;
   metaDescription: string | null;
+  // New fields
+  eventLocation?: string | null;
+  eventTime?: string | null;
+  registrationStatus?: string | null;
+  eventHighlights?: any; // JSON
 }
 
 /** API Response wrapper for list of events */
