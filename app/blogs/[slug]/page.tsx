@@ -1,103 +1,169 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import { getBlogBySlug, getRecentBlogs } from "@/services/server/blogs.server";
-import { StickyShareButtons } from "@/components/common/StickyShareButtons.component";
+import { Metadata } from "next";
+import { 
+  getBlogBySlug, 
+  getRecentBlogs, 
+  getBlogCategories, 
+  getBlogTags 
+} from "@/services/server/blogs.server";
+import { ContentHero } from "@/components/common/ContentHero.component";
 import { AuthorSection } from "@/components/common/AuthorSection.component";
 import { CommentSection } from "@/components/common/CommentSection.component";
-import { CategoryBadge } from "@/components/common/CategoryBadge.component";
 import { ContentSidebar } from "@/components/common/ContentSidebar.component";
+import { ContentCard } from "@/components/common/ContentCard.component";
+import { ShareButtons } from "@/components/common/ShareButtons.component";
+import { StickyShareButtons } from "@/components/common/StickyShareButtons.component";
+import { ViewCountTracker } from "@/components/common/ViewCountTracker.component";
+import { MarkdownContent } from "@/components/common/MarkdownContent.component";
+import { RECENT_BLOGS_LIMIT } from "@/constants/blog.constants";
 import { buildMediaUrl } from "@/utils/common.utils";
 import { formatDate } from "@/utils/date.utils";
-import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr";
-import { MarkdownContent } from "@/components/common/MarkdownContent.component";
 
-export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export const revalidate = 600; // 10 minutes
+
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const blog = await getBlogBySlug(slug);
+
+  if (!blog) {
+    return {
+      title: "Blog Not Found | SONA",
+    };
+  }
+
+  const imageUrl = buildMediaUrl(blog.bannerImage) || buildMediaUrl(blog.thumbnail);
+
+  return {
+    title: `${blog.title} | SONA`,
+    description: blog.metaDescription || blog.excerpt || `Read ${blog.title} on SONA Blog`,
+    openGraph: {
+      title: blog.metaTitle || blog.title,
+      description: blog.metaDescription || blog.excerpt || "",
+      images: imageUrl ? [imageUrl] : [],
+      type: "article",
+      publishedTime: blog.publishedDate,
+      authors: blog.author ? [blog.author.name] : undefined,
+    },
+  };
+}
+
+export default async function BlogDetailPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const blog = await getBlogBySlug(slug);
+  // Parallel data fetching
+  const [blog, recentBlogs, categories, tags] = await Promise.all([
+    getBlogBySlug(slug),
+    getRecentBlogs({ limit: RECENT_BLOGS_LIMIT }),
+    getBlogCategories(),
+    getBlogTags(),
+  ]);
 
   if (!blog) {
     notFound();
   }
 
-  // Fetch recent blogs for sidebar/related
-  const recentBlogs = await getRecentBlogs({ limit: 3, excludeId: blog.id });
+  // Filter out current blog from recent blogs
+  const sidebarRecentBlogs = recentBlogs.filter((b) => b.id !== blog.id);
 
-  const bannerImageUrl = buildMediaUrl(blog.bannerImage);
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://sona.edu.in"}/blogs/${slug}`;
+  // Related blogs (from blog data or fallback to recent)
+  const relatedBlogs = blog.relatedBlogs && blog.relatedBlogs.length > 0 
+    ? blog.relatedBlogs 
+    : recentBlogs.filter((b) => b.id !== blog.id).slice(0, 2);
+
+  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://sona.ac.in"}/blogs/${slug}`;
+
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blogs" },
+    { label: blog.title },
+  ];
 
   return (
-    <div className='bg-white min-h-screen'>
+    <main className='min-h-screen bg-white pb-20'>
+      <ViewCountTracker type='blog' documentId={blog.documentId} />
+      
       <StickyShareButtons title={blog.title} url={shareUrl} />
 
-      {/* Hero / Header */}
-      <div className='bg-gray-50 border-b border-gray-100'>
-        <div className='container py-10'>
-          <Link
-            href='/blogs'
-            className='inline-flex items-center text-sm text-gray-500 hover:text-blue-600 mb-6 transition-colors'
-          >
-            <ArrowLeftIcon className='mr-2' />
-            Back to Blog
-          </Link>
+      <ContentHero
+        type='blog'
+        title={blog.title}
+        image={blog.bannerImage}
+        breadcrumbs={breadcrumbs}
+        categories={blog.categories}
+        date={blog.publishedDate}
+        author={blog.author}
+        viewCount={blog.viewCount}
+        readTime={blog.readTime}
+        excerpt={blog.excerpt}
+      />
 
-          <div className='max-w-4xl'>
-            <div className='flex items-center gap-4 mb-4'>
-              {blog.categories?.[0] && (
-                <CategoryBadge name={blog.categories[0].name} color={blog.categories[0].color} />
+      <div className='container mx-auto px-6 py-12 md:py-20'>
+        <div className='grid grid-cols-1 lg:grid-cols-12 gap-16'>
+          {/* Main Content */}
+          <div className='lg:col-span-8'>
+            <article className='prose prose-lg max-w-none mb-16 prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900'>
+              {typeof blog.content === "string" ? (
+                <MarkdownContent content={blog.content} />
+              ) : (
+                <p className='italic text-gray-500'>[Rich Text Content]</p>
               )}
-              <span className='text-sm text-gray-500'>{formatDate(blog.publishedDate)}</span>
-              {blog.readTime && <span className='text-sm text-gray-400'>• {blog.readTime} min read</span>}
+            </article>
+
+            {/* Social Share (Mobile Only) */}
+            <div className='py-10 border-y border-gray-100 mb-16 lg:hidden'>
+              <ShareButtons title={blog.title} url={shareUrl} />
             </div>
 
-            <h1 className='text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6'>{blog.title}</h1>
+            {/* Author Bio */}
+            <div className='mb-16'>
+              <AuthorSection author={blog.author} />
+            </div>
 
-            {blog.excerpt && (
-              <p className='text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl'>{blog.excerpt}</p>
+            {/* Related Blogs */}
+            {relatedBlogs.length > 0 && (
+              <div className='mb-16'>
+                <h3 className='text-2xl font-bold mb-8'>Related Articles</h3>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+                  {relatedBlogs.map((related) => (
+                    <ContentCard
+                      key={related.id}
+                      title={related.title}
+                      href={`/blogs/${related.slug}`}
+                      image={related.thumbnail || related.bannerImage}
+                      date={formatDate(related.publishedDate)}
+                      category={related.categories?.[0]}
+                      buttonText='Read Article'
+                    />
+                  ))}
+                </div>
+              </div>
             )}
+
+            {/* Comments */}
+            <div className='mt-16 pt-16 border-t border-gray-100'>
+              <CommentSection type='blog' documentId={blog.documentId} />
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className='lg:col-span-4'>
+            <div className='sticky top-24'>
+              <ContentSidebar
+                type='blog'
+                recentItems={sidebarRecentBlogs}
+                categories={categories}
+                tags={tags}
+                basePath='/blogs'
+                recentTitle='Recent Articles'
+              />
+            </div>
           </div>
         </div>
       </div>
-
-      <div className='container py-10 grid grid-cols-1 lg:grid-cols-12 gap-10'>
-        {/* Main Content */}
-        <main className='lg:col-span-8'>
-          {bannerImageUrl && (
-            <div className='relative w-full aspect-video rounded-2xl overflow-hidden mb-10 shadow-sm'>
-              <Image src={bannerImageUrl} alt={blog.title} fill className='object-cover' priority />
-            </div>
-          )}
-
-          <div className='prose prose-lg max-w-none mb-12 text-gray-700'>
-            {typeof blog.content === "string" ? (
-              <MarkdownContent content={blog.content} />
-            ) : (
-              <p className='italic text-gray-500'>[Rich Text Block Content not supported in this view yet]</p>
-            )}
-          </div>
-
-          <div className='border-t border-gray-100 pt-10 mb-10'>
-            <AuthorSection author={blog.author} />
-          </div>
-
-          <div id='comments' className='border-t border-gray-100 pt-10'>
-            <CommentSection type='blog' documentId={blog.documentId} />
-          </div>
-        </main>
-
-        {/* Sidebar */}
-        <div className='lg:col-span-4'>
-          <div className='sticky top-24'>
-            <ContentSidebar
-              type="blog"
-              recentItems={recentBlogs}
-              basePath="/blogs"
-              recentTitle="Recent Articles"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    </main>
   );
 }

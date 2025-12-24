@@ -8,7 +8,7 @@ import { ContentCard } from "@/components/common/ContentCard.component";
 import { ShareButtons } from "@/components/common/ShareButtons.component";
 import { StickyShareButtons } from "@/components/common/StickyShareButtons.component";
 import { CommentSection } from "@/components/common/CommentSection.component";
-import { ViewCountTracker } from "@/components/events/ViewCountTracker.component";
+import { ViewCountTracker } from "@/components/common/ViewCountTracker.component";
 import { RECENT_EVENTS_LIMIT } from "@/constants/events.constants";
 import { buildMediaUrl } from "@/utils/common.utils";
 import { formatDate } from "@/utils/date.utils";
@@ -72,7 +72,7 @@ export default async function EventDetailPage({ params }: PageProps) {
 
   return (
     <main className='min-h-screen bg-white pb-20'>
-      <ViewCountTracker eventDocumentId={event.documentId} />
+      <ViewCountTracker type='event' documentId={event.documentId} />
 
       <StickyShareButtons title={event.title} url={shareUrl} />
 

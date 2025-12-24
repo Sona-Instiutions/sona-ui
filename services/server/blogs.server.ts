@@ -6,9 +6,17 @@
  */
 
 import axiosInstance from "@/lib/axios.config";
-import { IBlogsResponse, INormalizedBlog } from "@/types/blog.types";
+import {
+  IBlogsResponse,
+  INormalizedBlog,
+  IBlogCategoriesResponse,
+  IBlogTagsResponse,
+  IBlogCategory,
+  IBlogTag,
+} from "@/types/blog.types";
 import { buildBlogsQuery, normalizeBlog } from "@/utils/blog.utils";
 import { BLOG_PAGE_SIZE } from "@/constants/blog.constants";
+import qs from "qs";
 
 /**
  * Fetch a paginated list of blogs.
@@ -82,6 +90,42 @@ export async function getRecentBlogs(params: {
     return data.data.map(normalizeBlog);
   } catch (error) {
     console.error("Error fetching recent blogs:", error);
+    return [];
+  }
+}
+
+/**
+ * Fetch all blog categories.
+ */
+export async function getBlogCategories(): Promise<IBlogCategory[]> {
+  try {
+    const query = qs.stringify({
+      sort: ["order:asc", "name:asc"],
+      pagination: { pageSize: 100 },
+    });
+    const { data } = await axiosInstance.get<IBlogCategoriesResponse>(
+      `/api/blog-categories?${query}`
+    );
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching blog categories:", error);
+    return [];
+  }
+}
+
+/**
+ * Fetch all blog tags.
+ */
+export async function getBlogTags(): Promise<IBlogTag[]> {
+  try {
+    const query = qs.stringify({
+      sort: ["name:asc"],
+      pagination: { pageSize: 100 },
+    });
+    const { data } = await axiosInstance.get<IBlogTagsResponse>(`/api/blog-tags?${query}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching blog tags:", error);
     return [];
   }
 }
