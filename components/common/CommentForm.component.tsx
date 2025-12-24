@@ -23,7 +23,6 @@ export function CommentForm({ onSubmit, isPending, isError, onCancel, isReply = 
     authorEmail: "",
     content: "",
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

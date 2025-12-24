@@ -6,7 +6,7 @@
 
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useId } from "react";
 import { MagnifyingGlassIcon, XIcon, CircleNotchIcon, CalendarBlankIcon, ClockIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { useBlogSearchSuggestionsQuery } from "@/services/client/blogs.client";
@@ -41,6 +41,7 @@ export function SearchSuggestions({
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const listboxId = useId();
 
   // Debounced value
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -159,6 +160,7 @@ export function SearchSuggestions({
           role='combobox'
           aria-expanded={showSuggestions}
           aria-haspopup='listbox'
+          aria-controls={listboxId}
         />
         {value && (
           <button
@@ -179,6 +181,7 @@ export function SearchSuggestions({
 
       {showSuggestions && (
         <div
+          id={listboxId}
           role='listbox'
           className='absolute z-20 mt-2 w-full bg-white border border-gray-100 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 max-h-[400px] overflow-y-auto'
         >

@@ -15,6 +15,7 @@ import { formatDate } from "@/utils/date.utils";
 import { buildMediaUrl } from "@/utils/common.utils";
 import { IEventSearchSuggestion } from "@/types/events.types";
 import { IBlogSearchSuggestion } from "@/types/blog.types";
+import { IStrapiMedia } from "@/types/common.types";
 
 type ContentType = "event" | "blog";
 
@@ -26,14 +27,14 @@ interface BaseContentItem {
 
 interface EventItem extends BaseContentItem {
   eventDate: string;
-  thumbnailImage?: unknown;
-  featuredImage?: unknown;
+  thumbnailImage?: IStrapiMedia | null;
+  featuredImage?: IStrapiMedia | null;
 }
 
 interface BlogItem extends BaseContentItem {
   publishedDate: string;
-  thumbnail?: unknown;
-  bannerImage?: unknown;
+  thumbnail?: IStrapiMedia | null;
+  bannerImage?: IStrapiMedia | null;
 }
 
 type ContentItem = EventItem | BlogItem;
@@ -59,22 +60,15 @@ interface ContentSidebarProps {
 }
 
 /**
- * Type guard to check if item is an event
- */
-function isEventItem(item: ContentItem): item is EventItem {
-  return "eventDate" in item;
-}
-
-/**
  * Get thumbnail image for content item
  */
-function getThumbnail(item: ContentItem, type: ContentType): unknown {
+function getThumbnail(item: ContentItem, type: ContentType): IStrapiMedia | null | undefined {
   if (type === "event") {
     const event = item as EventItem;
-    return event.thumbnailImage || event.featuredImage;
+    return event.thumbnailImage || event.featuredImage || null;
   }
   const blog = item as BlogItem;
-  return blog.thumbnail || blog.bannerImage;
+  return blog.thumbnail || blog.bannerImage || null;
 }
 
 /**

@@ -11,11 +11,15 @@ import { useBlogComments, useSubmitBlogComment } from "@/services/client/blogs.c
 import { useEventComments, useSubmitEventComment } from "@/services/client/events.client";
 import { CommentList } from "./CommentList.component";
 import { CommentForm } from "./CommentForm.component";
+import { ICommentSubmission } from "@/types/comments.types";
 
 interface CommentSectionProps {
   type: "event" | "blog";
   documentId: string;
 }
+
+type EventCommentPayload = Omit<ICommentSubmission, "event"> & { eventDocumentId: string };
+type BlogCommentPayload = Omit<ICommentSubmission, "event"> & { blogDocumentId: string };
 
 export function CommentSection({ type, documentId }: CommentSectionProps) {
   // Conditionally use hooks based on type
@@ -35,39 +39,53 @@ export function CommentSection({ type, documentId }: CommentSectionProps) {
   const isError = mutation.isError;
 
   const handleSubmit = (data: { authorName: string; authorEmail: string; content: string }) => {
-    mutation.mutate(
-      {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [type === "event" ? "eventDocumentId" : "blogDocumentId"]: documentId,
+    if (type === "event") {
+      const payload: EventCommentPayload = {
+        eventDocumentId: documentId,
         ...data,
-      } as any, // Type assertion needed due to conditional key
-      {
+      };
+      submitEventMutation.mutate(payload, {
         onSuccess: () => {
-          // Ideally invalidate query
-          if (type === "event") eventCommentsQuery.refetch();
-          else blogCommentsQuery.refetch();
+          eventCommentsQuery.refetch();
         },
-      }
-    );
+      });
+    } else {
+      const payload: BlogCommentPayload = {
+        blogDocumentId: documentId,
+        ...data,
+      };
+      submitBlogMutation.mutate(payload, {
+        onSuccess: () => {
+          blogCommentsQuery.refetch();
+        },
+      });
+    }
   };
 
   const handleReply = (data: { authorName: string; authorEmail: string; content: string }, parentId: string) => {
-    mutation.mutate(
-      {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [type === "event" ? "eventDocumentId" : "blogDocumentId"]: documentId,
-        parentComment: parentId, // Use consistent field name? API expects 'parentComment' or 'parentCommentId'?
-        // The merged services both expect 'parentComment' or 'parentCommentId' in the payload interface?
-        // Let's check ICommentSubmission. It has 'parentComment'.
+    if (type === "event") {
+      const payload: EventCommentPayload = {
+        eventDocumentId: documentId,
+        parentComment: parentId,
         ...data,
-      } as any,
-      {
+      };
+      submitEventMutation.mutate(payload, {
         onSuccess: () => {
-          if (type === "event") eventCommentsQuery.refetch();
-          else blogCommentsQuery.refetch();
+          eventCommentsQuery.refetch();
         },
-      }
-    );
+      });
+    } else {
+      const payload: BlogCommentPayload = {
+        blogDocumentId: documentId,
+        parentComment: parentId,
+        ...data,
+      };
+      submitBlogMutation.mutate(payload, {
+        onSuccess: () => {
+          blogCommentsQuery.refetch();
+        },
+      });
+    }
   };
 
   if (isLoading) {

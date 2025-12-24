@@ -8,22 +8,19 @@
 
 import React, { useState } from "react";
 import { UserIcon, ArrowBendDownRightIcon, ThumbsUpIcon } from "@phosphor-icons/react";
-import { IEventComment } from "@/types/comments.types"; // Should probably be generic IComment
+import { IEventComment } from "@/types/comments.types";
 import { cn } from "@/lib/utils";
 import { formatRelativeTime } from "@/utils/date.utils";
 import { CommentForm } from "./CommentForm.component";
 
-// Interface compatible with both Event and Blog comments (which are identical)
-interface IComment extends IEventComment {}
-
 interface CommentListProps {
-  comments: IComment[];
+  comments: IEventComment[];
   onReply: (data: { authorName: string; authorEmail: string; content: string }, parentId: string) => void;
   isReplyPending: boolean;
 }
 
 interface CommentItemProps {
-  comment: IComment;
+  comment: IEventComment;
   isReply?: boolean;
   onReply: (data: { authorName: string; authorEmail: string; content: string }, parentId: string) => void;
   isReplyPending: boolean;
