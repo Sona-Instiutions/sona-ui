@@ -16,11 +16,7 @@ interface EventHeroProps {
 }
 
 export function EventHero({ event }: EventHeroProps) {
-  const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Events", href: "/events" },
-    { label: event.title },
-  ];
+  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Events", href: "/events" }, { label: event.title }];
 
   return (
     <ContentHero

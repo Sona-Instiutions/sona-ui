@@ -1,11 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { 
-  getBlogBySlug, 
-  getRecentBlogs, 
-  getBlogCategories, 
-  getBlogTags 
-} from "@/services/server/blogs.server";
+import { getBlogBySlug, getRecentBlogs, getBlogCategories, getBlogTags } from "@/services/server/blogs.server";
 import { ContentHero } from "@/components/common/ContentHero.component";
 import { AuthorSection } from "@/components/common/AuthorSection.component";
 import { CommentSection } from "@/components/common/CommentSection.component";
@@ -70,22 +65,19 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const sidebarRecentBlogs = recentBlogs.filter((b) => b.id !== blog.id);
 
   // Related blogs (from blog data or fallback to recent)
-  const relatedBlogs = blog.relatedBlogs && blog.relatedBlogs.length > 0 
-    ? blog.relatedBlogs 
-    : recentBlogs.filter((b) => b.id !== blog.id).slice(0, 2);
+  const relatedBlogs =
+    blog.relatedBlogs && blog.relatedBlogs.length > 0
+      ? blog.relatedBlogs
+      : recentBlogs.filter((b) => b.id !== blog.id).slice(0, 2);
 
   const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://sona.ac.in"}/blogs/${slug}`;
 
-  const breadcrumbs = [
-    { label: "Home", href: "/" },
-    { label: "Blog", href: "/blogs" },
-    { label: blog.title },
-  ];
+  const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Blog", href: "/blogs" }, { label: blog.title }];
 
   return (
     <main className='min-h-screen bg-white pb-20'>
       <ViewCountTracker type='blog' documentId={blog.documentId} />
-      
+
       <StickyShareButtons title={blog.title} url={shareUrl} />
 
       <ContentHero
