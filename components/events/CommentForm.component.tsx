@@ -11,13 +11,12 @@ import { useSubmitEventComment } from "@/services/client/eventComments.client";
 import { Spinner } from "phosphor-react";
 
 interface CommentFormProps {
-  eventId: number;
-  parentCommentId?: number | null;
+  eventDocumentId: string;
   onSuccess?: () => void;
   onCancel?: () => void; // For reply forms
 }
 
-export function CommentForm({ eventId, parentCommentId, onSuccess, onCancel }: CommentFormProps) {
+export function CommentForm({ eventDocumentId, onSuccess, onCancel }: CommentFormProps) {
   const [formData, setFormData] = useState({
     authorName: "",
     authorEmail: "",
@@ -33,8 +32,7 @@ export function CommentForm({ eventId, parentCommentId, onSuccess, onCancel }: C
 
     mutate(
       {
-        event: eventId,
-        parentComment: parentCommentId,
+        eventDocumentId,
         ...formData,
       },
       {
@@ -65,7 +63,7 @@ export function CommentForm({ eventId, parentCommentId, onSuccess, onCancel }: C
 
   return (
     <form onSubmit={handleSubmit} className='space-y-4 bg-gray-50 p-6 rounded-xl border border-gray-100'>
-      <h4 className='font-semibold text-gray-900'>{parentCommentId ? "Leave a Reply" : "Leave a Comment"}</h4>
+      <h4 className='font-semibold text-gray-900'>Leave a Comment</h4>
 
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
         <div>

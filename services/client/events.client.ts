@@ -72,8 +72,8 @@ export function useEventsInfiniteQuery(params: {
  */
 export function useIncrementEventViewCount() {
   return useMutation({
-    mutationFn: async (eventId: number) => {
-      return axiosInstance.post(`/api/events/${eventId}/increment-view`);
+    mutationFn: async (eventDocumentId: string) => {
+      return axiosInstance.post(`/api/events/${eventDocumentId}/increment-view`);
     },
   });
 }

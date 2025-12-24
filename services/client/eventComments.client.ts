@@ -17,32 +17,11 @@ import { EVENT_QUERY_KEYS } from "@/constants/events.constants";
 
 /**
  * Fetch approved comments for an event.
- * Retrieves top-level comments with approved replies populated.
+ * Uses the custom event comments endpoint.
  */
-export async function fetchEventComments(eventId: number): Promise<IEventComment[]> {
-  const query = qs.stringify(
-    {
-      filters: {
-        event: { id: { $eq: eventId } },
-        status: { $eq: "approved" },
-        parentComment: { $null: true }, // Top-level only
-      },
-      populate: {
-        replies: {
-          filters: { status: { $eq: "approved" } }, // Only approved replies
-          sort: ["createdAt:asc"],
-        },
-      },
-      sort: ["createdAt:desc"], // Newest top-level comments first
-      pagination: {
-        pageSize: 100, // Limit to 100 comments for now
-      },
-    },
-    { encodeValuesOnly: true }
-  );
-
-  const { data } = await axiosInstance.get<IEventCommentsResponse>(
-    `/api/event-comments?${query}`
+export async function fetchEventComments(eventDocumentId: string): Promise<IEventComment[]> {
+  const { data } = await axiosInstance.get<{ data: IEventComment[] }>(
+    `/api/events/${eventDocumentId}/comments`
   );
   return data.data;
 }
@@ -50,11 +29,11 @@ export async function fetchEventComments(eventId: number): Promise<IEventComment
 /**
  * Hook to fetch comments.
  */
-export function useEventComments(eventId?: number) {
+export function useEventComments(eventDocumentId?: string) {
   return useQuery({
-    queryKey: [EVENT_QUERY_KEYS.COMMENTS, eventId],
-    queryFn: () => fetchEventComments(eventId!),
-    enabled: !!eventId,
+    queryKey: [EVENT_QUERY_KEYS.COMMENTS, eventDocumentId],
+    queryFn: () => fetchEventComments(eventDocumentId!),
+    enabled: !!eventDocumentId,
     staleTime: 60 * 1000, // 1 minute
   });
 }
@@ -64,21 +43,18 @@ export function useEventComments(eventId?: number) {
  */
 export function useSubmitEventComment() {
   return useMutation({
-    mutationFn: async (payload: ICommentSubmission) => {
-      const { data } = await axiosInstance.post<IEventCommentResponse>(
-        "/api/event-comments",
+    mutationFn: async (payload: Omit<ICommentSubmission, "event"> & { eventDocumentId: string }) => {
+      const { eventDocumentId, ...commentData } = payload;
+      const { data } = await axiosInstance.post<{ data: IEventComment }>(
+        `/api/events/${eventDocumentId}/comments`,
         {
-          data: {
-            ...payload,
-            status: "pending", // Force pending status
-          },
+          data: commentData,
         }
       );
       return data.data;
     },
     onSuccess: () => {
-      // We don't invalidate immediately because the comment is pending.
-      // But we could trigger a toast notification in the UI.
+      // Invalidation or toast handled by consumer
     },
   });
 }

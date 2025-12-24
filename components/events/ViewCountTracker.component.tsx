@@ -10,19 +10,19 @@ import { useEffect, useRef } from "react";
 import { useIncrementEventViewCount } from "@/services/client/events.client";
 
 interface ViewCountTrackerProps {
-  eventId: number;
+  eventDocumentId: string;
 }
 
-export function ViewCountTracker({ eventId }: ViewCountTrackerProps) {
+export function ViewCountTracker({ eventDocumentId }: ViewCountTrackerProps) {
   const { mutate } = useIncrementEventViewCount();
   const hasIncremented = useRef(false);
 
   useEffect(() => {
-    if (eventId && !hasIncremented.current) {
-      mutate(eventId);
+    if (eventDocumentId && !hasIncremented.current) {
+      mutate(eventDocumentId);
       hasIncremented.current = true;
     }
-  }, [eventId, mutate]);
+  }, [eventDocumentId, mutate]);
 
   return null; // Renderless component
 }

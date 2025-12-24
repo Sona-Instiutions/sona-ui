@@ -70,7 +70,7 @@ export default async function EventDetailPage({ params }: PageProps) {
 
   return (
     <main className='min-h-screen bg-white pb-20'>
-      <ViewCountTracker eventId={event.id} />
+      <ViewCountTracker eventDocumentId={event.documentId} />
 
       <EventHero event={event} />
 
@@ -89,7 +89,7 @@ export default async function EventDetailPage({ params }: PageProps) {
             <RelatedEvents events={relatedEvents} />
 
             <div className='mt-12 pt-12 border-t border-gray-100'>
-              <CommentList eventId={event.id} />
+              <CommentList eventDocumentId={event.documentId} />
             </div>
           </div>
 
