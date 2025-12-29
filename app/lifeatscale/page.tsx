@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import MainBanner from "@/components/common/MainBannerSection";
+import MainBanner from "@/components/common/MainBannerSection.component";
 import StudentActivitiesSection from "@/components/lifeatscale/StudentActivities.component";
 import CampusGallerySection from "@/components/lifeatscale/CampusGallery.component";
 import InteractiveLabsSection from "@/components/lifeatscale/InteractiveLabsSection.component";

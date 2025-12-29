@@ -35,3 +35,17 @@ export const EVENT_QUERY_KEYS = {
 /** Default revalidation time for ISR (in seconds) */
 export const EVENTS_REVALIDATE_TIME = 600; // 10 minutes
 
+/**
+ * Brand color rotation for event cards
+ */
+
+export const EVENT_CARD_COLORS = [
+  "bg-blue-600 text-white",
+  "bg-yellow-400 text-black",
+  "bg-slate-900 text-white",
+] as const;
+
+export function getEventCardColor(index: number): string {
+  return EVENT_CARD_COLORS[index % EVENT_CARD_COLORS.length];
+}
+

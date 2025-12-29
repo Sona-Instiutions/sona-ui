@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import MainBanner from "@/components/common/MainBannerSection";
+import MainBanner from "@/components/common/MainBannerSection.component";
 import PlacementStatisticsSection from "@/components/placements/PlacementStatistics.component";
 import HowDifferentSection from "@/components/placements/HowDifferent.component";
 import HiringPartnersSection from "@/components/placements/HiringPartners.component";
 import ProcessFlowSection from "@/components/placements/ProcessFlow.component";
 import IndustryGallerySection from "@/components/placements/IndustryGallery.component";
 import SuccessStoriesSection from "@/components/placements/SuccessStories.component";
-import CallToActionSection from "@/components/common/CallToActionSection";
+import CallToActionSection from "@/components/common/CallToActionSection.component";
 
 export const metadata: Metadata = {
     title: "SCALE | Placements",
