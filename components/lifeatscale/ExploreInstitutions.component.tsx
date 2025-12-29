@@ -1,45 +1,45 @@
 "use client";
 
 import {
-  GraduationCap,
-  Cpu,
-  Brain,
-  Briefcase,
-  Handshake,
-  Buildings,
-} from "phosphor-react";
+  GraduationCapIcon,
+  CpuIcon,
+  BrainIcon,
+  BriefcaseIcon,
+  HandshakeIcon,
+  BuildingsIcon,
+} from "@phosphor-icons/react";
 
 export default function ExploreInstitutionsSection() {
   const institutions = [
     {
       id: 1,
       name: "Sona Finishing School",
-      icon: GraduationCap,
+      icon: GraduationCapIcon,
     },
     {
       id: 2,
       name: "Sona Tech School",
-      icon: Cpu,
+      icon: CpuIcon,
     },
     {
       id: 3,
       name: "AI Consultancy",
-      icon: Brain,
+      icon: BrainIcon,
     },
     {
       id: 4,
       name: "Sona Business School",
-      icon: Briefcase,
+      icon: BriefcaseIcon,
     },
     {
       id: 5,
       name: "Contract to Hire",
-      icon: Handshake,
+      icon: HandshakeIcon,
     },
     {
       id: 6,
       name: "GCC",
-      icon: Buildings,
+      icon: BuildingsIcon,
     },
   ];
 
