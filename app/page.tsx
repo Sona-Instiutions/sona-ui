@@ -11,9 +11,14 @@ import NewsEventsSection from "@/components/home/NewsEventsSection.component";
 import StudentStoriesSection from "@/components/home/StudentStoriesSection.component";
 import IndustryLeadersSection from "@/components/home/IndustryLeadersSection.component";
 import LatestBlogsSection from "@/components/home/LatestBlogsSection.component";
+import { getBlogs } from "@/services/server/blogs.server";
 import CallToActionSection from "@/components/common/CallToActionSection.component";
 import { getEvents } from "@/services/server/events.server";
-
+const blogsResponse = await getBlogs({
+  page: 1,
+  pageSize: 10, // fetch more, UI will limit
+});
+const blogs = blogsResponse.data; // fetch all blogs
 export const metadata: Metadata = {
   title: "SCALE | Home",
   description:
@@ -81,7 +86,7 @@ export default async  function HomePage() {
       <IndustryLeadersSection />
 
       {/* LatestBlogsSection section  */}
-      {/* <LatestBlogsSection /> */}
+      <LatestBlogsSection blogs={blogs} />
 
       {/* CallToActionSection section  */}
 

@@ -2,7 +2,7 @@
 
 // components/InteractiveLabsSection.tsx
 import Image from "next/image";
-import { Check } from "phosphor-react";
+import { CheckIcon } from "@phosphor-icons/react";
 
 export default function InteractiveLabsSection() {
   const labs = [
@@ -104,7 +104,7 @@ export default function InteractiveLabsSection() {
                       className="flex items-center gap-3"
                     >
                       <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#002D72] flex items-center justify-center">
-                        <Check
+                        <CheckIcon
                           size={14}
                           weight="bold"
                           className="text-white"
