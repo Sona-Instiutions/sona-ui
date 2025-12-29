@@ -129,7 +129,7 @@ export function ContentSidebar({
   return (
     <aside className='space-y-10'>
       {/* Search Widget */}
-      <div className='bg-gray-50 p-6 rounded-2xl border border-gray-100'>
+      {/* <div className='bg-gray-50 p-6 rounded-2xl border border-gray-100'>
         <h3 className='text-lg font-bold text-gray-900 mb-4 relative inline-block'>
           {searchTitle}
           <span className='absolute -bottom-1 left-0 w-12 h-1 bg-blue-600 rounded-full'></span>
@@ -140,7 +140,7 @@ export function ContentSidebar({
           onSelectSuggestion={handleSelectSuggestion}
           placeholder='Search...'
         />
-      </div>
+      </div> */}
 
       {/* Recent Items Widget */}
       {recentItems.length > 0 && (

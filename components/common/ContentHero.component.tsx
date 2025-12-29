@@ -74,7 +74,7 @@ export function ContentHero({
       </div>
 
       {/* Content */}
-      <div className='container mx-auto px-6 relative z-10 pb-16'>
+      <div className='container mx-auto max-w-6xl relative z-10 pb-16 px-6 sm:px-10 md:px-10 lg:px-0'>
         <div className='max-w-4xl'>
           {/* Breadcrumb */}
           <Breadcrumb items={breadcrumbs} light className='mb-6' />

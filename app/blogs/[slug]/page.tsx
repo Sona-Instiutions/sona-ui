@@ -93,7 +93,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
         excerpt={blog.excerpt}
       />
 
-      <div className='container mx-auto px-6 py-12 md:py-20'>
+      <div className='container mx-auto max-w-6xl py-12 md:py-20 px-6 sm:px-10 md:px-10 lg:px-0 '>
         <div className='grid grid-cols-1 lg:grid-cols-12 gap-16'>
           {/* Main Content */}
           <div className='lg:col-span-8'>
