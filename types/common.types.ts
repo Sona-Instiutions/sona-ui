@@ -125,6 +125,7 @@ export interface IContentBase {
   author?: string | IContentAuthor;
   featured?: boolean;
   viewCount?: number;
+  showComments?: boolean;
   metaTitle?: string;
   metaDescription?: string;
   categories?: IContentCategory[];
@@ -145,6 +146,7 @@ export interface INormalizedContentBase {
   author: IContentAuthor | null;
   featured: boolean;
   viewCount: number;
+  showComments: boolean;
   metaTitle: string | null;
   metaDescription: string | null;
   categories: IContentCategory[];

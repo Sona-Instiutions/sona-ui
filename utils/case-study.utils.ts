@@ -105,6 +105,7 @@ export function normalizeCaseStudy(item: ICaseStudy): INormalizedCaseStudy {
     author: normalizedAuthor,
     featured: item.featured || false,
     viewCount: item.viewCount || 0,
+    showComments: item.showComments || false,
     metaTitle: item.metaTitle || item.title,
     metaDescription: item.metaDescription || item.excerpt,
     categories: Array.isArray(item.categories) ? item.categories : [],

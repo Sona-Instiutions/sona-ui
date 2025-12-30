@@ -59,6 +59,7 @@ export const normalizeBlog = (blog: IBlog): INormalizedBlog => {
     author: normalizedAuthor,
     featured: blog.featured || false,
     viewCount: blog.viewCount || 0,
+    showComments: blog.showComments || false,
     metaTitle: blog.metaTitle || null,
     metaDescription: blog.metaDescription || null,
     categories: Array.isArray(blog.categories) ? blog.categories : [],

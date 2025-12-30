@@ -143,9 +143,11 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
             )}
 
             {/* Comments */}
-            <div className='mt-16 pt-16 border-t border-gray-100'>
-              <CommentSection type='case-study' documentId={caseStudy.documentId} />
-            </div>
+            {caseStudy.showComments && (
+              <div className='mt-16 pt-16 border-t border-gray-100'>
+                <CommentSection type='case-study' documentId={caseStudy.documentId} />
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}

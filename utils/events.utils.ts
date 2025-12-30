@@ -57,6 +57,7 @@ export const normalizeEvent = (event: IEvent): INormalizedEvent => {
     featured: event.featured || false,
     publishedDate: event.publishedDate,
     viewCount: event.viewCount || 0,
+    showComments: event.showComments || false,
     categories: Array.isArray(event.categories) ? event.categories : [],
     tags: Array.isArray(event.tags) ? event.tags : [],
     relatedEvents: Array.isArray(event.relatedEvents)

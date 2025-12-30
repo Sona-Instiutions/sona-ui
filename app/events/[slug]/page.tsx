@@ -120,9 +120,11 @@ export default async function EventDetailPage({ params }: PageProps) {
             )}
 
             {/* Comments */}
-            <div className='mt-16 pt-16 border-t border-gray-100'>
-              <CommentSection type='event' documentId={event.documentId} />
-            </div>
+            {event.showComments && (
+              <div className='mt-16 pt-16 border-t border-gray-100'>
+                <CommentSection type='event' documentId={event.documentId} />
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}

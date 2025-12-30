@@ -134,9 +134,11 @@ export default async function BlogDetailPage({ params }: PageProps) {
             )}
 
             {/* Comments */}
-            <div className='mt-16 pt-16 border-t border-gray-100'>
-              <CommentSection type='blog' documentId={blog.documentId} />
-            </div>
+            {blog.showComments && (
+              <div className='mt-16 pt-16 border-t border-gray-100'>
+                <CommentSection type='blog' documentId={blog.documentId} />
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}
