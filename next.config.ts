@@ -11,6 +11,10 @@ const DEFAULT_REMOTE_PATTERNS: RemotePattern[] = [
   { protocol: "http", hostname: "localhost", port: "1337", pathname: "/uploads/**" },
   { protocol: "http", hostname: "127.0.0.1", port: "1337", pathname: "/uploads/**" },
   { protocol: "http", hostname: "0.0.0.0", port: "1337", pathname: "/uploads/**" },
+  // Add your custom admin domain
+  { protocol: "https", hostname: "admin.scaleIndia.in", pathname: "/**" },
+  // Add Strapi Cloud support
+  { protocol: "https", hostname: "*.media.strapiapp.com", pathname: "/**" },
 ];
 
 const remotePatterns: RemotePattern[] = [...DEFAULT_REMOTE_PATTERNS];
