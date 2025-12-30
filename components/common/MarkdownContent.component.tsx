@@ -69,7 +69,7 @@ export function MarkdownContent({ content, className, components: customComponen
             alt={alt || "Event image"}
             width={1200}
             height={800}
-            className='rounded-xl object-cover w-full h-auto transition-transform duration-300 group-hover:scale-[1.01]'
+            className='rounded-xl object-contain w-full h-auto transition-transform duration-300 group-hover:scale-[1.01]'
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px'
           />
         </span>
@@ -77,22 +77,28 @@ export function MarkdownContent({ content, className, components: customComponen
     },
     // Detect "Gallery" behavior in paragraphs
     p: ({ children, ...props }) => {
-      // Check if this paragraph only contains images
+      // Check if this paragraph only contains images (ignoring whitespace/newlines)
       const childrenArray = React.Children.toArray(children);
-      const hasOnlyImages =
-        childrenArray.length > 0 &&
-        childrenArray.every((child) => {
+      const meaningfulChildren = childrenArray.filter((child) => {
+        if (typeof child === "string") return child.trim().length > 0;
+        return true;
+      });
+
+      const isGallery =
+        meaningfulChildren.length > 0 &&
+        meaningfulChildren.every((child) => {
           if (!React.isValidElement(child)) return false;
-          // React Markdown renders images as 'img' elements
-          return child.type === "img";
+          // React Markdown renders images as 'img' elements or wraps them in other ways
+          // depending on plugins/version, but usually they are elements with a src or type img
+          return child.type === "img" || (child.props as any)?.src;
         });
 
-      // If it's a collection of images, render as a fluid flex gallery
-      if (hasOnlyImages) {
+      // If it's a collection of images, render as a fluid masonry gallery
+      if (isGallery) {
         return (
-          <div className='flex flex-wrap gap-4 my-8 items-start'>
-            {childrenArray.map((child, index) => (
-              <div key={index} className='flex-1 min-w-[300px] max-w-full'>
+          <div className='my-12 columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3'>
+            {meaningfulChildren.map((child, index) => (
+              <div key={index} className='break-inside-avoid'>
                 {child}
               </div>
             ))}
