@@ -30,12 +30,7 @@ function HeaderBrand() {
   return (
     <Link href='/' className='flex items-center gap-3 mr-20' aria-label='SCALE home'>
       <span className='flex items-center justify-center rounded-md bg-linear-to-br bg-white'>
-        <Image
-          src="/images/logo.svg"
-          alt="Sona Tower"
-          width="136"
-          height="100"
-        />
+        <Image src='/images/logo.svg' alt='Sona Tower' width='204' height='150' />
       </span>
     </Link>
   );
@@ -203,7 +198,7 @@ function Header() {
     <header className='w-full bg-background shadow-sm'>
       <HeaderTopBar />
       <div className='border-b border-blue-900/60 bg-[#1a36a2]'>
-        <div className='relative mx-auto flex justify-between max-w-6xl flex-row items-center gap-2 px-4 py-4 text-white after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:bg-blue-400/40'>
+        <div className='relative mx-auto flex justify-between max-w-5xl flex-row items-center gap-2 px-4 py-4 text-white after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:bg-blue-400/40'>
           <HeaderBrand />
           <HeaderMobileMenu />
           <div className='items-center gap-1 lg:flex hidden'>

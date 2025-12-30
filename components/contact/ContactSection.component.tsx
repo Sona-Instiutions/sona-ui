@@ -2,7 +2,8 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useSubmitContactFormMutation } from "@/services/client/contactSubmission.client";
-import {Phone,MapPin,Mail} from "lucide-react";
+import { Phone, MapPin, Mail } from "lucide-react";
+import { FOOTER_CONTACT_INFO } from "@/constants/navigation.constants";
 export default function ContactSection() {
   const [form, setForm] = useState({
     Category: "",
@@ -89,43 +90,38 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-6 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div className="md:col-span-2">
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-3">Get in touch</h2>
+    <section className='py-16 bg-white'>
+      <div className='container mx-auto px-6 md:px-8'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-12'>
+          <div className='md:col-span-2'>
+            <h2 className='text-4xl font-extrabold text-gray-900 mb-3'>Get in touch</h2>
 
-            <p className="text-gray-600 max-w-lg mb-10">
+            <p className='text-gray-600 max-w-lg mb-10'>
               Share your details and let us know how we can support your learning, collaboration, or information needs.
             </p>
 
             {/* SUCCESS MESSAGE */}
-            {successMessage && (
-              <div className="bg-green-100 text-green-700 p-3 mb-6 rounded">
-                {successMessage}
-              </div>
-            )}
+            {successMessage && <div className='bg-green-100 text-green-700 p-3 mb-6 rounded'>{successMessage}</div>}
 
             {/* FORM START */}
-            <form className="space-y-6" onSubmit={handleSubmit}>
-
+            <form className='space-y-6' onSubmit={handleSubmit}>
               {/* Category */}
               <div>
                 {/* <label className='block text-sm font-medium text-gray-600 mb-1'>I am a</label> */}
                 <select
-                  name="Category"
+                  name='Category'
                   value={form.Category}
                   onChange={handleChange}
                   className='w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 focus:ring-2 focus:ring-yellow-400 focus:outline-none'
                 >
-                  <option value="">Select your category</option>
-                  <option value="Student">Student</option>
-                  <option value="Parent">Parent</option>
-                  <option value="Working Professional">Working Professional</option>
-                  <option value="Other">Other</option>
+                  <option value=''>Select your category</option>
+                  <option value='Student'>Student</option>
+                  <option value='Parent'>Parent</option>
+                  <option value='Working Professional'>Working Professional</option>
+                  <option value='Other'>Other</option>
                 </select>
 
-                {errors.Category && <p className="text-red-500 text-sm">{errors.Category}</p>}
+                {errors.Category && <p className='text-red-500 text-sm'>{errors.Category}</p>}
               </div>
 
               {/* First Name */}
@@ -134,26 +130,25 @@ export default function ContactSection() {
                   <label className='block text-sm font-medium text-gray-600 mb-1'>First Name</label>
 
                   <input
-                    name="FirstName"
+                    name='FirstName'
                     value={form.FirstName}
                     onChange={handleChange}
-                    placeholder="First Name"
-                    className="w-full border rounded-lg px-4 py-3"
+                    placeholder='First Name'
+                    className='w-full border rounded-lg px-4 py-3'
                   />
-                  {errors.FirstName && <p className="text-red-500 text-sm">{errors.FirstName}</p>}
+                  {errors.FirstName && <p className='text-red-500 text-sm'>{errors.FirstName}</p>}
                 </div>
-
 
                 {/* Last Name */}
                 <div>
                   <label className='block text-sm font-medium text-gray-600 mb-1'>Last Name</label>
 
                   <input
-                    name="LastName"
+                    name='LastName'
                     value={form.LastName}
                     onChange={handleChange}
-                    placeholder="Last Name"
-                    className="w-full border rounded-lg px-4 py-3"
+                    placeholder='Last Name'
+                    className='w-full border rounded-lg px-4 py-3'
                   />
                 </div>
               </div>
@@ -163,16 +158,14 @@ export default function ContactSection() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Email Address</label>
 
                 <input
-                  name="EmailAddress"
-                  type="email"
+                  name='EmailAddress'
+                  type='email'
                   value={form.EmailAddress}
                   onChange={handleChange}
-                  placeholder="Email Address"
-                  className="w-full border rounded-lg px-4 py-3"
+                  placeholder='Email Address'
+                  className='w-full border rounded-lg px-4 py-3'
                 />
-                {errors.EmailAddress && (
-                  <p className="text-red-500 text-sm">{errors.EmailAddress}</p>
-                )}
+                {errors.EmailAddress && <p className='text-red-500 text-sm'>{errors.EmailAddress}</p>}
               </div>
 
               {/* Phone */}
@@ -180,16 +173,14 @@ export default function ContactSection() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Phone Number</label>
 
                 <input
-                  name="PhoneNumber"
+                  name='PhoneNumber'
                   value={form.PhoneNumber}
                   onChange={handleChange}
-                  placeholder="Phone Number"
+                  placeholder='Phone Number'
                   maxLength={10}
-                  className="w-full border rounded-lg px-4 py-3"
+                  className='w-full border rounded-lg px-4 py-3'
                 />
-                {errors.PhoneNumber && (
-                  <p className="text-red-500 text-sm">{errors.PhoneNumber}</p>
-                )}
+                {errors.PhoneNumber && <p className='text-red-500 text-sm'>{errors.PhoneNumber}</p>}
               </div>
 
               {/* Subject */}
@@ -197,11 +188,11 @@ export default function ContactSection() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Subject</label>
 
                 <input
-                  name="Subject"
+                  name='Subject'
                   value={form.Subject}
                   onChange={handleChange}
-                  placeholder="Subject"
-                  className="w-full border rounded-lg px-4 py-3"
+                  placeholder='Subject'
+                  className='w-full border rounded-lg px-4 py-3'
                 />
               </div>
 
@@ -210,19 +201,21 @@ export default function ContactSection() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Message</label>
 
                 <textarea
-                  name="Message"
+                  name='Message'
                   value={form.Message}
                   onChange={handleChange}
-                  placeholder="Write your message"
-                  className="w-full border rounded-lg px-4 py-3"
+                  placeholder='Write your message'
+                  className='w-full border rounded-lg px-4 py-3'
                 />
               </div>
 
               {/* Submit */}
               <button
-                type="submit"
+                type='submit'
                 disabled={isPending}
-                className={`w-full bg-blue-900 text-white rounded-lg py-3 transition ${isPending ? "opacity-60 cursor-not-allowed" : "hover:bg-blue-800 cursor-pointer"} `}
+                className={`w-full bg-blue-900 text-white rounded-lg py-3 transition ${
+                  isPending ? "opacity-60 cursor-not-allowed" : "hover:bg-blue-800 cursor-pointer"
+                } `}
               >
                 {isPending ? "Sending..." : "Message us"}
               </button>
@@ -240,37 +233,41 @@ export default function ContactSection() {
 
               <div className='space-y-5 text-left'>
                 <div className='flex items-start gap-3'>
-                  <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
+                  <div className='w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center'>
                     <Phone size={20} />
                   </div>
                   <div>
                     <p className='font-semibold'>Phone</p>
-                    <p className='text-sm text-gray-600'><a href="tel:+919442592175">+91 9442592175</a></p>
+                    <p className='text-sm text-gray-600'>
+                      <a href='tel:+919442592175'>+91 9442592175</a>
+                    </p>
                     <p className='text-xs text-gray-500'>Monday – Friday, 9:00 AM – 6:00 PM IST</p>
                   </div>
                 </div>
 
                 <div className='flex items-start gap-3'>
-                 <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
+                  <div className='w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center'>
                     <Mail size={20} />
                   </div>
                   <div>
                     <p className='font-semibold'>Email</p>
-                    <p className='text-sm text-gray-600'><a href="mailto:contact@scaleindia.in">contact@scaleindia.in</a></p>
-                    <p className='text-xs text-gray-500'>We’ll respond within 24 hours</p>
+                    <p className='text-sm text-gray-600'>
+                      <a href={`mailto:${FOOTER_CONTACT_INFO.email}`}>{FOOTER_CONTACT_INFO.email}</a>
+                    </p>
+                    <p className='text-xs text-gray-500'>We&apos;ll respond within 24 hours</p>
                   </div>
                 </div>
 
                 <div className='flex items-start gap-3'>
-                  <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
+                  <div className='w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center'>
                     <MapPin size={20} />
                   </div>
                   <div>
                     <p className='font-semibold'>Visit Us</p>
                     <p className='text-sm text-gray-600'>
-                      #43/1A , Billekempanahalli Village, 
+                      #43/1A , Billekempanahalli Village,
                       <br />
-                       Bidadi Hobli, Ramnagara Taluk,
+                      Bidadi Hobli, Ramnagara Taluk,
                       <br />
                       Karnataka – 562109, India.
                     </p>
@@ -324,6 +321,6 @@ export default function ContactSection() {
           </div>
         </div>
       </div>
-    </section >
+    </section>
   );
 }

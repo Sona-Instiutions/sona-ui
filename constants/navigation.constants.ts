@@ -61,11 +61,7 @@ export const HEADER_ABOUT_NAV: INavGroup[] = [
   },
 ];
 
-export const HEADER_HIGHLIGHT_NAV: INavItem[] = [
-  { label: "Admission", href: "/#" },
-  { label: "International Collaboration", href: "/#" },
-  { label: "Industry Collaboration ", href: "/#" },
-];
+export const HEADER_HIGHLIGHT_NAV: INavItem[] = [{ label: "Industry Collaboration ", href: "/#" }];
 
 export const FOOTER_TAGLINE =
   "Shaping tomorrow's innovators today through excellence in education, research, and industry collaboration.";
@@ -94,7 +90,7 @@ export const FOOTER_INSTITUTIONS: INavItem[] = [
 export const FOOTER_CONTACT_INFO: IFooterContactInfo = {
   address: "#43/1A , Billekempanahalli Village, Bidadi Hobli, Ramnagara Taluk, Karnataka – 562109, India.",
   phone: "+91 944 259 2175",
-  email: "contact@scaleindia.in",
+  email: "info@scaleindia.in",
 };
 
 export const FOOTER_SOCIAL_LINKS: ISocialLink[] = [

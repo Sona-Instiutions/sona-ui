@@ -120,6 +120,16 @@
   body {
     @apply bg-background text-foreground;
   }
+  p,
+  li {
+    font-size: 1rem; /* 16px */
+  }
+  h3 {
+    font-size: 1.25rem; /* 20px */
+  }
+  h4 {
+    font-size: 1.125rem; /* 18px */
+  }
 }
 .why-scale-page .lg\:mx-0 {
   margin-left: auto !important;

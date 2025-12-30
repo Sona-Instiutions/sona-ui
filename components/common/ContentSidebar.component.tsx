@@ -110,7 +110,7 @@ export function ContentSidebar({
       {/* Recent Items Widget */}
       {recentItems.length > 0 && (
         <div>
-          <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
+          <h3 className='text-xl font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
             {recentTitle || defaultRecentTitle}
             <span className='absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600'></span>
           </h3>
@@ -155,7 +155,7 @@ export function ContentSidebar({
       {/* Categories Widget */}
       {categories.length > 0 && (
         <div>
-          <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
+          <h3 className='text-xl font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
             Categories
             <span className='absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600'></span>
           </h3>
@@ -191,7 +191,7 @@ export function ContentSidebar({
       {/* Tags Widget */}
       {tags.length > 0 && (
         <div>
-          <h3 className='text-lg font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
+          <h3 className='text-xl font-bold text-gray-900 mb-6 pb-2 border-b-2 border-gray-100 relative'>
             Popular Tags
             <span className='absolute -bottom-0.5 left-0 w-12 h-0.5 bg-blue-600'></span>
           </h3>

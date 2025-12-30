@@ -74,8 +74,8 @@ export function ContentHero({
       </div>
 
       {/* Content */}
-      <div className='container mx-auto max-w-6xl relative z-10 pb-16 px-6 sm:px-10 md:px-10 lg:px-0'>
-        <div className='max-w-4xl'>
+      <div className='container mx-auto relative z-10 pb-16 px-6 sm:px-10 md:px-10 lg:px-0'>
+        <div className='px-auto'>
           {/* Breadcrumb */}
           <Breadcrumb items={breadcrumbs} light className='mb-6' />
 
@@ -87,7 +87,7 @@ export function ContentHero({
           </div>
 
           {/* Title */}
-          <h1 className='text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight'>{title}</h1>
+          <h1 className='text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight'>{title}</h1>
 
           {/* Excerpt for Blogs & Case Studies */}
           {(type === CONTENT_TYPE_BLOG || type === CONTENT_TYPE_CASE_STUDY) && excerpt && (

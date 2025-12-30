@@ -208,7 +208,7 @@ export function MarkdownContent({ content, className, components: customComponen
     <>
       <div
         className={cn(
-          "prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-img:rounded-xl",
+          "prose max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-p:text-slate-700 prose-h3:text-xl prose-h4:text-lg prose-img:rounded-xl",
           className
         )}
       >
