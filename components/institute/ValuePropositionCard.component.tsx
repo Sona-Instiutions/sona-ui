@@ -1,7 +1,6 @@
 "use client";
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MarkdownContent } from "@/components/common/MarkdownContent.component";
 
 import { IconBadge } from "@/components/common/IconBadge.component";
 import { cn } from "@/lib/utils";
@@ -20,20 +19,6 @@ interface ValuePropositionCardProps {
   /** Optional container class overrides */
   className?: string;
 }
-
-const markdownComponents = {
-  p: ({ children }: { children?: React.ReactNode }) => (
-    <p className='text-base leading-relaxed text-white/90 sm:text-lg'>{children}</p>
-  ),
-  strong: ({ children }: { children?: React.ReactNode }) => (
-    <strong className='font-semibold text-white'>{children}</strong>
-  ),
-  em: ({ children }: { children?: React.ReactNode }) => <em className='text-white/90'>{children}</em>,
-  ul: ({ children }: { children?: React.ReactNode }) => (
-    <ul className='list-disc space-y-2 pl-5 text-left text-white/90'>{children}</ul>
-  ),
-  li: ({ children }: { children?: React.ReactNode }) => <li>{children}</li>,
-};
 
 /**
  * Individual value proposition card with icon, colored title, and supporting copy.
@@ -69,11 +54,7 @@ export function ValuePropositionCard({ title, titleColor, description, icon, cla
       </h3>
 
       {resolvedDescription && (
-        <div className='prose prose-invert prose-p:my-0 prose-strong:text-white prose-ul:list-disc'>
-          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-            {resolvedDescription}
-          </ReactMarkdown>
-        </div>
+        <MarkdownContent content={resolvedDescription} className='prose-invert prose-p:my-0' />
       )}
     </article>
   );

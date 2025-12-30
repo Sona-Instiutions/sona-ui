@@ -10,3 +10,4 @@ export const CASE_STUDY_API_ENDPOINTS = {
   CATEGORIES: "/api/case-study-categories",
   TAGS: "/api/case-study-tags",
 };
+

@@ -1,7 +1,6 @@
 "use client";
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MarkdownContent } from "@/components/common/MarkdownContent.component";
 import { SectionHeader } from "@/components/common/SectionHeader.component";
 import { ProgramCard } from "@/components/institute/ProgramCard.component";
 import { useProgramByInstitution } from "@/services/client/institution.client";
@@ -102,9 +101,7 @@ export function InstitutionPrograms({ institutionId }: InstitutionProgramsProps)
         <div className='flex flex-col items-center gap-6 text-center'>
           <SectionHeader title={sectionTitle} />
           {hasText(sectionDescription) && (
-            <div className='prose prose-slate max-w-3xl text-base leading-relaxed text-slate-600 prose-p:my-0 prose-p:text-inherit prose-strong:text-slate-900 prose-ul:list-disc sm:text-lg'>
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{sectionDescription as string}</ReactMarkdown>
-            </div>
+            <MarkdownContent content={sectionDescription as string} className='max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg' />
           )}
         </div>
 

@@ -97,13 +97,11 @@ export default async function BlogDetailPage({ params }: PageProps) {
         <div className='grid grid-cols-1 lg:grid-cols-12 gap-16'>
           {/* Main Content */}
           <div className='lg:col-span-8'>
-            <article className='prose prose-lg max-w-none mb-16 prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900'>
-              {typeof blog.content === "string" ? (
-                <MarkdownContent content={blog.content} />
-              ) : (
-                <p className='italic text-gray-500'>[Rich Text Content]</p>
-              )}
-            </article>
+            {typeof blog.content === "string" ? (
+              <MarkdownContent content={blog.content} className='mb-16' />
+            ) : (
+              <p className='italic text-gray-500 mb-16'>[Rich Text Content]</p>
+            )}
 
             {/* Social Share (Mobile Only) */}
             <div className='py-10 border-y border-gray-100 mb-16 lg:hidden'>

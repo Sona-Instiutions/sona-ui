@@ -26,3 +26,4 @@ export const BLOG_QUERY_KEYS = {
 /** Default revalidation time for ISR (in seconds) */
 export const BLOGS_REVALIDATE_TIME = 600; // 10 minutes
 
+

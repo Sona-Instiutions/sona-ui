@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import ReactMarkdown, { type Components } from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MarkdownContent } from "@/components/common/MarkdownContent.component";
 import type { IAboutInstitute } from "@/types/institution.types";
 import { AboutBadge } from "@/components/institute/AboutBadge.component";
 import { useAboutInstitute } from "@/services/client/institution.client";
@@ -14,17 +13,6 @@ interface InstitutionAboutProps {
   /** Institution identifier used to fetch about-institute content */
   institutionId?: number | null;
 }
-
-const markdownComponents: Components = {
-  p: ({ children }) => <p className='text-base leading-relaxed text-slate-600 sm:text-lg'>{children}</p>,
-  strong: ({ children }) => <strong className='font-semibold text-slate-900'>{children}</strong>,
-  em: ({ children }) => <em className='italic text-slate-700'>{children}</em>,
-  a: ({ children, href }) => (
-    <a href={href} className='font-medium text-sky-600 underline underline-offset-4 transition hover:text-sky-700'>
-      {children}
-    </a>
-  ),
-};
 
 const hasMeaningfulContent = (about?: IAboutInstitute | null): boolean => {
   if (!about) {
@@ -112,9 +100,7 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
 
           {hasText(about?.description) && (
             <div className='space-y-4'>
-              <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                {about?.description as string}
-              </ReactMarkdown>
+              <MarkdownContent content={about?.description as string} />
             </div>
           )}
 
@@ -136,9 +122,7 @@ export function InstitutionAbout({ institutionId }: InstitutionAboutProps) {
                       ariaLabel={bulletIcon?.displayName ?? bulletIcon?.iconName ?? undefined}
                     />
                     <div className='space-y-1 text-base text-slate-600 sm:text-lg'>
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                        {bullet.text}
-                      </ReactMarkdown>
+                      <MarkdownContent content={bullet.text} />
                     </div>
                   </li>
                 );

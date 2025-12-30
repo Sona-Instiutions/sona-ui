@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MarkdownContent } from "@/components/common/MarkdownContent.component";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { IconBadge } from "@/components/common/IconBadge.component";
@@ -64,9 +63,7 @@ export function ProgramCard({
 
       <div className='flex flex-1 flex-col gap-4'>
         <h3 className='text-xl font-semibold text-slate-900'>{title}</h3>
-        <div className='prose prose-slate text-base leading-relaxed text-slate-600 prose-p:my-0 prose-p:text-inherit prose-strong:text-slate-900 prose-ul:list-disc'>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{normalizedDescription}</ReactMarkdown>
-        </div>
+        <MarkdownContent content={normalizedDescription} className='prose-sm leading-relaxed text-slate-600' />
       </div>
 
       {hasCta && learnMoreUrl ? (

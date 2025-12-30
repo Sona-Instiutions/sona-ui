@@ -29,3 +29,4 @@ export function CategoryBadge({ name, color, className }: CategoryBadgeProps) {
   );
 }
 
+
