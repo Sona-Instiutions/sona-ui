@@ -57,22 +57,30 @@ export function MarkdownContent({ content, className, components: customComponen
       );
     },
     // Optimize images using Next.js Image component
-    img: ({ src, alt }) => {
+    img: ({ src, alt, ...props }) => {
       if (!src || typeof src !== "string") return null;
-      const imageUrl = buildMediaUrl({ url: src });
+      // If it's already a full URL, use it. Otherwise, build it.
+      const imageUrl = src.startsWith("http") ? src : buildMediaUrl({ url: src });
       if (!imageUrl) return null;
 
+      // Extract className if passed via cloneElement safely
+      const customClassName =
+        typeof props === "object" && props !== null && "className" in props
+          ? (props as { className: string }).className
+          : undefined;
+
       return (
-        <span className='relative block w-full my-8 group'>
-          <Image
-            src={imageUrl}
-            alt={alt || "Event image"}
-            width={1200}
-            height={800}
-            className='rounded-xl object-contain w-full h-auto transition-transform duration-300 group-hover:scale-[1.01]'
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px'
-          />
-        </span>
+        <Image
+          src={imageUrl}
+          alt={alt || "Event image"}
+          width={1200}
+          height={800}
+          className={cn(
+            "rounded-xl transition-transform duration-300 hover:scale-[1.01]",
+            customClassName || "object-contain w-full h-auto"
+          )}
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px'
+        />
       );
     },
     // Detect "Gallery" behavior in paragraphs
@@ -96,15 +104,31 @@ export function MarkdownContent({ content, className, components: customComponen
           );
         });
 
-      // If it's a collection of images, render as a fluid masonry gallery
+      // If it's a collection of images, render as a fluid grid gallery
       if (isGallery) {
+        const totalImages = meaningfulChildren.length;
+        const isOdd = totalImages % 2 !== 0;
+
         return (
-          <div className='my-12 columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3'>
-            {meaningfulChildren.map((child, index) => (
-              <div key={index} className='break-inside-avoid'>
-                {child}
-              </div>
-            ))}
+          <div className='my-12 grid grid-cols-1 gap-4 sm:grid-cols-2'>
+            {meaningfulChildren.map((child, index) => {
+              const isLast = index === totalImages - 1;
+              const isFullWidth = isLast && isOdd;
+
+              return (
+                <div
+                  key={index}
+                  className={cn(
+                    "relative w-full overflow-hidden rounded-xl bg-slate-50",
+                    isFullWidth ? "sm:col-span-2 aspect-21/9" : "aspect-3/2"
+                  )}
+                >
+                  {React.cloneElement(child as React.ReactElement<{ className?: string }>, {
+                    className: "absolute inset-0 w-full h-full object-cover",
+                  })}
+                </div>
+              );
+            })}
           </div>
         );
       }

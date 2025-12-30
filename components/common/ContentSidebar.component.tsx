@@ -8,7 +8,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { formatDate } from "@/utils/date.utils";
 import { buildMediaUrl } from "@/utils/common.utils";
