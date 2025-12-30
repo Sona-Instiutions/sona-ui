@@ -10,12 +10,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { SearchSuggestions } from "./SearchSuggestions.component";
 import { formatDate } from "@/utils/date.utils";
 import { buildMediaUrl } from "@/utils/common.utils";
-import { IEventSearchSuggestion } from "@/types/events.types";
-import { IBlogSearchSuggestion } from "@/types/blog.types";
-import { ICaseStudySearchSuggestion } from "@/types/case-study.types";
 import { IStrapiMedia, TContentType } from "@/types/common.types";
 import { CONTENT_TYPE_EVENT, CONTENT_TYPE_BLOG } from "@/constants/common.constants";
 
@@ -103,45 +99,15 @@ export function ContentSidebar({
   basePath,
   recentTitle,
 }: ContentSidebarProps) {
-  const router = useRouter();
-
-  const handleSearch = (term: string) => {
-    if (term.trim()) {
-      router.push(`${basePath}?search=${encodeURIComponent(term)}`);
-    }
-  };
-
-  const handleSelectSuggestion = (
-    suggestion: IEventSearchSuggestion | IBlogSearchSuggestion | ICaseStudySearchSuggestion
-  ) => {
-    router.push(`${basePath}/${suggestion.slug}`);
-  };
-
   const defaultRecentTitle =
     type === CONTENT_TYPE_EVENT
       ? "Recent Events"
       : type === CONTENT_TYPE_BLOG
       ? "Recent Articles"
       : "Recent Case Studies";
-  const searchTitle =
-    type === CONTENT_TYPE_EVENT ? "Search Events" : type === CONTENT_TYPE_BLOG ? "Search Blogs" : "Search Case Studies";
 
   return (
     <aside className='space-y-10'>
-      {/* Search Widget */}
-      {/* <div className='bg-gray-50 p-6 rounded-2xl border border-gray-100'>
-        <h3 className='text-lg font-bold text-gray-900 mb-4 relative inline-block'>
-          {searchTitle}
-          <span className='absolute -bottom-1 left-0 w-12 h-1 bg-blue-600 rounded-full'></span>
-        </h3>
-        <SearchSuggestions
-          type={type}
-          onSearch={handleSearch}
-          onSelectSuggestion={handleSelectSuggestion}
-          placeholder='Search...'
-        />
-      </div> */}
-
       {/* Recent Items Widget */}
       {recentItems.length > 0 && (
         <div>

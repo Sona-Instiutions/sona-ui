@@ -90,7 +90,10 @@ export function MarkdownContent({ content, className, components: customComponen
           if (!React.isValidElement(child)) return false;
           // React Markdown renders images as 'img' elements or wraps them in other ways
           // depending on plugins/version, but usually they are elements with a src or type img
-          return child.type === "img" || (child.props as any)?.src;
+          // Check if it's an 'img' tag or has a 'src' prop without using 'any'
+          return (
+            child.type === "img" || (typeof child.props === "object" && child.props !== null && "src" in child.props)
+          );
         });
 
       // If it's a collection of images, render as a fluid masonry gallery
