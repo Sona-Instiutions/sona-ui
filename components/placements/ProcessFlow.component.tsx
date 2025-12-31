@@ -43,8 +43,8 @@ export default function PlacementProcessFlow() {
       {/* Background */}
 
       <Image
-        src="/images/school-3.webp"
-        alt="Placements Background"
+        src="/images/placements/placement_process_flow.webp"
+        alt="Placement Process Flow"
         fill
         priority
         className="object-cover"
@@ -58,8 +58,7 @@ export default function PlacementProcessFlow() {
             Placement <span className="text-yellow-500">Process Flow</span>
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-gray-600 text-sm md:text-base">
-            Our comprehensive placement process ensures every student is
-            industry-ready and connected with the right opportunities
+          Our comprehensive placement process ensures every student is industry-ready and connected with the right opportunities.
           </p>
         </div>
 

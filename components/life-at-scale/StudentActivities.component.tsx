@@ -9,33 +9,49 @@ export default function StudentActivitiesSection() {
       id: 1,
       title: "Robotics & AI Club",
       description:
-        "Build autonomous robots, develop AI algorithms, and compete in national robotics competitions.",
-      image: "/images/activity-robotics.jpg",
-      meta: "150+ Active Members",
+        "Build autonomous systems, experiment with AI models, and work on real-world problem statements inspired by industry and research ecosystems.",
+      image: "/images/life-at-scale/robotics_and_ai_club.webp",
+      // meta: "150+ Active Members",
     },
     {
       id: 2,
-      title: "Cultural Society",
+      title: "Tech Hackathons & Innovation Labs",
       description:
-        "Express creativity through music, dance, drama, and art while celebrating diverse cultures.",
-      image: "/images/activity-cultural.jpg",
-      meta: "200+ Artists",
+        "Collaborate in high-energy hackathons, innovation sprints, and AI challenges that mirror real enterprise and startup environments.",
+      image: "/images/life-at-scale/tech_hackathons_and_innovation_labs.webp",
+      // meta: "200+ Artists",
     },
     {
       id: 3,
-      title: "Tech Hackathons",
+      title: "Entrepreneurship & Startup Club",
       description:
-        "48-hour coding marathons solving real-world problems with cutting-edge technology.",
-      image: "/images/activity-hackathon.jpg",
-      meta: "Monthly Events",
+        "Ideate, validate, and pitch startup ideas with access to mentors, investors, and SCALE’s incubation and acceleration ecosystem.",
+      image: "/images/life-at-scale/entrepreneurship_and_startup_club.webp",
+      // meta: "Monthly Events",
     },
     {
       id: 4,
-      title: "Sports & Fitness",
+      title: "Cultural & Creative Society",
       description:
-        "Encouraging teamwork, discipline, and physical excellence through diverse sports activities.",
-      image: "/images/activity-sports.jpg",
-      meta: "Year-round Activities",
+        "Express yourself through music, dance, theatre, art, and storytelling while celebrating diversity, collaboration, and cultural leadership.",
+      image: "/images/life-at-scale/cultural_and_creative_society.webp",
+      // meta: "Year-round Activities",
+    },
+    {
+      id: 5,
+      title: "Leadership & Industry Forums",
+      description:
+        "Engage with CXOs, founders, and global leaders through panel discussions, fireside chats, leadership circles, and industry forums.",
+      image: "/images/life-at-scale/leadership_and_industry_forums.webp",
+      // meta: "",
+    },
+    {
+      id: 6,
+      title: "Sports, Wellness & Campus Life",
+      description:
+        "Maintain balance through sports, fitness, wellness programs, and campus activities that promote teamwork, resilience, and well-being.",
+      image: "/images/life-at-scale/sports_wellness_and_campus_life.webp",
+      // meta: "",
     },
   ];
 
@@ -105,9 +121,7 @@ export default function StudentActivitiesSection() {
             Student <span className="text-yellow-500">Activities</span> & Clubs
           </h2>
           <p className="mt-4 text-gray-600">
-            Discover endless opportunities to explore your passions, develop new
-            skills, and create lasting memories through our diverse range of
-            student organizations.
+          Discover endless opportunities to explore your passions, develop new skills, and create lasting memories through our diverse range of student organizations.
           </p>
         </div>
 
@@ -153,10 +167,10 @@ export default function StudentActivitiesSection() {
                         {item.description}
                       </p>
 
-                      <div className="mt-4 text-sm font-semibold text-yellow-500 flex items-center gap-1">
+                      {/* <div className="mt-4 text-sm font-semibold text-yellow-500 flex items-center gap-1">
                         {item.meta}
                         <span>→</span>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

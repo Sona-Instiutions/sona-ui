@@ -8,41 +8,41 @@ export default function InteractiveLabsSection() {
   const labs = [
     {
       id: 1,
-      title: "Biotechnology Research Center",
+      title: "24/7 HOT Lab (Hands-On Training Lab)",
       description:
-        "Our state-of-the-art biotechnology lab features advanced DNA sequencing equipment, cell culture facilities, and bioinformatics workstations. Students engage in cutting-edge research on genetic engineering, drug discovery, and sustainable biotechnology solutions.",
+        "SCALE’s 24/7 HOT Lab is an always-on innovation space that allows students to learn, experiment, and build without time constraints. Equipped with industry-grade platforms and real-world datasets, the lab enables continuous hands-on practice aligned with global enterprise and GCC requirements.",
       points: [
-        "PCR Machines & DNA Analyzers",
-        "Cell Culture & Fermentation Units",
-        "Bioinformatics Computing Cluster",
+        "AI & Generative AI Development Environments",
+        "Cloud, DevOps & Edge Computing Sandboxes",
+        "Enterprise-Grade Development & Testing Platforms",
       ],
-      image: "/images/labs/biotech.jpg",
+      image: "/images/life-at-scale/hot_lab.webp",
       reverse: false,
     },
     {
       id: 2,
-      title: "Advanced Materials Laboratory",
+      title: "AI & Emerging Technologies Innovation Lab",
       description:
-        "Discover the future of materials science with our comprehensive testing and characterization facilities. From nanomaterials synthesis to mechanical testing, students explore innovative materials for aerospace, automotive, and renewable energy applications.",
+        "This lab acts as SCALE’s central innovation hub, where students work on applied AI, analytics, and next-generation technologies. Guided by industry mentors, learners develop scalable solutions addressing real business and societal challenges.",
       points: [
-        "Scanning Electron Microscopy",
-        "X-Ray Diffraction Systems",
-        "Universal Testing Machines",
+        "Machine Learning & Advanced Analytics Workstations",
+        "Responsible AI, Ethics & Governance Toolkits",
+        "Digital Twins & Simulation Platforms",
       ],
-      image: "/images/labs/materials.jpg",
+      image: "/images/life-at-scale/ai_and_emerging_technologies_innovation_lab.webp",
       reverse: true,
     },
     {
       id: 3,
-      title: "Renewable Energy Innovation Hub",
+      title: "Green IT & Sustainable Computing Lab",
       description:
-        "Pioneer sustainable energy solutions in our dedicated renewable energy laboratory. Students work on solar cell optimization, wind energy systems, and energy storage technologies, contributing to India’s clean energy future.",
+        "The Green IT & Sustainable Computing Lab focuses on building technology solutions that are efficient, responsible, and future-ready. Students explore sustainable architectures, energy-efficient systems, and environmentally conscious digital practices aligned with global ESG goals.",
       points: [
-        "Solar Cell Testing Stations",
-        "Wind Tunnel Facilities",
-        "Battery Testing & Development",
+        "Energy-Efficient Computing & Optimization Tools",
+        "Sustainable Cloud & Infrastructure Models",
+        "ESG, Carbon Tracking & Impact Analytics Platforms",
       ],
-      image: "/images/labs/renewable.jpg",
+      image: "/images/life-at-scale/green_it_and_sustainable_computing_lab.webp",
       reverse: false,
     },
   ];
@@ -58,8 +58,7 @@ export default function InteractiveLabsSection() {
             Innovation Space
           </h2>
           <p className="mt-4 text-gray-600">
-            Explore our cutting-edge facilities where theoretical knowledge
-            transforms into practical innovation and breakthrough discoveries.
+          Explore our cutting-edge facilities where theoretical knowledge transforms into practical innovation and breakthrough discoveries.
           </p>
         </div>
 

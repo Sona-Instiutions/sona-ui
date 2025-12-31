@@ -4,7 +4,7 @@ export const HEADER_PARTNER_LINKS: INavItem[] = [
   { label: "GCC", href: "/institutions/sona-gcc" },
   { label: "Sona Business School", href: "https://pgdm.scaleindia.in/" },
   { label: "Sona finishing School", href: "/institutions/sona-finishing-school" },
-  { label: "Sona Tech School", href: "https://www.sonatech.ac.in/" },
+  { label: "Sona Tech School", href: "/institutions/sona-tech-school" },
   { label: "AI Consultancy", href: "/institutions/ai-consultancy" },
   { label: "Flexi Staffing", href: "/institutions/sona-flexi-staffing" },
 ];
@@ -22,9 +22,9 @@ export const HEADER_SOCIAL_LINKS: ISocialLink[] = [
 
 export const HEADER_PRIMARY_NAV: INavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Life @ SCALE", href: "#" },
-  { label: "Case Studies", href: "/case-studies" },
-  // { label: "Placements", href: "#" },
+  { label: "Life @ SCALE", href: "/life-at-scale" },
+  // { label: "Case Studies", href: "/case-studies" },
+  { label: "Placements", href: "/placements" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -61,7 +61,7 @@ export const HEADER_ABOUT_NAV: INavGroup[] = [
   },
 ];
 
-export const HEADER_HIGHLIGHT_NAV: INavItem[] = [{ label: "Industry Collaboration ", href: "/#" }];
+export const HEADER_HIGHLIGHT_NAV: INavItem[] = [{ label: "Industry Collaboration ", href: "/industry-colab" }];
 
 export const FOOTER_TAGLINE =
   "Shaping tomorrow's innovators today through excellence in education, research, and industry collaboration.";
@@ -70,8 +70,8 @@ export const FOOTER_COPYRIGHT = "© 2025 SCALE by Sona Valliappa Group. All righ
 
 export const FOOTER_QUICK_LINKS: INavItem[] = [
   { label: "About SCALE", href: "/about" },
-  { label: "Industry Collaborations", href: "#" },
-  { label: "Placements", href: "#" },
+  { label: "Industry Collaborations", href: "/industry-colab" },
+  { label: "Placements", href: "/placements" },
   { label: "Events & News", href: "/events" },
   { label: "Blogs", href: "/blogs" },
   { label: "Case Studies", href: "/case-studies" },
@@ -82,7 +82,7 @@ export const FOOTER_INSTITUTIONS: INavItem[] = [
   { label: "GCC", href: "/institutions/sona-gcc" },
   { label: "Sona Business School", href: "https://www.sonabusinessschool.com/ " },
   { label: "Sona finishing School", href: "/institutions/sona-finishing-school" },
-  { label: "Sona Tech School", href: "https://www.sonatech.ac.in/" },
+  { label: "Sona Tech School", href: "/institutions/sona-tech-school" },
   { label: "AI Consultancy", href: "/institutions/ai-consultancy" },
   { label: "Flexi Staffing", href: "/institutions/sona-flexi-staffing" },
 ];

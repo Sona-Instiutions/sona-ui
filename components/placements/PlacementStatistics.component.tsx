@@ -6,7 +6,7 @@ import { Trophy, IndianRupee, Building2, Star } from "lucide-react";
 const stats = [
   {
     icon: Trophy,
-    value: "97%",
+    value: "97",
     title: "Placement Rate",
     description: "Percentage of students placed",
   },
@@ -36,8 +36,8 @@ export default function PlacementsPage() {
       {/* Background image */}
       
         <Image
-          src="/images/school-3.webp"
-          alt="Placements Background"
+          src="/images/placements/placement_statistics_bg.webp"
+          alt="Placements"
           fill
           priority
           className="object-cover"
@@ -54,8 +54,7 @@ export default function PlacementsPage() {
             Placement <span className="text-yellow-500">Statistics</span>
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-gray-700 text-sm md:text-base">
-            Our remarkable placement record speaks volumes about the quality of
-            education and industry readiness of our graduates
+          Our remarkable placement record speaks volumes about the quality of education and industry readiness of our graduates
           </p>
         </div>
 

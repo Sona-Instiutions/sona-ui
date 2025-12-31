@@ -32,9 +32,9 @@ export default function InstitutionsSection() {
       id: 3,
       title: "Sona Tech School",
       description:
-        "TposurePrepare day-one-ready talent for global technology ecosystems.",
+        "Day-one-ready talent for global technology ecosystems.",
       image: "/images/sona_tech_school.webp",
-      link: "https://www.sonatech.ac.in/",
+      link: "/institutions/sona-tech-school",
     },
     {
       id: 4,
