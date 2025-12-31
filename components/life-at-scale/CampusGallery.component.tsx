@@ -4,38 +4,38 @@ import Image from "next/image";
 import { useState } from "react";
 
 /* ✅ Define tab type */
-type GalleryTab = "Infrastructure" | "Library" | "Interactive Lab";
+type GalleryTab = "Infrastructure" | "Class Room" ;
 
 export default function CampusGallerySection() {
   /* ✅ Tabs typed */
-  const tabs: GalleryTab[] = ["Infrastructure", "Library", "Interactive Lab"];
+  const tabs: GalleryTab[] = ["Infrastructure", "Class Room"];
 
   /* ✅ Gallery data typed */
   const galleryData: Record<GalleryTab, string[]> = {
     Infrastructure: [
-      "/images/gallery/infra-1.jpg",
-      "/images/gallery/infra-2.jpg",
-      "/images/gallery/infra-3.jpg",
-      "/images/gallery/infra-4.jpg",
-      "/images/gallery/infra-5.jpg",
-      "/images/gallery/infra-6.jpg",
+      "/images/life-at-scale/gallery/infrastucture_1.webp",
+      "/images/life-at-scale/gallery/infrastucture_2.webp",
+      "/images/life-at-scale/gallery/infrastucture_3.webp",
+      "/images/life-at-scale/gallery/infrastucture_4.webp",
+      "/images/life-at-scale/gallery/infrastucture_5.webp",
+      "/images/life-at-scale/gallery/infrastucture_6.webp",
     ],
-    Library: [
-      "/images/gallery/library-1.jpg",
-      "/images/gallery/library-2.jpg",
-      "/images/gallery/library-3.jpg",
-      "/images/gallery/library-4.jpg",
-      "/images/gallery/library-5.jpg",
-      "/images/gallery/library-6.jpg",
+    "Class Room": [
+      "/images/life-at-scale/gallery/class_room_1.webp",
+      "/images/life-at-scale/gallery/class_room_2.webp",
+      "/images/life-at-scale/gallery/class_room_3.webp",
+      "/images/life-at-scale/gallery/class_room_4.webp",
+      "/images/life-at-scale/gallery/class_room_5.webp",
+      "/images/life-at-scale/gallery/class_room_6.webp",
     ],
-    "Interactive Lab": [
-      "/images/gallery/lab-1.jpg",
-      "/images/gallery/lab-2.jpg",
-      "/images/gallery/lab-3.jpg",
-      "/images/gallery/lab-4.jpg",
-      "/images/gallery/lab-5.jpg",
-      "/images/gallery/lab-6.jpg",
-    ],
+    // "Interactive Lab": [
+    //   "/images/gallery/lab-1.jpg",
+    //   "/images/gallery/lab-2.jpg",
+    //   "/images/gallery/lab-3.jpg",
+    //   "/images/gallery/lab-4.jpg",
+    //   "/images/gallery/lab-5.jpg",
+    //   "/images/gallery/lab-6.jpg",
+    // ],
   };
 
   /* ✅ activeTab correctly typed */
@@ -51,8 +51,7 @@ export default function CampusGallerySection() {
             Campus <span className="text-yellow-500">Gallery</span>
           </h2>
           <p className="mt-4 text-gray-600">
-            Explore our vibrant campus life through different perspectives and
-            discover the spaces where memories are made.
+          Explore our vibrant campus life through different perspectives and discover the spaces where memories are made.
           </p>
         </div>
 

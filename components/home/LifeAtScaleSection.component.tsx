@@ -16,7 +16,7 @@ export default function LifeAtScaleSection() {
     { id: 2, src: "/images/img1.webp", alt: "Students Collaboration", title: "Collaborative Learning", subtitle: "Teamwork and creativity at SCALE", height: "h-[260px]" },
     { id: 3, src: "/images/mba-tead-classroom.webp", alt: "Seminar and Workshop", title: "Workshops & Seminars", subtitle: "Learning beyond classrooms", height: "h-[280px]" },
     { id: 4, src: "/images/life-4.webp", alt: "Classroom Learning", title: "Classroom Learning", subtitle: "Interactive and engaging education", height: "h-[260px]" },
-    { id: 5, src: "/images/life-5.webp", alt: "Graduation Ceremony", title: "Graduation Day", subtitle: "Celebrating student achievements", height: "h-[240px]" },
+    { id: 5, src: "/images/life-5.webp", alt: "Graduation Ceremony", title: "Sports Day", subtitle: "Celebrating student achievements", height: "h-[240px]" },
     { id: 6, src: "/images/img3.webp", alt: "Sports Event", title: "Sports & Fitness", subtitle: "Building champions and teamwork", height: "h-[300px]" },
     { id: 7, src: "/images/img2.webp", alt: "Student Discussion", title: "Student Interaction", subtitle: "Collaborative academic experiences", height: "h-[260px]" },
     { id: 8, src: "/images/img4.webp", alt: "Cultural Dance", title: "Cultural Fest", subtitle: "Celebrating art, culture and unity", height: "h-[200px]" },

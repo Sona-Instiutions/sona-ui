@@ -17,8 +17,8 @@ export default function HowWeAreDifferent() {
     <section className="relative w-full py-20 overflow-hidden">
       {/* Background */}
       <Image
-        src="/images/mba-tead-classroom.webp"
-        alt="Placements Background"
+        src="/images/placements/how_are_we_different.webp"
+        alt="How Are We Different"
         fill
         priority
         className="object-cover"
@@ -32,8 +32,7 @@ export default function HowWeAreDifferent() {
             How Are We <span className="text-yellow-400">Different</span>
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-gray-300 text-sm md:text-base">
-            SCALE&apos;s unique approach to industry training and career
-            preparation sets our graduates apart in the competitive job market
+          SCALE&apos;s unique approach to industry training and career preparation sets our graduates apart in the competitive job market.
           </p>
         </div>
 
@@ -43,21 +42,21 @@ export default function HowWeAreDifferent() {
             icon={<Code2 className="h-6 w-6 text-white" />}
             iconBg="bg-red-500"
             title="Industry-Integrated Curriculum"
-            description="Real-world projects with live industry data, ensuring students work on actual business challenges from day one of their academic journey."
+            description="Features real-world projects with live industry data, ensuring students work on actual business challenges from day one."
           />
 
           <FeatureCard
             icon={<Users className="h-6 w-6 text-white" />}
             iconBg="bg-blue-500"
             title="Industry Mentorship Program"
-            description="Direct mentorship from senior professionals at top companies, providing personalized career guidance and industry insights."
+            description="Offers direct mentorship from senior professionals at top companies for personalized career guidance."
           />
 
           <FeatureCard
             icon={<Lightbulb className="h-6 w-6 text-white" />}
             iconBg="bg-green-500"
             title="Innovation Labs"
-            description="State-of-the-art labs equipped with cutting-edge technology, fostering innovation and hands-on experience with industry-standard tools."
+            description="State-of-the-art facilities equipped with cutting-edge technology for hands-on experience with industry-standard tools."
           />
         </div>
 
@@ -69,8 +68,7 @@ export default function HowWeAreDifferent() {
               <span className="text-yellow-500">Excellence</span>
             </h3>
             <p className="mt-3 max-w-2xl mx-auto text-gray-600 text-sm md:text-base">
-              Our comprehensive industry training program bridges the gap
-              between academic learning and professional requirements
+            Our comprehensive industry training program bridges the gap between academic learning and professional requirements
             </p>
           </div>
 

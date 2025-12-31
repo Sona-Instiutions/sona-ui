@@ -19,9 +19,9 @@ export default function BannerCarousel() {
       id: 1,
       image: "/images/home-banner.webp",
       title: [
-        "By the industry",
-        "For the industry",
-        "To the industry"
+        "By the Industry",
+        "For the Industry",
+        "To the Industry"
       ],
       subtitle:
         " Tomorrow's technology today — Shaping innovators who will transform the world",
@@ -78,8 +78,8 @@ export default function BannerCarousel() {
 
                       return (
                         <div key={i}>
-                          {parts[0]}
-                          <span className="text-yellow-400">industry</span>
+                          {/* {parts[0]} */}
+                          <span className="text-yellow-400">To the Industry</span>
                           {parts[1] ?? ""}
                         </div>
                       );

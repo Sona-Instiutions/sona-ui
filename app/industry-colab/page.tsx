@@ -7,22 +7,22 @@ import CollaborationModels from "@/components/industry-colab/CollaborationModels
 import SuccessStories from "@/components/industry-colab/SuccessStories.component";
 
 export const metadata: Metadata = {
-  title: "SONA Institutions | Industry Colab",
+  title: "SCALE | Industry Colab",
   description:
-    "Welcome to SONA Institutions. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
+    "Welcome to SCALE. Explore our programs, placements, and world-class facilities for engineering, technology, and management education.",
   openGraph: {
-    title: "SONA Institutions | Industry Colab",
+    title: "SCALE | Industry Colab",
     description:
-      "Discover SONA Institutions – excellence in education, innovation, and industry collaboration.",
+      "Discover SCALE – excellence in education, innovation, and industry collaboration.",
     type: "website",
-    url: "https://sona.edu.in/",
-    siteName: "SONA Institutions",
+    url: "https://scaleindia.in/",
+    siteName: "SCALE",
     images: [
       {
         url: "/images/home-banner.jpg",
         width: 1200,
         height: 630,
-        alt: "SONA Institutions Campus",
+        alt: "SCALE Campus",
       },
     ],
   },
@@ -37,8 +37,8 @@ export default function AboutPage() {
       <MainBanner
         title="Partner With Us"
         highlight="Us"
-        description="Where future-ready talent meets global technology demands"
-        backgroundImage="/images/aboutus-banner.webp"
+        description="Collaborate with SCALE to access top-tier talent, cutting-edge research, and innovative solutions that drive your business forward"
+        backgroundImage="/images/industry_collaboration_banner.webp"
       />
       {/* WhyCollaborate section  */}
       <WhyCollaborate />
@@ -47,13 +47,13 @@ export default function AboutPage() {
       <CollaborationModels />
       
       {/* SuccessStories section  */}
-      <SuccessStories/>
+      {/* <SuccessStories/> */}
 
       {/* IndustryCollaborationForm section  */}
       <IndustryMultiStepForm />
 
       {/* CallToActionSection section  */}
-      <CallToActionSection
+      {/* <CallToActionSection
         bgColor="bg-yellow-500"
         heading="Ready to Transform Your Business?"
         description="Join leading organizations worldwide who have accelerated their growth through strategic partnerships with SCALE. Let's create something extraordinary together."
@@ -61,8 +61,7 @@ export default function AboutPage() {
         cta2="Download Partnership Guide"
         cta1Link="/contact"
         cta2Link="/contact"
-
-      />
+      /> */}
 
     </div>
   );
