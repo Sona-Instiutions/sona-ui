@@ -9,7 +9,7 @@ export default function LeadershipSection() {
       highlight: "Valliappa",
       designation: "Chairman",
       description: [
-        "Mr. C. Valliappa, founder of The Sona Group, is a prominent industrialist in South India with diverse interests spanning textiles, construction, and information technology. He has served as President of both the Industrial and Trade Chambers, including the Greater Mysore Chamber of Commerce and Industry and the Federation of Karnataka Chambers of Commerce & Industry.",
+        "Founder of The Sona Group, is a prominent industrialist in South India with diverse interests spanning textiles, construction, and information technology. He has served as President of both the Industrial and Trade Chambers, including the Greater Mysore Chamber of Commerce and Industry and the Federation of Karnataka Chambers of Commerce & Industry.",
         "A pivotal figure in placing India on the global IT map, he facilitated the partnership between Texas Instruments and the Sona Valliappa Group. In recognition of his contributions, he was invited by the White House to explore U.S.-India business opportunities—a rare distinction awarded to only one Indian businessman annually.",
       ],
       boldText: "",
