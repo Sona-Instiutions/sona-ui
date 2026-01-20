@@ -12,40 +12,40 @@ import {
 export default function WhyCollaborate() {
   const cards = [
     {
-      title: "Access Top Talent",
-      desc: "Connect with pre-screened, industry-ready graduates with cutting-edge skills",
-      img: "/images/about-us-section-1.webp",
+      title: "Access to Top-Tier talent",
+      desc: "Connect with pre-screened, industry-ready graduates who possess cutting-edge technical skills.",
+      img: "/images/access_top_talent.webp",
       icon: <UserPlusIcon size={24} weight='duotone' className='text-white' />,
     },
     {
-      title: "Research & Innovation",
-      desc: "Leverage our state-of-the-art facilities and expert faculty for breakthrough solutions",
-      img: "/images/about-us-section-1.webp",
+      title: "100% Tech-Integrated Talent Pipeline",
+      desc: "Graduates are trained in a curriculum where AI, Data Science, and Cloud are embedded into every business discipline, ensuring they are tech-enabled business leaders.",
+      img: "/images/research_&_innovation.webp",
       icon: <FlaskIcon size={24} weight='duotone' className='text-white' />,
     },
     {
-      title: "Cost–Effective Solutions",
-      desc: "Reduce training costs while accessing high-quality talent and research capabilities",
-      img: "/images/about-us-section-1.webp",
+      title: "Day-One Productivity",
+      desc: "Through the Sona Finishing School’s 12-week bootcamp, candidates are certified and 'Day-One Productive,' eliminating the need for long internal training cycles.",
+      img: "/images/customized_training.webp",
+      icon: <MedalIcon size={24} weight='duotone' className='text-white' />,
+    },
+    {
+      title: "Direct Curriculum Influence",
+      desc: "Industry leaders can join the Academic Council to co-design programs, ensuring the talent produced meets specific corporate requirements.",
+      img: "/images/global_network_access.webp",
       icon: <CurrencyDollarIcon size={24} weight='duotone' className='text-white' />,
     },
     {
-      title: "Global Network Access",
-      desc: "Tap into our extensive alumni network and international partnerships worldwide",
-      img: "/images/about-us-section-1.webp",
+      title: "Brand Enhancement",
+      desc: "Strengthen your corporate reputation through a strategic association with a center of educational and technological excellence.",
+      img: "/images/brand_enhancement.webp",
       icon: <GlobeIcon size={24} weight='duotone' className='text-white' />,
     },
     {
-      title: "Customized Training",
-      desc: "Tailored programs designed specifically for your industry needs and requirements",
-      img: "/images/about-us-section-1.webp",
+      title: "Cost-Effective R&D",
+      desc: "Reduce internal innovation costs by leveraging SCALE's state-of-the-art facilities and expert faculty for breakthrough research.",
+      img: "/images/cost-effective_solutions.webp",
       icon: <GraduationCapIcon size={24} weight='duotone' className='text-white' />,
-    },
-    {
-      title: "Brand Enhancement",
-      desc: "Enhance your corporate reputation through association with educational excellence",
-      img: "/images/about-us-section-1.webp",
-      icon: <MedalIcon size={24} weight='duotone' className='text-white' />,
     },
   ];
 
@@ -57,8 +57,7 @@ export default function WhyCollaborate() {
           Why <span className='text-yellow-400'>Collaborate</span> With SCALE
         </h2>
         <p className='text-gray-600 mt-4'>
-          Unlock the power of academic excellence and industry innovation through strategic partnerships that benefit
-          both your organization and our students
+        Unlock the power of academic excellence and industry innovation through strategic partnerships that benefit both your organization and our students
         </p>
       </div>
 

@@ -19,12 +19,12 @@ function FooterBrand() {
   return (
     <div className='flex flex-col gap-4'>
       <Link href='/' className='flex items-center gap-3' aria-label='SCALE home'>
-        <span className='flex bg-white items-center justify-center rounded-md bg-linear-to-br'>
+        <span className='flex bg-white items-center justify-center bg-linear-to-br p-2'>
           <span className='text-center text-lg font-bold'>
             <Image
               src="/images/logo.svg"
               alt="Sona Tower"
-              width="100"
+              width="200"
               height="100"
             />
           </span>

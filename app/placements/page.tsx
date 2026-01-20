@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         description:
             "Discover SCALE – excellence in education, innovation, and industry collaboration.",
         type: "website",
-        url: "https://sona.edu.in/",
+        url: "https://scaleindia.in/",
         siteName: "SCALE",
         images: [
             {
@@ -39,19 +39,19 @@ export default function AboutPage() {
         <MainBanner
           title=""
           highlight="Placements"
-          description="Connecting Exceptional Talent with Outstanding Opportunites"
-          backgroundImage="/images/contact_us.webp"
+          description="Built for industry. Ready for the world."
+          backgroundImage="/images/placements/placements_banner.webp"
         />
 
         <PlacementStatisticsSection />
         <HowDifferentSection />
-        <HiringPartnersSection />
+        {/* <HiringPartnersSection /> */}
         <ProcessFlowSection />
-        <IndustryGallerySection />
-        <SuccessStoriesSection />
+        {/* <IndustryGallerySection /> */}
+        {/* <SuccessStoriesSection /> */}
 
         {/* CallToActionSection section  */}
-        <CallToActionSection
+        {/* <CallToActionSection
           bgColor="bg-yellow-500"
           heading="Partner With Us"
           description="Access exceptional talent from SCALE's diverse programs. Our graduates are industry-ready, innovative, and committed to excellence. Join our network of
@@ -60,7 +60,7 @@ leading hiring partners."
           cta2="Schedule Campus Visit"
           cta1Link="/contact"
           cta2Link="/contact"
-        />
+        /> */}
       </div>
     );
 }

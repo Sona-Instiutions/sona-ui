@@ -33,11 +33,17 @@ export default function WhyChooseSection() {
             />
           </div>
           {/* CENTER IMAGE */}
-          <div className='flex justify-center'>
-            <div className='relative w-[280px] h-[500px] rounded-[2rem] overflow-hidden shadow-lg'>
-              <Image src='/images/why_choose_scale_center.webp' alt='Sona Tower' fill className='object-fill' />
+          <div className="hidden md:flex justify-center">
+            <div className="relative w-[280px] h-[500px] rounded-[2rem] overflow-hidden shadow-lg">
+              <Image
+                src="/images/why_choose_scale_center.webp"
+                alt="Sona Tower"
+                fill
+                className="object-fill"
+              />
             </div>
           </div>
+
 
           {/* RIGHT FEATURES */}
           <div className='flex flex-col items-center space-y-12 text-center'>

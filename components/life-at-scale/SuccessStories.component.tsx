@@ -14,30 +14,30 @@ export default function AlumniSuccessStoriesSection() {
   const alumni = [
     {
       id: 1,
-      name: "Priya Sharma",
-      year: "Class of 2019",
-      role: "Senior Software Engineer, Google",
-      image: "/images/alumni/priya.jpg",
+      name: "Aarav Mehta",
+      year: "",
+      role: "",
+      image: "/images/life-at-scale/testimonials.webp",
       quote:
-        "SCALE didn’t just give me a degree; it gave me the confidence to innovate. The hands-on projects and industry mentorship prepared me for the challenges at Google. I’m now leading AI initiatives that impact millions of users globally.",
+        "I’m excited to join SCALE because it feels less like a traditional campus and more like an innovation ecosystem. The blend of AI, industry exposure, and entrepreneurship is exactly what I was looking for to build a future-ready career.",
     },
     {
       id: 2,
-      name: "Arjun Patel",
-      year: "Class of 2018",
-      role: "Founder & CEO, TechVenture Solutions",
-      image: "/images/alumni/arjun.jpg",
+      name: "Nandini Rao",
+      year: "",
+      role: "",
+      image: "/images/life-at-scale/testimonials.webp",
       quote:
-        "The entrepreneurship ecosystem at SCALE was incredible. From ideation to funding, every step was supported. Today, my startup has raised $50M and employs over 200 people. The journey started in SCALE’s incubation center.",
+        "What attracted me to SCALE is the ‘by the industry, for the industry’ approach. Knowing that learning here is shaped by real CXOs, startups, and global enterprises makes me confident that I’ll be industry-ready from day one.",
     },
     {
       id: 3,
-      name: "Dr. Meera Krishnan",
-      year: "Class of 2017",
-      role: "Lead Researcher, ISRO",
-      image: "/images/alumni/meera.jpg",
+      name: "Karthik Srinivasan",
+      year: "",
+      role: "",
+      image: "/images/life-at-scale/testimonials.webp",
       quote:
-        "My research at SCALE on satellite technology directly contributed to my role in Chandrayaan-3 mission. The rigorous training and research opportunities here shaped my career in space exploration. Proud to be a SCALE alumna.",
+        "SCALE represents opportunity beyond classrooms—hackathons, startup incubation, global exposure, and real-world problem solving. I’m genuinely looking forward to being part of a campus where ideas turn into impact.",
     },
   ];
 
@@ -48,11 +48,10 @@ export default function AlumniSuccessStoriesSection() {
         <div className="max-w-3xl mx-auto text-center mb-12">
           <div className="w-20 h-[2px] bg-[#002D72] mx-auto mb-4 rounded-sm" />
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
-            Alumni <span className="text-yellow-500">Success Stories</span>
+          Voices of the <span className="text-yellow-500">Next Generation</span>
           </h2>
           <p className="mt-4 text-gray-600">
-            Hear from our distinguished graduates who are making a difference in
-            their fields and communities worldwide.
+          Hear from aspiring students who are excited to begin their journey at SCALE—drawn by industry-led learning, innovation culture, and global opportunities.
           </p>
         </div>
 
@@ -115,7 +114,7 @@ function AlumniCard({
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 p-8 text-center h-full">
       {/* Avatar */}
-      <div className="flex justify-center mb-4">
+      {/* <div className="flex justify-center mb-4">
         <div className="relative w-20 h-20 rounded-full overflow-hidden border border-gray-200">
           <Image
             src={alumni.image}
@@ -124,7 +123,7 @@ function AlumniCard({
             className="object-cover"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* Name */}
       <h3 className="text-lg font-bold text-gray-900">{alumni.name}</h3>

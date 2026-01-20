@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import MainBanner from "@/components/common/MainBannerSection.component";
-import StudentActivitiesSection from "@/components/lifeatscale/StudentActivities.component";
-import CampusGallerySection from "@/components/lifeatscale/CampusGallery.component";
-import InteractiveLabsSection from "@/components/lifeatscale/InteractiveLabsSection.component";
-import SuccessStoriesSection from "@/components/lifeatscale/SuccessStories.component";
-import ExploreInstitutions from "@/components/lifeatscale/ExploreInstitutions.component";
+import StudentActivitiesSection from "@/components/life-at-scale/StudentActivities.component";
+import CampusGallerySection from "@/components/life-at-scale/CampusGallery.component";
+import InteractiveLabsSection from "@/components/life-at-scale/InteractiveLabsSection.component";
+import SuccessStoriesSection from "@/components/life-at-scale/SuccessStories.component";
+import ExploreInstitutions from "@/components/life-at-scale/ExploreInstitutions.component";
 
 export const metadata: Metadata = {
     title: "SCALE | Life at Scale",
@@ -36,16 +36,16 @@ export default function AboutPage() {
             {/* Banner Section */}
             <MainBanner
                 title="Life @ "
-                highlight="Scale"
-                description="Experience the Vibrant campus culture where innovation meets tradition and dreams become reality"
-                backgroundImage="/images/contact_us.webp"
+                highlight="SCALE"
+                description="Experience the vibrant campus culture where innovation meets tradition and dreams become reality."
+                backgroundImage="/images/life_at_scale.webp"
             />
 
             <StudentActivitiesSection />
             <CampusGallerySection />
             <SuccessStoriesSection />
             <InteractiveLabsSection />
-            <ExploreInstitutions />           
+            {/* <ExploreInstitutions />  */}
 
         </div>
     );

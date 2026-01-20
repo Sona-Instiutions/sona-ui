@@ -77,9 +77,9 @@ export default function CollaborationModels() {
             </ul>
 
             {/* Button */}
-            <button className='mt-auto w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-xl transition'>
+            {/* <button className='mt-auto w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-xl transition'>
               Learn More
-            </button>
+            </button> */}
           </div>
         ))}
       </div>

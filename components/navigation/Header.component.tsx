@@ -29,8 +29,8 @@ import {
 function HeaderBrand() {
   return (
     <Link href='/' className='flex items-center gap-3 mr-20' aria-label='SCALE home'>
-      <span className='flex items-center justify-center rounded-md bg-linear-to-br bg-white'>
-        <Image src='/images/logo.svg' alt='Sona Tower' width='204' height='150' />
+      <span className='flex items-center justify-center bg-linear-to-br bg-white p-2'>
+        <Image src='/images/logo.svg' alt='Sona Tower' width='250' height='150' />
       </span>
     </Link>
   );
@@ -39,7 +39,7 @@ function HeaderBrand() {
 function HeaderTopBar() {
   return (
     <div className='hidden border-b border-blue-700/50 bg-[#2143b5] text-[11px] font-semibold uppercase tracking-wide text-blue-100 sm:block'>
-      <div className='mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2'>
+      <div className='mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2'>
         <nav className='flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-blue-50/90'>
           {HEADER_PARTNER_LINKS.map((link) => (
             <Link
@@ -198,7 +198,7 @@ function Header() {
     <header className='w-full bg-background shadow-sm'>
       <HeaderTopBar />
       <div className='border-b border-blue-900/60 bg-[#1a36a2]'>
-        <div className='relative mx-auto flex justify-between max-w-5xl flex-row items-center gap-2 px-4 py-4 text-white after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:bg-blue-400/40'>
+        <div className='relative mx-auto flex justify-between max-w-7xl flex-row items-center gap-2 px-4 py-4 text-white after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:bg-blue-400/40'>
           <HeaderBrand />
           <HeaderMobileMenu />
           <div className='items-center gap-1 lg:flex hidden'>
