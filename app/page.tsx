@@ -77,7 +77,7 @@ export default async  function HomePage() {
       <LifeAtScaleSection />
 
       {/* NewsEventsSection section  */}
-      <NewsEventsSection events={events}/>
+      {events.length > 0 && <NewsEventsSection events={events}/>}
 
       {/* StudentStoriesSection section  */}
       <StudentStoriesSection />
