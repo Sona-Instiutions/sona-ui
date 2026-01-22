@@ -68,9 +68,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const relatedBlogs =
     blog.relatedBlogs && blog.relatedBlogs.length > 0
       ? blog.relatedBlogs
-      : recentBlogs.filter((b) => b.id !== blog.id).slice(0, 2);
-
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://sona.ac.in"}/blogs/${slug}`;
+      : [];
 
   const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Blog", href: "/blogs" }, { label: blog.title }];
 
@@ -78,7 +76,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
     <main className='min-h-screen bg-white pb-20'>
       <ViewCountTracker type='blog' documentId={blog.documentId} />
 
-      <StickyShareButtons title={blog.title} url={shareUrl} />
+      <StickyShareButtons title={blog.title} />
 
       <ContentHero
         type='blog'
@@ -105,7 +103,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
             {/* Social Share (Mobile Only) */}
             <div className='py-10 border-y border-gray-100 mb-16 lg:hidden'>
-              <ShareButtons title={blog.title} url={shareUrl} />
+              <ShareButtons title={blog.title} />
             </div>
 
             {/* Author Bio */}

@@ -166,8 +166,6 @@ export interface IContentQueryFilters {
 export interface IShareButtonsProps {
   /** The title of the content being shared */
   title: string;
-  /** The full absolute URL of the page being shared */
-  url: string;
   /** Layout orientation of buttons */
   variant?: TShareButtonVariant;
   /** Whether to show the platform name labels */

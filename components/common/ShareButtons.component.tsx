@@ -11,14 +11,24 @@ import { IShareButtonsProps } from "@/types/common.types";
  * Renders social media sharing buttons in horizontal or vertical layout.
  * Supports desktop-sticky and mobile-inline usage.
  */
-export function ShareButtons({ title, url, variant = "horizontal", showLabels = true, className }: IShareButtonsProps) {
+export function ShareButtons({ title, variant = "horizontal", showLabels = true, className }: IShareButtonsProps) {
   const [copied, setCopied] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  // Get current URL on client-side
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
+
   const encodedTitle = encodeURIComponent(title);
-  const encodedUrl = encodeURIComponent(url);
+  const encodedUrl = encodeURIComponent(currentUrl);
 
   const isVertical = variant === "vertical";
 
-  const shareLinks = [
+  // Recompute share links whenever currentUrl changes
+  const shareLinks = React.useMemo(() => [
     {
       name: "LinkedIn",
       icon: LinkedinLogoIcon,
@@ -37,11 +47,11 @@ export function ShareButtons({ title, url, variant = "horizontal", showLabels = 
       href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
       color: "bg-[#1877F2] hover:bg-[#166fe5]",
     },
-  ];
+  ], [encodedUrl, encodedTitle]);
 
   const copyToClipboard = () => {
     navigator.clipboard
-      .writeText(url)
+      .writeText(currentUrl)
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
