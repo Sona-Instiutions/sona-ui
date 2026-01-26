@@ -14,6 +14,10 @@ import LatestBlogsSection from "@/components/home/LatestBlogsSection.component";
 import { getBlogs } from "@/services/server/blogs.server";
 import CallToActionSection from "@/components/common/CallToActionSection.component";
 import { getEvents } from "@/services/server/events.server";
+
+// ISR: Revalidate every 10 minutes (same as events page)
+export const revalidate = 600;
+
 const blogsResponse = await getBlogs({
   page: 1,
   pageSize: 10, // fetch more, UI will limit
