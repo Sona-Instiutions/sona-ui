@@ -20,7 +20,7 @@ export default function CallToActionSection({
     cta2Link = "/contact",
 }: CallToActionProps) {
     return (
-        <section className={`${bgColor} text-white py-24 relative overflow-hidden bg-opacity-20`}>
+        <section className={`${bgColor} text-white py-12 relative overflow-hidden bg-opacity-20`}>
             <div className="absolute inset-0 bg-black/20 bg-opacity-20"></div>
             <div className="container mx-auto px-6 text-center relative z-10 ">
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">

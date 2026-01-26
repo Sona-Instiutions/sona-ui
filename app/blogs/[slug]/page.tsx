@@ -26,15 +26,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!blog) {
     return {
-      title: "Blog Not Found | SONA",
+      title: "Blog Not Found | SCALE",
     };
   }
 
   const imageUrl = buildMediaUrl(blog.bannerImage) || buildMediaUrl(blog.thumbnail);
 
   return {
-    title: `${blog.title} | SONA`,
-    description: blog.metaDescription || blog.excerpt || `Read ${blog.title} on SONA Blog`,
+    title: `${blog.title} | SCALE`,
+    description: blog.metaDescription || blog.excerpt || `Read ${blog.title} on SCALE Blog`,
     openGraph: {
       title: blog.metaTitle || blog.title,
       description: blog.metaDescription || blog.excerpt || "",
@@ -70,7 +70,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
       ? blog.relatedBlogs
       : recentBlogs.filter((b) => b.id !== blog.id).slice(0, 2);
 
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://sona.ac.in"}/blogs/${slug}`;
+  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://scaleindia.in"}/blogs/${slug}`;
 
   const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Blog", href: "/blogs" }, { label: blog.title }];
 
@@ -109,9 +109,9 @@ export default async function BlogDetailPage({ params }: PageProps) {
             </div>
 
             {/* Author Bio */}
-            <div className='mb-16'>
+            {/* <div className='mb-16'>
               <AuthorSection author={blog.author} />
-            </div>
+            </div> */}
 
             {/* Related Blogs */}
             {relatedBlogs.length > 0 && (

@@ -5,29 +5,29 @@ import Image from "next/image";
 export default function IndustryLeadersSection() {
   // Partner data with category tags
   const partners = [
-    { id: 1, name: "Aviocian Technologies Pvt. Ltd ", tagline: " ", icon: "/images/aviocian-technologies-pvt-ltd.svg", categories: ["Cousultancy"] },
-    { id: 2, name: "Axial Global Automation, Chennai ", tagline: " ", icon: "/images/axial-global-automation-chennai.svg", categories: ["Cousultancy"] },
-    { id: 3, name: "Bharat Electronics Ltd., Haryana ", tagline: " ", icon: "/images/bharat-electronics-ltd-haryana.svg", categories: ["Cousultancy"] },
-    { id: 4, name: "Buddi Health ", tagline: " ", icon: "/images/buddi-health.svg", categories: ["Cousultancy"] },
-    { id: 5, name: "CBC Fashion (Asia) Pvt. Ltd., Tirupur ", tagline: " ", icon: "/images/cbc-fashion-asia-pvt-ltd-tirupur.svg", categories: ["Cousultancy"] },
-    { id: 6, name: "Codissia, Coimbatore ", tagline: " ", icon: "/images/codissia-coimbatore.svg", categories: ["Cousultancy"] },
-    { id: 7, name: "Daffodil International University Dhaka, Bangladesh ", tagline: " ", icon: "/images/daffodil-international-university-dhaka-bangladesh.svg", categories: ["Cousultancy"] },
-    { id: 8, name: "De NOVO Software Solution, PGN Group ", tagline: " ", icon: "/images/de-novo-software-solution-pgn-group.svg", categories: ["Cousultancy "] },
-    { id: 9, name: "Federation of all the Civil Engineers Association of Tamil Nadu and Puducherry ", tagline: " ", icon: "/images/federation-of-all-the-civil-engineers-association-of-tamil-nadu-and-puducherry.svg", categories: ["Cousultancy "] },
-    { id: 10, name: "Irrigation Management Training Institute (PWD) Water resource Govt. of Tamil Nadu ", tagline: " ", icon: "/images/irrigation-management-training-institute-pwd-water-resource-govt-of-tamil-nadu.svg", categories: ["Cousultancy "] },
-    { id: 11, name: "JSW Steel limited ", tagline: " ", icon: "/images/jsw-steel-limited.svg", categories: ["Cousultancy"] },
-    { id: 12, name: "KCube Consultancy Services Pvt. Ltd ", tagline: " ", icon: "/images/kcube-consultancy-services-pvt-ltd.svg", categories: ["Cousultancy"] },
-    { id: 13, name: "National Cyber Safety and Security Standards ", tagline: " ", icon: "/images/national-cyber-safety-and-security-standards.svg", categories: ["Cousultancy"] },
-    { id: 14, name: "National physical Research Laboratory, New Delhi ", tagline: "", icon: "/images/national-physical-research-laboratory-new-delhi.svg", categories: ["Cousultancy"] },
-    { id: 15, name: "Nottingham Trent University ", tagline: " ", icon: "/images/nottingham-trent-university.svg", categories: ["Cousultancy"] },
-    { id: 16, name: "Perundurai Common Effluent Traetment Plant, (SIPCOT) ", tagline: " ", icon: "/images/perundurai-common-effluent-treatment-plant-sipcot.svg", categories: ["Cousultancy"] },
-    { id: 17, name: "Prayojana Construction Management Training Institute, Salem ", tagline: " ", icon: "/images/prayojana-construction-management-training-institute-salem.svg", categories: ["Cousultancy"] },
-    { id: 18, name: "Rally Rebar Detailing Services ", tagline: " ", icon: "/images/rally-rebar-detailing-services.svg", categories: ["Cousultancy"] },
-    { id: 19, name: "SALIEABS ", tagline: " ", icon: "/images/salieabs.svg", categories: ["Cousultancy"] },
-    { id: 20, name: "Swinburne University of Technology  ", tagline: "", icon: "/images/swinburne-university-of-technology.svg", categories: ["Cousultancy"] },
-    { id: 21, name: "Tamil Nadu Pollution Board, Tamil Nadu  ", tagline: "", icon: "/images/tamil-nadu-pollution-board-tamilnadu.svg", categories: ["Cousultancy"] },
-    { id: 22, name: "Texvalley Market Ltd., Erode ", tagline: " ", icon: "/images/texvalley-market-ltd-erode.svg", categories: ["Cousultancy"] },
-    { id: 23, name: "Titan Company Ltd., Hosur ", tagline: " ", icon: "/images/titan-company-ltd-hosur.svg", categories: ["Cousultancy"] },
+    { id: 1, name: "Aviocian Technologies Pvt. Ltd ", tagline: " ", icon: "/images/aviocian-technologies-pvt-ltd.svg", categories: ["Consultancy"] },
+    { id: 2, name: "Axial Global Automation, Chennai ", tagline: " ", icon: "/images/axial-global-automation-chennai.svg", categories: ["Consultancy"] },
+    { id: 3, name: "Bharat Electronics Ltd., Haryana ", tagline: " ", icon: "/images/bharat-electronics-ltd-haryana.svg", categories: ["Consultancy"] },
+    { id: 4, name: "Buddi Health ", tagline: " ", icon: "/images/buddi-health.svg", categories: ["Consultancy"] },
+    { id: 5, name: "CBC Fashion (Asia) Pvt. Ltd., Tirupur ", tagline: " ", icon: "/images/cbc-fashion-asia-pvt-ltd-tirupur.svg", categories: ["Consultancy"] },
+    { id: 6, name: "Codissia, Coimbatore ", tagline: " ", icon: "/images/codissia-coimbatore.svg", categories: ["Consultancy"] },
+    { id: 7, name: "Daffodil International University Dhaka, Bangladesh ", tagline: " ", icon: "/images/daffodil-international-university-dhaka-bangladesh.svg", categories: ["Consultancy"] },
+    { id: 8, name: "De NOVO Software Solution, PGN Group ", tagline: " ", icon: "/images/de-novo-software-solution-pgn-group.svg", categories: ["Consultancy "] },
+    { id: 9, name: "Federation of all the Civil Engineers Association of Tamil Nadu and Puducherry ", tagline: " ", icon: "/images/federation-of-all-the-civil-engineers-association-of-tamil-nadu-and-puducherry.svg", categories: ["Consultancy "] },
+    { id: 10, name: "Irrigation Management Training Institute (PWD) Water resource Govt. of Tamil Nadu ", tagline: " ", icon: "/images/irrigation-management-training-institute-pwd-water-resource-govt-of-tamil-nadu.svg", categories: ["Consultancy "] },
+    { id: 11, name: "JSW Steel limited ", tagline: " ", icon: "/images/jsw-steel-limited.svg", categories: ["Consultancy"] },
+    { id: 12, name: "KCube Consultancy Services Pvt. Ltd ", tagline: " ", icon: "/images/kcube-consultancy-services-pvt-ltd.svg", categories: ["Consultancy"] },
+    { id: 13, name: "National Cyber Safety and Security Standards ", tagline: " ", icon: "/images/national-cyber-safety-and-security-standards.svg", categories: ["Consultancy"] },
+    { id: 14, name: "National physical Research Laboratory, New Delhi ", tagline: "", icon: "/images/national-physical-research-laboratory-new-delhi.svg", categories: ["Consultancy"] },
+    { id: 15, name: "Nottingham Trent University ", tagline: " ", icon: "/images/nottingham-trent-university.svg", categories: ["Consultancy"] },
+    { id: 16, name: "Perundurai Common Effluent Traetment Plant, (SIPCOT) ", tagline: " ", icon: "/images/perundurai-common-effluent-treatment-plant-sipcot.svg", categories: ["Consultancy"] },
+    { id: 17, name: "Prayojana Construction Management Training Institute, Salem ", tagline: " ", icon: "/images/prayojana-construction-management-training-institute-salem.svg", categories: ["Consultancy"] },
+    { id: 18, name: "Rally Rebar Detailing Services ", tagline: " ", icon: "/images/rally-rebar-detailing-services.svg", categories: ["Consultancy"] },
+    { id: 19, name: "SALIEABS ", tagline: " ", icon: "/images/salieabs.svg", categories: ["Consultancy"] },
+    { id: 20, name: "Swinburne University of Technology  ", tagline: "", icon: "/images/swinburne-university-of-technology.svg", categories: ["Consultancy"] },
+    { id: 21, name: "Tamil Nadu Pollution Board, Tamil Nadu  ", tagline: "", icon: "/images/tamil-nadu-pollution-board-tamilnadu.svg", categories: ["Consultancy"] },
+    { id: 22, name: "Texvalley Market Ltd., Erode ", tagline: " ", icon: "/images/texvalley-market-ltd-erode.svg", categories: ["Consultancy"] },
+    { id: 23, name: "Titan Company Ltd., Hosur ", tagline: " ", icon: "/images/titan-company-ltd-hosur.svg", categories: ["Consultancy"] },
     { id: 24, name: "Aviocian Technologies Pvt. Ltd ", tagline: " ", icon: "/images/aviocian-technologies-pvt-ltd.svg", categories: ["Research and Development"] },
     { id: 25, name: "CBC Fashion (Asia) Pvt. Ltd., Tirupur ", tagline: " ", icon: "/images/cbc-fashion-asia-pvt-ltd-tirupur.svg", categories: ["Research and Development"] },
     { id: 26, name: "Codissia, Coimbatore ", tagline: " ", icon: "/images/codissia-coimbatore.svg", categories: ["Research and Development"] },
@@ -99,14 +99,14 @@ export default function IndustryLeadersSection() {
   ];
 
   const tags = [
-    { id: 1, text: "Cousultancy", color: "bg-yellow-400 text-black cursor-pointer" },
+    { id: 1, text: "Consultancy", color: "bg-yellow-400 text-black cursor-pointer" },
     { id: 2, text: "Research and Development", color: "bg-yellow-400 text-black cursor-pointer" },
     { id: 3, text: "Training", color: "bg-yellow-400 text-black cursor-pointer" },
     // { id: 4, text: "Sona School of Business and Management", color: "bg-yellow-400 text-black cursor-pointer" },
   ];
 
   // State for active tab
-  const [activeTab, setActiveTab] = useState("Cousultancy");
+  const [activeTab, setActiveTab] = useState("Consultancy");
 
   // Filter partners based on tab
   const filteredPartners = partners.filter((partner) =>
@@ -114,7 +114,7 @@ export default function IndustryLeadersSection() {
   );
 
   return (
-    <section className="py-7 md:py-20 bg-gray-50 text-center">
+    <section className="py-4 md:py-10 bg-gray-50 text-center">
       <div className="container mx-auto px-6">
         {/* Heading */}
         <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
