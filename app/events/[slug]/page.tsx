@@ -92,9 +92,9 @@ export default async function EventDetailPage({ params }: PageProps) {
             </div>
 
             {/* Author Bio */}
-            <div className='mb-16'>
+            {/* <div className='mb-16'>
               <AuthorSection author={event.author} />
-            </div>
+            </div> */}
 
             {/* Related Events */}
             {relatedEvents.length > 0 && (

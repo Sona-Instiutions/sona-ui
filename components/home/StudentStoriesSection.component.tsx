@@ -46,7 +46,7 @@ export default function StudentStoriesSection() {
   ];
 
   return (
-    <section className="py-7 md:py-20 bg-white">
+    <section className="py-4 md:py-10 bg-white">
       <div className="container mx-auto px-6 text-center">
         {/* Heading */}
         <h2 className="text-4xl font-extrabold text-gray-900 mb-2">

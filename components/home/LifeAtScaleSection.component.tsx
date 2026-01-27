@@ -23,7 +23,7 @@ export default function LifeAtScaleSection() {
   ];
 
   return (
-    <section className="py-7 md:py-20 bg-gray-50">
+    <section className="py-4 md:py-10 bg-gray-50">
       <div className="container mx-auto px-6 text-center">
 
         {/* Heading */}

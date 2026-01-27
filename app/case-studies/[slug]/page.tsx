@@ -31,14 +31,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!caseStudy) {
     return {
-      title: "Case Study Not Found | SONA",
+      title: "Case Study Not Found | SCALE",
     };
   }
 
   const imageUrl = buildMediaUrl(caseStudy.bannerImage) || buildMediaUrl(caseStudy.thumbnail);
 
   return {
-    title: `${caseStudy.title} | SONA Case Studies`,
+    title: `${caseStudy.title} | SCALE Case Studies`,
     description: caseStudy.metaDescription || caseStudy.excerpt || `Read case study: ${caseStudy.title}`,
     openGraph: {
       title: caseStudy.metaTitle || caseStudy.title,
@@ -114,9 +114,9 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
             </div>
 
             {/* Author Bio */}
-            <div className='mb-16'>
+            {/* <div className='mb-16'>
               <AuthorSection author={caseStudy.author} />
-            </div>
+            </div> */}
 
             {/* Related Case Studies */}
             {relatedCaseStudies.length > 0 && (

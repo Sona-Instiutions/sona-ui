@@ -48,7 +48,7 @@ export default function LatestBlogsSection({
   if (latestBlogs.length === 0) return null;
 
   return (
-    <section className="container mx-auto px-6 py-24">
+    <section className="container mx-auto px-6 py-12">
       {/* ===== HEADER ===== */}
       <div className="text-center max-w-2xl mx-auto mb-16">
         <h2 className="text-4xl font-extrabold text-gray-900">

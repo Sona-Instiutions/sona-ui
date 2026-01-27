@@ -7,16 +7,16 @@ import { CASE_STUDY_PAGE_SIZE } from "@/constants/case-study.constants";
 export const revalidate = 600; // 10 minutes
 
 export const metadata: Metadata = {
-  title: "Success Stories & Case Studies | SONA",
+  title: "Success Stories & Case Studies | SCALE",
   description:
-    "Explore how SONA Institutions drives innovation, research, and student success through real-world case studies.",
+    "Explore how SCALE drives innovation, research, and student success through real-world case studies.",
   openGraph: {
-    title: "Success Stories & Case Studies | SONA",
+    title: "Success Stories & Case Studies | SCALE",
     description:
-      "Explore how SONA Institutions drives innovation, research, and student success through real-world case studies.",
+      "Explore how SCALE drives innovation, research, and student success through real-world case studies.",
     type: "website",
-    url: "https://sona.edu.in/case-studies",
-    siteName: "SONA Institutions",
+    url: "https://scaleindia.in/case-studies",
+    siteName: "SCALE",
   },
 };
 

@@ -7,20 +7,20 @@ import { BLOG_PAGE_SIZE } from "@/constants/blog.constants";
 export const revalidate = 600; // 10 minutes
 
 export const metadata: Metadata = {
-  title: "SONA Institutions | Blog",
-  description: "Explore insights, news, and updates from SONA Institutions.",
+  title: "SCALE | Blog",
+  description: "Explore insights, news, and updates from SCALE.",
   openGraph: {
-    title: "SONA Institutions | Blog",
-    description: "Explore insights, news, and updates from SONA Institutions.",
+    title: "SCALE | Blog",
+    description: "Explore insights, news, and updates from SCALE.",
     type: "website",
-    url: "https://sona.edu.in/blog",
-    siteName: "SONA Institutions",
+    url: "https://scaleindia.in/blogs",
+    siteName: "SCALE",
     images: [
       {
         url: "/images/home-banner.jpg",
         width: 1200,
         height: 630,
-        alt: "SONA Institutions Campus",
+        alt: "SCALE Campus",
       },
     ],
   },
