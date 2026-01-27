@@ -66,16 +66,12 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Filter out current case study from recent
-  const sidebarRecent = recentCaseStudies.filter((c) => c.id !== caseStudy.id);
+  // Filter out current case study from related if present
+  const sidebarRecentCaseStudies = recentCaseStudies.filter((cs) => cs.id !== caseStudy.id);
 
-  // Related case studies (from data or fallback to recent)
+  // Determine related case studies
   const relatedCaseStudies =
-    caseStudy.relatedCaseStudies && caseStudy.relatedCaseStudies.length > 0
-      ? caseStudy.relatedCaseStudies
-      : recentCaseStudies.filter((c) => c.id !== caseStudy.id).slice(0, 2);
-
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://scaleindia.in"}/case-studies/${slug}`;
+    caseStudy.relatedCaseStudies && caseStudy.relatedCaseStudies.length > 0 ? caseStudy.relatedCaseStudies : [];
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -87,7 +83,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
     <main className='min-h-screen bg-white pb-20'>
       <ViewCountTracker type='case-study' documentId={caseStudy.documentId} />
 
-      <StickyShareButtons title={caseStudy.title} url={shareUrl} />
+      <StickyShareButtons title={caseStudy.title} />
 
       <ContentHero
         type='case-study'
@@ -114,7 +110,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
 
             {/* Social Share (Mobile Only) */}
             <div className='py-10 border-y border-gray-100 mb-16 lg:hidden'>
-              <ShareButtons title={caseStudy.title} url={shareUrl} />
+              <ShareButtons title={caseStudy.title} />
             </div>
 
             {/* Author Bio */}
@@ -155,7 +151,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
             <div className='sticky top-24'>
               <ContentSidebar
                 type='case-study'
-                recentItems={sidebarRecent}
+                recentItems={sidebarRecentCaseStudies}
                 categories={categories}
                 tags={tags}
                 basePath='/case-studies'

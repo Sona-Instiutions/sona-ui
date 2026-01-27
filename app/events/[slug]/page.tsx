@@ -67,14 +67,11 @@ export default async function EventDetailPage({ params }: PageProps) {
   // Determine related events
   const relatedEvents = event.relatedEvents && event.relatedEvents.length > 0 ? event.relatedEvents : [];
 
-  // Full URL for sharing
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://scale.sona.ac.in"}/events/${slug}`;
-
   return (
     <main className='min-h-screen bg-white pb-20'>
       <ViewCountTracker type='event' documentId={event.documentId} />
 
-      <StickyShareButtons title={event.title} url={shareUrl} />
+      <StickyShareButtons title={event.title} />
 
       <EventHero event={event} />
 
@@ -91,7 +88,7 @@ export default async function EventDetailPage({ params }: PageProps) {
 
             {/* Social Share (Mobile Only) */}
             <div className='py-10 border-y border-gray-100 mb-16 lg:hidden'>
-              <ShareButtons title={event.title} url={shareUrl} />
+              <ShareButtons title={event.title} />
             </div>
 
             {/* Author Bio */}

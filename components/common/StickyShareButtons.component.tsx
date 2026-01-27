@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 
 interface StickyShareButtonsProps {
   title: string;
-  url: string;
   className?: string;
 }
 
@@ -16,7 +15,7 @@ interface StickyShareButtonsProps {
  * A fixed-position wrapper for ShareButtons that appears on the left viewport edge on desktop.
  * Hidden on mobile/tablet viewports and arrives after header is scrolled.
  */
-export function StickyShareButtons({ title, url, className }: StickyShareButtonsProps) {
+export function StickyShareButtons({ title, className }: StickyShareButtonsProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -47,7 +46,6 @@ export function StickyShareButtons({ title, url, className }: StickyShareButtons
         </span>
         <ShareButtons 
           title={title} 
-          url={url} 
           variant="vertical" 
           showLabels={false} 
         />
