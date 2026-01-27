@@ -75,7 +75,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
       ? caseStudy.relatedCaseStudies
       : recentCaseStudies.filter((c) => c.id !== caseStudy.id).slice(0, 2);
 
-  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://scaleindia.in/case-studies/${slug}`;
+  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://scaleindia.in"}/case-studies/${slug}`;
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
