@@ -14,10 +14,10 @@ export default function LegacySection() {
     },
     {
       id: 2,
-      title: "Sona Tower",
+      title: "Sona Towers",
       description:
         "Establishing educational excellence with world-class infrastructure and innovative learning environments.",
-      image: "/images/sona-tower-it-revolution.webp",
+      image: "/images/sona-Towers-it-revolution.webp",
       icon: <DownloadIcon weight='bold' className='w-8 h-8 text-white' />,
     },
     {
