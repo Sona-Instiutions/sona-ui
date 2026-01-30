@@ -24,7 +24,7 @@ type MediaFormats = {
 };
 
 export default function NewsEvent({ events }: NewsEventProps) {
-  const latestEvents = events.slice(0, 5);
+  const latestEvents = events.slice(0, 4);
 
   // Hide section completely if no events
   if (!latestEvents.length) {
@@ -41,6 +41,7 @@ export default function NewsEvent({ events }: NewsEventProps) {
         <p className="text-gray-600 max-w-3xl mx-auto mb-16">Stay updated with the latest happenings, achievements, and upcoming events at SCALE</p>
       </div>
 
+
       {/* ===== MOBILE CAROUSEL ===== */}
       <div className="md:hidden">
         <Carousel
@@ -51,7 +52,8 @@ export default function NewsEvent({ events }: NewsEventProps) {
             }),
           ]}
         >
-          <CarouselContent>
+          {/* IMPORTANT: spacing handled here */}
+          <CarouselContent className="gap-4 pl-4">
             {latestEvents.map((event, index) => {
               const colorClass =
                 EVENT_CARD_COLORS[index % EVENT_CARD_COLORS.length];
@@ -62,39 +64,34 @@ export default function NewsEvent({ events }: NewsEventProps) {
               const thumbnailFormats = thumbnail?.formats as MediaFormats | undefined;
               const featuredFormats = featured?.formats as MediaFormats | undefined;
 
-              const selectedImage = 
-                (thumbnailFormats?.small ? { url: thumbnailFormats.small.url } : null) ||
+              const selectedImage =
+                (thumbnailFormats?.small && { url: thumbnailFormats.small.url }) ||
                 thumbnail ||
-                (featuredFormats?.medium ? { url: featuredFormats.medium.url } : null) ||
+                (featuredFormats?.medium && { url: featuredFormats.medium.url }) ||
                 featured;
 
               const imageUrl = buildMediaUrl(selectedImage);
 
               return (
-                <>
-                  {/* IMAGE CARD - Only render if image exists */}
-                  {imageUrl && (
-                    <CarouselItem key={`${event.id}-image`} className="basis-full sm:basis-1/2 px-2">
-                      <Link
-                        href={`/events/${event.slug}`}
-                        className="group relative h-[260px] rounded-3xl overflow-hidden shadow-lg block"
-                      >
+                <CarouselItem key={event.id} className="basis-full">
+                  <Link
+                    href={`/events/${event.slug}`}
+                    className="block overflow-hidden rounded-3xl shadow-lg"
+                  >
+                    {/* IMAGE */}
+                    {imageUrl && (
+                      <div className="relative h-[220px]">
                         <Image
                           src={imageUrl}
                           alt={event.title}
                           fill
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="object-cover"
                         />
-                      </Link>
-                    </CarouselItem>
-                  )}
+                      </div>
+                    )}
 
-                  {/* CONTENT CARD - Always render */}
-                  <CarouselItem key={`${event.id}-content`} className="basis-full sm:basis-1/2 px-2">
-                    <Link
-                      href={`/events/${event.slug}`}
-                      className={`h-[260px] rounded-3xl p-8 flex flex-col justify-center shadow-lg transition-transform duration-300 hover:scale-105 ${colorClass} block`}
-                    >
+                    {/* CONTENT */}
+                    <div className={`p-6 ${colorClass}`}>
                       <div className="flex items-center gap-2 text-sm opacity-80 mb-3">
                         <span className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                           <UserCircleIcon size={24} />
@@ -109,20 +106,22 @@ export default function NewsEvent({ events }: NewsEventProps) {
                       <h3 className="text-lg font-bold leading-snug">
                         {event.title}
                       </h3>
-                    </Link>
-                  </CarouselItem>
-                </>
+                    </div>
+                  </Link>
+                </CarouselItem>
               );
             })}
           </CarouselContent>
 
-          {/* Navigation Arrows */}
-          <div className="flex justify-center gap-4 mt-6">
+          {/* Arrows */}
+          <div className="flex justify-center gap-4 mt-4">
             <CarouselPrevious className="bg-black/50 text-white left-0" />
             <CarouselNext className="bg-black/50 text-white right-0" />
           </div>
         </Carousel>
       </div>
+
+
 
       {/* ===== DESKTOP 5 COLUMN GRID ===== */}
       <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -137,7 +136,7 @@ export default function NewsEvent({ events }: NewsEventProps) {
           const featuredFormats = featured?.formats as MediaFormats | undefined;
 
           // Determine the best image to use
-          const selectedImage = 
+          const selectedImage =
             (thumbnailFormats?.small ? { url: thumbnailFormats.small.url } : null) ||
             thumbnail ||
             (featuredFormats?.medium ? { url: featuredFormats.medium.url } : null) ||
@@ -148,43 +147,43 @@ export default function NewsEvent({ events }: NewsEventProps) {
           return (
             <>
               {/* IMAGE CARD - Only render if image exists */}
-              <div className="md:grid">
-              {imageUrl && (
+              <div className="md:grid ">
+                {imageUrl && (
+                  <Link
+                    key={`${event.id}-image`}
+                    href={`/events/${event.slug}`}
+                    className="group relative h-[200px] overflow-hidden shadow-lg rounded-t-3xl"
+                  >
+                    <Image
+                      src={imageUrl}
+                      alt={event.title}
+                      fill
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </Link>
+                )}
+
+                {/* CONTENT CARD - Always render */}
                 <Link
-                  key={`${event.id}-image`}
+                  key={`${event.id}-content`}
                   href={`/events/${event.slug}`}
-                  className="group relative h-[200px] overflow-hidden shadow-lg"
+                  className={`h-[200px] p-8 flex flex-col rounded-b-3xl justify-center shadow-lg transition-transform duration-500 group-hover:scale-105 ${colorClass}`}
                 >
-                  <Image
-                    src={imageUrl}
-                    alt={event.title}
-                    fill
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                  <div className="flex items-center gap-2 text-sm opacity-80 mb-3">
+                    <span className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                      <UserCircleIcon size={24} />
+                    </span>
+                    {new Date(event.eventDate).toLocaleDateString("en-IN", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </div>
+
+                  <h3 className="text-lg font-bold leading-snug">
+                    {event.title}
+                  </h3>
                 </Link>
-              )}
-
-              {/* CONTENT CARD - Always render */}
-              <Link
-                key={`${event.id}-content`}
-                href={`/events/${event.slug}`}
-                className={`h-[200px] p-8 flex flex-col justify-center shadow-lg transition-transform duration-300 hover:scale-105 ${colorClass}`}
-              >
-                <div className="flex items-center gap-2 text-sm opacity-80 mb-3">
-                  <span className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                    <UserCircleIcon size={24} />
-                  </span>
-                  {new Date(event.eventDate).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </div>
-
-                <h3 className="text-lg font-bold leading-snug">
-                  {event.title}
-                </h3>
-              </Link>
               </div>
             </>
           );
