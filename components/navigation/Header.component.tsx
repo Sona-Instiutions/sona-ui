@@ -30,7 +30,7 @@ function HeaderBrand() {
   return (
     <Link href='/' className='flex items-center gap-3 mr-20' aria-label='SCALE home'>
       <span className='flex items-center justify-center bg-linear-to-br bg-white p-2'>
-        <Image src='/images/logo.svg' alt='Sona Tower' width='250' height='150' />
+        <Image src='/images/logo.svg' alt='Sona Towers' width='250' height='150' />
       </span>
     </Link>
   );

@@ -23,7 +23,7 @@ function FooterBrand() {
           <span className='text-center text-lg font-bold'>
             <Image
               src="/images/logo.svg"
-              alt="Sona Tower"
+              alt="Sona Towers"
               width="200"
               height="100"
             />

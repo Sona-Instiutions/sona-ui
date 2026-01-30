@@ -37,7 +37,7 @@ export default function WhyChooseSection() {
             <div className="relative w-[280px] h-[500px] rounded-[2rem] overflow-hidden shadow-lg">
               <Image
                 src="/images/why_choose_scale_center.webp"
-                alt="Sona Tower"
+                alt="Sona Towers"
                 fill
                 className="object-fill"
               />

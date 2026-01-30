@@ -125,7 +125,7 @@ export default function NewsEvent({ events }: NewsEventProps) {
       </div>
 
       {/* ===== DESKTOP 5 COLUMN GRID ===== */}
-      <div className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-8">
+      <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-8">
         {latestEvents.map((event, index) => {
           const colorClass =
             EVENT_CARD_COLORS[index % EVENT_CARD_COLORS.length];
@@ -148,11 +148,12 @@ export default function NewsEvent({ events }: NewsEventProps) {
           return (
             <>
               {/* IMAGE CARD - Only render if image exists */}
+              <div className="md:grid">
               {imageUrl && (
                 <Link
                   key={`${event.id}-image`}
                   href={`/events/${event.slug}`}
-                  className="group relative h-[260px] rounded-3xl overflow-hidden shadow-lg"
+                  className="group relative h-[200px] overflow-hidden shadow-lg"
                 >
                   <Image
                     src={imageUrl}
@@ -167,7 +168,7 @@ export default function NewsEvent({ events }: NewsEventProps) {
               <Link
                 key={`${event.id}-content`}
                 href={`/events/${event.slug}`}
-                className={`h-[260px] rounded-3xl p-8 flex flex-col justify-center shadow-lg transition-transform duration-300 hover:scale-105 ${colorClass}`}
+                className={`h-[200px] p-8 flex flex-col justify-center shadow-lg transition-transform duration-300 hover:scale-105 ${colorClass}`}
               >
                 <div className="flex items-center gap-2 text-sm opacity-80 mb-3">
                   <span className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
@@ -184,6 +185,7 @@ export default function NewsEvent({ events }: NewsEventProps) {
                   {event.title}
                 </h3>
               </Link>
+              </div>
             </>
           );
         })}
