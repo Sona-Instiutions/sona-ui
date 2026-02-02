@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -79,27 +79,28 @@ function HeaderTopBar() {
 }
 
 function HeaderMobileMenu() {
+  const [open, setOpen] = useState(false);
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent side='left' className='flex h-full flex-col gap-6 bg-[#1a36a2] p-6 text-white'>
         <SheetHeader className='items-start gap-1'>
           <SheetTitle className='text-base font-semibold text-white'>SCALE Navigation</SheetTitle>
           <p className='text-sm text-blue-100'>Explore programs, campus life, and collaboration opportunities.</p>
         </SheetHeader>
         <nav className='flex flex-col gap-4'>
-          <Link href='/' className='text-sm font-medium text-white'>
+          <Link href='/' onClick={() => setOpen(false)} className='text-sm font-medium text-white'>
             Home
           </Link>
           <div className='flex flex-col gap-2'>
             About Us
             {HEADER_ABOUT_NAV.map((item) => (
-              <Link key={item.label} href={item.href} className='text-sm ml-4 text-white/90'>
+              <Link key={item.label} onClick={() => setOpen(false)} href={item.href} className='text-sm ml-4 text-white/90'>
                 {item.label}
               </Link>
             ))}
           </div>
           {HEADER_PRIMARY_NAV.filter((item) => item.label !== "Home").map((item) => (
-            <Link key={item.label} href={item.href} className='text-sm text-white/90'>
+            <Link onClick={() => setOpen(false)} key={item.label} href={item.href} className='text-sm text-white/90'>
               {item.label}
             </Link>
           ))}
@@ -107,7 +108,7 @@ function HeaderMobileMenu() {
         <div className='flex flex-col gap-3 border-t border-blue-300/40 pt-4'>
           <span className='text-xs font-semibold uppercase text-amber-200'>Quick Links</span>
           {HEADER_HIGHLIGHT_NAV.map((item) => (
-            <Link key={item.label} href={item.href} className='text-sm font-medium text-amber-100'>
+            <Link onClick={() => setOpen(false)} key={item.label} href={item.href} className='text-sm font-medium text-amber-100'>
               {item.label}
             </Link>
           ))}
@@ -117,7 +118,7 @@ function HeaderMobileMenu() {
             </a>
             <div className='flex items-center gap-3 text-white/80'>
               {HEADER_SOCIAL_LINKS.map((link) => (
-                <Link key={link.label} href={link.href} aria-label={link.label} className='transition hover:text-white'>
+                <Link onClick={() => setOpen(false)} key={link.label} href={link.href} aria-label={link.label} className='transition hover:text-white'>
                   <Icon name={link.iconName} className='size-4' />
                 </Link>
               ))}
